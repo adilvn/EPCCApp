@@ -1,6 +1,11 @@
+import 'package:epcc/Models/constants.dart';
+import 'package:epcc/Screens/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -10,12 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Material(
-        child: Center(
-          child: Container(
-            child: Text("Welcom To EPCC"),),
-        ),
+      theme: ThemeData(
+        fontFamily: comfortaa,
+        primaryColor: epccBlue,
       ),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
