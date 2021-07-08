@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/login_screen.dart';
+import 'package:epcc/routes/AppPages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -178,112 +180,128 @@ class _HomeScreenState extends State<HomeScreen> {
             flex: 3,
             child: ListView(
               children: [
-                getTiles(Color(0xffFF6F00), "TP1"),
-                getTiles(Color(0xff7C4DFF), "TP2"),
-                getTiles(Color(0xff2196F3), "TP3"),
-                getTiles(Color(0xffFF4040), "TP4"),
-                getTiles(Color(0xffFFA640), "PP"),
+                getTiles(Color(0xffFF6F00), "TP1", "assets/images/748.png", () {
+                  Get.toNamed(AppPages.UNITSPAGE);
+                }),
+                getTiles(Color(0xff7C4DFF), "TP2", "assets/images/749.png", () {
+                  Get.toNamed(AppPages.UNITSPAGE);
+                }),
+                getTiles(Color(0xff2196F3), "TP3", "assets/images/750.png", () {
+                  Get.toNamed(AppPages.UNITSPAGE);
+                }),
+                getTiles(Color(0xffFF4040), "TP4", "assets/images/751.png", () {
+                  Get.toNamed(AppPages.UNITSPAGE);
+                }),
+                getTiles(Color(0xffFFA640), "PP", "assets/images/752.png", () {
+                  Get.toNamed(AppPages.UNITSPAGE);
+                }),
               ],
             ),
           ),
         ]));
   }
 
-  getTiles(Color color, String val) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-        width: double.infinity,
-        height: 75,
-        color: color,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(
-                  Icons.bar_chart,
-                  size: 16,
-                ),
-                Text("Reports",
-                    style: TextStyle(color: Colors.white70, fontSize: 12))
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    flex: 2,
-                    child: Container(
-                      width: 25,
-                      height: 25,
-                      child: Icon(Icons.ballot_rounded),
-                    )),
-                Expanded(
-                  flex: 9,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                val,
-                                style: TextStyle(color: white, fontSize: 18),
-                              ),
-                              Text("(Last checked 2 hours ago)",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 10)),
-                            ],
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 13,
-                            color: white,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Container(
-                        height: 5,
-                        child: Divider(
-                          color: white,
-                          thickness: 2,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Total:32434Kwh",
-                              style: TextStyle(
-                                  color: Colors.white70, fontSize: 10)),
-                          Text("Min:32434Kwh",
-                              style: TextStyle(
-                                  color: Colors.white70, fontSize: 10)),
-                          Text("Max:32434Kwh",
-                              style: TextStyle(
-                                  color: Colors.white70, fontSize: 10)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
+  getTiles(Color color, String val, imageText, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          width: double.infinity,
+          height: 75,
+          color: color,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.bar_chart,
+                    color: white,
+                    size: 16,
                   ),
-                ),
-                SizedBox(
-                  width: 20,
-                )
-              ],
-            )
-          ],
+                  Text("Reports",
+                      style: TextStyle(color: Colors.white70, fontSize: 12))
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      flex: 2,
+                      child: Image(
+                        alignment: Alignment.topCenter,
+                        image: AssetImage(imageText),
+                        color: white,
+                        width: 50,
+                        height: 50,
+                      )),
+                  Expanded(
+                    flex: 10,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  val,
+                                  style: TextStyle(color: white, fontSize: 18),
+                                ),
+                                Text("(Last checked 2 hours ago)",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 10)),
+                              ],
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 13,
+                              color: white,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Container(
+                          height: 5,
+                          child: Divider(
+                            color: white,
+                            thickness: 2,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total:32434Kwh",
+                                style: TextStyle(
+                                    color: Colors.white70, fontSize: 10)),
+                            Text("Min:32434Kwh",
+                                style: TextStyle(
+                                    color: Colors.white70, fontSize: 10)),
+                            Text("Max:32434Kwh",
+                                style: TextStyle(
+                                    color: Colors.white70, fontSize: 10)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

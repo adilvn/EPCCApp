@@ -1,4 +1,5 @@
 import 'package:epcc/Authentication/authentication.dart';
+import 'package:epcc/Models/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
@@ -11,8 +12,11 @@ class Splashing extends StatelessWidget {
     int value = size.toInt();
     return Scaffold(
       body: SplashScreenView(
+        colors: [white, Colors.blue],
+        speed: 2000,
+        pageRouteTransition: PageRouteTransition.SlideTransition,
         navigateRoute: Authenticate(),
-        duration: 1000,
+        duration: 4000,
         imageSize: value,
         imageSrc: "assets/images/launch_image.png",
         backgroundColor: Colors.white,

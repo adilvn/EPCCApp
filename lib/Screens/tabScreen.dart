@@ -24,6 +24,9 @@ class TabsScreen extends StatelessWidget {
                     constraints:
                         BoxConstraints(minHeight: state.maxHeight * 0.04),
                     child: BottomNavigationBar(
+                      currentIndex: provider.currentIndex,
+                      showSelectedLabels: true,
+                      type: BottomNavigationBarType.fixed,
                       onTap: (i) {
                         provider.setTabIndex(i);
                       },
@@ -35,7 +38,11 @@ class TabsScreen extends StatelessWidget {
                               color: epccBlue500,
                               size: 26,
                             ),
-                            title: Text("")),
+                            title: Text(
+                              "Reports",
+                              style:
+                                  TextStyle(color: epccBlue500, fontSize: 12),
+                            )),
                         BottomNavigationBarItem(
                             icon: Icon(
                               Icons.home,
@@ -53,7 +60,7 @@ class TabsScreen extends StatelessWidget {
                               color: epccBlue500,
                               size: 26,
                             ),
-                            title: Text("")),
+                            title: Text("Profile")),
                       ],
                     ),
                   );

@@ -1,19 +1,12 @@
+import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/routes/AppPages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:awesome_dropdown/awesome_dropdown.dart';
+import 'package:intl/intl.dart';
 
-class UnitsPage extends StatefulWidget {
-  const UnitsPage({Key? key}) : super(key: key);
-
-  @override
-  _UnitsPageState createState() => _UnitsPageState();
-}
-
-class _UnitsPageState extends State<UnitsPage>
-    with SingleTickerProviderStateMixin {
+class SubUnits extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _isBackPressedOrTouchedOutSide = false,
       _isDropDownOpened = false,
@@ -22,16 +15,23 @@ class _UnitsPageState extends State<UnitsPage>
   String _selectedItem = '';
 
   final List<ChartData> chartData = [
-    ChartData('Jan-1', 30),
-    ChartData('Jan-3', 90),
-    ChartData('Jan-5', 50),
+    ChartData('Jan-1', 30434),
+    ChartData('Jan-3', 78344),
+    ChartData('Jan-5', 50233),
+    ChartData('Jan-6', 52340),
+    ChartData('Jan-8', 13000),
+    ChartData('Jan-23', 34332),
   ];
 
   final List<ChartData> chartData2 = [
-    ChartData('Jan-1', 35),
-    ChartData('Jan-3', 72),
-    ChartData('Jan-5', 62),
+    ChartData('Jan-1', 35324),
+    ChartData('Jan-3', 72243),
+    ChartData('Jan-5', 6233),
+    ChartData('Jan-6', 50423),
+    ChartData('Jan-8', 3402),
+    ChartData('Jan-23', 34032),
   ];
+  SubUnits({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,9 @@ class _UnitsPageState extends State<UnitsPage>
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.back();
+                        Get.back(
+                          canPop: true,
+                        );
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -125,11 +127,11 @@ class _UnitsPageState extends State<UnitsPage>
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            width: 40,
+                            width: 100,
                             height: 25,
                             child: Text(
-                              "TP1",
-                              style: TextStyle(color: epccBlue, fontSize: 14),
+                              "TP1>Unit 1>",
+                              style: TextStyle(color: epccBlue, fontSize: 12),
                             ),
                             decoration: BoxDecoration(
                                 color: white,
@@ -140,14 +142,18 @@ class _UnitsPageState extends State<UnitsPage>
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
-                      "Units",
+                      "Consumption Center",
                       style: TextStyle(color: Colors.white, fontSize: 24),
                     ),
                     Divider(
-                      indent: MediaQuery.of(context).size.width * 0.3,
-                      endIndent: MediaQuery.of(context).size.width * 0.3,
+                      indent: MediaQuery.of(context).size.width * 0.16,
+                      endIndent: MediaQuery.of(context).size.width * 0.16,
                       color: white,
+                      thickness: 1,
                     ),
                     SizedBox(
                       height: 3,
@@ -202,8 +208,8 @@ class _UnitsPageState extends State<UnitsPage>
                             height: 50,
                             child: AwesomeDropDown(
                               elevation: 5,
-                              dropDownIconBGColor: Colors.yellow,
-                              dropDownOverlayBGColor: Colors.yellow,
+                              dropDownIconBGColor: Colors.orange,
+                              dropDownOverlayBGColor: Colors.orange,
                               padding: 10,
                               numOfListItemToShow: 6,
                               selectedItemTextStyle: TextStyle(color: white),
@@ -214,7 +220,7 @@ class _UnitsPageState extends State<UnitsPage>
                                 color: white,
                                 size: 24,
                               ),
-                              dropDownBGColor: Colors.yellow,
+                              dropDownBGColor: Colors.orange,
                               dropDownList: [
                                 "Jan",
                                 "Feb",
@@ -271,7 +277,8 @@ class _UnitsPageState extends State<UnitsPage>
                             child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 6),
                                 child: SfCartesianChart(
-                                    primaryYAxis: CategoryAxis(
+                                    primaryYAxis: NumericAxis(
+                                      numberFormat: NumberFormat.compact(),
                                       title: AxisTitle(
                                           text: 'Consumption (KHW)',
                                           textStyle: TextStyle(
@@ -295,7 +302,7 @@ class _UnitsPageState extends State<UnitsPage>
                                       ColumnSeries<ChartData, String>(
                                           pointColorMapper:
                                               (ChartData color, _) =>
-                                                  epccBlue500,
+                                                  Colors.red,
                                           dataLabelSettings: DataLabelSettings(
                                               color: Colors.white,
                                               labelAlignment:
@@ -309,7 +316,7 @@ class _UnitsPageState extends State<UnitsPage>
                                       ColumnSeries<ChartData, String>(
                                           pointColorMapper:
                                               (ChartData color, _) =>
-                                                  Colors.green,
+                                                  Colors.yellow,
                                           // Hiding the legend item for this series
                                           dataLabelSettings: DataLabelSettings(
                                               color: Colors.white,
@@ -333,19 +340,23 @@ class _UnitsPageState extends State<UnitsPage>
             flex: 2,
             child: ListView(
               children: [
-                getTiles(epccBlue, "Unit 1", "assets/images/748.png", () {
-                  Get.toNamed(AppPages.SUBUNITS);
+                getTiles(
+                    Colors.red, "Back Process Unit 1", "assets/images/750.png",
+                    () {
+                  Get.toNamed(AppPages.BACKPROCESS);
                 }),
-                getTiles(Colors.green, "Unit 2", "assets/images/748.png", () {
-                  Get.toNamed(AppPages.SUBUNITS);
+                getTiles(Colors.orange, "Spinning /Winding Unit 1",
+                    "assets/images/752.png", () {
+                  Get.toNamed(AppPages.BACKPROCESS);
                 })
               ],
             ),
           ),
         ]));
+    ;
   }
 
-  getTiles(Color color, String val, imageText, VoidCallback onTap) {
+  getTiles(Color color, String val, textImage, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -356,33 +367,32 @@ class _UnitsPageState extends State<UnitsPage>
           height: 75,
           color: color,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.bar_chart,
-                    color: white,
-                    size: 16,
-                  ),
-                  SizedBox(
-                    width: 3,
-                  ),
-                  Text("Reports",
-                      style: TextStyle(color: Colors.white70, fontSize: 10))
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     Icon(
+              //       Icons.bar_chart,
+              //       size: 16,
+              //     ),
+              //     Text("Reports",
+              //         style: TextStyle(color: Colors.white70, fontSize: 12))
+              //   ],
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
                       flex: 2,
-                      child: Image(
-                        alignment: Alignment.topCenter,
-                        image: AssetImage(imageText),
-                        color: white,
+                      child: Container(
                         width: 50,
                         height: 50,
+                        child: Icon(
+                          Icons.ballot_rounded,
+                          color: white,
+                          size: 40,
+                        ),
                       )),
                   Expanded(
                     flex: 9,
@@ -397,9 +407,9 @@ class _UnitsPageState extends State<UnitsPage>
                                   val,
                                   style: TextStyle(color: white, fontSize: 18),
                                 ),
-                                Text("(Last checked 2 hours ago)",
-                                    style: TextStyle(
-                                        color: Colors.white70, fontSize: 10)),
+                                // Text("(Last checked 2 hours ago)",
+                                //     style: TextStyle(
+                                //         color: Colors.white70, fontSize: 10)),
                               ],
                             ),
                             Icon(
