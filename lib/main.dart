@@ -1,3 +1,4 @@
+import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/splash_screen.dart';
 import 'package:epcc/routes/AppPages.dart';
@@ -21,11 +22,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: HomePageBindings(),
       theme: ThemeData(
         fontFamily: comfortaa,
         primaryColor: epccBlue,
       ),
-      home: Splashing(),
       getPages: AppPages.routes,
       initialRoute: AppRoutes.SPLASHING,
       debugShowCheckedModeBanner: false,

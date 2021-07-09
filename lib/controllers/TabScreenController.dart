@@ -3,7 +3,8 @@ import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/profile.dart';
 import 'package:get/get.dart';
 
-class TabScreenController extends GetxController {
+class TabScreenController extends GetxController
+    with StateMixin<List<dynamic>> {
   List _list = [Reports(), HomeScreen(), Profile()];
 
   List get tabList => _list;

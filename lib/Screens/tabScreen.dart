@@ -33,34 +33,29 @@ class TabsScreen extends StatelessWidget {
                       selectedFontSize: 18,
                       items: [
                         BottomNavigationBarItem(
-                            icon: Icon(
-                              Icons.bar_chart,
-                              color: epccBlue500,
-                              size: 26,
-                            ),
-                            title: Text(
-                              "Reports",
-                              style:
-                                  TextStyle(color: epccBlue500, fontSize: 12),
-                            )),
+                          icon: Icon(
+                            Icons.bar_chart,
+                            color: epccBlue500,
+                            size: 26,
+                          ),
+                          label: "Reports",
+                        ),
                         BottomNavigationBarItem(
-                            icon: Icon(
-                              Icons.home,
-                              color: epccBlue500,
-                              size: 26,
-                            ),
-                            title: Text(
-                              "Home",
-                              style:
-                                  TextStyle(color: epccBlue500, fontSize: 18),
-                            )),
+                          icon: Icon(
+                            Icons.home,
+                            color: epccBlue500,
+                            size: 26,
+                          ),
+                          label: "Home",
+                        ),
                         BottomNavigationBarItem(
-                            icon: Icon(
-                              Icons.person,
-                              color: epccBlue500,
-                              size: 26,
-                            ),
-                            title: Text("Profile")),
+                          icon: Icon(
+                            Icons.person,
+                            color: epccBlue500,
+                            size: 26,
+                          ),
+                          label: "Profile",
+                        ),
                       ],
                     ),
                   );

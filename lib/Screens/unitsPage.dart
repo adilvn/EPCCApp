@@ -1,4 +1,5 @@
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/routes/AppPages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:awesome_dropdown/awesome_dropdown.dart';
 
 class UnitsPage extends StatefulWidget {
-  const UnitsPage({Key? key}) : super(key: key);
+  List<Data> list = [];
+  UnitsPage({Key? key, required this.list}) : super(key: key);
 
   @override
   _UnitsPageState createState() => _UnitsPageState();
@@ -21,16 +23,16 @@ class _UnitsPageState extends State<UnitsPage>
   late List<String> _list;
   String _selectedItem = '';
 
-  final List<ChartData> chartData = [
-    ChartData('Jan-1', 30),
-    ChartData('Jan-3', 90),
-    ChartData('Jan-5', 50),
+  final List<ChartData1> chartData = [
+    ChartData1('Jan-1', 30),
+    ChartData1('Jan-3', 90),
+    ChartData1('Jan-5', 50),
   ];
 
-  final List<ChartData> chartData2 = [
-    ChartData('Jan-1', 35),
-    ChartData('Jan-3', 72),
-    ChartData('Jan-5', 62),
+  final List<ChartData1> chartData2 = [
+    ChartData1('Jan-1', 35),
+    ChartData1('Jan-3', 72),
+    ChartData1('Jan-5', 62),
   ];
 
   @override
@@ -292,9 +294,9 @@ class _UnitsPageState extends State<UnitsPage>
                                               fontWeight: FontWeight.w300)),
                                     ),
                                     series: <ColumnSeries>[
-                                      ColumnSeries<ChartData, String>(
+                                      ColumnSeries<ChartData1, String>(
                                           pointColorMapper:
-                                              (ChartData color, _) =>
+                                              (ChartData1 color, _) =>
                                                   epccBlue500,
                                           dataLabelSettings: DataLabelSettings(
                                               color: Colors.white,
@@ -302,13 +304,13 @@ class _UnitsPageState extends State<UnitsPage>
                                                   ChartDataLabelAlignment.auto,
                                               isVisible: true),
                                           dataSource: chartData,
-                                          xValueMapper: (ChartData data, _) =>
+                                          xValueMapper: (ChartData1 data, _) =>
                                               data.x,
-                                          yValueMapper: (ChartData data, _) =>
+                                          yValueMapper: (ChartData1 data, _) =>
                                               data.y),
-                                      ColumnSeries<ChartData, String>(
+                                      ColumnSeries<ChartData1, String>(
                                           pointColorMapper:
-                                              (ChartData color, _) =>
+                                              (ChartData1 color, _) =>
                                                   Colors.green,
                                           // Hiding the legend item for this series
                                           dataLabelSettings: DataLabelSettings(
@@ -317,9 +319,9 @@ class _UnitsPageState extends State<UnitsPage>
                                                   ChartDataLabelAlignment.auto,
                                               isVisible: true),
                                           dataSource: chartData2,
-                                          xValueMapper: (ChartData data, _) =>
+                                          xValueMapper: (ChartData1 data, _) =>
                                               data.x,
-                                          yValueMapper: (ChartData data, _) =>
+                                          yValueMapper: (ChartData1 data, _) =>
                                               data.y)
                                     ])),
                           ),
@@ -455,8 +457,8 @@ class _UnitsPageState extends State<UnitsPage>
   }
 }
 
-class ChartData {
-  ChartData(this.x, this.y);
+class ChartData1 {
+  ChartData1(this.x, this.y);
   final String x;
   final double? y;
 }

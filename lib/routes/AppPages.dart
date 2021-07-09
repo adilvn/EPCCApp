@@ -1,4 +1,5 @@
 import 'package:epcc/Authentication/authentication.dart';
+import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Screens/BackProcessUnit.dart';
 import 'package:epcc/Screens/login_screen.dart';
 import 'package:epcc/Screens/profile.dart';
@@ -38,12 +39,6 @@ class AppPages {
     GetPage(
         name: WRAP,
         page: () => Authenticate(),
-        transitionDuration: Duration(milliseconds: 500),
-        transition: Transition.rightToLeftWithFade),
-    GetPage(
-        name: UNITSPAGE,
-        page: () => UnitsPage(),
-        fullscreenDialog: true,
         transitionDuration: Duration(milliseconds: 500),
         transition: Transition.rightToLeftWithFade),
     GetPage(
