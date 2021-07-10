@@ -1,4 +1,5 @@
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/controllers/HomeController.dart';
 import 'package:epcc/routes/AppPages.dart';
@@ -190,23 +191,34 @@ class HomeScreen extends GetView<HomeController> {
                 children: [
                   getTiles(Color(0xffFF6F00), "TP1", "assets/images/748.png",
                       () {
-                    Get.to(() => UnitsPage(list: controller.TP1));
+                    BottomNavigation.changeProfileWidget(
+                        UnitsPage(list: controller.TP1));
+
+                    // Get.to(() => UnitsPage(list: controller.TP1));
                   }),
                   getTiles(Color(0xff7C4DFF), "TP2", "assets/images/749.png",
                       () {
-                    Get.to(() => UnitsPage(list: controller.TP2));
+                    // Get.to(() => UnitsPage(list: controller.TP2));
+                    BottomNavigation.changeProfileWidget(
+                        UnitsPage(list: controller.TP2));
                   }),
                   getTiles(Color(0xff2196F3), "TP3", "assets/images/750.png",
                       () {
-                    Get.to(() => UnitsPage(list: controller.TP3));
+                    // Get.to(() => UnitsPage(list: controller.TP3));
+                    BottomNavigation.changeProfileWidget(
+                        UnitsPage(list: controller.TP3));
                   }),
                   getTiles(Color(0xffFF4040), "TP4", "assets/images/751.png",
                       () {
-                    Get.to(() => UnitsPage(list: controller.TP4));
+                    BottomNavigation.changeProfileWidget(
+                        UnitsPage(list: controller.TP4));
+                    // Get.to(() => UnitsPage(list: controller.TP4));
                   }),
                   getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
                       () {
-                    Get.to(() => UnitsPage(list: controller.PP));
+                    BottomNavigation.changeProfileWidget(
+                        UnitsPage(list: controller.PP));
+                    // Get.to(() => UnitsPage(list: controller.PP));
                   }),
                 ],
               ),

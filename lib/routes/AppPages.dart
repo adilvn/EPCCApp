@@ -43,7 +43,9 @@ class AppPages {
         transition: Transition.rightToLeftWithFade),
     GetPage(
         name: SUBUNITS,
-        page: () => SubUnits(),
+        page: () => SubUnits(
+              listData: [],
+            ),
         transitionDuration: Duration(milliseconds: 500),
         transition: Transition.rightToLeftWithFade),
     GetPage(name: PROFILE, page: () => Profile()),

@@ -1,5 +1,9 @@
 import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Screens/bottom_navigation.dart';
+import 'package:epcc/Screens/unitsPage.dart';
+import 'package:epcc/controllers/HomeController.dart';
 import 'package:epcc/routes/AppPages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +17,8 @@ class SubUnits extends StatelessWidget {
       _isPanDown = false;
   late List<String> _list;
   String _selectedItem = '';
+  List<Data> listData = [];
+  SubUnits({required this.listData});
 
   final List<ChartData> chartData = [
     ChartData('Jan-1', 30434),
@@ -31,7 +37,6 @@ class SubUnits extends StatelessWidget {
     ChartData('Jan-8', 3402),
     ChartData('Jan-23', 34032),
   ];
-  SubUnits({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -93,30 +98,33 @@ class SubUnits extends StatelessWidget {
             ]),
         body: Column(children: [
           Expanded(
-              flex: 1,
+              flex: 2,
               child: Container(
                 color: epccBlue500,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.back(
-                          canPop: true,
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        alignment: Alignment.centerLeft,
-                        width: double.infinity,
-                        height: 35,
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: white,
-                          size: 24,
-                        ),
-                      ),
-                    ),
+                    GetBuilder<HomeController>(
+                        init: HomeController(),
+                        builder: (controller) {
+                          return GestureDetector(
+                            onTap: () {
+                              BottomNavigation.backToHomePage(
+                                  UnitsPage(list: listData), 0, false);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              alignment: Alignment.centerLeft,
+                              width: double.infinity,
+                              height: 35,
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: white,
+                                size: 24,
+                              ),
+                            ),
+                          );
+                        }),
                     Container(
                       alignment: Alignment.bottomLeft,
                       width: double.infinity,
@@ -162,7 +170,7 @@ class SubUnits extends StatelessWidget {
                 ),
               )),
           Expanded(
-              flex: 3,
+              flex: 4,
               child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

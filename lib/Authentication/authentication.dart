@@ -1,3 +1,4 @@
+import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/login_screen.dart';
 import 'package:epcc/Screens/tabScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,7 @@ class Authenticate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (_auth.currentUser != null) {
-      return TabsScreen();
+      return BottomNavigation();
     } else {
       return LoginScreen();
     }

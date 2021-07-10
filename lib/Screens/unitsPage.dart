@@ -1,5 +1,8 @@
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Screens/bottom_navigation.dart';
+import 'package:epcc/Screens/home_screen.dart';
+import 'package:epcc/Screens/subUnits.dart';
 import 'package:epcc/routes/AppPages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -103,7 +106,7 @@ class _UnitsPageState extends State<UnitsPage>
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Get.back();
+                        BottomNavigation.backToHomePage(HomeScreen(), 1, true);
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -336,10 +339,16 @@ class _UnitsPageState extends State<UnitsPage>
             child: ListView(
               children: [
                 getTiles(epccBlue, "Unit 1", "assets/images/748.png", () {
-                  Get.toNamed(AppPages.SUBUNITS);
+                  BottomNavigation.changeProfileWidget(SubUnits(
+                    listData: widget.list,
+                  ));
+                  // Get.toNamed(AppPages.SUBUNITS);
                 }),
                 getTiles(Colors.green, "Unit 2", "assets/images/748.png", () {
-                  Get.toNamed(AppPages.SUBUNITS);
+                  BottomNavigation.changeProfileWidget(SubUnits(
+                    listData: widget.list,
+                  ));
+                  // Get.toNamed(AppPages.SUBUNITS);
                 })
               ],
             ),
