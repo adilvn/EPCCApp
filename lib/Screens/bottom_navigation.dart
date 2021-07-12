@@ -45,41 +45,46 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-        key: BottomNavigation.scaffoldKey,
-        body: BottomNavigation.currentScreen,
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: BottomNavigation.selectedIndex,
-          backgroundColor: Colors.white,
-          selectedItemColor: Color(0xff1B80F5),
-          unselectedItemColor: Colors.grey,
-          selectedFontSize: 14,
-          unselectedFontSize: 14,
-          onTap: (index) {
-            setState(() {
-              if (index == 0)
-                BottomNavigation.currentScreen = Reports();
-              else if (index == 1)
-                BottomNavigation.currentScreen = HomeScreen();
-              else if (index == 2) BottomNavigation.currentScreen = Profile();
-              BottomNavigation.selectedIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-              label: 'Report',
-              icon: Icon(Icons.bar_chart),
-            ),
-            BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.home),
-            ),
-            BottomNavigationBarItem(
-              label: 'Profile',
-              icon: Icon(Icons.person),
-            ),
-          ],
-        ));
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+          key: BottomNavigation.scaffoldKey,
+          body: BottomNavigation.currentScreen,
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: BottomNavigation.selectedIndex,
+            backgroundColor: Colors.white,
+            selectedItemColor: Color(0xff1B80F5),
+            unselectedItemColor: Colors.grey,
+            selectedFontSize: 14,
+            unselectedFontSize: 14,
+            onTap: (index) {
+              setState(() {
+                if (index == 0)
+                  BottomNavigation.currentScreen = Reports();
+                else if (index == 1)
+                  BottomNavigation.currentScreen = HomeScreen();
+                else if (index == 2) BottomNavigation.currentScreen = Profile();
+                BottomNavigation.selectedIndex = index;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                label: 'Report',
+                icon: Icon(Icons.bar_chart),
+              ),
+              BottomNavigationBarItem(
+                label: 'Home',
+                icon: Icon(Icons.home),
+              ),
+              BottomNavigationBarItem(
+                label: 'Profile',
+                icon: Icon(Icons.person),
+              ),
+            ],
+          )),
+    );
   }
 }

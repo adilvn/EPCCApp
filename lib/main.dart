@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/routes/AppPages.dart';
@@ -14,13 +13,7 @@ Future main() async {
   await Firebase.initializeApp();
   SystemChrome.setEnabledSystemUIOverlays(
       [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  // runApp(MyApp());
-  runApp(
-    DevicePreview(
-      enabled: kReleaseMode,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -29,8 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      locale: DevicePreview.locale(context), // Add the locale here
-      builder: DevicePreview.appBuilder,
       initialBinding: HomePageBindings(),
       theme: ThemeData(
         fontFamily: comfortaa,
