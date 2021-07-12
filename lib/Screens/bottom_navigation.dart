@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
   static const String id = 'bottom_navigation';
-  static int selectedIndex = 2;
-  static Widget currentScreen = Profile();
-  static Widget currentProfileScreen = Profile();
+  static int selectedIndex = 1;
+  static Widget currentScreen = HomeScreen();
+  static Widget currentProfileScreen = HomeScreen();
   static final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>();
   static Function backToHomePage = (Widget widget, int index, bool val) {};
@@ -26,8 +26,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   void initState() {
     super.initState();
-    BottomNavigation.currentProfileScreen = Profile();
-    BottomNavigation.currentScreen = Profile();
+    BottomNavigation.currentProfileScreen = HomeScreen();
+    BottomNavigation.currentScreen = HomeScreen();
     BottomNavigation.backToHomePage = (Widget widget, int index, bool val) {
       setState(() {
         BottomNavigation.currentScreen = widget;

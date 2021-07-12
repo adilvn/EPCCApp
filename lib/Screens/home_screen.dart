@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
@@ -68,162 +69,159 @@ class HomeScreen extends GetView<HomeController> {
               )
             ]),
         body: controller.obx((data) {
-          return Column(children: [
-            Expanded(
-                flex: 1,
-                child: Container(
-                  color: epccBlue500,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Location",
-                        style: TextStyle(color: Colors.white, fontSize: 27),
-                      ),
-                      Divider(
-                        indent: MediaQuery.of(context).size.width * 0.3,
-                        endIndent: MediaQuery.of(context).size.width * 0.3,
-                        color: white,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Container(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          child: SfCircularChart(
-                            tooltipBehavior: TooltipBehavior(
-                                duration: 2,
-                                builder: (a, b, c, d, e) {
-                                  return Text("ehlo");
-                                }),
-                            annotations: <CircularChartAnnotation>[
-                              CircularChartAnnotation(
-                                  widget: Container(
-                                      child: Text(
-                                          NumberFormat.compact()
-                                              .format(controller.totalKwh),
-                                          style: TextStyle(
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 0.5),
-                                              fontSize: 16))))
-                            ],
-                            legend: Legend(
-                              isVisible: false,
+          return FadeInUp(
+            child: Column(children: [
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    color: epccBlue500,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Location",
+                          style: TextStyle(color: Colors.white, fontSize: 27),
+                        ),
+                        Divider(
+                          indent: MediaQuery.of(context).size.width * 0.3,
+                          endIndent: MediaQuery.of(context).size.width * 0.3,
+                          color: white,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
+                  )),
+              Expanded(
+                  flex: 2,
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: Container(
+                            child: SfCircularChart(
+                              annotations: <CircularChartAnnotation>[
+                                CircularChartAnnotation(
+                                    widget: Container(
+                                        child: Text(
+                                            NumberFormat.compact()
+                                                .format(controller.totalKwh),
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.5),
+                                                fontSize: 16))))
+                              ],
+                              legend: Legend(
+                                isVisible: false,
+                              ),
+                              series: <CircularSeries>[
+                                DoughnutSeries<ChartData, String>(
+                                    enableTooltip: true,
+                                    innerRadius: "60%",
+                                    pointColorMapper: (ChartData data, _) =>
+                                        data.color,
+                                    dataSource: [
+                                      ChartData('TP1', controller.t1,
+                                          Color(0xffFF6F00)),
+                                      ChartData('TP2', controller.t2,
+                                          Color(0xff7C4DFF)),
+                                      ChartData('TP3', controller.t3,
+                                          Color(0xff2196F3)),
+                                      ChartData('TP4', controller.t4,
+                                          Color(0xffFF4040)),
+                                      ChartData('PP', controller.pp,
+                                          Color(0xffFFA640))
+                                    ],
+                                    enableSmartLabels: true,
+                                    dataLabelMapper: (ChartData data, _) =>
+                                        data.x,
+                                    xValueMapper: (ChartData data, _) => data.x,
+                                    yValueMapper: (ChartData data, _) => data.y,
+                                    dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                    ))
+                              ],
                             ),
-                            series: <CircularSeries>[
-                              DoughnutSeries<ChartData, String>(
-                                  enableTooltip: true,
-                                  innerRadius: "60%",
-                                  pointColorMapper: (ChartData data, _) =>
-                                      data.color,
-                                  dataSource: [
-                                    ChartData('TP1', controller.t1,
-                                        Color(0xffFF6F00)),
-                                    ChartData('TP2', controller.t2,
-                                        Color(0xff7C4DFF)),
-                                    ChartData('TP3', controller.t3,
-                                        Color(0xff2196F3)),
-                                    ChartData('TP4', controller.t4,
-                                        Color(0xffFF4040)),
-                                    ChartData(
-                                        'PP', controller.pp, Color(0xffFFA640))
-                                  ],
-                                  enableSmartLabels: true,
-                                  dataLabelMapper: (ChartData data, _) =>
-                                      data.x,
-                                  xValueMapper: (ChartData data, _) => data.x,
-                                  yValueMapper: (ChartData data, _) => data.y,
-                                  dataLabelSettings: DataLabelSettings(
-                                    isVisible: true,
-                                  ))
+                          ),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              getContainer(
+                                  Color(0xffFF6F00),
+                                  (controller.t1 / controller.totalKwh) * 100,
+                                  controller.t1.toDouble()),
+                              getContainer(
+                                  Color(0xff7C4DFF),
+                                  (controller.t2 / controller.totalKwh) * 100,
+                                  controller.t2.toDouble()),
+                              getContainer(
+                                  Color(0xff2196F3),
+                                  (controller.t3 / controller.totalKwh) * 100,
+                                  controller.t3.toDouble()),
+                              getContainer(
+                                  Color(0xffFF4040),
+                                  (controller.t4 / controller.totalKwh) * 100,
+                                  controller.t4.toDouble()),
+                              getContainer(
+                                  Color(0xffFFA640),
+                                  (controller.pp / controller.totalKwh) * 100,
+                                  controller.pp.toDouble()),
                             ],
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            getContainer(
-                                Color(0xffFF6F00),
-                                (controller.t1 / controller.totalKwh) * 100,
-                                controller.t1.toDouble()),
-                            getContainer(
-                                Color(0xff7C4DFF),
-                                (controller.t2 / controller.totalKwh) * 100,
-                                controller.t2.toDouble()),
-                            getContainer(
-                                Color(0xff2196F3),
-                                (controller.t3 / controller.totalKwh) * 100,
-                                controller.t3.toDouble()),
-                            getContainer(
-                                Color(0xffFF4040),
-                                (controller.t4 / controller.totalKwh) * 100,
-                                controller.t4.toDouble()),
-                            getContainer(
-                                Color(0xffFFA640),
-                                (controller.pp / controller.totalKwh) * 100,
-                                controller.pp.toDouble()),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                          flex: 0,
-                          child: SizedBox(
-                            width: 10,
-                          ))
-                    ],
-                  ),
-                )),
-            Expanded(
-              flex: 3,
-              child: ListView(
-                children: [
-                  getTiles(Color(0xffFF6F00), "TP1", "assets/images/748.png",
-                      () {
-                    BottomNavigation.changeProfileWidget(
-                        UnitsPage(list: controller.TP1));
+                        Expanded(
+                            flex: 0,
+                            child: SizedBox(
+                              width: 10,
+                            ))
+                      ],
+                    ),
+                  )),
+              Expanded(
+                flex: 3,
+                child: ListView(
+                  children: [
+                    getTiles(Color(0xffFF6F00), "TP1", "assets/images/748.png",
+                        () {
+                      BottomNavigation.changeProfileWidget(
+                          UnitsPage(list: controller.TP1));
 
-                    // Get.to(() => UnitsPage(list: controller.TP1));
-                  }),
-                  getTiles(Color(0xff7C4DFF), "TP2", "assets/images/749.png",
-                      () {
-                    // Get.to(() => UnitsPage(list: controller.TP2));
-                    BottomNavigation.changeProfileWidget(
-                        UnitsPage(list: controller.TP2));
-                  }),
-                  getTiles(Color(0xff2196F3), "TP3", "assets/images/750.png",
-                      () {
-                    // Get.to(() => UnitsPage(list: controller.TP3));
-                    BottomNavigation.changeProfileWidget(
-                        UnitsPage(list: controller.TP3));
-                  }),
-                  getTiles(Color(0xffFF4040), "TP4", "assets/images/751.png",
-                      () {
-                    BottomNavigation.changeProfileWidget(
-                        UnitsPage(list: controller.TP4));
-                    // Get.to(() => UnitsPage(list: controller.TP4));
-                  }),
-                  getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
-                      () {
-                    BottomNavigation.changeProfileWidget(
-                        UnitsPage(list: controller.PP));
-                    // Get.to(() => UnitsPage(list: controller.PP));
-                  }),
-                ],
+                      // Get.to(() => UnitsPage(list: controller.TP1));
+                    }),
+                    getTiles(Color(0xff7C4DFF), "TP2", "assets/images/749.png",
+                        () {
+                      // Get.to(() => UnitsPage(list: controller.TP2));
+                      BottomNavigation.changeProfileWidget(
+                          UnitsPage(list: controller.TP2));
+                    }),
+                    getTiles(Color(0xff2196F3), "TP3", "assets/images/750.png",
+                        () {
+                      // Get.to(() => UnitsPage(list: controller.TP3));
+                      BottomNavigation.changeProfileWidget(
+                          UnitsPage(list: controller.TP3));
+                    }),
+                    getTiles(Color(0xffFF4040), "TP4", "assets/images/751.png",
+                        () {
+                      BottomNavigation.changeProfileWidget(
+                          UnitsPage(list: controller.TP4));
+                      // Get.to(() => UnitsPage(list: controller.TP4));
+                    }),
+                    getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
+                        () {
+                      BottomNavigation.changeProfileWidget(
+                          UnitsPage(list: controller.PP));
+                      // Get.to(() => UnitsPage(list: controller.PP));
+                    }),
+                  ],
+                ),
               ),
-            ),
-          ]);
+            ]),
+          );
         }));
   }
 
@@ -231,9 +229,9 @@ class HomeScreen extends GetView<HomeController> {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
           height: 75,
           color: color,
@@ -247,7 +245,7 @@ class HomeScreen extends GetView<HomeController> {
                     color: white,
                     size: 16,
                   ),
-                  Text("Reports",
+                  Text("Reports  ",
                       style: TextStyle(color: Colors.white70, fontSize: 12))
                 ],
               ),
@@ -276,7 +274,7 @@ class HomeScreen extends GetView<HomeController> {
                                   val,
                                   style: TextStyle(color: white, fontSize: 18),
                                 ),
-                                Text("(Last checked 2 hours ago)",
+                                Text(" (Last checked 2 hours ago)",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 10)),
                               ],
@@ -306,13 +304,13 @@ class HomeScreen extends GetView<HomeController> {
                           children: [
                             Text("Total:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                             Text("Min:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                             Text("Max:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                           ],
                         ),
                         SizedBox(
@@ -348,11 +346,15 @@ class HomeScreen extends GetView<HomeController> {
             SizedBox(
               width: 5,
             ),
-            Text(value.toStringAsPrecision(2) + "%"),
+            Text(value.toStringAsPrecision(2) + "%",
+                style: TextStyle(fontSize: 12)),
             SizedBox(
               width: 10,
             ),
-            Text(numberFormat.format(value2) + " KWH")
+            Text(
+              numberFormat.format(value2) + " KWH",
+              style: TextStyle(fontSize: 12),
+            )
           ],
         ),
       ),

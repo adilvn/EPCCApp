@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -41,13 +42,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: size.height * 0.33,
                 decoration: BoxDecoration(
                     image: DecorationImage(
+                        fit: BoxFit.cover,
                         image: AssetImage('assets/images/login_top_bg.png'))),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset('assets/images/ifl_logo_small.png'),
+                      Image.asset(
+                        'assets/images/ifl_logo_small.png',
+                      ),
                       SizedBox(
                         width: 10.0,
                       ),
@@ -177,6 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                       onPressed: () async {
                         try {
+                          setState(() {
+                            isLoading = true;
+                          });
                           UserCredential userCredential = await FirebaseAuth
                               .instance
                               .signInWithEmailAndPassword(
@@ -186,6 +193,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               .idTokenChanges()
                               .listen((User? user) {
                             if (user != null) {
+                              setState(() {
+                                isLoading = false;
+                              });
                               Get.offNamed(AppPages.WRAP);
                               Get.rawSnackbar(
                                   message: "Successfully to login",
@@ -197,6 +207,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           });
                         } on FirebaseAuthException catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           if (e.code == 'user-not-found') {
                             Get.rawSnackbar(
                                 message: "Invalid Email!",
@@ -213,13 +226,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           primary: epccBlue500,
                           onPrimary: white,
                           padding:
-                              EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 22),
                           textStyle: TextStyle(
                               fontFamily: montserrat,
                               fontSize: 32,
                               fontWeight: FontWeight.w500),
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0)))),
+                  isLoading
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                              child: CircularProgressIndicator(
+                            color: Colors.blue,
+                          )),
+                        )
+                      : Container()
                 ],
               ))
         ],

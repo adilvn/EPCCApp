@@ -1,25 +1,23 @@
-import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Screens/BackProcessUnit.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/controllers/HomeController.dart';
+import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:epcc/routes/AppPages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
-class SubUnits extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool _isBackPressedOrTouchedOutSide = false,
-      _isDropDownOpened = false,
-      _isPanDown = false;
-  late List<String> _list;
-  String _selectedItem = '';
+class SubUnits extends GetView<SubUnitsController> {
   List<Data> listData = [];
   SubUnits({required this.listData});
+  String dropdownValue1 = "3";
 
+  String dropdownValue2 = "3";
+  String dropdownValue3 = "3";
   final List<ChartData> chartData = [
     ChartData('Jan-1', 30434),
     ChartData('Jan-3', 78344),
@@ -38,67 +36,70 @@ class SubUnits extends StatelessWidget {
     ChartData('Jan-23', 34032),
   ];
 
+  SubUnitsController controller = Get.put(SubUnitsController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: epccBlue500,
-            elevation: 4,
-            title: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 15,
-                        height: 22,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                    "assets/images/ifl_logo_small.png"))),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "EPCC",
-                        style: TextStyle(fontSize: 20),
-                      )
-                    ],
-                  ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage("assets/images/profile.jpg"))),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: epccBlue500,
+          elevation: 4,
+          title: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 15,
+                      height: 22,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  "assets/images/ifl_logo_small.png"))),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "EPCC",
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/profile.jpg"))),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+              ],
             ),
-            actions: <Widget>[
-              Transform.rotate(
-                transformHitTests: true,
-                angle: 3.15,
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.sort,
-                      size: 25,
-                    )),
-              )
-            ]),
-        body: Column(children: [
+          ),
+          actions: <Widget>[
+            Transform.rotate(
+              transformHitTests: true,
+              angle: 3.15,
+              child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.sort,
+                    size: 25,
+                  )),
+            )
+          ]),
+      body: Obx(() {
+        return Column(children: [
           Expanded(
-              flex: 2,
+              flex: 3,
               child: Container(
                 color: epccBlue500,
                 child: Column(
@@ -170,7 +171,7 @@ class SubUnits extends StatelessWidget {
                 ),
               )),
           Expanded(
-              flex: 4,
+              flex: 5,
               child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -181,94 +182,130 @@ class SubUnits extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                            width: 120,
-                            height: 50,
-                            child: AwesomeDropDown(
-                              elevation: 5,
-                              dropDownIconBGColor: Colors.red,
-                              dropDownOverlayBGColor: Colors.red,
-                              padding: 10,
-                              numOfListItemToShow: 6,
-                              selectedItemTextStyle: TextStyle(color: white),
-                              dropDownListTextStyle:
-                                  TextStyle(color: white, fontSize: 18),
-                              dropDownIcon: Icon(
-                                Icons.arrow_drop_down,
-                                color: white,
-                                size: 24,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 39,
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: DropdownButton<String>(
+                                  value: controller.SubDropValue1.value,
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.white,
+                                  ),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  dropdownColor: Colors.red,
+                                  focusColor: Colors.red,
+                                  underline: Container(),
+                                  style:
+                                      const TextStyle(color: Colors.deepPurple),
+                                  onChanged: (val) {
+                                    controller.setSubDropValue1(val);
+                                  },
+                                  items: controller.SubDrop1.map<
+                                      DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Container(
+                                        padding: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          value,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
-                              dropDownBGColor: Colors.red,
-                              dropDownList: [
-                                "2020",
-                                "2019",
-                                "2018",
-                                "2017",
-                                "2016",
-                                "2015",
-                                "2014",
-                                "2013"
-                              ],
                             ),
                           ),
-                          Container(
-                            width: 120,
-                            height: 50,
-                            child: AwesomeDropDown(
-                              elevation: 5,
-                              dropDownIconBGColor: Colors.orange,
-                              dropDownOverlayBGColor: Colors.orange,
-                              padding: 10,
-                              numOfListItemToShow: 6,
-                              selectedItemTextStyle: TextStyle(color: white),
-                              dropDownListTextStyle:
-                                  TextStyle(color: white, fontSize: 18),
-                              dropDownIcon: Icon(
-                                Icons.arrow_drop_down,
-                                color: white,
-                                size: 24,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 39,
+                                decoration: BoxDecoration(
+                                    color: Colors.yellow,
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: DropdownButton<String>(
+                                  value: controller.SubDropValue2.value,
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.white,
+                                  ),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  dropdownColor: Colors.yellow,
+                                  focusColor: Colors.yellow,
+                                  underline: Container(),
+                                  style:
+                                      const TextStyle(color: Colors.deepPurple),
+                                  onChanged: (val) {
+                                    controller.setSubDropValue2(val);
+                                  },
+                                  items: controller.SubDrop2.map<
+                                      DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Container(
+                                        padding: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          value,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
-                              dropDownBGColor: Colors.orange,
-                              dropDownList: [
-                                "Jan",
-                                "Feb",
-                                "Mar",
-                                "April",
-                                "May",
-                                "june",
-                                "July"
-                              ],
                             ),
                           ),
-                          Container(
-                            width: 120,
-                            height: 50,
-                            child: AwesomeDropDown(
-                              elevation: 5,
-                              dropDownIconBGColor: Colors.green,
-                              dropDownOverlayBGColor: Colors.green,
-                              numOfListItemToShow: 6,
-                              selectedItemTextStyle: TextStyle(color: white),
-                              dropDownListTextStyle:
-                                  TextStyle(color: white, fontSize: 18),
-                              dropDownIcon: Icon(
-                                Icons.arrow_drop_down,
-                                color: white,
-                                size: 24,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 39,
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: DropdownButton<String>(
+                                  value: controller.SubDropValue3.value,
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.white,
+                                  ),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  dropdownColor: Colors.green,
+                                  focusColor: Colors.green,
+                                  underline: Container(),
+                                  style:
+                                      const TextStyle(color: Colors.deepPurple),
+                                  onChanged: (val) {
+                                    controller.setSubDropValue3(val);
+                                  },
+                                  items: controller.SubDrop3.map<
+                                      DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Container(
+                                        padding: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          value,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
-                              dropDownBGColor: Colors.green,
-                              dropDownList: [
-                                "1",
-                                "2",
-                                "3",
-                                "4",
-                                "5",
-                                "6",
-                                "7",
-                                "8",
-                                "9",
-                                "10"
-                              ],
                             ),
                           ),
                         ],
@@ -351,26 +388,31 @@ class SubUnits extends StatelessWidget {
                 getTiles(
                     Colors.red, "Back Process Unit 1", "assets/images/750.png",
                     () {
-                  Get.toNamed(AppPages.BACKPROCESS);
+                  BottomNavigation.changeProfileWidget(BackProcessUnit(
+                    list: listData,
+                  ));
                 }),
                 getTiles(Colors.orange, "Spinning /Winding Unit 1",
                     "assets/images/752.png", () {
-                  Get.toNamed(AppPages.BACKPROCESS);
+                  BottomNavigation.changeProfileWidget(BackProcessUnit(
+                    list: listData,
+                  ));
                 })
               ],
             ),
           ),
-        ]));
-    ;
+        ]);
+      }),
+    );
   }
 
   getTiles(Color color, String val, textImage, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
           height: 75,
           color: color,
@@ -399,7 +441,7 @@ class SubUnits extends StatelessWidget {
                         child: Icon(
                           Icons.ballot_rounded,
                           color: white,
-                          size: 40,
+                          size: 37,
                         ),
                       )),
                   Expanded(
@@ -413,7 +455,7 @@ class SubUnits extends StatelessWidget {
                               children: [
                                 Text(
                                   val,
-                                  style: TextStyle(color: white, fontSize: 18),
+                                  style: TextStyle(color: white, fontSize: 16),
                                 ),
                                 // Text("(Last checked 2 hours ago)",
                                 //     style: TextStyle(
@@ -445,13 +487,13 @@ class SubUnits extends StatelessWidget {
                           children: [
                             Text("Total:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                             Text("Min:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                             Text("Max:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                           ],
                         ),
                         SizedBox(

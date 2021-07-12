@@ -38,9 +38,10 @@ dependencies:
   get:
   shared_preferences: ^2.0.6
   splash_screen_view: ^3.0.0
-  awesome_dropdown: ^0.0.4
   intl: ^0.17.0
-  custom_navigator: ^0.3.0
+  animate_do: ^2.0.0
+  device_preview: ^0.7.4
+
   
 
 dev_dependencies:

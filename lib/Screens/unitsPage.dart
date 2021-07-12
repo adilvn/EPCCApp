@@ -3,40 +3,30 @@ import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
-import 'package:epcc/routes/AppPages.dart';
+import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:awesome_dropdown/awesome_dropdown.dart';
 
-class UnitsPage extends StatefulWidget {
+class UnitsPage extends GetView<UnitsController> {
   List<Data> list = [];
   UnitsPage({Key? key, required this.list}) : super(key: key);
-
-  @override
-  _UnitsPageState createState() => _UnitsPageState();
-}
-
-class _UnitsPageState extends State<UnitsPage>
-    with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool _isBackPressedOrTouchedOutSide = false,
-      _isDropDownOpened = false,
-      _isPanDown = false;
-  late List<String> _list;
-  String _selectedItem = '';
 
   final List<ChartData1> chartData = [
     ChartData1('Jan-1', 30),
     ChartData1('Jan-3', 90),
     ChartData1('Jan-5', 50),
+    ChartData1('Jan-9', 622),
   ];
 
   final List<ChartData1> chartData2 = [
     ChartData1('Jan-1', 35),
     ChartData1('Jan-3', 72),
     ChartData1('Jan-5', 62),
+    ChartData1('Jan-9', 362),
   ];
+
+  UnitsController controller = Get.put(UnitsController());
 
   @override
   Widget build(BuildContext context) {
@@ -96,273 +86,322 @@ class _UnitsPageState extends State<UnitsPage>
                     )),
               )
             ]),
-        body: Column(children: [
-          Expanded(
-              flex: 1,
-              child: Container(
-                color: epccBlue500,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        BottomNavigation.backToHomePage(HomeScreen(), 1, true);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        alignment: Alignment.centerLeft,
-                        width: double.infinity,
-                        height: 35,
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: white,
-                          size: 24,
+        body: Obx(() {
+          return Column(children: [
+            Expanded(
+                flex: 2,
+                child: Container(
+                  color: epccBlue500,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          BottomNavigation.backToHomePage(
+                              HomeScreen(), 1, true);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          alignment: Alignment.centerLeft,
+                          width: double.infinity,
+                          height: 35,
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: white,
+                            size: 24,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.bottomLeft,
-                      width: double.infinity,
-                      height: 25,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            width: 40,
-                            height: 25,
-                            child: Text(
-                              "TP1",
-                              style: TextStyle(color: epccBlue, fontSize: 14),
-                            ),
-                            decoration: BoxDecoration(
-                                color: white,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(30),
-                                    bottomRight: Radius.circular(30))),
-                          )
-                        ],
+                      Container(
+                        alignment: Alignment.bottomLeft,
+                        width: double.infinity,
+                        height: 25,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              width: 40,
+                              height: 25,
+                              child: Text(
+                                "TP1",
+                                style: TextStyle(color: epccBlue, fontSize: 14),
+                              ),
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(30),
+                                      bottomRight: Radius.circular(30))),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Units",
-                      style: TextStyle(color: Colors.white, fontSize: 24),
-                    ),
-                    Divider(
-                      indent: MediaQuery.of(context).size.width * 0.3,
-                      endIndent: MediaQuery.of(context).size.width * 0.3,
-                      color: white,
-                    ),
-                    SizedBox(
-                      height: 3,
-                    )
-                  ],
-                ),
-              )),
-          Expanded(
-              flex: 3,
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 65,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 50,
-                            child: AwesomeDropDown(
-                              elevation: 5,
-                              dropDownIconBGColor: Colors.red,
-                              dropDownOverlayBGColor: Colors.red,
-                              padding: 10,
-                              numOfListItemToShow: 6,
-                              selectedItemTextStyle: TextStyle(color: white),
-                              dropDownListTextStyle:
-                                  TextStyle(color: white, fontSize: 18),
-                              dropDownIcon: Icon(
-                                Icons.arrow_drop_down,
-                                color: white,
-                                size: 24,
-                              ),
-                              dropDownBGColor: Colors.red,
-                              dropDownList: [
-                                "2020",
-                                "2019",
-                                "2018",
-                                "2017",
-                                "2016",
-                                "2015",
-                                "2014",
-                                "2013"
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            height: 50,
-                            child: AwesomeDropDown(
-                              elevation: 5,
-                              dropDownIconBGColor: Colors.yellow,
-                              dropDownOverlayBGColor: Colors.yellow,
-                              padding: 10,
-                              numOfListItemToShow: 6,
-                              selectedItemTextStyle: TextStyle(color: white),
-                              dropDownListTextStyle:
-                                  TextStyle(color: white, fontSize: 18),
-                              dropDownIcon: Icon(
-                                Icons.arrow_drop_down,
-                                color: white,
-                                size: 24,
-                              ),
-                              dropDownBGColor: Colors.yellow,
-                              dropDownList: [
-                                "Jan",
-                                "Feb",
-                                "Mar",
-                                "April",
-                                "May",
-                                "june",
-                                "July"
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            height: 50,
-                            child: AwesomeDropDown(
-                              elevation: 5,
-                              dropDownIconBGColor: Colors.green,
-                              dropDownOverlayBGColor: Colors.green,
-                              numOfListItemToShow: 6,
-                              selectedItemTextStyle: TextStyle(color: white),
-                              dropDownListTextStyle:
-                                  TextStyle(color: white, fontSize: 18),
-                              dropDownIcon: Icon(
-                                Icons.arrow_drop_down,
-                                color: white,
-                                size: 24,
-                              ),
-                              dropDownBGColor: Colors.green,
-                              dropDownList: [
-                                "1",
-                                "2",
-                                "3",
-                                "4",
-                                "5",
-                                "6",
-                                "7",
-                                "8",
-                                "9",
-                                "10"
-                              ],
-                            ),
-                          ),
-                        ],
+                      Text(
+                        "Units",
+                        style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      flex: 7,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 6),
-                                child: SfCartesianChart(
-                                    primaryYAxis: CategoryAxis(
-                                      title: AxisTitle(
-                                          text: 'Consumption (KHW)',
-                                          textStyle: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Roboto',
-                                              fontSize: 14,
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.w300)),
+                      Divider(
+                        indent: MediaQuery.of(context).size.width * 0.3,
+                        endIndent: MediaQuery.of(context).size.width * 0.3,
+                        color: white,
+                      ),
+                      SizedBox(
+                        height: 3,
+                      )
+                    ],
+                  ),
+                )),
+            Expanded(
+                flex: 4,
+                child: Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 65,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 39,
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: DropdownButton<String>(
+                                    value: controller.UnitDropValue1.value,
+                                    disabledHint: Text("eh"),
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Colors.white,
                                     ),
-                                    primaryXAxis: CategoryAxis(
-                                      title: AxisTitle(
-                                          text: 'Days',
-                                          textStyle: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Roboto',
-                                              fontSize: 14,
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.w300)),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    dropdownColor: Colors.red,
+                                    focusColor: Colors.red,
+                                    underline: Container(),
+                                    style: const TextStyle(
+                                        color: Colors.deepPurple),
+                                    onChanged: (val) {
+                                      controller.setUnitDropValue1(val);
+                                    },
+                                    items: controller.UnitDrop1.map<
+                                            DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Container(
+                                          padding: EdgeInsets.only(left: 15),
+                                          child: Text(
+                                            value,
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 39,
+                                  decoration: BoxDecoration(
+                                      color: Colors.yellow,
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: DropdownButton<String>(
+                                    value: controller.UnitDropValue2.value,
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Colors.white,
                                     ),
-                                    series: <ColumnSeries>[
-                                      ColumnSeries<ChartData1, String>(
-                                          pointColorMapper:
-                                              (ChartData1 color, _) =>
-                                                  epccBlue500,
-                                          dataLabelSettings: DataLabelSettings(
-                                              color: Colors.white,
-                                              labelAlignment:
-                                                  ChartDataLabelAlignment.auto,
-                                              isVisible: true),
-                                          dataSource: chartData,
-                                          xValueMapper: (ChartData1 data, _) =>
-                                              data.x,
-                                          yValueMapper: (ChartData1 data, _) =>
-                                              data.y),
-                                      ColumnSeries<ChartData1, String>(
-                                          pointColorMapper:
-                                              (ChartData1 color, _) =>
-                                                  Colors.green,
-                                          // Hiding the legend item for this series
-                                          dataLabelSettings: DataLabelSettings(
-                                              color: Colors.white,
-                                              labelAlignment:
-                                                  ChartDataLabelAlignment.auto,
-                                              isVisible: true),
-                                          dataSource: chartData2,
-                                          xValueMapper: (ChartData1 data, _) =>
-                                              data.x,
-                                          yValueMapper: (ChartData1 data, _) =>
-                                              data.y)
-                                    ])),
-                          ),
-                        ],
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    dropdownColor: Colors.red,
+                                    focusColor: Colors.red,
+                                    underline: Container(),
+                                    style: const TextStyle(
+                                        color: Colors.deepPurple),
+                                    onChanged: (val) {
+                                      controller.setUnitDropValue2(val);
+                                    },
+                                    items: controller.UnitDrop2.map<
+                                            DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Container(
+                                          padding: EdgeInsets.only(left: 15),
+                                          child: Text(
+                                            value,
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 39,
+                                  decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: DropdownButton<String>(
+                                    value: controller.UnitDropValue3.value,
+                                    icon: const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: Colors.white,
+                                    ),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    dropdownColor: Colors.green,
+                                    focusColor: Colors.green,
+                                    underline: Container(),
+                                    style: const TextStyle(
+                                        color: Colors.deepPurple),
+                                    onChanged: (val) {
+                                      controller.setUnitDropValue3(val);
+                                    },
+                                    items: controller.UnitDrop3.map<
+                                            DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Container(
+                                          padding: EdgeInsets.only(left: 15),
+                                          child: Text(
+                                            value,
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )),
-          Expanded(
-            flex: 2,
-            child: ListView(
-              children: [
-                getTiles(epccBlue, "Unit 1", "assets/images/748.png", () {
-                  BottomNavigation.changeProfileWidget(SubUnits(
-                    listData: widget.list,
-                  ));
-                  // Get.toNamed(AppPages.SUBUNITS);
-                }),
-                getTiles(Colors.green, "Unit 2", "assets/images/748.png", () {
-                  BottomNavigation.changeProfileWidget(SubUnits(
-                    listData: widget.list,
-                  ));
-                  // Get.toNamed(AppPages.SUBUNITS);
-                })
-              ],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 6),
+                                  child: SfCartesianChart(
+                                      primaryYAxis: CategoryAxis(
+                                        title: AxisTitle(
+                                            text: 'Consumption (KHW)',
+                                            textStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontFamily: 'Roboto',
+                                                fontSize: 14,
+                                                fontStyle: FontStyle.normal,
+                                                fontWeight: FontWeight.w300)),
+                                      ),
+                                      primaryXAxis: CategoryAxis(
+                                        title: AxisTitle(
+                                            text: 'Days',
+                                            textStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontFamily: 'Roboto',
+                                                fontSize: 14,
+                                                fontStyle: FontStyle.normal,
+                                                fontWeight: FontWeight.w300)),
+                                      ),
+                                      series: <ColumnSeries>[
+                                        ColumnSeries<ChartData1, String>(
+                                            pointColorMapper:
+                                                (ChartData1 color, _) =>
+                                                    epccBlue500,
+                                            dataLabelSettings:
+                                                DataLabelSettings(
+                                                    color: Colors.white,
+                                                    labelAlignment:
+                                                        ChartDataLabelAlignment
+                                                            .auto,
+                                                    isVisible: true),
+                                            dataSource: chartData,
+                                            xValueMapper:
+                                                (ChartData1 data, _) => data.x,
+                                            yValueMapper:
+                                                (ChartData1 data, _) => data.y),
+                                        ColumnSeries<ChartData1, String>(
+                                            pointColorMapper:
+                                                (ChartData1 color, _) =>
+                                                    Colors.green,
+                                            // Hiding the legend item for this series
+                                            dataLabelSettings:
+                                                DataLabelSettings(
+                                                    color: Colors.white,
+                                                    labelAlignment:
+                                                        ChartDataLabelAlignment
+                                                            .auto,
+                                                    isVisible: true),
+                                            dataSource: chartData2,
+                                            xValueMapper:
+                                                (ChartData1 data, _) => data.x,
+                                            yValueMapper:
+                                                (ChartData1 data, _) => data.y)
+                                      ])),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+            Expanded(
+              flex: 2,
+              child: ListView(
+                children: [
+                  getTiles(epccBlue, "Unit 1", "assets/images/748.png", () {
+                    BottomNavigation.changeProfileWidget(SubUnits(
+                      listData: list,
+                    ));
+                    // Get.toNamed(AppPages.SUBUNITS);
+                  }),
+                  getTiles(Colors.green, "Unit 2", "assets/images/748.png", () {
+                    BottomNavigation.changeProfileWidget(SubUnits(
+                      listData: list,
+                    ));
+                    // Get.toNamed(AppPages.SUBUNITS);
+                  })
+                ],
+              ),
             ),
-          ),
-        ]));
+          ]);
+        }));
   }
 
   getTiles(Color color, String val, imageText, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
           height: 75,
           color: color,
@@ -438,13 +477,13 @@ class _UnitsPageState extends State<UnitsPage>
                           children: [
                             Text("Total:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                             Text("Min:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                             Text("Max:32434Kwh",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 10)),
+                                    color: Colors.white70, fontSize: 9)),
                           ],
                         ),
                         SizedBox(
