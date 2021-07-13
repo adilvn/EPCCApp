@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+  Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,18 @@ class Profile extends StatelessWidget {
       body: Center(
         child: GestureDetector(
             onTap: () {
-              Authenticate().sigout();
+              // Authenticate().sigout();
               Get.off(Authenticate());
             },
             child: Container(
-              child: Text("Signout"),
+              alignment: Alignment.center,
+              width: 150,
+              height: 30,
+              color: Colors.blue,
+              child: Text(
+                "Signout",
+                style: TextStyle(color: Colors.white),
+              ),
             )),
       ),
     );

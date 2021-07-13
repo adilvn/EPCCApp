@@ -354,7 +354,7 @@ class BackProcessUnit extends StatelessWidget {
                                                 "Consumption (KWH)",
                                                 style: TextStyle(
                                                     color: Colors.orange,
-                                                    fontSize: 16),
+                                                    fontSize: 14),
                                               ),
                                             ),
                                           )
