@@ -88,32 +88,50 @@ class HomeController extends GetxController
 
   apiCall() {
     ApiService().fetchDetails().then((data) {
-      for (var i = 0; i < data[1].length; i++) {
-        if (data[1][i]["2"] == "TP1") {
-          Data _data = Data.fromJson(data[1][i]);
-          setTotalTP1(double.parse(_data.cONSUMPTIONVALUE!));
-          setTP1(_data);
-        } else if (data[1][i]["2"] == "TP2") {
-          Data _data = Data.fromJson(data[1][i]);
-          setTotalTP2(double.parse(_data.cONSUMPTIONVALUE!));
-          setTP2(_data);
-        } else if (data[1][i]["2"] == "TP3") {
-          Data _data = Data.fromJson(data[1][i]);
-          setTotalTP3(double.parse(_data.cONSUMPTIONVALUE!));
-          setTP3(_data);
-        } else if (data[1][i]["2"] == "TP4") {
-          Data _data = Data.fromJson(data[1][i]);
-          setTotalTP4(double.parse(_data.cONSUMPTIONVALUE!));
-          setTP4(_data);
-        } else if (data[1][i]["2"] == "PP") {
-          Data _data = Data.fromJson(data[1][i]);
-          setTotalPP(double.parse(_data.cONSUMPTIONVALUE!));
-          setPP(_data);
+      if (data[0] == "success") {
+        for (var i = 0; i < data[1].length; i++) {
+          if (data[1][i]["2"] == "TP1") {
+            Data _data = Data.fromJson(data[1][i]);
+            setTotalTP1(double.parse(_data.cONSUMPTIONVALUE!));
+            setTP1(_data);
+          } else if (data[1][i]["2"] == "TP2") {
+            Data _data = Data.fromJson(data[1][i]);
+            setTotalTP2(double.parse(_data.cONSUMPTIONVALUE!));
+            setTP2(_data);
+          } else if (data[1][i]["2"] == "TP3") {
+            print(data[1][i]["NAME"]);
+            Data _data = Data.fromJson(data[1][i]);
+            setTotalTP3(double.parse(_data.cONSUMPTIONVALUE!));
+            setTP3(_data);
+          } else if (data[1][i]["2"] == "TP4") {
+            Data _data = Data.fromJson(data[1][i]);
+            setTotalTP4(double.parse(_data.cONSUMPTIONVALUE!));
+            setTP4(_data);
+          } else if (data[1][i]["2"] == "PP") {
+            Data _data = Data.fromJson(data[1][i]);
+            setTotalPP(double.parse(_data.cONSUMPTIONVALUE!));
+            setPP(_data);
+          }
         }
+      } else {
+        Get.rawSnackbar(
+            duration: Duration(
+              seconds: 3,
+            ),
+            messageText: Text(
+              "Access Failed",
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.black54,
+            icon: Icon(
+              Icons.error,
+              size: 18,
+              color: Colors.white,
+            ));
       }
 
       setTotal(t1, t2, t3, t4, pp);
-      print(totalKwh);
+
       change(value, status: RxStatus.success());
     }, onError: (err) {
       change(err, status: RxStatus.error());

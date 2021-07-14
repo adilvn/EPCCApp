@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 
 class BackProcessController extends GetxController {
-  var _bpdropdown1 = "3".obs;
+  var _bpdropdown1 = "2021".obs;
 
-  var _bpdropdown2 = "3".obs;
-  var _bpdropdown3 = "3".obs;
+  var _bpdropdown2 = "Jan".obs;
+  var _bpdropdown3 = "1".obs;
 
   RxString get BPDropValue1 => _bpdropdown1;
   RxString get BPDropValue2 => _bpdropdown2;
@@ -21,11 +21,69 @@ class BackProcessController extends GetxController {
     _bpdropdown3.value = val!;
   }
 
-  List<String> _bpDropList1 = ["1", "3", "33", "32"].obs;
+  List<String> _bpDropList1 = [
+    "2021",
+    "2020",
+    "2019",
+    "2018",
+    "2017",
+    "2016",
+    "2015",
+    "2014",
+    "2013",
+    "2012",
+    "2011",
+    "2010"
+  ].obs;
 
-  List<String> _bpDropList2 = ["1", "3", "33", "32"].obs;
+  List<String> _bpDropList2 = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Oct",
+    "Sep",
+    "Nov",
+    "Dec"
+  ].obs;
 
-  List<String> _bpDropList3 = ["1", "3", "33", "31"].obs;
+  List<String> _bpDropList3 = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31"
+  ].obs;
 
   List<String> get BPDrop1 => _bpDropList1;
 
