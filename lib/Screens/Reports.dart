@@ -4,9 +4,9 @@ import 'package:epcc/controllers/reportController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Reports extends StatelessWidget {
+class Reports extends GetView<ReportController> {
   Reports({Key? key}) : super(key: key);
-  ReportController controller = Get.put(ReportController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

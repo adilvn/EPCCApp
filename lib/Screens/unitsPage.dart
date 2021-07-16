@@ -1,5 +1,6 @@
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
@@ -9,27 +10,15 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnitsPage extends GetView<UnitsController> {
-  List<Data> list = [];
-  UnitsPage({Key? key, required this.list}) : super(key: key);
-
-  final List<ChartData1> chartData = [
-    ChartData1('Jan-1', 30),
-    ChartData1('Jan-3', 90),
-    ChartData1('Jan-5', 50),
-    ChartData1('Jan-9', 622),
-  ];
-
-  final List<ChartData1> chartData2 = [
-    ChartData1('Jan-1', 35),
-    ChartData1('Jan-3', 72),
-    ChartData1('Jan-5', 62),
-    ChartData1('Jan-9', 362),
-  ];
-
   UnitsController controller = Get.put(UnitsController());
+  List<UNITDATAMODEL> unitOneDetails = [];
+  List<UNITDATAMODEL> unitTwoDetails = [];
+  UnitsPage({required this.unitOneDetails, required this.unitTwoDetails});
 
   @override
   Widget build(BuildContext context) {
+    controller.addChartsDetails(unitOneDetails, unitTwoDetails);
+    print("helo");
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -337,12 +326,17 @@ class UnitsPage extends GetView<UnitsController> {
                                                     epccBlue500,
                                             dataLabelSettings:
                                                 DataLabelSettings(
-                                                    color: Colors.white,
+                                                    textStyle: TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                    angle: 0,
                                                     labelAlignment:
                                                         ChartDataLabelAlignment
-                                                            .auto,
+                                                            .outer,
                                                     isVisible: true),
-                                            dataSource: chartData,
+                                            dataSource: controller.chartOne,
                                             xValueMapper:
                                                 (ChartData1 data, _) => data.x,
                                             yValueMapper:
@@ -354,12 +348,16 @@ class UnitsPage extends GetView<UnitsController> {
                                             // Hiding the legend item for this series
                                             dataLabelSettings:
                                                 DataLabelSettings(
-                                                    color: Colors.white,
+                                                    textStyle: TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.normal),
                                                     labelAlignment:
                                                         ChartDataLabelAlignment
-                                                            .auto,
+                                                            .outer,
                                                     isVisible: true),
-                                            dataSource: chartData2,
+                                            dataSource: controller.chartTwo,
                                             xValueMapper:
                                                 (ChartData1 data, _) => data.x,
                                             yValueMapper:
@@ -378,13 +376,13 @@ class UnitsPage extends GetView<UnitsController> {
                 children: [
                   getTiles(epccBlue, "Unit 1", "assets/images/748.png", () {
                     BottomNavigation.changeProfileWidget(SubUnits(
-                      listData: list,
+                      listData: [],
                     ));
                     // Get.toNamed(AppPages.SUBUNITS);
                   }),
                   getTiles(Colors.green, "Unit 2", "assets/images/748.png", () {
                     BottomNavigation.changeProfileWidget(SubUnits(
-                      listData: list,
+                      listData: [],
                     ));
                     // Get.toNamed(AppPages.SUBUNITS);
                   })
@@ -503,10 +501,4 @@ class UnitsPage extends GetView<UnitsController> {
       ),
     );
   }
-}
-
-class ChartData1 {
-  ChartData1(this.x, this.y);
-  final String x;
-  final double? y;
 }

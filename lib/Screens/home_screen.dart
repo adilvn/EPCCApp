@@ -3,6 +3,7 @@ import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/controllers/HomeController.dart';
+import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -92,12 +93,16 @@ class HomeScreen extends GetView<HomeController> {
                 Expanded(
                     flex: 1,
                     child: Container(
+                      alignment: Alignment.center,
                       color: epccBlue500,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            height: 5,
+                          ),
                           Text(
-                            "Location",
+                            "Locations",
                             style: TextStyle(color: Colors.white, fontSize: 27),
                           ),
                           Divider(
@@ -105,14 +110,11 @@ class HomeScreen extends GetView<HomeController> {
                             endIndent: MediaQuery.of(context).size.width * 0.3,
                             color: white,
                           ),
-                          SizedBox(
-                            height: 10,
-                          )
                         ],
                       ),
                     )),
                 Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
                       child: Row(
                         children: [
@@ -203,14 +205,16 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     )),
                 Expanded(
-                  flex: 3,
+                  flex: 7,
                   child: ListView(
                     children: [
                       getTiles(
                           Color(0xffFF6F00), "TP1", "assets/images/748.png",
                           () {
-                        BottomNavigation.changeProfileWidget(
-                            UnitsPage(list: controller.TP1));
+                        BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOneDetails: controller.TP1UNIT1DATA,
+                          unitTwoDetails: controller.TP1UNIT2DATA,
+                        ));
 
                         // Get.to(() => UnitsPage(list: controller.TP1));
                       }),
@@ -218,27 +222,36 @@ class HomeScreen extends GetView<HomeController> {
                           Color(0xff7C4DFF), "TP2", "assets/images/749.png",
                           () {
                         // Get.to(() => UnitsPage(list: controller.TP2));
-                        BottomNavigation.changeProfileWidget(
-                            UnitsPage(list: controller.TP2));
+
+                        BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOneDetails: controller.TP1UNIT1DATA,
+                          unitTwoDetails: controller.TP1UNIT2DATA,
+                        ));
                       }),
                       getTiles(
                           Color(0xff2196F3), "TP3", "assets/images/750.png",
                           () {
                         // Get.to(() => UnitsPage(list: controller.TP3));
-                        BottomNavigation.changeProfileWidget(
-                            UnitsPage(list: controller.TP3));
+                        BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOneDetails: controller.TP1UNIT1DATA,
+                          unitTwoDetails: controller.TP1UNIT2DATA,
+                        ));
                       }),
                       getTiles(
                           Color(0xffFF4040), "TP4", "assets/images/751.png",
                           () {
-                        BottomNavigation.changeProfileWidget(
-                            UnitsPage(list: controller.TP4));
+                        BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOneDetails: controller.TP1UNIT1DATA,
+                          unitTwoDetails: controller.TP1UNIT2DATA,
+                        ));
                         // Get.to(() => UnitsPage(list: controller.TP4));
                       }),
                       getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
                           () {
-                        BottomNavigation.changeProfileWidget(
-                            UnitsPage(list: controller.PP));
+                        BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOneDetails: controller.TP1UNIT1DATA,
+                          unitTwoDetails: controller.TP1UNIT2DATA,
+                        ));
                         // Get.to(() => UnitsPage(list: controller.PP));
                       }),
                     ],
@@ -254,135 +267,157 @@ class HomeScreen extends GetView<HomeController> {
           onLoading: FadeIn(
             animate: true,
             duration: Duration(seconds: 5),
-            child: Column(children: [
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: epccBlue500,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Location",
-                          style: TextStyle(color: Colors.white, fontSize: 27),
-                        ),
-                        Divider(
-                          indent: MediaQuery.of(context).size.width * 0.3,
-                          endIndent: MediaQuery.of(context).size.width * 0.3,
-                          color: white,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    ),
-                  )),
-              Expanded(
-                  flex: 2,
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: Container(
-                            child: SfCircularChart(
-                              annotations: <CircularChartAnnotation>[
-                                CircularChartAnnotation(
-                                    widget: Container(
-                                        child: Text(
-                                            NumberFormat.compact()
-                                                .format(controller.totalKwh),
-                                            style: TextStyle(
-                                                color: Color.fromRGBO(
-                                                    0, 0, 0, 0.5),
-                                                fontSize: 16))))
-                              ],
-                              legend: Legend(
-                                isVisible: false,
-                              ),
-                              series: <CircularSeries>[
-                                DoughnutSeries<ChartData, String>(
-                                    enableTooltip: true,
-                                    innerRadius: "60%",
-                                    pointColorMapper: (ChartData data, _) =>
-                                        data.color,
-                                    dataSource: [
-                                      ChartData(
-                                          'TP1', 2332.3, Color(0xffFF6F00)),
-                                      ChartData(
-                                          'TP2', 2332.3, Color(0xff7C4DFF)),
-                                      ChartData(
-                                          'TP3', 2332.3, Color(0xff2196F3)),
-                                      ChartData(
-                                          'TP4', 2332.3, Color(0xffFF4040)),
-                                      ChartData('PP', 2332.3, Color(0xffFFA640))
-                                    ],
-                                    enableSmartLabels: true,
-                                    dataLabelMapper: (ChartData data, _) =>
-                                        data.x,
-                                    xValueMapper: (ChartData data, _) => data.x,
-                                    yValueMapper: (ChartData data, _) => data.y,
-                                    dataLabelSettings: DataLabelSettings(
-                                      isVisible: true,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
+            child: Stack(
+              children: [
+                Opacity(
+                  opacity: 0.5,
+                  child: Column(children: [
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                          color: epccBlue500,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              getContainer(Color(0xffFF6F00), 0,
-                                  controller.t1.toDouble()),
-                              getContainer(Color(0xff7C4DFF), 0,
-                                  controller.t2.toDouble()),
-                              getContainer(Color(0xff2196F3), 0,
-                                  controller.t3.toDouble()),
-                              getContainer(Color(0xffFF4040), 0,
-                                  controller.t4.toDouble()),
-                              getContainer(Color(0xffFFA640), 0,
-                                  controller.pp.toDouble()),
+                              Text(
+                                "Location",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 27),
+                              ),
+                              Divider(
+                                indent: MediaQuery.of(context).size.width * 0.3,
+                                endIndent:
+                                    MediaQuery.of(context).size.width * 0.3,
+                                color: white,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              )
                             ],
                           ),
-                        ),
-                        Expanded(
-                            flex: 0,
-                            child: SizedBox(
-                              width: 10,
-                            ))
-                      ],
+                        )),
+                    Expanded(
+                        flex: 2,
+                        child: Container(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Container(
+                                  child: SfCircularChart(
+                                    annotations: <CircularChartAnnotation>[
+                                      CircularChartAnnotation(
+                                          widget: Container(
+                                              child: Text(
+                                                  NumberFormat.compact().format(
+                                                      controller.totalKwh),
+                                                  style: TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          0, 0, 0, 0.5),
+                                                      fontSize: 16))))
+                                    ],
+                                    legend: Legend(
+                                      isVisible: false,
+                                    ),
+                                    series: <CircularSeries>[
+                                      DoughnutSeries<ChartData, String>(
+                                          enableTooltip: true,
+                                          innerRadius: "60%",
+                                          pointColorMapper:
+                                              (ChartData data, _) => data.color,
+                                          dataSource: [
+                                            ChartData('TP1', 2332.3,
+                                                Color(0xffFF6F00)),
+                                            ChartData('TP2', 2332.3,
+                                                Color(0xff7C4DFF)),
+                                            ChartData('TP3', 2332.3,
+                                                Color(0xff2196F3)),
+                                            ChartData('TP4', 2332.3,
+                                                Color(0xffFF4040)),
+                                            ChartData(
+                                                'PP', 2332.3, Color(0xffFFA640))
+                                          ],
+                                          enableSmartLabels: true,
+                                          dataLabelMapper:
+                                              (ChartData data, _) => data.x,
+                                          xValueMapper: (ChartData data, _) =>
+                                              data.x,
+                                          yValueMapper: (ChartData data, _) =>
+                                              data.y,
+                                          dataLabelSettings: DataLabelSettings(
+                                            isVisible: true,
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 4,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    getContainer(Color(0xffFF6F00), 0,
+                                        controller.t1.toDouble()),
+                                    getContainer(Color(0xff7C4DFF), 0,
+                                        controller.t2.toDouble()),
+                                    getContainer(Color(0xff2196F3), 0,
+                                        controller.t3.toDouble()),
+                                    getContainer(Color(0xffFF4040), 0,
+                                        controller.t4.toDouble()),
+                                    getContainer(Color(0xffFFA640), 0,
+                                        controller.pp.toDouble()),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 0,
+                                  child: SizedBox(
+                                    width: 10,
+                                  ))
+                            ],
+                          ),
+                        )),
+                    Expanded(
+                      flex: 3,
+                      child: ListView(
+                        children: [
+                          getTiles(
+                              Color(0xffFF6F00), "TP1", "assets/images/748.png",
+                              () {
+                            // Get.to(() => UnitsPage(list: controller.TP1));
+                          }),
+                          getTiles(
+                              Color(0xff7C4DFF), "TP2", "assets/images/749.png",
+                              () {
+                            // Get.to(() => UnitsPage(list: controller.TP2));
+                          }),
+                          getTiles(
+                              Color(0xff2196F3), "TP3", "assets/images/750.png",
+                              () {
+                            // Get.to(() => UnitsPage(list: controller.TP3));
+                          }),
+                          getTiles(
+                              Color(0xffFF4040), "TP4", "assets/images/751.png",
+                              () {
+                            // Get.to(() => UnitsPage(list: controller.TP4));
+                          }),
+                          getTiles(
+                              Color(0xffFFA640), "PP", "assets/images/752.png",
+                              () {
+                            // Get.to(() => UnitsPage(list: controller.PP));
+                          }),
+                        ],
+                      ),
                     ),
-                  )),
-              Expanded(
-                flex: 3,
-                child: ListView(
-                  children: [
-                    getTiles(Color(0xffFF6F00), "TP1", "assets/images/748.png",
-                        () {
-                      // Get.to(() => UnitsPage(list: controller.TP1));
-                    }),
-                    getTiles(Color(0xff7C4DFF), "TP2", "assets/images/749.png",
-                        () {
-                      // Get.to(() => UnitsPage(list: controller.TP2));
-                    }),
-                    getTiles(Color(0xff2196F3), "TP3", "assets/images/750.png",
-                        () {
-                      // Get.to(() => UnitsPage(list: controller.TP3));
-                    }),
-                    getTiles(Color(0xffFF4040), "TP4", "assets/images/751.png",
-                        () {
-                      // Get.to(() => UnitsPage(list: controller.TP4));
-                    }),
-                    getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
-                        () {
-                      // Get.to(() => UnitsPage(list: controller.PP));
-                    }),
-                  ],
+                  ]),
                 ),
-              ),
-            ]),
+                Center(
+                  child: CupertinoActivityIndicator(
+                    radius: 18,
+                  ),
+                )
+              ],
+            ),
           ),
         ));
   }

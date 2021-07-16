@@ -111,7 +111,12 @@ class SubUnits extends GetView<SubUnitsController> {
                           return GestureDetector(
                             onTap: () {
                               BottomNavigation.backToHomePage(
-                                  UnitsPage(list: listData), 0, false);
+                                  UnitsPage(
+                                    unitOneDetails: [],
+                                    unitTwoDetails: [],
+                                  ),
+                                  0,
+                                  false);
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 20),

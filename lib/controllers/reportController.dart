@@ -1,6 +1,17 @@
+import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/main.dart';
 import 'package:get/get.dart';
 
 class ReportController extends GetxController {
+  var allReportsData = <Data>[].obs;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    print(allData);
+  }
+
   var _bpdropdown1 = "2021".obs;
 
   var _bpdropdown2 = "Jan".obs;

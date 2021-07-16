@@ -5,7 +5,6 @@ import 'package:epcc/Screens/login_screen.dart';
 import 'package:epcc/Screens/profile.dart';
 import 'package:epcc/Screens/splash_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
-import 'package:epcc/Screens/tabScreen.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/routes/AppRoutes.dart';
 import 'package:get/get.dart';
@@ -27,13 +26,9 @@ class AppPages {
         transitionDuration: Duration(milliseconds: 500),
         transition: Transition.rightToLeftWithFade),
     GetPage(
-        name: HOME,
-        page: () => TabsScreen(),
-        transitionDuration: Duration(milliseconds: 500),
-        transition: Transition.rightToLeftWithFade),
-    GetPage(
         name: SPLASHING,
         page: () => Splashing(),
+        // binding: HomePageBindings(),
         transitionDuration: Duration(milliseconds: 500),
         transition: Transition.rightToLeftWithFade),
     GetPage(

@@ -3,6 +3,7 @@ import 'package:epcc/Screens/Reports.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/noInternet.dart';
 import 'package:epcc/Screens/profile.dart';
+import 'package:epcc/controllers/HomeController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

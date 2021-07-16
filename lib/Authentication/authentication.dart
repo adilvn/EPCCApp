@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/login_screen.dart';
 import 'package:epcc/Screens/noInternet.dart';
+import 'package:epcc/controllers/HomeController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
