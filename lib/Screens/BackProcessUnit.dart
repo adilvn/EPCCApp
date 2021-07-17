@@ -313,7 +313,7 @@ class BackProcessUnit extends StatelessWidget {
                         height: 10,
                       ),
                       Expanded(
-                          flex: 9,
+                          flex: 8,
                           child: Container(
                             color: Colors.red,
                             child: Stack(

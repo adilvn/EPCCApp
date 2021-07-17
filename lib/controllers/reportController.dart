@@ -9,7 +9,6 @@ class ReportController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    print(allData);
   }
 
   var _bpdropdown1 = "2021".obs;

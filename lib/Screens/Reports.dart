@@ -1,6 +1,7 @@
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/controllers/BackProcess.dart';
 import 'package:epcc/controllers/reportController.dart';
+import 'package:epcc/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,8 @@ class Reports extends GetView<ReportController> {
 
   @override
   Widget build(BuildContext context) {
+    var data = allData.map((e) => e);
+    print(data);
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,

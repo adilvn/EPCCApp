@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnitsPage extends GetView<UnitsController> {
-  UnitsController controller = Get.put(UnitsController());
+
   List<UNITDATAMODEL> unitOneDetails = [];
   List<UNITDATAMODEL> unitTwoDetails = [];
   List<UNITDATAMODEL> unitThreeDetails = [];
