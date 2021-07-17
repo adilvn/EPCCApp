@@ -14,27 +14,6 @@ import 'package:intl/intl.dart';
 class SubUnits extends GetView<SubUnitsController> {
   List<Data> listData = [];
   SubUnits({required this.listData});
-  String dropdownValue1 = "3";
-
-  String dropdownValue2 = "3";
-  String dropdownValue3 = "3";
-  final List<ChartData> chartData = [
-    ChartData('Jan-1', 30434),
-    ChartData('Jan-3', 78344),
-    ChartData('Jan-5', 50233),
-    ChartData('Jan-6', 52340),
-    ChartData('Jan-8', 13000),
-    ChartData('Jan-23', 34332),
-  ];
-
-  final List<ChartData> chartData2 = [
-    ChartData('Jan-1', 35324),
-    ChartData('Jan-3', 72243),
-    ChartData('Jan-5', 6233),
-    ChartData('Jan-6', 50423),
-    ChartData('Jan-8', 3402),
-    ChartData('Jan-23', 34032),
-  ];
 
   SubUnitsController controller = Get.put(SubUnitsController());
 
@@ -109,15 +88,7 @@ class SubUnits extends GetView<SubUnitsController> {
                         init: HomeController(),
                         builder: (controller) {
                           return GestureDetector(
-                            onTap: () {
-                              BottomNavigation.backToHomePage(
-                                  UnitsPage(
-                                    unitOneDetails: [],
-                                    unitTwoDetails: [],
-                                  ),
-                                  0,
-                                  false);
-                            },
+                            onTap: () {},
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               alignment: Alignment.centerLeft,
@@ -176,7 +147,7 @@ class SubUnits extends GetView<SubUnitsController> {
                 ),
               )),
           Expanded(
-              flex: 5,
+              flex: 6,
               child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -349,35 +320,33 @@ class SubUnits extends GetView<SubUnitsController> {
                                               fontWeight: FontWeight.w300)),
                                     ),
                                     series: <ColumnSeries>[
-                                      ColumnSeries<ChartData, String>(
+                                      ColumnSeries<ChartDataSub, String>(
                                           pointColorMapper:
-                                              (ChartData color, _) =>
+                                              (ChartDataSub color, _) =>
                                                   Colors.red,
                                           dataLabelSettings: DataLabelSettings(
-                                              color: Colors.white,
                                               labelAlignment:
-                                                  ChartDataLabelAlignment.auto,
+                                                  ChartDataLabelAlignment.outer,
                                               isVisible: true),
-                                          dataSource: chartData,
-                                          xValueMapper: (ChartData data, _) =>
-                                              data.x,
-                                          yValueMapper: (ChartData data, _) =>
-                                              data.y),
-                                      ColumnSeries<ChartData, String>(
+                                          dataSource: controller.chartData,
+                                          xValueMapper:
+                                              (ChartDataSub data, _) => data.x,
+                                          yValueMapper:
+                                              (ChartDataSub data, _) => data.y),
+                                      ColumnSeries<ChartDataSub, String>(
                                           pointColorMapper:
-                                              (ChartData color, _) =>
+                                              (ChartDataSub color, _) =>
                                                   Colors.yellow,
                                           // Hiding the legend item for this series
                                           dataLabelSettings: DataLabelSettings(
-                                              color: Colors.white,
                                               labelAlignment:
-                                                  ChartDataLabelAlignment.auto,
+                                                  ChartDataLabelAlignment.outer,
                                               isVisible: true),
-                                          dataSource: chartData2,
-                                          xValueMapper: (ChartData data, _) =>
-                                              data.x,
-                                          yValueMapper: (ChartData data, _) =>
-                                              data.y)
+                                          dataSource: controller.chartData2,
+                                          xValueMapper:
+                                              (ChartDataSub data, _) => data.x,
+                                          yValueMapper:
+                                              (ChartDataSub data, _) => data.y)
                                     ])),
                           ),
                         ],
@@ -387,7 +356,7 @@ class SubUnits extends GetView<SubUnitsController> {
                 ),
               )),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: ListView(
               children: [
                 getTiles(
@@ -518,10 +487,4 @@ class SubUnits extends GetView<SubUnitsController> {
       ),
     );
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y);
-  final String x;
-  final double? y;
 }

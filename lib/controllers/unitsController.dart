@@ -9,12 +9,28 @@ class UnitsController extends GetxController {
   List<ChartData1> get chartOne => _chartOne;
   setChartOne(ChartData1 value) {
     _chartOne.add(value);
+    _chartOne.refresh();
   }
 
   var _chartTwo = <ChartData1>[].obs;
   List<ChartData1> get chartTwo => _chartTwo;
   setChartTwo(ChartData1 value) {
     _chartTwo.add(value);
+    _chartTwo.refresh();
+  }
+
+  var _chartThree = <ChartData1>[].obs;
+  List<ChartData1> get chartThree => _chartThree;
+  setChartThree(ChartData1 value) {
+    _chartThree.add(value);
+    _chartThree.refresh();
+  }
+
+  var _chartFour = <ChartData1>[].obs;
+  List<ChartData1> get chartFour => _chartFour;
+  setChartFour(ChartData1 value) {
+    _chartFour.add(value);
+    _chartFour.refresh();
   }
 
   @override
@@ -24,21 +40,165 @@ class UnitsController extends GetxController {
   }
 
   addChartsDetails(
-      List<UNITDATAMODEL> unitOneDetails, List<UNITDATAMODEL> unitTwoDetails) {
+      List<UNITDATAMODEL> unitOneDetails,
+      List<UNITDATAMODEL> unitTwoDetails,
+      List<UNITDATAMODEL> unitThreeDetails,
+      List<UNITDATAMODEL> unitFourDetails,
+      int index) {
     if (_unitdropdown1.value == "." &&
         _unitdropdown2.value == "." &&
         _unitdropdown3.value == ".") {
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 4; i++) {
+        print(unitOneDetails[i].consumptionDate);
         setChartOne(ChartData1(
             x: unitOneDetails[i].consumptionDate!,
             y: unitOneDetails[i].totalValue!));
-        print(unitTwoDetails[i].totalValue);
+
         setChartTwo(ChartData1(
             x: unitTwoDetails[i].consumptionDate!,
             y: unitTwoDetails[i].totalValue!));
+
+        if (index > 2) {
+          setChartThree(ChartData1(
+              x: unitThreeDetails[i].consumptionDate!,
+              y: unitThreeDetails[i].totalValue!));
+          setChartFour(ChartData1(
+              x: unitFourDetails[i].consumptionDate!,
+              y: unitFourDetails[i].totalValue!));
+        }
       }
-    } else {
-      print("not called");
+    } else if (_unitdropdown1.value != "." &&
+        _unitdropdown2.value != "." &&
+        _unitdropdown3.value != ".") {
+      int c = 0;
+      var _month = _unitdropdown3.toUpperCase();
+      var _day = _unitdropdown2.toUpperCase();
+      var _year = _unitdropdown1.substring(2, 4).toUpperCase();
+      var date = "$_day-$_month-$_year";
+      for (var i = 0; i < unitOneDetails.length; i++) {
+        var month =
+            unitOneDetails[i].consumptionDate!.substring(0, 2).toUpperCase();
+        var day =
+            unitOneDetails[i].consumptionDate!.substring(3, 6).toUpperCase();
+        var year =
+            unitOneDetails[i].consumptionDate!.substring(7, 9).toUpperCase();
+        var _date = "$day-$month-$year";
+        if (month == _month && day == _day && year == _year) {
+          c++;
+          print("{$date}  $_date");
+          _chartOne.clear();
+          setChartOne(ChartData1(
+              x: unitOneDetails[i].consumptionDate!,
+              y: unitOneDetails[i].totalValue!));
+        }
+      }
+      if (c == 0) {
+        _chartOne.clear();
+      } else {
+        c = 0;
+      }
+      int a = 0;
+      for (var i = 0; i < unitTwoDetails.length; i++) {
+        var month =
+            unitTwoDetails[i].consumptionDate!.substring(0, 2).toUpperCase();
+        var day =
+            unitTwoDetails[i].consumptionDate!.substring(3, 6).toUpperCase();
+        var year =
+            unitTwoDetails[i].consumptionDate!.substring(7, 9).toUpperCase();
+        var _date = "$day-$month-$year";
+
+        if (month == _month && day == _day && year == _year) {
+          print("{$date}  $_date");
+          a++;
+          _chartTwo.clear();
+          setChartTwo(ChartData1(
+              x: unitTwoDetails[i].consumptionDate!,
+              y: unitTwoDetails[i].totalValue!));
+        }
+      }
+      if (a == 0) {
+        _chartTwo.clear();
+      } else {
+        a = 0;
+      }
+
+      if (index > 2) {
+        int b = 0;
+        for (var i = 0; i < unitThreeDetails.length; i++) {
+          var month = unitThreeDetails[i]
+              .consumptionDate!
+              .substring(0, 2)
+              .toUpperCase();
+
+          var day = unitThreeDetails[i]
+              .consumptionDate!
+              .substring(3, 6)
+              .toUpperCase();
+          var year = unitThreeDetails[i]
+              .consumptionDate!
+              .substring(7, 9)
+              .toUpperCase();
+          var _date = "$day-$month-$year";
+          if (_date == date) {
+            b++;
+            print("{$date}  $_date");
+            _chartThree.clear();
+            setChartThree(ChartData1(
+                x: unitThreeDetails[i].consumptionDate!,
+                y: unitThreeDetails[i].totalValue!));
+          }
+        }
+        if (b == 0) {
+          _chartThree.clear();
+        } else {
+          b = 0;
+        }
+        int d = 0;
+        for (var i = 0; i < unitFourDetails.length; i++) {
+          var month =
+              unitFourDetails[i].consumptionDate!.substring(0, 2).toUpperCase();
+          var day =
+              unitFourDetails[i].consumptionDate!.substring(3, 6).toUpperCase();
+          var year =
+              unitFourDetails[i].consumptionDate!.substring(7, 9).toUpperCase();
+          var _date = "$day-$month-$year";
+
+          if (month == _month && day == _day && year == _year) {
+            print("{$date}  $_date");
+            d++;
+            _chartFour.clear();
+            setChartFour(ChartData1(
+                x: unitFourDetails[i].consumptionDate!,
+                y: unitFourDetails[i].totalValue!));
+          }
+        }
+        if (d == 0) {
+          _chartFour.clear();
+        } else {
+          d = 0;
+        }
+      }
+      if (index > 2) {
+        if (_chartOne.isEmpty &&
+            _chartTwo.isEmpty &&
+            _chartThree.isEmpty &&
+            _chartFour.isEmpty) {
+          Get.rawSnackbar(
+              duration: Duration(seconds: 2), message: "Select Correct Date");
+        }
+      } else {
+        if (_chartOne.isEmpty && _chartTwo.isEmpty) {
+          Get.rawSnackbar(
+              duration: Duration(seconds: 2), message: "Select Correct Date");
+        }
+      }
+    } else if (_unitdropdown1.value != "." ||
+        _unitdropdown2.value != "." ||
+        _unitdropdown3.value != ".") {
+      _chartOne.clear();
+      _chartTwo.clear();
+      _chartThree.clear();
+      _chartFour.clear();
     }
   }
 
@@ -95,15 +255,15 @@ class UnitsController extends GetxController {
 
   List<String> _unitDropList3 = [
     ".",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
     "10",
     "11",
     "12",

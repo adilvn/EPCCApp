@@ -5,7 +5,23 @@ class SubUnitsController extends GetxController {
 
   var _subdropdown2 = "Jan".obs;
   var _subdropdown3 = "1".obs;
+  final List<ChartDataSub> chartData = [
+    ChartDataSub('Jan-1', 30434),
+    ChartDataSub('Jan-3', 78344),
+    ChartDataSub('Jan-5', 50233),
+    ChartDataSub('Jan-6', 52340),
+    ChartDataSub('Jan-8', 13000),
+    ChartDataSub('Jan-23', 34332),
+  ];
 
+  final List<ChartDataSub> chartData2 = [
+    ChartDataSub('Jan-1', 35324),
+    ChartDataSub('Jan-3', 72243),
+    ChartDataSub('Jan-5', 6233),
+    ChartDataSub('Jan-6', 50423),
+    ChartDataSub('Jan-8', 3402),
+    ChartDataSub('Jan-23', 34032),
+  ];
   RxString get SubDropValue1 => _subdropdown1;
   RxString get SubDropValue2 => _subdropdown2;
   RxString get SubDropValue3 => _subdropdown3;
@@ -90,4 +106,10 @@ class SubUnitsController extends GetxController {
   List<String> get SubDrop2 => _subDropList2;
 
   List<String> get SubDrop3 => _subDropList3;
+}
+
+class ChartDataSub {
+  ChartDataSub(this.x, this.y);
+  final String? x;
+  final double? y;
 }

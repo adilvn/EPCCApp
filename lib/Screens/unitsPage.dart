@@ -13,12 +13,30 @@ class UnitsPage extends GetView<UnitsController> {
   UnitsController controller = Get.put(UnitsController());
   List<UNITDATAMODEL> unitOneDetails = [];
   List<UNITDATAMODEL> unitTwoDetails = [];
-  UnitsPage({required this.unitOneDetails, required this.unitTwoDetails});
+  List<UNITDATAMODEL> unitThreeDetails = [];
+  List<UNITDATAMODEL> unitFourDetails = [];
+  List<dynamic> buttonText = [];
+  List<Color> buttonColor = [];
+  String title = "";
+  String locationName = '';
+
+  int button = 0;
+
+  UnitsPage(
+      {required this.unitOneDetails,
+      required this.unitTwoDetails,
+      required this.unitThreeDetails,
+      required this.unitFourDetails,
+      required this.buttonColor,
+      required this.buttonText,
+      required this.button,
+      required this.title,
+      required this.locationName});
 
   @override
   Widget build(BuildContext context) {
-    controller.addChartsDetails(unitOneDetails, unitTwoDetails);
-    print("helo");
+    controller.addChartsDetails(unitOneDetails, unitTwoDetails,
+        unitThreeDetails, unitFourDetails, button);
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -88,6 +106,11 @@ class UnitsPage extends GetView<UnitsController> {
                         onTap: () {
                           BottomNavigation.backToHomePage(
                               HomeScreen(), 1, true);
+                          controller.chartOne.clear();
+                          controller.chartTwo.clear();
+                          controller.setUnitDropValue1(".");
+                          controller.setUnitDropValue2(".");
+                          controller.setUnitDropValue3(".");
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -114,7 +137,7 @@ class UnitsPage extends GetView<UnitsController> {
                               width: 40,
                               height: 25,
                               child: Text(
-                                "TP1",
+                                title,
                                 style: TextStyle(color: epccBlue, fontSize: 14),
                               ),
                               decoration: BoxDecoration(
@@ -127,7 +150,7 @@ class UnitsPage extends GetView<UnitsController> {
                         ),
                       ),
                       Text(
-                        "Units",
+                        locationName,
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                       Divider(
@@ -142,7 +165,7 @@ class UnitsPage extends GetView<UnitsController> {
                   ),
                 )),
             Expanded(
-                flex: 4,
+                flex: 6,
                 child: Container(
                   child: Column(
                     children: [
@@ -163,7 +186,7 @@ class UnitsPage extends GetView<UnitsController> {
                                       borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
                                     value: controller.UnitDropValue1.value,
-                                    disabledHint: Text("eh"),
+                                    disabledHint: Text(""),
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
                                       color: Colors.white,
@@ -177,6 +200,12 @@ class UnitsPage extends GetView<UnitsController> {
                                         color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setUnitDropValue1(val);
+                                      controller.addChartsDetails(
+                                          unitOneDetails,
+                                          unitTwoDetails,
+                                          unitThreeDetails,
+                                          unitFourDetails,
+                                          button);
                                     },
                                     items: controller.UnitDrop1.map<
                                             DropdownMenuItem<String>>(
@@ -221,6 +250,12 @@ class UnitsPage extends GetView<UnitsController> {
                                         color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setUnitDropValue2(val);
+                                      controller.addChartsDetails(
+                                          unitOneDetails,
+                                          unitTwoDetails,
+                                          unitThreeDetails,
+                                          unitFourDetails,
+                                          button);
                                     },
                                     items: controller.UnitDrop2.map<
                                             DropdownMenuItem<String>>(
@@ -265,6 +300,17 @@ class UnitsPage extends GetView<UnitsController> {
                                         color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setUnitDropValue3(val);
+                                      controller.addChartsDetails(
+                                          unitOneDetails,
+                                          unitTwoDetails,
+                                          unitThreeDetails,
+                                          unitFourDetails,
+                                          button);
+
+                                      // BottomNavigation.changeProfileWidget(
+                                      //     UnitsPage(
+                                      //         unitOneDetails: unitOneDetails,
+                                      //         unitTwoDetails: unitTwoDetails));
                                     },
                                     items: controller.UnitDrop3.map<
                                             DropdownMenuItem<String>>(
@@ -296,73 +342,207 @@ class UnitsPage extends GetView<UnitsController> {
                         child: Column(
                           children: [
                             Expanded(
-                              child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 6),
-                                  child: SfCartesianChart(
-                                      primaryYAxis: CategoryAxis(
-                                        title: AxisTitle(
-                                            text: 'Consumption (KHW)',
-                                            textStyle: TextStyle(
-                                                color: Colors.black,
-                                                fontFamily: 'Roboto',
-                                                fontSize: 14,
-                                                fontStyle: FontStyle.normal,
-                                                fontWeight: FontWeight.w300)),
-                                      ),
-                                      primaryXAxis: CategoryAxis(
-                                        title: AxisTitle(
-                                            text: 'Days',
-                                            textStyle: TextStyle(
-                                                color: Colors.black,
-                                                fontFamily: 'Roboto',
-                                                fontSize: 14,
-                                                fontStyle: FontStyle.normal,
-                                                fontWeight: FontWeight.w300)),
-                                      ),
-                                      series: <ColumnSeries>[
-                                        ColumnSeries<ChartData1, String>(
-                                            pointColorMapper:
-                                                (ChartData1 color, _) =>
-                                                    epccBlue500,
-                                            dataLabelSettings:
-                                                DataLabelSettings(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 10,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.normal),
-                                                    angle: 0,
-                                                    labelAlignment:
-                                                        ChartDataLabelAlignment
-                                                            .outer,
-                                                    isVisible: true),
-                                            dataSource: controller.chartOne,
-                                            xValueMapper:
-                                                (ChartData1 data, _) => data.x,
-                                            yValueMapper:
-                                                (ChartData1 data, _) => data.y),
-                                        ColumnSeries<ChartData1, String>(
-                                            pointColorMapper:
-                                                (ChartData1 color, _) =>
-                                                    Colors.green,
-                                            // Hiding the legend item for this series
-                                            dataLabelSettings:
-                                                DataLabelSettings(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 10,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.normal),
-                                                    labelAlignment:
-                                                        ChartDataLabelAlignment
-                                                            .outer,
-                                                    isVisible: true),
-                                            dataSource: controller.chartTwo,
-                                            xValueMapper:
-                                                (ChartData1 data, _) => data.x,
-                                            yValueMapper:
-                                                (ChartData1 data, _) => data.y)
-                                      ])),
+                              child: button < 4
+                                  ? Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 6),
+                                      child: SfCartesianChart(
+                                          primaryYAxis: CategoryAxis(
+                                            title: AxisTitle(
+                                                text: 'Consumptions (KHW)',
+                                                textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 14,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontWeight:
+                                                        FontWeight.w300)),
+                                          ),
+                                          primaryXAxis: CategoryAxis(
+                                            title: AxisTitle(
+                                                text: 'Day',
+                                                textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 14,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontWeight:
+                                                        FontWeight.w300)),
+                                          ),
+                                          series: <ColumnSeries>[
+                                            ColumnSeries<ChartData1, String>(
+                                                pointColorMapper:
+                                                    (ChartData1 color, _) =>
+                                                        epccBlue500,
+                                                dataLabelSettings:
+                                                    DataLabelSettings(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 6,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                        labelAlignment:
+                                                            ChartDataLabelAlignment
+                                                                .outer,
+                                                        isVisible: true),
+                                                dataSource: controller.chartOne,
+                                                xValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.x,
+                                                yValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.y),
+                                            ColumnSeries<ChartData1, String>(
+                                                pointColorMapper:
+                                                    (ChartData1 color, _) =>
+                                                        Colors.green,
+                                                // Hiding the legend item for this series
+                                                dataLabelSettings:
+                                                    DataLabelSettings(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 7,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                        labelAlignment:
+                                                            ChartDataLabelAlignment
+                                                                .outer,
+                                                        isVisible: true),
+                                                dataSource: controller.chartTwo,
+                                                xValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.x,
+                                                yValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.y),
+                                          ]))
+                                  : Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 6),
+                                      child: SfCartesianChart(
+                                          primaryYAxis: CategoryAxis(
+                                            title: AxisTitle(
+                                                text: 'Consumption (KHW)',
+                                                textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 14,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontWeight:
+                                                        FontWeight.w300)),
+                                          ),
+                                          primaryXAxis: CategoryAxis(
+                                            title: AxisTitle(
+                                                text: 'Day',
+                                                textStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 14,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontWeight:
+                                                        FontWeight.w300)),
+                                          ),
+                                          series: <ColumnSeries>[
+                                            ColumnSeries<ChartData1, String>(
+                                                pointColorMapper:
+                                                    (ChartData1 color, _) =>
+                                                        epccBlue500,
+                                                dataLabelSettings:
+                                                    DataLabelSettings(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 7,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                        labelAlignment:
+                                                            ChartDataLabelAlignment
+                                                                .outer,
+                                                        isVisible: true),
+                                                dataSource: controller.chartOne,
+                                                xValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.x,
+                                                yValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.y),
+                                            ColumnSeries<ChartData1, String>(
+                                                pointColorMapper:
+                                                    (ChartData1 color, _) =>
+                                                        Colors.green,
+                                                // Hiding the legend item for this series
+                                                dataLabelSettings:
+                                                    DataLabelSettings(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 7,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                        labelAlignment:
+                                                            ChartDataLabelAlignment
+                                                                .outer,
+                                                        isVisible: true),
+                                                dataSource: controller.chartTwo,
+                                                xValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.x,
+                                                yValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.y),
+                                            ColumnSeries<ChartData1, String>(
+                                                pointColorMapper:
+                                                    (ChartData1 color, _) =>
+                                                        Colors.yellow,
+                                                // Hiding the legend item for this series
+                                                dataLabelSettings:
+                                                    DataLabelSettings(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 7,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                        labelAlignment:
+                                                            ChartDataLabelAlignment
+                                                                .outer,
+                                                        isVisible: true),
+                                                dataSource:
+                                                    controller.chartThree,
+                                                xValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.x,
+                                                yValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.y),
+                                            ColumnSeries<ChartData1, String>(
+                                                pointColorMapper:
+                                                    (ChartData1 color, _) =>
+                                                        Colors.red,
+                                                // Hiding the legend item for this series
+                                                dataLabelSettings:
+                                                    DataLabelSettings(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 7,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                        labelAlignment:
+                                                            ChartDataLabelAlignment
+                                                                .outer,
+                                                        isVisible: true),
+                                                dataSource:
+                                                    controller.chartFour,
+                                                xValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.x,
+                                                yValueMapper:
+                                                    (ChartData1 data, _) =>
+                                                        data.y),
+                                          ])),
                             ),
                           ],
                         ),
@@ -371,22 +551,18 @@ class UnitsPage extends GetView<UnitsController> {
                   ),
                 )),
             Expanded(
-              flex: 2,
-              child: ListView(
-                children: [
-                  getTiles(epccBlue, "Unit 1", "assets/images/748.png", () {
+              flex: 5,
+              child: ListView.builder(
+                itemCount: button,
+                itemBuilder: (context, index) {
+                  return getTiles(buttonColor[index], buttonText[index],
+                      "assets/images/748.png", () {
                     BottomNavigation.changeProfileWidget(SubUnits(
                       listData: [],
                     ));
                     // Get.toNamed(AppPages.SUBUNITS);
-                  }),
-                  getTiles(Colors.green, "Unit 2", "assets/images/748.png", () {
-                    BottomNavigation.changeProfileWidget(SubUnits(
-                      listData: [],
-                    ));
-                    // Get.toNamed(AppPages.SUBUNITS);
-                  })
-                ],
+                  });
+                },
               ),
             ),
           ]);

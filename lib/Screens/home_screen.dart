@@ -214,45 +214,88 @@ class HomeScreen extends GetView<HomeController> {
                         BottomNavigation.changeProfileWidget(UnitsPage(
                           unitOneDetails: controller.TP1UNIT1DATA,
                           unitTwoDetails: controller.TP1UNIT2DATA,
+                          unitFourDetails: [],
+                          unitThreeDetails: [],
+                          buttonText: ["Unit 1", "Unit 2"],
+                          buttonColor: [Colors.blue, Colors.green],
+                          button: 2,
+                          title: "TP1",
+                          locationName: "Units",
                         ));
-
-                        // Get.to(() => UnitsPage(list: controller.TP1));
                       }),
                       getTiles(
                           Color(0xff7C4DFF), "TP2", "assets/images/749.png",
                           () {
-                        // Get.to(() => UnitsPage(list: controller.TP2));
-
                         BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOneDetails: controller.TP1UNIT1DATA,
-                          unitTwoDetails: controller.TP1UNIT2DATA,
+                          unitOneDetails: controller.TP2UNIT1DATA,
+                          unitTwoDetails: controller.TP2UNIT2DATA,
+                          unitFourDetails: [],
+                          unitThreeDetails: [],
+                          buttonText: ["Unit 1", "Unit 2"],
+                          buttonColor: [Colors.blue, Colors.green],
+                          button: 2,
+                          title: "TP2",
+                          locationName: "Units",
                         ));
                       }),
                       getTiles(
                           Color(0xff2196F3), "TP3", "assets/images/750.png",
                           () {
-                        // Get.to(() => UnitsPage(list: controller.TP3));
                         BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOneDetails: controller.TP1UNIT1DATA,
-                          unitTwoDetails: controller.TP1UNIT2DATA,
+                          unitOneDetails: controller.TP3UNIT1DATA,
+                          unitTwoDetails: controller.TP3UNIT2DATA,
+                          unitFourDetails: [],
+                          unitThreeDetails: [],
+                          buttonText: ["Unit 1", "Unit 2"],
+                          buttonColor: [Colors.blue, Colors.green],
+                          button: 2,
+                          title: "TP3",
+                          locationName: "Units",
                         ));
                       }),
                       getTiles(
                           Color(0xffFF4040), "TP4", "assets/images/751.png",
                           () {
                         BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOneDetails: controller.TP1UNIT1DATA,
-                          unitTwoDetails: controller.TP1UNIT2DATA,
+                          unitOneDetails: controller.TP4SECTION1DATA,
+                          unitTwoDetails: controller.TP4SECTION2DATA,
+                          unitFourDetails: controller.TP4SECTION3DATA,
+                          unitThreeDetails: controller.TP4SECTION4DATA,
+                          buttonText: [
+                            "Section 1",
+                            "Section 2",
+                            "Section 3",
+                            "Section 4"
+                          ],
+                          buttonColor: [
+                            Colors.blue,
+                            Colors.green,
+                            Colors.yellow,
+                            Colors.red
+                          ],
+                          button: 4,
+                          title: "TP4",
+                          locationName: "Sections",
                         ));
-                        // Get.to(() => UnitsPage(list: controller.TP4));
                       }),
                       getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
                           () {
                         BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOneDetails: controller.TP1UNIT1DATA,
-                          unitTwoDetails: controller.TP1UNIT2DATA,
+                          unitOneDetails: controller.PP1DATA,
+                          unitTwoDetails: controller.PP2DATA,
+                          unitFourDetails: controller.PP3DATA,
+                          unitThreeDetails: controller.UTILITIESDATA,
+                          buttonText: ["PP1", "PP2", "PP3", "UTILITIES"],
+                          buttonColor: [
+                            Colors.blue,
+                            Colors.green,
+                            Colors.yellow,
+                            Colors.red
+                          ],
+                          button: 4,
+                          title: "PP",
+                          locationName: "Utilities",
                         ));
-                        // Get.to(() => UnitsPage(list: controller.PP));
                       }),
                     ],
                   ),

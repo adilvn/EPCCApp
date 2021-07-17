@@ -120,6 +120,54 @@ class HomeController extends GetxController
     _TP3UNIT2DATA.add(value);
   }
 
+  List<UNITDATAMODEL> _TP4SECTION1DATA = [];
+  List<UNITDATAMODEL> get TP4SECTION1DATA => _TP4SECTION1DATA;
+  setTP4Sec1(var value) {
+    _TP4SECTION1DATA.add(value);
+  }
+
+  List<UNITDATAMODEL> _TP4SECTION2DATA = [];
+  List<UNITDATAMODEL> get TP4SECTION2DATA => _TP4SECTION2DATA;
+  setTP4Sec2(var value) {
+    _TP4SECTION2DATA.add(value);
+  }
+
+  List<UNITDATAMODEL> _TP4SECTION3DATA = [];
+  List<UNITDATAMODEL> get TP4SECTION3DATA => _TP4SECTION3DATA;
+  setTP4Sec3(var value) {
+    _TP4SECTION3DATA.add(value);
+  }
+
+  List<UNITDATAMODEL> _TP4SECTION4DATA = [];
+  List<UNITDATAMODEL> get TP4SECTION4DATA => _TP4SECTION4DATA;
+  setTP4Sec4(var value) {
+    _TP4SECTION4DATA.add(value);
+  }
+
+  List<UNITDATAMODEL> _PP1DATA = [];
+  List<UNITDATAMODEL> get PP1DATA => _PP1DATA;
+  setPP1(var value) {
+    _PP1DATA.add(value);
+  }
+
+  List<UNITDATAMODEL> _PP2DATA = [];
+  List<UNITDATAMODEL> get PP2DATA => _PP2DATA;
+  setPP2(var value) {
+    _PP2DATA.add(value);
+  }
+
+  List<UNITDATAMODEL> _PP3DATA = [];
+  List<UNITDATAMODEL> get PP3DATA => _PP3DATA;
+  setPP3(var value) {
+    _PP3DATA.add(value);
+  }
+
+  List<UNITDATAMODEL> _UTILITIESDATA = [];
+  List<UNITDATAMODEL> get UTILITIESDATA => _UTILITIESDATA;
+  setUtilities(var value) {
+    _UTILITIESDATA.add(value);
+  }
+
 // initialize
   @override
   void onInit() {
@@ -133,7 +181,22 @@ class HomeController extends GetxController
   double TP2_UNIT2_DATA_SUM = 0;
   double TP3_UNIT1_DATA_SUM = 0;
   double TP3_UNIT2_DATA_SUM = 0;
+  double TP4_SECTION1_DATA_SUM = 0;
+  double TP4_SECTION2_DATA_SUM = 0;
+  double TP4_SECTION3_DATA_SUM = 0;
+  double TP4_SECTION4_DATA_SUM = 0;
+  double PP_PP1_DATA_SUM = 0;
+  double PP_PP2_DATA_SUM = 0;
+  double PP_PP3_DATA_SUM = 0;
+  double PP_UTILITIES_DATA_SUM = 0;
+  int a = 0;
+
+  int b = 0;
+
   int c = 0;
+
+  int d = 0;
+  int e = 0;
   apiCall() {
     ApiService().fetchDetails().then((data) {
       allData = data;
@@ -141,20 +204,20 @@ class HomeController extends GetxController
         for (var i = 0; i < data[1].length; i++) {
           if (data[1][i]["2"] == "TP1") {
             Data _data = Data.fromJson(data[1][i]);
-            if (c < 4) {
+            if (a < 4) {
               if (_data.nAME == "I") {
                 TP1_UNIT1_DATA_SUM = TP1_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
 
-                c++;
+                a++;
               } else if (_data.nAME == "II") {
                 TP1_UNIT2_DATA_SUM = TP1_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
 
-                c++;
+                a++;
               }
             }
-            if (c == 4) {
+            if (a == 4) {
               setTp1Unit1Data(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Unit 1",
@@ -170,7 +233,7 @@ class HomeController extends GetxController
 
               TP1_UNIT1_DATA_SUM = 0;
               TP1_UNIT2_DATA_SUM = 0;
-              c = 0;
+              a = 0;
             }
 
             setTotalTP1(double.parse(_data.cONSUMPTIONVALUE!));
@@ -178,18 +241,18 @@ class HomeController extends GetxController
           } else if (data[1][i]["2"] == "TP2") {
             Data _data = Data.fromJson(data[1][i]);
 
-            if (c < 4) {
+            if (b < 4) {
               if (_data.nAME == "I") {
                 TP2_UNIT1_DATA_SUM = TP2_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
-                c++;
+                b++;
               } else if (_data.nAME == "II") {
                 TP2_UNIT2_DATA_SUM = TP2_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
-                c++;
+                b++;
               }
             }
-            if (c == 4) {
+            if (b == 4) {
               setTp2Unit1Data(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Unit 1",
@@ -205,7 +268,7 @@ class HomeController extends GetxController
 
               TP2_UNIT1_DATA_SUM = 0;
               TP2_UNIT2_DATA_SUM = 0;
-              c = 0;
+              b = 0;
             }
 
             setTotalTP2(double.parse(_data.cONSUMPTIONVALUE!));
@@ -246,10 +309,127 @@ class HomeController extends GetxController
             setTP3(_data);
           } else if (data[1][i]["2"] == "TP4") {
             Data _data = Data.fromJson(data[1][i]);
+            if (d < 8) {
+              if (_data.nAME == "Section 1") {
+                TP4_SECTION1_DATA_SUM = TP4_SECTION1_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                d++;
+              } else if (_data.nAME == "Section 2") {
+                TP4_SECTION2_DATA_SUM = TP4_SECTION2_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                d++;
+              } else if (_data.nAME == "Section 3") {
+                TP4_SECTION3_DATA_SUM = TP4_SECTION3_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                d++;
+              } else if (_data.nAME == "Section 4") {
+                TP4_SECTION4_DATA_SUM = TP4_SECTION4_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                d++;
+              }
+            }
+
+            if (d == 8) {
+              setTP4Sec1(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "Section 1",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: TP4_SECTION1_DATA_SUM));
+              setTP4Sec2(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "Section 2",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: TP4_SECTION2_DATA_SUM));
+              setTP4Sec3(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "Section 3",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: TP4_SECTION3_DATA_SUM));
+              setTP4Sec4(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "Section 4",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: TP4_SECTION4_DATA_SUM));
+
+              TP4_SECTION1_DATA_SUM = 0;
+              TP4_SECTION2_DATA_SUM = 0;
+              TP4_SECTION3_DATA_SUM = 0;
+              TP4_SECTION4_DATA_SUM = 0;
+
+              d = 0;
+            }
+
             setTotalTP4(double.parse(_data.cONSUMPTIONVALUE!));
             setTP4(_data);
           } else if (data[1][i]["2"] == "PP") {
             Data _data = Data.fromJson(data[1][i]);
+
+            if (e < 7) {
+              if (_data.nAME == "PP1") {
+                PP_PP1_DATA_SUM = PP_PP1_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                e++;
+              } else if (_data.nAME == "PP2") {
+                PP_PP2_DATA_SUM = PP_PP2_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                e++;
+              } else if (_data.nAME == "PP3") {
+                PP_PP3_DATA_SUM = PP_PP3_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                e++;
+              } else if (_data.nAME == "Utilities") {
+                PP_UTILITIES_DATA_SUM = PP_UTILITIES_DATA_SUM +
+                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                e++;
+              }
+            }
+
+            if (e == 7) {
+              setPP1(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "PP 1",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: PP_PP1_DATA_SUM));
+              setPP2(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "PP 2",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: PP_PP2_DATA_SUM));
+              setPP3(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "PP 3",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: PP_PP3_DATA_SUM));
+              setUtilities(UNITDATAMODEL(
+                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                  unitName: "Utilities",
+                  consumptionValue:
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  totalValue: PP_UTILITIES_DATA_SUM));
+
+              PP_PP1_DATA_SUM = 0;
+              PP_PP2_DATA_SUM = 0;
+              PP_PP3_DATA_SUM = 0;
+              PP_UTILITIES_DATA_SUM = 0;
+
+              e = 0;
+            }
+
             setTotalPP(double.parse(_data.cONSUMPTIONVALUE!));
             setPP(_data);
           }
