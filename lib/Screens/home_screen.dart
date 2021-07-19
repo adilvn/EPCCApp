@@ -3,6 +3,7 @@ import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/controllers/HomeController.dart';
+import 'package:epcc/controllers/reportController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends GetView<HomeController> {
     _refreshController.refreshCompleted();
   }
 
+  ReportController _reportController = Get.put(ReportController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -4,17 +4,19 @@ import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
+import 'package:epcc/controllers/HomeController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnitsPage extends GetView<UnitsController> {
-
   List<UNITDATAMODEL> unitOneDetails = [];
   List<UNITDATAMODEL> unitTwoDetails = [];
   List<UNITDATAMODEL> unitThreeDetails = [];
   List<UNITDATAMODEL> unitFourDetails = [];
+  List<List<UNITDATAMODEL>> allLists = [];
+
   List<dynamic> buttonText = [];
   List<Color> buttonColor = [];
   String title = "";
@@ -35,6 +37,12 @@ class UnitsPage extends GetView<UnitsController> {
 
   @override
   Widget build(BuildContext context) {
+    allLists = [
+      unitOneDetails,
+      unitTwoDetails,
+      unitThreeDetails,
+      unitFourDetails
+    ];
     controller.addChartsDetails(unitOneDetails, unitTwoDetails,
         unitThreeDetails, unitFourDetails, button);
     return Scaffold(
@@ -96,7 +104,7 @@ class UnitsPage extends GetView<UnitsController> {
         body: Obx(() {
           return Column(children: [
             Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
                   color: epccBlue500,
                   child: Column(
@@ -165,7 +173,7 @@ class UnitsPage extends GetView<UnitsController> {
                   ),
                 )),
             Expanded(
-                flex: 6,
+                flex: 7,
                 child: Container(
                   child: Column(
                     children: [
@@ -551,15 +559,23 @@ class UnitsPage extends GetView<UnitsController> {
                   ),
                 )),
             Expanded(
-              flex: 5,
+              flex: 6,
               child: ListView.builder(
                 itemCount: button,
                 itemBuilder: (context, index) {
                   return getTiles(buttonColor[index], buttonText[index],
                       "assets/images/748.png", () {
                     BottomNavigation.changeProfileWidget(SubUnits(
-                      listData: [],
-                    ));
+                        unitOneDetails:
+                            Get.find<HomeController>().TP1UnitOneDetails,
+                        buttonColor: [Colors.red, Colors.green],
+                        buttonText: [
+                          'Back process Unit 1',
+                          "Spinning /winding unit 1"
+                        ],
+                        title: "TP1>Unit>1",
+                        button: 2,
+                        locationName: "Consumption Center"));
                     // Get.toNamed(AppPages.SUBUNITS);
                   });
                 },

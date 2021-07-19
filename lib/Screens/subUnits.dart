@@ -1,5 +1,7 @@
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/BackProcessUnit.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
@@ -12,13 +14,27 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
 class SubUnits extends GetView<SubUnitsController> {
-  List<Data> listData = [];
-  SubUnits({required this.listData});
+  List<ConsumptionModel> unitOneDetails = [];
+
+  List<String> buttonText = [];
+  List<Color> buttonColor = [];
+  String title = "";
+  String locationName = '';
+
+  int button = 0;
+  SubUnits(
+      {required this.unitOneDetails,
+      required this.buttonText,
+      required this.buttonColor,
+      required this.title,
+      required this.button,
+      required this.locationName});
 
   SubUnitsController controller = Get.put(SubUnitsController());
 
   @override
   Widget build(BuildContext context) {
+    controller.addChartDetails(unitOneDetails, button, buttonText);
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -325,10 +341,11 @@ class SubUnits extends GetView<SubUnitsController> {
                                               (ChartDataSub color, _) =>
                                                   Colors.red,
                                           dataLabelSettings: DataLabelSettings(
+                                              textStyle: TextStyle(fontSize: 9),
                                               labelAlignment:
                                                   ChartDataLabelAlignment.outer,
                                               isVisible: true),
-                                          dataSource: controller.chartData,
+                                          dataSource: controller.chartOne,
                                           xValueMapper:
                                               (ChartDataSub data, _) => data.x,
                                           yValueMapper:
@@ -342,7 +359,7 @@ class SubUnits extends GetView<SubUnitsController> {
                                               labelAlignment:
                                                   ChartDataLabelAlignment.outer,
                                               isVisible: true),
-                                          dataSource: controller.chartData2,
+                                          dataSource: controller.chartTwo,
                                           xValueMapper:
                                               (ChartDataSub data, _) => data.x,
                                           yValueMapper:
@@ -357,22 +374,16 @@ class SubUnits extends GetView<SubUnitsController> {
               )),
           Expanded(
             flex: 3,
-            child: ListView(
-              children: [
-                getTiles(
-                    Colors.red, "Back Process Unit 1", "assets/images/750.png",
-                    () {
+            child: ListView.builder(
+              itemCount: button,
+              itemBuilder: (context, index) {
+                return getTiles(buttonColor[index], buttonText[index],
+                    "assets/images/750.png", () {
                   BottomNavigation.changeProfileWidget(BackProcessUnit(
-                    list: listData,
+                    list: [],
                   ));
-                }),
-                getTiles(Colors.orange, "Spinning /Winding Unit 1",
-                    "assets/images/752.png", () {
-                  BottomNavigation.changeProfileWidget(BackProcessUnit(
-                    list: listData,
-                  ));
-                })
-              ],
+                });
+              },
             ),
           ),
         ]);

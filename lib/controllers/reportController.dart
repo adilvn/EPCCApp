@@ -1,31 +1,211 @@
 import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Models/reportmodel.dart';
 import 'package:epcc/main.dart';
 import 'package:get/get.dart';
 
 class ReportController extends GetxController {
   var allReportsData = <Data>[].obs;
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
+  var _dataList = <ReportModel>[].obs;
+  var _bpdropdown1 = "-".obs;
+
+  var _bpdropdown2 = "-".obs;
+  var _bpdropdown3 = "-".obs;
+  var _TPdropdown = "-".obs;
+
+  var _unitdropdown = "-".obs;
+  var _bpdropdown = "-".obs;
+  String get YearValue => _bpdropdown1.value;
+  String get MonthValue => _bpdropdown2.value;
+  String get DayValue => _bpdropdown3.value;
+  String get TPDropValue => _TPdropdown.value;
+  String get UnitDropValue => _unitdropdown.value;
+  String get BPDropValue => _bpdropdown.value;
+
+  List<ReportModel> get dataList => _dataList;
+
+  setDataList(String? monthValue, String? consumption, String? lastYear,
+      String? change) {
+    _dataList.add(ReportModel(
+        monthValue: monthValue!,
+        consumption: consumption!,
+        lastYear: lastYear!,
+        change: change!));
   }
 
-  var _bpdropdown1 = "2021".obs;
+  @override
+  void onInit() {
+    super.onInit();
+    print(allReportsData.length);
 
-  var _bpdropdown2 = "Jan".obs;
-  var _bpdropdown3 = "1".obs;
-  var _TPdropdown = "TP1".obs;
+    addDataList();
+  }
 
-  var _unitdropdown = "Unit 1".obs;
-  var _bpdropdown = "Back Process".obs;
+  addDataList() {
+    if (YearValue == "-" &&
+        MonthValue == "-" &&
+        DayValue == "-" &&
+        TPDropValue == "-" &&
+        UnitDropValue == "-" &&
+        BPDropValue == "-") {
+      dataList.clear();
+    } else if (YearValue != "-" &&
+        MonthValue != "-" &&
+        DayValue != "-" &&
+        TPDropValue != "-" &&
+        UnitDropValue != "-" &&
+        BPDropValue != "-") {
+      var _month = MonthValue.toUpperCase();
+      var _day = DayValue.toUpperCase();
+      var _year = YearValue.substring(2, 4).toUpperCase();
+      var _prevYear = int.parse(_year) - 1;
+      var _prevData = "0$_day-$_month-$_prevYear";
 
-  RxString get BPDropValue1 => _bpdropdown1;
-  RxString get BPDropValue2 => _bpdropdown2;
-  RxString get BPDropValue3 => _bpdropdown3;
-  RxString get TPDropValue => _TPdropdown;
-  RxString get UnitDropValue => _unitdropdown;
-  RxString get BPDropValue => _bpdropdown;
+      var date = "0$_day-$_month-$_year";
+      var month = "";
+      double consumptionValue = 0;
+      double lastYearConsumptionValue = 0;
+      double difference = consumptionValue - lastYearConsumptionValue;
+      print(UnitDropValue);
+      print(BPDropValue);
+
+      print(TPDropValue);
+      print(date);
+      int a = 0;
+      for (var i = 0; i < allReportsData.length; i++) {
+        if (allReportsData[i].s2 == TPDropValue &&
+            allReportsData[i].nAME == UnitDropValue &&
+            allReportsData[i].s8!.toUpperCase().toString() ==
+                BPDropValue.toUpperCase() &&
+            allReportsData[i].cONSUMPTIONDATE == date) {
+          dataList.clear();
+
+          month = allReportsData[i].cONSUMPTIONDATE!.toString();
+          consumptionValue =
+              double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          a++;
+        }
+
+        if (allReportsData[i].s2 == TPDropValue &&
+            allReportsData[i].nAME == UnitDropValue &&
+            allReportsData[i].nAME1 == BPDropValue &&
+            allReportsData[i].cONSUMPTIONDATE == _prevData) {
+          lastYearConsumptionValue =
+              double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+        }
+      }
+      if (a > 0) {
+        setDataList(month, consumptionValue.toString(),
+            lastYearConsumptionValue.toString(), difference.toString());
+
+        a = 0;
+      } else {
+        dataList.clear();
+        Get.rawSnackbar(
+            message: "No Data Found", duration: Duration(seconds: 2));
+      }
+    } else if (YearValue == "-" ||
+        MonthValue == "-" ||
+        DayValue == "-" ||
+        TPDropValue == "-" ||
+        UnitDropValue == "-" ||
+        BPDropValue == "-") {
+      dataList.clear();
+    }
+  }
+
+  setDrop2List(String? value) {
+    if (value == "TP1") {
+      setDrop2Value([
+        "I",
+        "II",
+      ]);
+      setUnitsDropList("I");
+    } else if (value == "TP2") {
+      setDrop2Value([
+        "I",
+        "II",
+      ]);
+      setUnitsDropList("I");
+    } else if (value == "TP3") {
+      setDrop2Value([
+        "I",
+        "II",
+      ]);
+      setUnitsDropList("I");
+    } else if (value == "TP4") {
+      setDrop2Value([
+        'Section 1',
+        "Section 2",
+        "Section 3",
+        "Section 4",
+      ]);
+      setUnitsDropList("Section 1");
+    } else if (value == "PP") {
+      setDrop2Value(["PP1", "PP2", "PP3", "Utilities"]);
+      setUnitsDropList("PP1");
+    } else if (value == "-") {
+      setDrop2Value(["-"]);
+      setUnitsDropList("-");
+    }
+  }
+
+  List<String> _BPDropList = [
+    "-",
+  ].obs;
+  setBPDropListValue(List<String> value) {
+    _BPDropList.clear();
+    setBPDropValue(value[0]);
+    _BPDropList.assignAll(value);
+  }
+
+  setUnitsDropList(String? val) {
+    if (val == "I") {
+      setBPDropListValue(["Back process Unit 1", "Spinning /winding unit 1"]);
+    } else if (val == "II") {
+      setBPDropListValue(["Back process Unit 2", "Spinning/winding unit 2"]);
+    } else if (val == "Section 1") {
+      setBPDropListValue([
+        "Back process 25k",
+        "Spinning /winding 25k",
+      ]);
+    } else if (val == "Section 2") {
+      setBPDropListValue([
+        "Back process 25k",
+        "Spinning /winding 25k",
+      ]);
+    } else if (val == "Section 3") {
+      setBPDropListValue([
+        "Back process 25k",
+        "Spinning /winding 25k",
+      ]);
+    } else if (val == "Section 4") {
+      setBPDropListValue([
+        "Back process 25k",
+        "Spinning /winding 25k",
+      ]);
+    } else if (val == "PP1") {
+      setBPDropListValue([
+        "polymer/spinning",
+        "Draw lines",
+      ]);
+    } else if (val == "PP2") {
+      setBPDropListValue([
+        "polymer/spinning",
+        "Draw Lines",
+      ]);
+    } else if (val == "PP3") {
+      setBPDropListValue([
+        "polymer/spinning",
+        "Draw lines",
+      ]);
+    } else if (val == "Utilities") {
+      setBPDropListValue(["PP1 ,PP2 ,PP3"]);
+    } else if (val == "-") {
+      setBPDropListValue(["-"]);
+    }
+  }
+
   setBPDropValue1(String? val) {
     _bpdropdown1.value = val!;
   }
@@ -43,6 +223,7 @@ class ReportController extends GetxController {
   }
 
   setUnitDropValue(String? val) {
+    print(val);
     _unitdropdown.value = val!;
   }
 
@@ -50,7 +231,20 @@ class ReportController extends GetxController {
     _bpdropdown.value = val!;
   }
 
+  List<String> _TPDropList = ["-", "TP1", "TP2", "TP3", "TP4", "PP"].obs;
+
+  List<String> _UnitDropList = ["-"].obs;
+
+  setDrop2Value(List<String> val) {
+    _UnitDropList.clear();
+    setUnitDropValue(val[0]);
+
+    _UnitDropList.assignAll(val);
+    print(_UnitDropList);
+  }
+
   List<String> _bpDropList1 = [
+    "-",
     "2021",
     "2020",
     "2019",
@@ -66,6 +260,7 @@ class ReportController extends GetxController {
   ].obs;
 
   List<String> _bpDropList2 = [
+    "-",
     "Jan",
     "Feb",
     "Mar",
@@ -81,6 +276,7 @@ class ReportController extends GetxController {
   ].obs;
 
   List<String> _bpDropList3 = [
+    "-",
     "1",
     "2",
     "3",
@@ -113,11 +309,6 @@ class ReportController extends GetxController {
     "30",
     "31"
   ].obs;
-  List<String> _TPDropList = ["TP1", "TP2", "TP3", "TP4", "PP"].obs;
-
-  List<String> _UnitDropList = ["Unit 1", "Unit 2"].obs;
-
-  List<String> _BPDropList = ["Back Process", "Consumption Center"].obs;
 
   List<String> get BPDrop1 => _bpDropList1;
 

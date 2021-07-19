@@ -1,5 +1,6 @@
 class Data {
   String? s2;
+  String? s8;
   String? iD;
   String? lOCATIONID;
   String? nAME;
@@ -16,6 +17,7 @@ class Data {
 
   Data(
       {this.s2,
+      this.s8,
       this.iD,
       this.lOCATIONID,
       this.nAME,
@@ -32,6 +34,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     s2 = json['2'];
+    s8 = json["8"];
     iD = json['ID'];
     lOCATIONID = json['LOCATION_ID'];
     nAME = json['NAME'];

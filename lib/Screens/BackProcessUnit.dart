@@ -98,10 +98,7 @@ class BackProcessUnit extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          BottomNavigation.backToHomePage(
-                              SubUnits(listData: list), 0, false);
-                        },
+                        onTap: () {},
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           alignment: Alignment.centerLeft,

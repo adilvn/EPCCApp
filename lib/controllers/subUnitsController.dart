@@ -1,27 +1,64 @@
+import 'package:epcc/Models/consumptionModel.dart';
+import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:get/get.dart';
 
 class SubUnitsController extends GetxController {
-  var _subdropdown1 = "2021".obs;
+  var _subdropdown1 = "-".obs;
 
-  var _subdropdown2 = "Jan".obs;
-  var _subdropdown3 = "1".obs;
-  final List<ChartDataSub> chartData = [
-    ChartDataSub('Jan-1', 30434),
-    ChartDataSub('Jan-3', 78344),
-    ChartDataSub('Jan-5', 50233),
-    ChartDataSub('Jan-6', 52340),
-    ChartDataSub('Jan-8', 13000),
-    ChartDataSub('Jan-23', 34332),
-  ];
+  var _subdropdown2 = "-".obs;
+  var _subdropdown3 = "-".obs;
 
-  final List<ChartDataSub> chartData2 = [
-    ChartDataSub('Jan-1', 35324),
-    ChartDataSub('Jan-3', 72243),
-    ChartDataSub('Jan-5', 6233),
-    ChartDataSub('Jan-6', 50423),
-    ChartDataSub('Jan-8', 3402),
-    ChartDataSub('Jan-23', 34032),
-  ];
+  var _chartOne = <ChartDataSub>[].obs;
+  List<ChartDataSub> get chartOne => _chartOne;
+  setChartOne(ChartDataSub value) {
+    _chartOne.add(value);
+    _chartOne.refresh();
+  }
+
+  var _chartTwo = <ChartDataSub>[].obs;
+  List<ChartDataSub> get chartTwo => _chartTwo;
+  setChartTwo(ChartDataSub value) {
+    _chartTwo.add(value);
+    _chartTwo.refresh();
+  }
+
+  var _chartThree = <ChartDataSub>[].obs;
+  List<ChartDataSub> get chartThree => _chartThree;
+  setChartThree(ChartDataSub value) {
+    _chartThree.add(value);
+    _chartThree.refresh();
+  }
+
+  var _chartFour = <ChartDataSub>[].obs;
+  List<ChartDataSub> get chartFour => _chartFour;
+  setChartFour(ChartDataSub value) {
+    _chartFour.add(value);
+    _chartFour.refresh();
+  }
+
+//////
+
+  addChartDetails(
+      List<ConsumptionModel> unitDetails, int index, List<String> list) {
+    if (_subdropdown1.value == "-" &&
+        _subdropdown2.value == "-" &&
+        _subdropdown3.value == "-") {
+      print("helo");
+      for (var i = 0; i < 8; i++) {
+        if (unitDetails[i].centerName == list[0]) {
+          setChartOne(ChartDataSub(
+              x: unitDetails[i].consumptionDate,
+              y: unitDetails[i].consumptionValue));
+        } else if (unitDetails[i].centerName == list[1]) {
+          setChartTwo(ChartDataSub(
+              x: unitDetails[i].consumptionDate,
+              y: unitDetails[i].consumptionValue));
+        }
+      }
+    }
+  }
+
+/////
   RxString get SubDropValue1 => _subdropdown1;
   RxString get SubDropValue2 => _subdropdown2;
   RxString get SubDropValue3 => _subdropdown3;
@@ -38,6 +75,7 @@ class SubUnitsController extends GetxController {
   }
 
   List<String> _subDropList1 = [
+    "-",
     "2021",
     "2020",
     "2019",
@@ -53,6 +91,7 @@ class SubUnitsController extends GetxController {
   ].obs;
 
   List<String> _subDropList2 = [
+    "-",
     "Jan",
     "Feb",
     "Mar",
@@ -68,6 +107,7 @@ class SubUnitsController extends GetxController {
   ].obs;
 
   List<String> _subDropList3 = [
+    "-",
     "1",
     "2",
     "3",
@@ -109,7 +149,7 @@ class SubUnitsController extends GetxController {
 }
 
 class ChartDataSub {
-  ChartDataSub(this.x, this.y);
+  ChartDataSub({this.x, this.y});
   final String? x;
   final double? y;
 }

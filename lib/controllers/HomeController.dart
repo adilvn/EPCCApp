@@ -1,6 +1,8 @@
 import 'package:epcc/Authentication/ApiService.dart';
+import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
+import 'package:epcc/controllers/reportController.dart';
 import 'package:epcc/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -168,6 +170,18 @@ class HomeController extends GetxController
     _UTILITIESDATA.add(value);
   }
 
+  List<ConsumptionModel> _TP1UnitOne = [];
+  List<ConsumptionModel> get TP1UnitOneDetails => _TP1UnitOne;
+  setTP1UnitOne(ConsumptionModel value) {
+    _TP1UnitOne.add(value);
+  }
+
+  List<ConsumptionModel> _TP1UnitTwo = [];
+  List<ConsumptionModel> get TP1UnitTwoDetails => _TP1UnitTwo;
+  setTp1UnitTwo(ConsumptionModel value) {
+    _TP1UnitTwo.add(value);
+  }
+
 // initialize
   @override
   void onInit() {
@@ -199,21 +213,31 @@ class HomeController extends GetxController
   int e = 0;
   apiCall() {
     ApiService().fetchDetails().then((data) {
-      allData = data;
       if (data[0] == "success") {
         for (var i = 0; i < data[1].length; i++) {
+          Data _data = Data.fromJson(data[1][i]);
+          Get.find<ReportController>().allReportsData.add(_data);
           if (data[1][i]["2"] == "TP1") {
             Data _data = Data.fromJson(data[1][i]);
+
             if (a < 4) {
               if (_data.nAME == "I") {
                 TP1_UNIT1_DATA_SUM = TP1_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
-
+                setTP1UnitOne(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
                 a++;
               } else if (_data.nAME == "II") {
                 TP1_UNIT2_DATA_SUM = TP1_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
-
+                setTp1UnitTwo(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
                 a++;
               }
             }
@@ -309,6 +333,7 @@ class HomeController extends GetxController
             setTP3(_data);
           } else if (data[1][i]["2"] == "TP4") {
             Data _data = Data.fromJson(data[1][i]);
+
             if (d < 8) {
               if (_data.nAME == "Section 1") {
                 TP4_SECTION1_DATA_SUM = TP4_SECTION1_DATA_SUM +
