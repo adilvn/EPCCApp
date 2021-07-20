@@ -1,10 +1,8 @@
+import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:get/get.dart';
 
 class UnitsController extends GetxController {
-  var _unitOneDetails = <UNITDATAMODEL>[].obs;
-  var _unitTwoDetails = <UNITDATAMODEL>[].obs;
-
   var _chartOne = <ChartData1>[].obs;
   List<ChartData1> get chartOne => _chartOne;
   setChartOne(ChartData1 value) {
@@ -293,6 +291,56 @@ class UnitsController extends GetxController {
   List<String> get UnitDrop2 => _unitDropList2;
 
   List<String> get UnitDrop3 => _unitDropList3;
+
+  var _unitOneDetails = <UNITDATAMODEL>[].obs;
+  var _unitTwoDetails = <UNITDATAMODEL>[].obs;
+  var _unitThreeDetails = <UNITDATAMODEL>[].obs;
+  var _unitFourDetails = <UNITDATAMODEL>[].obs;
+  var _unitOne = <ConsumptionModel>[].obs;
+  var _unitTwo = <ConsumptionModel>[].obs;
+  var _unitThree = <ConsumptionModel>[].obs;
+  var _unitFour = <ConsumptionModel>[].obs;
+
+  List<UNITDATAMODEL> get unitOneDetails => _unitOneDetails;
+  List<UNITDATAMODEL> get unitTwoDetails => _unitTwoDetails;
+  List<UNITDATAMODEL> get unitThreeDetails => _unitThreeDetails;
+  List<UNITDATAMODEL> get unitFourDetails => _unitFourDetails;
+  List<ConsumptionModel> get unitOne => _unitOne;
+  List<ConsumptionModel> get unitTwo => _unitTwo;
+  List<ConsumptionModel> get unitThree => _unitThree;
+  List<ConsumptionModel> get unitFour => _unitFour;
+
+  setUnitOneDetails(UNITDATAMODEL val) {
+    _unitOneDetails.add(val);
+  }
+
+  setUnitTwoDetails(UNITDATAMODEL val) {
+    _unitTwoDetails.add(val);
+  }
+
+  setUnitThreeDetails(UNITDATAMODEL val) {
+    _unitThreeDetails.add(val);
+  }
+
+  setUnitFourDetails(UNITDATAMODEL val) {
+    _unitFourDetails.add(val);
+  }
+
+  setunitOne(ConsumptionModel val) {
+    _unitOne.add(val);
+  }
+
+  setunitTwo(ConsumptionModel val) {
+    _unitTwo.add(val);
+  }
+
+  setunitThree(ConsumptionModel val) {
+    _unitThree.add(val);
+  }
+
+  setunitFour(ConsumptionModel val) {
+    _unitFour.add(val);
+  }
 }
 
 class ChartData1 {

@@ -14,27 +14,52 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
 class SubUnits extends GetView<SubUnitsController> {
-  List<ConsumptionModel> unitOneDetails = [];
+  List<ConsumptionModel> unitDetails = [];
+  List<ConsumptionModel> unitOneDetail = [];
 
+  List<ConsumptionModel> unitTwoDetail = [];
+  List<ConsumptionModel> unitThreeDetail = [];
+  List<ConsumptionModel> unitFourDetail = [];
+  List<String> UnitcenterNames = [];
+  List<dynamic> UnitbuttonText = [];
+  List<Color> UnitbuttonColor = [];
+  String Unittitle = "";
+  String UnitlocationName = '';
+  int Unitbutton = 0;
+  List<UNITDATAMODEL> unitOneDetails = [];
+  List<UNITDATAMODEL> unitTwoDetails = [];
+  List<UNITDATAMODEL> unitThreeDetails = [];
+  List<UNITDATAMODEL> unitFourDetails = [];
   List<String> buttonText = [];
   List<Color> buttonColor = [];
   String title = "";
   String locationName = '';
-
   int button = 0;
   SubUnits(
-      {required this.unitOneDetails,
+      {required this.unitDetails,
+      required this.unitOneDetail,
+      required this.unitOneDetails,
+      required this.unitTwoDetails,
+      required this.unitThreeDetails,
+      required this.unitFourDetails,
+      required this.Unitbutton,
+      required this.UnitbuttonColor,
+      required this.Unittitle,
+      required this.UnitlocationName,
+      required this.UnitbuttonText,
+      required this.UnitcenterNames,
+      required this.unitTwoDetail,
+      required this.unitThreeDetail,
+      required this.unitFourDetail,
       required this.buttonText,
       required this.buttonColor,
       required this.title,
       required this.button,
       required this.locationName});
 
-  SubUnitsController controller = Get.put(SubUnitsController());
-
   @override
   Widget build(BuildContext context) {
-    controller.addChartDetails(unitOneDetails, button, buttonText);
+    controller.addChartDetails(unitDetails, button, buttonText);
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -100,24 +125,45 @@ class SubUnits extends GetView<SubUnitsController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GetBuilder<HomeController>(
-                        init: HomeController(),
-                        builder: (controller) {
-                          return GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              alignment: Alignment.centerLeft,
-                              width: double.infinity,
-                              height: 35,
-                              child: Icon(
-                                Icons.arrow_back,
-                                color: white,
-                                size: 24,
-                              ),
-                            ),
-                          );
-                        }),
+                    GestureDetector(
+                      onTap: () {
+                        BottomNavigation.backToHomePage(
+                            UnitsPage(
+                                unitOneDetails: unitOneDetails,
+                                unitTwoDetails: unitTwoDetails,
+                                unitThreeDetails: unitThreeDetails,
+                                unitFourDetails: unitFourDetails,
+                                unitOne: unitOneDetail,
+                                unitTwo: unitTwoDetail,
+                                unitThree: unitThreeDetail,
+                                unitFour: unitFourDetail,
+                                centerNames: UnitcenterNames,
+                                buttonColor: UnitbuttonColor,
+                                buttonText: UnitbuttonText,
+                                button: Unitbutton,
+                                title: Unittitle,
+                                locationName: UnitlocationName),
+                            0,
+                            false);
+                        controller.chartOne.clear();
+                        controller.chartTwo.clear();
+                        controller.chartThree.clear();
+                        controller.chartFour.clear();
+                        controller.setSubDropValue1("-");
+                        controller.setSubDropValue2("-");
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        alignment: Alignment.centerLeft,
+                        width: double.infinity,
+                        height: 35,
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: white,
+                          size: 24,
+                        ),
+                      ),
+                    ),
                     Container(
                       alignment: Alignment.bottomLeft,
                       width: double.infinity,
@@ -131,7 +177,7 @@ class SubUnits extends GetView<SubUnitsController> {
                             width: 100,
                             height: 25,
                             child: Text(
-                              "TP1>Unit 1>",
+                              "$title",
                               style: TextStyle(color: epccBlue, fontSize: 12),
                             ),
                             decoration: BoxDecoration(
@@ -374,16 +420,38 @@ class SubUnits extends GetView<SubUnitsController> {
               )),
           Expanded(
             flex: 3,
-            child: ListView.builder(
-              itemCount: button,
-              itemBuilder: (context, index) {
-                return getTiles(buttonColor[index], buttonText[index],
-                    "assets/images/750.png", () {
+            child: ListView(
+              children: [
+                getTiles(buttonColor[0], buttonText[0], "assets/images/750.png",
+                    () {
                   BottomNavigation.changeProfileWidget(BackProcessUnit(
-                    list: [],
+                    unitOnevalue: controller.unitOneValue,
+                    unitTwovalue: controller.unitTwoValue,
+                    unitDetails: unitFourDetail,
+                    unitOneDetails: unitOneDetails,
+                    unitTwoDetails: unitTwoDetails,
+                    unitThreeDetails: unitThreeDetails,
+                    unitFourDetails: unitFourDetails,
+                    Unitbutton: button,
+                    UnitbuttonColor: buttonColor,
+                    UnitbuttonText: buttonText,
+                    UnitcenterNames: UnitcenterNames,
+                    UnitlocationName: locationName,
+                    Unittitle: title,
+                    unitOneDetail: unitOneDetail,
+                    unitTwoDetail: unitTwoDetail,
+                    unitThreeDetail: unitThreeDetail,
+                    unitFourDetail: unitFourDetail,
+                    buttonColor: [Colors.red, Colors.green],
+                    buttonText: buttonText,
+                    title: "TP4",
+                    button: button,
+                    locationName: "Consumption Center",
                   ));
-                });
-              },
+                }),
+                getTiles(buttonColor[1], buttonText[1], "assets/images/750.png",
+                    () {})
+              ],
             ),
           ),
         ]);
@@ -404,17 +472,6 @@ class SubUnits extends GetView<SubUnitsController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     Icon(
-              //       Icons.bar_chart,
-              //       size: 16,
-              //     ),
-              //     Text("Reports",
-              //         style: TextStyle(color: Colors.white70, fontSize: 12))
-              //   ],
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

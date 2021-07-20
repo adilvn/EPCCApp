@@ -1,10 +1,9 @@
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
-import 'package:epcc/controllers/HomeController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +14,11 @@ class UnitsPage extends GetView<UnitsController> {
   List<UNITDATAMODEL> unitTwoDetails = [];
   List<UNITDATAMODEL> unitThreeDetails = [];
   List<UNITDATAMODEL> unitFourDetails = [];
-  List<List<UNITDATAMODEL>> allLists = [];
+  List<ConsumptionModel> unitOne = [];
+  List<ConsumptionModel> unitTwo = [];
+  List<ConsumptionModel> unitThree = [];
+  List<ConsumptionModel> unitFour = [];
+  List<String> centerNames = [];
 
   List<dynamic> buttonText = [];
   List<Color> buttonColor = [];
@@ -29,6 +32,11 @@ class UnitsPage extends GetView<UnitsController> {
       required this.unitTwoDetails,
       required this.unitThreeDetails,
       required this.unitFourDetails,
+      required this.unitOne,
+      required this.unitTwo,
+      required this.unitThree,
+      required this.unitFour,
+      required this.centerNames,
       required this.buttonColor,
       required this.buttonText,
       required this.button,
@@ -37,12 +45,6 @@ class UnitsPage extends GetView<UnitsController> {
 
   @override
   Widget build(BuildContext context) {
-    allLists = [
-      unitOneDetails,
-      unitTwoDetails,
-      unitThreeDetails,
-      unitFourDetails
-    ];
     controller.addChartsDetails(unitOneDetails, unitTwoDetails,
         unitThreeDetails, unitFourDetails, button);
     return Scaffold(
@@ -124,18 +126,18 @@ class UnitsPage extends GetView<UnitsController> {
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           alignment: Alignment.centerLeft,
                           width: double.infinity,
-                          height: 35,
+                          height: 30,
                           child: Icon(
                             Icons.arrow_back,
                             color: white,
-                            size: 24,
+                            size: 22,
                           ),
                         ),
                       ),
                       Container(
                         alignment: Alignment.bottomLeft,
                         width: double.infinity,
-                        height: 25,
+                        height: 20,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -143,7 +145,7 @@ class UnitsPage extends GetView<UnitsController> {
                             Container(
                               alignment: Alignment.center,
                               width: 40,
-                              height: 25,
+                              height: 20,
                               child: Text(
                                 title,
                                 style: TextStyle(color: epccBlue, fontSize: 14),
@@ -167,13 +169,13 @@ class UnitsPage extends GetView<UnitsController> {
                         color: white,
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 0,
                       )
                     ],
                   ),
                 )),
             Expanded(
-                flex: 7,
+                flex: 6,
                 child: Container(
                   child: Column(
                     children: [
@@ -559,28 +561,127 @@ class UnitsPage extends GetView<UnitsController> {
                   ),
                 )),
             Expanded(
-              flex: 6,
-              child: ListView.builder(
-                itemCount: button,
-                itemBuilder: (context, index) {
-                  return getTiles(buttonColor[index], buttonText[index],
-                      "assets/images/748.png", () {
-                    BottomNavigation.changeProfileWidget(SubUnits(
-                        unitOneDetails:
-                            Get.find<HomeController>().TP1UnitOneDetails,
+                flex: 9,
+                child: ListView(
+                  children: [
+                    getTiles(
+                        buttonColor[0], buttonText[0], "assets/images/748.png",
+                        () {
+                      print(unitOne);
+                      BottomNavigation.changeProfileWidget(SubUnits(
+                        unitDetails: unitOne,
+                        unitOneDetails: unitOneDetails,
+                        unitTwoDetails: unitTwoDetails,
+                        unitThreeDetails: unitThreeDetails,
+                        unitFourDetails: unitFourDetails,
+                        Unitbutton: button,
+                        UnitbuttonColor: buttonColor,
+                        UnitbuttonText: buttonText,
+                        UnitcenterNames: centerNames,
+                        UnitlocationName: locationName,
+                        Unittitle: title,
+                        unitOneDetail: unitOne,
+                        unitTwoDetail: unitTwo,
+                        unitThreeDetail: unitThree,
+                        unitFourDetail: unitFour,
                         buttonColor: [Colors.red, Colors.green],
-                        buttonText: [
-                          'Back process Unit 1',
-                          "Spinning /winding unit 1"
-                        ],
+                        buttonText: [centerNames[0], centerNames[1]],
                         title: "TP1>Unit>1",
                         button: 2,
-                        locationName: "Consumption Center"));
-                    // Get.toNamed(AppPages.SUBUNITS);
-                  });
-                },
-              ),
-            ),
+                        locationName: "Consumption Center",
+                      ));
+                      // Get.toNamed(AppPages.SUBUNITS);
+                    }),
+                    getTiles(
+                        buttonColor[1], buttonText[1], "assets/images/748.png",
+                        () {
+                      print(unitTwo);
+                      BottomNavigation.changeProfileWidget(SubUnits(
+                        unitDetails: unitTwo,
+                        unitOneDetails: unitOneDetails,
+                        unitTwoDetails: unitTwoDetails,
+                        unitThreeDetails: unitThreeDetails,
+                        unitFourDetails: unitFourDetails,
+                        Unitbutton: button,
+                        UnitbuttonColor: buttonColor,
+                        UnitbuttonText: buttonText,
+                        UnitcenterNames: centerNames,
+                        UnitlocationName: locationName,
+                        Unittitle: title,
+                        unitOneDetail: unitTwo,
+                        unitTwoDetail: unitTwo,
+                        unitThreeDetail: unitThree,
+                        unitFourDetail: unitFour,
+                        buttonColor: [Colors.red, Colors.green],
+                        buttonText: [centerNames[2], centerNames[3]],
+                        title: "TP2",
+                        button: 2,
+                        locationName: "Consumption Center",
+                      ));
+                      // Get.toNamed(AppPages.SUBUNITS);
+                    }),
+                    button == 4
+                        ? Column(
+                            children: [
+                              getTiles(buttonColor[2], buttonText[2],
+                                  "assets/images/748.png", () {
+                                BottomNavigation.changeProfileWidget(SubUnits(
+                                  unitDetails: unitThree,
+                                  unitOneDetails: unitOneDetails,
+                                  unitTwoDetails: unitTwoDetails,
+                                  unitThreeDetails: unitThreeDetails,
+                                  unitFourDetails: unitFourDetails,
+                                  Unitbutton: button,
+                                  UnitbuttonColor: buttonColor,
+                                  UnitbuttonText: buttonText,
+                                  UnitcenterNames: centerNames,
+                                  UnitlocationName: locationName,
+                                  Unittitle: title,
+                                  unitOneDetail: unitOne,
+                                  unitTwoDetail: unitTwo,
+                                  unitThreeDetail: unitThree,
+                                  unitFourDetail: unitFour,
+                                  buttonColor: [Colors.red, Colors.green],
+                                  buttonText: [centerNames[4], centerNames[5]],
+                                  title: "TP3",
+                                  button: 2,
+                                  locationName: "Consumption Center",
+                                ));
+                                // Get.toNamed(AppPages.SUBUNITS);
+                              }),
+                              getTiles(buttonColor[3], buttonText[3],
+                                  "assets/images/748.png", () {
+                                BottomNavigation.changeProfileWidget(SubUnits(
+                                  unitDetails: unitFour,
+                                  unitOneDetails: unitOneDetails,
+                                  unitTwoDetails: unitTwoDetails,
+                                  unitThreeDetails: unitThreeDetails,
+                                  unitFourDetails: unitFourDetails,
+                                  Unitbutton: button,
+                                  UnitbuttonColor: buttonColor,
+                                  UnitbuttonText: buttonText,
+                                  UnitcenterNames: centerNames,
+                                  UnitlocationName: locationName,
+                                  Unittitle: title,
+                                  unitOneDetail: unitOne,
+                                  unitTwoDetail: unitTwo,
+                                  unitThreeDetail: unitThree,
+                                  unitFourDetail: unitFour,
+                                  buttonColor: [Colors.red, Colors.green],
+                                  buttonText: centerNames.length == 8
+                                      ? [centerNames[6], centerNames[7]]
+                                      : [centerNames[6]],
+                                  title: "TP4",
+                                  button: centerNames.length == 8 ? 2 : 1,
+                                  locationName: "Consumption Center",
+                                ));
+                                // Get.toNamed(AppPages.SUBUNITS);
+                              })
+                            ],
+                          )
+                        : Container(),
+                  ],
+                )),
           ]);
         }));
   }

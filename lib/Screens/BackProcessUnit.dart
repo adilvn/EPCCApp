@@ -1,7 +1,10 @@
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/data_modal.dart';
+import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/subUnits.dart';
 import 'package:epcc/controllers/BackProcess.dart';
+import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -10,28 +13,64 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'bottom_navigation.dart';
 
 // ignore: must_be_immutable
-class BackProcessUnit extends StatelessWidget {
-  List<Data> list;
+class BackProcessUnit extends GetView<BackProcessController> {
+  List<ConsumptionModel> unitDetails = [];
+  List<ConsumptionModel> unitOneDetail = [];
 
-  BackProcessUnit({Key? key, required this.list}) : super(key: key);
-  final List<ChartData> chartData = [
-    ChartData("Jan-1", 20000),
-    ChartData("Jan-2", 30000),
-    ChartData("Jan-3", 20000),
-    ChartData("Jan-4", 40000),
-    ChartData("Jan-5", 2000),
-  ];
-  final List<ChartData> chartData2 = [
-    ChartData("Jan-1", 30000),
-    ChartData("Jan-2", 40000),
-    ChartData("Jan-3", 20000),
-    ChartData("Jan-4", 60000),
-    ChartData("Jan-5", 10000),
-  ];
+  List<ConsumptionModel> unitTwoDetail = [];
+  List<ConsumptionModel> unitThreeDetail = [];
+  List<ConsumptionModel> unitFourDetail = [];
+  List<String> UnitcenterNames = [];
 
-  BackProcessController controller = Get.put(BackProcessController());
+  List<dynamic> UnitbuttonText = [];
+  List<Color> UnitbuttonColor = [];
+  String Unittitle = "";
+  String UnitlocationName = '';
+
+  int Unitbutton = 0;
+
+  List<UNITDATAMODEL> unitOneDetails = [];
+  List<UNITDATAMODEL> unitTwoDetails = [];
+  List<UNITDATAMODEL> unitThreeDetails = [];
+  List<UNITDATAMODEL> unitFourDetails = [];
+
+  List<String> buttonText = [];
+  List<Color> buttonColor = [];
+  String title = "";
+  String locationName = '';
+
+  int button = 0;
+
+  List<ConsumptionValue> unitOnevalue = [];
+  List<ConsumptionValue> unitTwovalue = [];
+
+  BackProcessUnit(
+      {required this.unitOnevalue,
+      required this.unitTwovalue,
+      required this.unitDetails,
+      required this.unitOneDetail,
+      required this.unitOneDetails,
+      required this.unitTwoDetails,
+      required this.unitThreeDetails,
+      required this.unitFourDetails,
+      required this.Unitbutton,
+      required this.UnitbuttonColor,
+      required this.Unittitle,
+      required this.UnitlocationName,
+      required this.UnitbuttonText,
+      required this.UnitcenterNames,
+      required this.unitTwoDetail,
+      required this.unitThreeDetail,
+      required this.unitFourDetail,
+      required this.buttonText,
+      required this.buttonColor,
+      required this.title,
+      required this.button,
+      required this.locationName});
+
   @override
   Widget build(BuildContext context) {
+    controller.addDetails(unitOnevalue);
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -98,7 +137,54 @@ class BackProcessUnit extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          BottomNavigation.backToHomePage(
+                              SubUnits(
+                                  unitDetails: unitDetails,
+                                  unitOneDetail: unitOneDetail,
+                                  unitOneDetails: unitOneDetails,
+                                  unitTwoDetails: unitTwoDetails,
+                                  unitThreeDetails: unitThreeDetails,
+                                  unitFourDetails: unitFourDetails,
+                                  Unitbutton: Unitbutton,
+                                  UnitbuttonColor: UnitbuttonColor,
+                                  Unittitle: Unittitle,
+                                  UnitlocationName: UnitlocationName,
+                                  UnitbuttonText: UnitbuttonText,
+                                  UnitcenterNames: UnitcenterNames,
+                                  unitTwoDetail: unitTwoDetail,
+                                  unitThreeDetail: unitThreeDetail,
+                                  unitFourDetail: unitFourDetail,
+                                  buttonText: buttonText,
+                                  buttonColor: buttonColor,
+                                  title: title,
+                                  button: button,
+                                  locationName: locationName),
+                              0,
+                              false);
+
+                          //  SubUnits(
+                          //       unitDetails: unitDetails,
+                          //       unitOneDetail: unitOneDetail,
+                          //       unitOneDetails: unitOneDetails,
+                          //       unitTwoDetails: unitTwoDetails,
+                          //       unitThreeDetails: unitThreeDetails,
+                          //       unitFourDetails: unitFourDetails,
+                          //       Unitbutton: Unitbutton,
+                          //       UnitbuttonColor: UnitbuttonColor,
+                          //       Unittitle: Unittitle,
+                          //       UnitlocationName: UnitlocationName,
+                          //       UnitbuttonText: UnitbuttonText,
+                          //       UnitcenterNames: UnitcenterNames,
+                          //       unitTwoDetail: unitTwoDetail,
+                          //       unitThreeDetail: unitThreeDetail,
+                          //       unitFourDetail: unitFourDetail,
+                          //       buttonText: buttonText,
+                          //       buttonColor: buttonColor,
+                          //       title: title,
+                          //       button: button,
+                          //       locationName: locationName),
+                        },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           alignment: Alignment.centerLeft,
@@ -364,7 +450,8 @@ class BackProcessUnit extends StatelessWidget {
                                       decoration: BoxDecoration(color: white),
                                       child: Container(
                                         child: ListView.builder(
-                                            itemCount: 50,
+                                            itemCount:
+                                                controller.ListData.length,
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 padding: EdgeInsets.symmetric(
@@ -383,7 +470,7 @@ class BackProcessUnit extends StatelessWidget {
                                                             Alignment.center,
                                                         width: 140,
                                                         child: Text(
-                                                          "Jan-$index-2020",
+                                                          "${controller.ListData[index].Date}",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -400,7 +487,7 @@ class BackProcessUnit extends StatelessWidget {
                                                             Alignment.center,
                                                         width: 150,
                                                         child: Text(
-                                                          "${index * 1233}KWH",
+                                                          "${controller.ListData[index].Consumption}KWH",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -457,7 +544,8 @@ class BackProcessUnit extends StatelessWidget {
                                                 ),
                                                 series: <CartesianSeries>[
                                               FastLineSeries<ChartData, String>(
-                                                  dataSource: chartData,
+                                                  dataSource:
+                                                      controller.chartOne,
                                                   xValueMapper:
                                                       (ChartData data, _) =>
                                                           data.x,
@@ -469,7 +557,8 @@ class BackProcessUnit extends StatelessWidget {
                                                       MarkerSettings(
                                                           isVisible: true)),
                                               LineSeries<ChartData, String>(
-                                                  dataSource: chartData2,
+                                                  dataSource:
+                                                      controller.chartTwo,
                                                   xValueMapper:
                                                       (ChartData data, _) =>
                                                           data.x,
@@ -500,10 +589,4 @@ class BackProcessUnit extends StatelessWidget {
           ]);
         }));
   }
-}
-
-class ChartData {
-  ChartData(this.x, this.y);
-  final String x;
-  final double? y;
 }

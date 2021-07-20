@@ -214,12 +214,22 @@ class HomeScreen extends GetView<HomeController> {
                           Color(0xffFF6F00), "TP1", "assets/images/748.png",
                           () {
                         BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOne: controller.TP1UnitOneDetails,
+                          unitTwo: controller.TP1UnitTwoDetails,
+                          unitThree: [],
+                          unitFour: [],
                           unitOneDetails: controller.TP1UNIT1DATA,
                           unitTwoDetails: controller.TP1UNIT2DATA,
                           unitFourDetails: [],
                           unitThreeDetails: [],
                           buttonText: ["Unit 1", "Unit 2"],
                           buttonColor: [Colors.blue, Colors.green],
+                          centerNames: [
+                            "Back process Unit 1",
+                            "Spinning /winding unit 1",
+                            "Back process Unit 2",
+                            "Spinning/winding unit 2"
+                          ],
                           button: 2,
                           title: "TP1",
                           locationName: "Units",
@@ -229,12 +239,22 @@ class HomeScreen extends GetView<HomeController> {
                           Color(0xff7C4DFF), "TP2", "assets/images/749.png",
                           () {
                         BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOne: controller.TP2UnitOneDetails,
+                          unitTwo: controller.TP2UnitTwoDetails,
+                          unitThree: [],
+                          unitFour: [],
                           unitOneDetails: controller.TP2UNIT1DATA,
                           unitTwoDetails: controller.TP2UNIT2DATA,
                           unitFourDetails: [],
                           unitThreeDetails: [],
                           buttonText: ["Unit 1", "Unit 2"],
                           buttonColor: [Colors.blue, Colors.green],
+                          centerNames: [
+                            "Back process Unit 1",
+                            "Spinning /winding unit 1",
+                            "Back process Unit 2",
+                            "Spinning/winding unit 2"
+                          ],
                           button: 2,
                           title: "TP2",
                           locationName: "Units",
@@ -244,10 +264,20 @@ class HomeScreen extends GetView<HomeController> {
                           Color(0xff2196F3), "TP3", "assets/images/750.png",
                           () {
                         BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOne: controller.TP3UnitOneDetails,
+                          unitTwo: controller.TP3UnitTwoDetails,
+                          unitThree: [],
+                          unitFour: [],
                           unitOneDetails: controller.TP3UNIT1DATA,
                           unitTwoDetails: controller.TP3UNIT2DATA,
                           unitFourDetails: [],
                           unitThreeDetails: [],
+                          centerNames: [
+                            "Back process Unit 1",
+                            "Spinning /winding unit 1",
+                            "Back process Unit 2",
+                            "Spinning/winding unit 2"
+                          ],
                           buttonText: ["Unit 1", "Unit 2"],
                           buttonColor: [Colors.blue, Colors.green],
                           button: 2,
@@ -259,10 +289,24 @@ class HomeScreen extends GetView<HomeController> {
                           Color(0xffFF4040), "TP4", "assets/images/751.png",
                           () {
                         BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOne: controller.TP4SOneDetails,
+                          unitTwo: controller.TP4STwoDetails,
+                          unitThree: controller.TP4SThreeDetails,
+                          unitFour: controller.TP4SFourDetails,
                           unitOneDetails: controller.TP4SECTION1DATA,
                           unitTwoDetails: controller.TP4SECTION2DATA,
                           unitFourDetails: controller.TP4SECTION3DATA,
                           unitThreeDetails: controller.TP4SECTION4DATA,
+                          centerNames: [
+                            "Back process 25k",
+                            "Spinning /winding 25k",
+                            "Back process 25k",
+                            "Spinning /winding 25k",
+                            "Back process 25k",
+                            "Spinning /winding 25k",
+                            "Back process 25k",
+                            "Spinning /winding 25k",
+                          ],
                           buttonText: [
                             "Section 1",
                             "Section 2",
@@ -283,11 +327,24 @@ class HomeScreen extends GetView<HomeController> {
                       getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
                           () {
                         BottomNavigation.changeProfileWidget(UnitsPage(
+                          unitOne: controller.PPOneDetails,
+                          unitTwo: controller.PPTwoDetails,
+                          unitThree: controller.PPThreeDetails,
+                          unitFour: controller.UtilitiesDetails,
                           unitOneDetails: controller.PP1DATA,
                           unitTwoDetails: controller.PP2DATA,
                           unitFourDetails: controller.PP3DATA,
                           unitThreeDetails: controller.UTILITIESDATA,
-                          buttonText: ["PP1", "PP2", "PP3", "UTILITIES"],
+                          centerNames: [
+                            "polymer/spinning",
+                            "Draw lines",
+                            "polymer/spinning",
+                            "Draw lines",
+                            "polymer/spinning",
+                            "Draw lines",
+                            "PP1 ,PP2 ,PP3"
+                          ],
+                          buttonText: ["PP1", "PP2", "PP3", "Utilities"],
                           buttonColor: [
                             Colors.blue,
                             Colors.green,

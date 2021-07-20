@@ -182,6 +182,82 @@ class HomeController extends GetxController
     _TP1UnitTwo.add(value);
   }
 
+  List<ConsumptionModel> _TP2UnitOne = [];
+  List<ConsumptionModel> get TP2UnitOneDetails => _TP2UnitOne;
+  setTP2UnitOne(ConsumptionModel value) {
+    _TP2UnitOne.add(value);
+  }
+
+  List<ConsumptionModel> _TP2UnitTwo = [];
+  List<ConsumptionModel> get TP2UnitTwoDetails => _TP2UnitTwo;
+  setTp2UnitTwo(ConsumptionModel value) {
+    _TP2UnitTwo.add(value);
+  }
+
+  List<ConsumptionModel> _TP3UnitOne = [];
+  List<ConsumptionModel> get TP3UnitOneDetails => _TP3UnitOne;
+  setTP3UnitOne(ConsumptionModel value) {
+    _TP3UnitOne.add(value);
+  }
+
+  List<ConsumptionModel> _TP3UnitTwo = [];
+  List<ConsumptionModel> get TP3UnitTwoDetails => _TP3UnitTwo;
+  setTp3UnitTwo(ConsumptionModel value) {
+    _TP3UnitTwo.add(value);
+  }
+
+//Sections
+
+  List<ConsumptionModel> _TP4SOne = [];
+  List<ConsumptionModel> get TP4SOneDetails => _TP4SOne;
+  setTP4SOne(ConsumptionModel value) {
+    _TP4SOne.add(value);
+  }
+
+  List<ConsumptionModel> _TP4STwo = [];
+  List<ConsumptionModel> get TP4STwoDetails => _TP4STwo;
+  setTP4STwo(ConsumptionModel value) {
+    _TP4STwo.add(value);
+  }
+
+  List<ConsumptionModel> _TP4SThree = [];
+  List<ConsumptionModel> get TP4SThreeDetails => _TP4SThree;
+  setTP4SThree(ConsumptionModel value) {
+    _TP4SThree.add(value);
+  }
+
+  List<ConsumptionModel> _TP4SFour = [];
+  List<ConsumptionModel> get TP4SFourDetails => _TP4SFour;
+  setTP4SFour(ConsumptionModel value) {
+    _TP4SFour.add(value);
+  }
+
+//PP
+
+  List<ConsumptionModel> _PPOne = [];
+  List<ConsumptionModel> get PPOneDetails => _TP4SOne;
+  setPPOne(ConsumptionModel value) {
+    _PPOne.add(value);
+  }
+
+  List<ConsumptionModel> _PPTwo = [];
+  List<ConsumptionModel> get PPTwoDetails => _PPTwo;
+  setPPTwo(ConsumptionModel value) {
+    _PPTwo.add(value);
+  }
+
+  List<ConsumptionModel> _PPThree = [];
+  List<ConsumptionModel> get PPThreeDetails => _PPThree;
+  setPPThree(ConsumptionModel value) {
+    _PPThree.add(value);
+  }
+
+  List<ConsumptionModel> _Utilities = [];
+  List<ConsumptionModel> get UtilitiesDetails => _Utilities;
+  setUtilitie(ConsumptionModel value) {
+    _Utilities.add(value);
+  }
+
 // initialize
   @override
   void onInit() {
@@ -269,10 +345,20 @@ class HomeController extends GetxController
               if (_data.nAME == "I") {
                 TP2_UNIT1_DATA_SUM = TP2_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTP2UnitOne(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
                 b++;
               } else if (_data.nAME == "II") {
                 TP2_UNIT2_DATA_SUM = TP2_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTp2UnitTwo(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
                 b++;
               }
             }
@@ -285,7 +371,7 @@ class HomeController extends GetxController
                   totalValue: TP2_UNIT1_DATA_SUM));
               setTp2Unit2Data(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                  unitName: "Ubnit 2",
+                  unitName: "Unit 2",
                   consumptionValue:
                       double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP2_UNIT2_DATA_SUM));
@@ -303,10 +389,20 @@ class HomeController extends GetxController
               if (_data.nAME == "I") {
                 TP3_UNIT1_DATA_SUM = TP3_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTP3UnitOne(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
                 c++;
               } else if (_data.nAME == "II") {
                 TP3_UNIT2_DATA_SUM = TP3_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTp3UnitTwo(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
                 c++;
               }
             }
@@ -338,21 +434,41 @@ class HomeController extends GetxController
               if (_data.nAME == "Section 1") {
                 TP4_SECTION1_DATA_SUM = TP4_SECTION1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTP4SOne(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 d++;
               } else if (_data.nAME == "Section 2") {
                 TP4_SECTION2_DATA_SUM = TP4_SECTION2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTP4STwo(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 d++;
               } else if (_data.nAME == "Section 3") {
                 TP4_SECTION3_DATA_SUM = TP4_SECTION3_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTP4SThree(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 d++;
               } else if (_data.nAME == "Section 4") {
                 TP4_SECTION4_DATA_SUM = TP4_SECTION4_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setTP4SFour(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 d++;
               }
@@ -401,21 +517,41 @@ class HomeController extends GetxController
               if (_data.nAME == "PP1") {
                 PP_PP1_DATA_SUM = PP_PP1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setPPOne(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 e++;
               } else if (_data.nAME == "PP2") {
                 PP_PP2_DATA_SUM = PP_PP2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setPPTwo(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 e++;
               } else if (_data.nAME == "PP3") {
                 PP_PP3_DATA_SUM = PP_PP3_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setPPThree(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 e++;
               } else if (_data.nAME == "Utilities") {
                 PP_UTILITIES_DATA_SUM = PP_UTILITIES_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                setUtilitie(ConsumptionModel(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    centerName: data[1][i]["NAME_1"]));
 
                 e++;
               }

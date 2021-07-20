@@ -36,6 +36,18 @@ class SubUnitsController extends GetxController {
     _chartFour.refresh();
   }
 
+  var _unitOnevalue = <ConsumptionValue>[].obs;
+  List<ConsumptionValue> get unitOneValue => _unitOnevalue;
+  setUnitOneValue(ConsumptionValue val) {
+    _unitOnevalue.add(val);
+  }
+
+  var _unitTwovalue = <ConsumptionValue>[].obs;
+  List<ConsumptionValue> get unitTwoValue => _unitTwovalue;
+  setUnitTwoValue(ConsumptionValue val) {
+    _unitTwovalue.add(val);
+  }
+
 //////
 
   addChartDetails(
@@ -49,10 +61,18 @@ class SubUnitsController extends GetxController {
           setChartOne(ChartDataSub(
               x: unitDetails[i].consumptionDate,
               y: unitDetails[i].consumptionValue));
-        } else if (unitDetails[i].centerName == list[1]) {
-          setChartTwo(ChartDataSub(
-              x: unitDetails[i].consumptionDate,
-              y: unitDetails[i].consumptionValue));
+          setUnitOneValue(ConsumptionValue(
+              Date: unitDetails[i].consumptionDate,
+              Consumption: unitDetails[i].consumptionValue));
+        } else if (index > 1) {
+          if (unitDetails[i].centerName == list[1]) {
+            setChartTwo(ChartDataSub(
+                x: unitDetails[i].consumptionDate,
+                y: unitDetails[i].consumptionValue));
+            setUnitTwoValue(ConsumptionValue(
+                Date: unitDetails[i].consumptionDate,
+                Consumption: unitDetails[i].consumptionValue));
+          }
         }
       }
     }
@@ -152,4 +172,10 @@ class ChartDataSub {
   ChartDataSub({this.x, this.y});
   final String? x;
   final double? y;
+}
+
+class ConsumptionValue {
+  String? Date;
+  double? Consumption;
+  ConsumptionValue({this.Date, this.Consumption});
 }
