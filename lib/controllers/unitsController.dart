@@ -1,5 +1,6 @@
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class UnitsController extends GetxController {
@@ -83,7 +84,7 @@ class UnitsController extends GetxController {
         var _date = "$day-$month-$year";
         if (month == _month && day == _day && year == _year) {
           c++;
-          print("{$date}  $_date");
+
           _chartOne.clear();
           setChartOne(ChartData1(
               x: unitOneDetails[i].consumptionDate!,
@@ -300,6 +301,12 @@ class UnitsController extends GetxController {
   var _unitTwo = <ConsumptionModel>[].obs;
   var _unitThree = <ConsumptionModel>[].obs;
   var _unitFour = <ConsumptionModel>[].obs;
+  var _colors = <Color>[].obs;
+  var _centerName = <String>[].obs;
+  var _buttonText = <String>[].obs;
+  var _buttonIndex = 0.obs;
+  var _title = "".obs;
+  var _locationName = "".obs;
 
   List<UNITDATAMODEL> get unitOneDetails => _unitOneDetails;
   List<UNITDATAMODEL> get unitTwoDetails => _unitTwoDetails;
@@ -309,37 +316,67 @@ class UnitsController extends GetxController {
   List<ConsumptionModel> get unitTwo => _unitTwo;
   List<ConsumptionModel> get unitThree => _unitThree;
   List<ConsumptionModel> get unitFour => _unitFour;
+  List<Color> get colors => _colors;
+  List<String> get centerName => _centerName;
+  List<String> get buttonText => _buttonText;
+  int get buttonIndex => _buttonIndex.value;
+  String get title => _title.value;
+  String get locationName => _locationName.value;
 
-  setUnitOneDetails(UNITDATAMODEL val) {
-    _unitOneDetails.add(val);
+  SetTitle(String val) {
+    _title.value = val;
   }
 
-  setUnitTwoDetails(UNITDATAMODEL val) {
-    _unitTwoDetails.add(val);
+  SetLocationName(String val) {
+    _locationName.value = val;
   }
 
-  setUnitThreeDetails(UNITDATAMODEL val) {
-    _unitThreeDetails.add(val);
+  SetCenterName(List<String> val) {
+    _centerName.assignAll(val);
   }
 
-  setUnitFourDetails(UNITDATAMODEL val) {
-    _unitFourDetails.add(val);
+  SetButtonText(List<String> val) {
+    _buttonText.assignAll(val);
   }
 
-  setunitOne(ConsumptionModel val) {
-    _unitOne.add(val);
+  SetButtonIndex(int val) {
+    _buttonIndex.value = val;
   }
 
-  setunitTwo(ConsumptionModel val) {
-    _unitTwo.add(val);
+  setUnitButtonColor(List<Color> val) {
+    _colors.assignAll(val);
   }
 
-  setunitThree(ConsumptionModel val) {
-    _unitThree.add(val);
+  setUnitOneDetails(List<UNITDATAMODEL> val) {
+    _unitOneDetails.assignAll(val);
   }
 
-  setunitFour(ConsumptionModel val) {
-    _unitFour.add(val);
+  setUnitTwoDetails(List<UNITDATAMODEL> val) {
+    _unitTwoDetails.assignAll(val);
+  }
+
+  setUnitThreeDetails(List<UNITDATAMODEL> val) {
+    _unitThreeDetails.assignAll(val);
+  }
+
+  setUnitFourDetails(List<UNITDATAMODEL> val) {
+    _unitFourDetails.assignAll(val);
+  }
+
+  setunitOne(List<ConsumptionModel> val) {
+    _unitOne.assignAll(val);
+  }
+
+  setunitTwo(List<ConsumptionModel> val) {
+    _unitTwo.assignAll(val);
+  }
+
+  setunitThree(List<ConsumptionModel> val) {
+    _unitThree.assignAll(val);
+  }
+
+  setunitFour(List<ConsumptionModel> val) {
+    _unitFour.assignAll(val);
   }
 }
 

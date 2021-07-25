@@ -58,7 +58,7 @@ class Reports extends GetView<ReportController> {
                 transformHitTests: true,
                 angle: 3.15,
                 child: IconButton(
-                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    onPressed: () => {},
                     icon: Icon(
                       Icons.sort,
                       size: 25,
@@ -80,22 +80,22 @@ class Reports extends GetView<ReportController> {
                       child: Container(
                         color: epccBlue500,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                alignment: Alignment.centerLeft,
-                                width: double.infinity,
-                                height: 30,
-                                child: Icon(
-                                  Icons.arrow_back,
-                                  color: white,
-                                  size: 24,
-                                ),
-                              ),
-                            ),
+                            // GestureDetector(
+                            //   onTap: () {},
+                            //   child: Container(
+                            //     padding: EdgeInsets.symmetric(horizontal: 20),
+                            //     alignment: Alignment.centerLeft,
+                            //     width: double.infinity,
+                            //     height: 30,
+                            //     child: Icon(
+                            //       Icons.arrow_back,
+                            //       color: white,
+                            //       size: 24,
+                            //     ),
+                            //   ),
+                            // ),
                             Text(
                               "Reports",
                               style: TextStyle(
@@ -104,9 +104,9 @@ class Reports extends GetView<ReportController> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Divider(
-                              indent: MediaQuery.of(context).size.width * 0.2,
+                              indent: MediaQuery.of(context).size.width * 0.3,
                               endIndent:
-                                  MediaQuery.of(context).size.width * 0.2,
+                                  MediaQuery.of(context).size.width * 0.3,
                               color: white,
                               thickness: 1,
                             ),
@@ -117,7 +117,7 @@ class Reports extends GetView<ReportController> {
                         ),
                       )),
                   Expanded(
-                      flex: 4,
+                      flex: 5,
                       child: Container(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -248,11 +248,18 @@ class Reports extends GetView<ReportController> {
                                         // TODO Drop 3
                                         child: DropdownButton<String>(
                                           value: controller.BPDropValue,
+                                          //  controller.BPDropValue ==
+                                          //         "PP1 ,PP2 ,PP3\r\n"
+                                          //     ? "PP1 ,PP2 ,PP3"
+                                          //     : controller.BPDropValue ==
+                                          //             "Back process Unit 2\r\n"
+                                          //         ? "Back process Unit 2"
+                                          //         : controller.BPDropValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
                                             color: Colors.white,
                                           ),
-                                          iconSize: 16,
+                                          iconSize: 24,
                                           elevation: 16,
                                           dropdownColor: Color(0xff00B8AC),
                                           focusColor: Color(0xff00B8AC),
@@ -272,7 +279,12 @@ class Reports extends GetView<ReportController> {
                                                 padding:
                                                     EdgeInsets.only(left: 10),
                                                 child: Text(
-                                                  value,
+                                                  value == "PP1 ,PP2 ,PP3\r\n"
+                                                      ? " PP1 ,PP2 ,PP3"
+                                                      : value ==
+                                                              "Back process Unit 2\r\n"
+                                                          ? "Back process Unit 2"
+                                                          : value,
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 12),

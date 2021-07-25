@@ -14,59 +14,9 @@ import 'bottom_navigation.dart';
 
 // ignore: must_be_immutable
 class BackProcessUnit extends GetView<BackProcessController> {
-  List<ConsumptionModel> unitDetails = [];
-  List<ConsumptionModel> unitOneDetail = [];
-
-  List<ConsumptionModel> unitTwoDetail = [];
-  List<ConsumptionModel> unitThreeDetail = [];
-  List<ConsumptionModel> unitFourDetail = [];
-  List<String> UnitcenterNames = [];
-
-  List<dynamic> UnitbuttonText = [];
-  List<Color> UnitbuttonColor = [];
-  String Unittitle = "";
-  String UnitlocationName = '';
-
-  int Unitbutton = 0;
-
-  List<UNITDATAMODEL> unitOneDetails = [];
-  List<UNITDATAMODEL> unitTwoDetails = [];
-  List<UNITDATAMODEL> unitThreeDetails = [];
-  List<UNITDATAMODEL> unitFourDetails = [];
-
-  List<String> buttonText = [];
-  List<Color> buttonColor = [];
-  String title = "";
-  String locationName = '';
-
-  int button = 0;
-
   List<ConsumptionValue> unitOnevalue = [];
-  List<ConsumptionValue> unitTwovalue = [];
 
-  BackProcessUnit(
-      {required this.unitOnevalue,
-      required this.unitTwovalue,
-      required this.unitDetails,
-      required this.unitOneDetail,
-      required this.unitOneDetails,
-      required this.unitTwoDetails,
-      required this.unitThreeDetails,
-      required this.unitFourDetails,
-      required this.Unitbutton,
-      required this.UnitbuttonColor,
-      required this.Unittitle,
-      required this.UnitlocationName,
-      required this.UnitbuttonText,
-      required this.UnitcenterNames,
-      required this.unitTwoDetail,
-      required this.unitThreeDetail,
-      required this.unitFourDetail,
-      required this.buttonText,
-      required this.buttonColor,
-      required this.title,
-      required this.button,
-      required this.locationName});
+  BackProcessUnit({required this.unitOnevalue});
 
   @override
   Widget build(BuildContext context) {
@@ -138,52 +88,9 @@ class BackProcessUnit extends GetView<BackProcessController> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          BottomNavigation.backToHomePage(
-                              SubUnits(
-                                  unitDetails: unitDetails,
-                                  unitOneDetail: unitOneDetail,
-                                  unitOneDetails: unitOneDetails,
-                                  unitTwoDetails: unitTwoDetails,
-                                  unitThreeDetails: unitThreeDetails,
-                                  unitFourDetails: unitFourDetails,
-                                  Unitbutton: Unitbutton,
-                                  UnitbuttonColor: UnitbuttonColor,
-                                  Unittitle: Unittitle,
-                                  UnitlocationName: UnitlocationName,
-                                  UnitbuttonText: UnitbuttonText,
-                                  UnitcenterNames: UnitcenterNames,
-                                  unitTwoDetail: unitTwoDetail,
-                                  unitThreeDetail: unitThreeDetail,
-                                  unitFourDetail: unitFourDetail,
-                                  buttonText: buttonText,
-                                  buttonColor: buttonColor,
-                                  title: title,
-                                  button: button,
-                                  locationName: locationName),
-                              0,
-                              false);
-
-                          //  SubUnits(
-                          //       unitDetails: unitDetails,
-                          //       unitOneDetail: unitOneDetail,
-                          //       unitOneDetails: unitOneDetails,
-                          //       unitTwoDetails: unitTwoDetails,
-                          //       unitThreeDetails: unitThreeDetails,
-                          //       unitFourDetails: unitFourDetails,
-                          //       Unitbutton: Unitbutton,
-                          //       UnitbuttonColor: UnitbuttonColor,
-                          //       Unittitle: Unittitle,
-                          //       UnitlocationName: UnitlocationName,
-                          //       UnitbuttonText: UnitbuttonText,
-                          //       UnitcenterNames: UnitcenterNames,
-                          //       unitTwoDetail: unitTwoDetail,
-                          //       unitThreeDetail: unitThreeDetail,
-                          //       unitFourDetail: unitFourDetail,
-                          //       buttonText: buttonText,
-                          //       buttonColor: buttonColor,
-                          //       title: title,
-                          //       button: button,
-                          //       locationName: locationName),
+                          BottomNavigation.backToHomePage(SubUnits(), 0, false);
+                          controller.ListData.clear();
+                          controller.chartOne.clear();
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -280,6 +187,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                         color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setBPDropValue1(val);
+                                      controller.addDetails(unitOnevalue);
                                     },
                                     items: controller.BPDrop1.map<
                                             DropdownMenuItem<String>>(
@@ -324,6 +232,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                         color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setBPDropValue2(val);
+                                      controller.addDetails(unitOnevalue);
                                     },
                                     items: controller.BPDrop2.map<
                                             DropdownMenuItem<String>>(
@@ -369,6 +278,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                         color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setBPDropValue3(val);
+                                      controller.addDetails(unitOnevalue);
                                     },
                                     items: controller.BPDrop3.map<
                                             DropdownMenuItem<String>>(
@@ -553,6 +463,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                       (ChartData data, _) =>
                                                           data.y,
                                                   // Renders the marker
+
                                                   markerSettings:
                                                       MarkerSettings(
                                                           isVisible: true)),

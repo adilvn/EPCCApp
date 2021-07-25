@@ -36,7 +36,6 @@ class ReportController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print(allReportsData.length);
 
     addDataList();
   }
@@ -59,18 +58,25 @@ class ReportController extends GetxController {
       var _day = DayValue.toUpperCase();
       var _year = YearValue.substring(2, 4).toUpperCase();
       var _prevYear = int.parse(_year) - 1;
-      var _prevData = "0$_day-$_month-$_prevYear";
+      var _prevData;
+      var date;
 
-      var date = "0$_day-$_month-$_year";
+      if (double.parse(_day) < 10) {
+        date = "0$_day-$_month-$_year";
+      } else {
+        date = "$_day-$_month-$_year";
+      }
+
+      if (double.parse(_day) < 10) {
+        _prevData = "0$_day-$_month-$_prevYear";
+      } else {
+        _prevData = "$_day-$_month-$_prevYear";
+      }
       var month = "";
       double consumptionValue = 0;
       double lastYearConsumptionValue = 0;
       double difference = consumptionValue - lastYearConsumptionValue;
-      print(UnitDropValue);
-      print(BPDropValue);
 
-      print(TPDropValue);
-      print(date);
       int a = 0;
       for (var i = 0; i < allReportsData.length; i++) {
         if (allReportsData[i].s2 == TPDropValue &&
@@ -163,7 +169,8 @@ class ReportController extends GetxController {
     if (val == "I") {
       setBPDropListValue(["Back process Unit 1", "Spinning /winding unit 1"]);
     } else if (val == "II") {
-      setBPDropListValue(["Back process Unit 2", "Spinning/winding unit 2"]);
+      setBPDropListValue(
+          ["Back process Unit 2\r\n", "Spinning/winding unit 2"]);
     } else if (val == "Section 1") {
       setBPDropListValue([
         "Back process 25k",
@@ -200,7 +207,7 @@ class ReportController extends GetxController {
         "Draw lines",
       ]);
     } else if (val == "Utilities") {
-      setBPDropListValue(["PP1 ,PP2 ,PP3"]);
+      setBPDropListValue(["PP1 ,PP2 ,PP3\r\n"]);
     } else if (val == "-") {
       setBPDropListValue(["-"]);
     }

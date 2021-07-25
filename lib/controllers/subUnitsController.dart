@@ -1,5 +1,6 @@
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SubUnitsController extends GetxController {
@@ -22,20 +23,6 @@ class SubUnitsController extends GetxController {
     _chartTwo.refresh();
   }
 
-  var _chartThree = <ChartDataSub>[].obs;
-  List<ChartDataSub> get chartThree => _chartThree;
-  setChartThree(ChartDataSub value) {
-    _chartThree.add(value);
-    _chartThree.refresh();
-  }
-
-  var _chartFour = <ChartDataSub>[].obs;
-  List<ChartDataSub> get chartFour => _chartFour;
-  setChartFour(ChartDataSub value) {
-    _chartFour.add(value);
-    _chartFour.refresh();
-  }
-
   var _unitOnevalue = <ConsumptionValue>[].obs;
   List<ConsumptionValue> get unitOneValue => _unitOnevalue;
   setUnitOneValue(ConsumptionValue val) {
@@ -55,7 +42,6 @@ class SubUnitsController extends GetxController {
     if (_subdropdown1.value == "-" &&
         _subdropdown2.value == "-" &&
         _subdropdown3.value == "-") {
-      print("helo");
       for (var i = 0; i < 8; i++) {
         if (unitDetails[i].centerName == list[0]) {
           setChartOne(ChartDataSub(
@@ -64,7 +50,8 @@ class SubUnitsController extends GetxController {
           setUnitOneValue(ConsumptionValue(
               Date: unitDetails[i].consumptionDate,
               Consumption: unitDetails[i].consumptionValue));
-        } else if (index > 1) {
+        }
+        if (index == 2) {
           if (unitDetails[i].centerName == list[1]) {
             setChartTwo(ChartDataSub(
                 x: unitDetails[i].consumptionDate,
@@ -75,7 +62,84 @@ class SubUnitsController extends GetxController {
           }
         }
       }
+    } else if (_subdropdown1.value != "-" &&
+        _subdropdown2.value != "-" &&
+        _subdropdown3.value != "-") {
+      var _month = _subdropdown2.toUpperCase();
+      var _day = _subdropdown3.toUpperCase();
+      var _year = _subdropdown1.substring(2, 4).toUpperCase();
+      var date = "$_day-$_month-$_year";
+
+      for (var i = 0; i < unitDetails.length; i++) {
+        if (unitDetails[i].centerName == list[0]) {
+          if (unitDetails[i].consumptionDate == date) {
+            chartOne.clear();
+            setChartOne(ChartDataSub(
+                x: unitDetails[i].consumptionDate,
+                y: unitDetails[i].consumptionValue));
+          }
+        }
+        if (index == 2) {
+          if (unitDetails[i].centerName == list[1]) {
+            if (unitDetails[i].consumptionDate == date) {
+              chartTwo.clear();
+              setChartTwo(ChartDataSub(
+                  x: unitDetails[i].consumptionDate,
+                  y: unitDetails[i].consumptionValue));
+            }
+          }
+        }
+      }
+    } else if (_subdropdown1.value == "-" ||
+        _subdropdown2.value == "-" ||
+        _subdropdown3.value == "-") {
+      chartOne.clear();
+      chartTwo.clear();
     }
+  }
+
+  var _unitDetails = <ConsumptionModel>[].obs;
+  var _colors = <Color>[].obs;
+  var _centerName = <String>[].obs;
+  var _buttonText = <String>[].obs;
+  var _title = "".obs;
+  var _locationName = "".obs;
+  var _button = 0.obs;
+
+  List<ConsumptionModel> get unitDetails => _unitDetails;
+  List<Color> get colors => _colors;
+  List<String> get centerName => _centerName;
+  List<String> get buttonText => _buttonText;
+  String get title => _title.value;
+  String get locationName => _locationName.value;
+  int get button => _button.value;
+
+  setButtonIndex(int val) {
+    _button.value = val;
+  }
+
+  setUnitDetials(List<ConsumptionModel> val) {
+    _unitDetails.assignAll(val);
+  }
+
+  SetTitle(String val) {
+    _title.value = val;
+  }
+
+  SetLocationName(String val) {
+    _locationName.value = val;
+  }
+
+  SetCenterName(List<String> val) {
+    _centerName.assignAll(val);
+  }
+
+  SetButtonText(List<String> val) {
+    _buttonText.assignAll(val);
+  }
+
+  setUnitButtonColor(List<Color> val) {
+    _colors.assignAll(val);
   }
 
 /////
@@ -128,15 +192,15 @@ class SubUnitsController extends GetxController {
 
   List<String> _subDropList3 = [
     "-",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
     "10",
     "11",
     "12",

@@ -14,52 +14,10 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
 class SubUnits extends GetView<SubUnitsController> {
-  List<ConsumptionModel> unitDetails = [];
-  List<ConsumptionModel> unitOneDetail = [];
-
-  List<ConsumptionModel> unitTwoDetail = [];
-  List<ConsumptionModel> unitThreeDetail = [];
-  List<ConsumptionModel> unitFourDetail = [];
-  List<String> UnitcenterNames = [];
-  List<dynamic> UnitbuttonText = [];
-  List<Color> UnitbuttonColor = [];
-  String Unittitle = "";
-  String UnitlocationName = '';
-  int Unitbutton = 0;
-  List<UNITDATAMODEL> unitOneDetails = [];
-  List<UNITDATAMODEL> unitTwoDetails = [];
-  List<UNITDATAMODEL> unitThreeDetails = [];
-  List<UNITDATAMODEL> unitFourDetails = [];
-  List<String> buttonText = [];
-  List<Color> buttonColor = [];
-  String title = "";
-  String locationName = '';
-  int button = 0;
-  SubUnits(
-      {required this.unitDetails,
-      required this.unitOneDetail,
-      required this.unitOneDetails,
-      required this.unitTwoDetails,
-      required this.unitThreeDetails,
-      required this.unitFourDetails,
-      required this.Unitbutton,
-      required this.UnitbuttonColor,
-      required this.Unittitle,
-      required this.UnitlocationName,
-      required this.UnitbuttonText,
-      required this.UnitcenterNames,
-      required this.unitTwoDetail,
-      required this.unitThreeDetail,
-      required this.unitFourDetail,
-      required this.buttonText,
-      required this.buttonColor,
-      required this.title,
-      required this.button,
-      required this.locationName});
-
   @override
   Widget build(BuildContext context) {
-    controller.addChartDetails(unitDetails, button, buttonText);
+    controller.addChartDetails(
+        controller.unitDetails, controller.button, controller.buttonText);
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -127,30 +85,15 @@ class SubUnits extends GetView<SubUnitsController> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        BottomNavigation.backToHomePage(
-                            UnitsPage(
-                                unitOneDetails: unitOneDetails,
-                                unitTwoDetails: unitTwoDetails,
-                                unitThreeDetails: unitThreeDetails,
-                                unitFourDetails: unitFourDetails,
-                                unitOne: unitOneDetail,
-                                unitTwo: unitTwoDetail,
-                                unitThree: unitThreeDetail,
-                                unitFour: unitFourDetail,
-                                centerNames: UnitcenterNames,
-                                buttonColor: UnitbuttonColor,
-                                buttonText: UnitbuttonText,
-                                button: Unitbutton,
-                                title: Unittitle,
-                                locationName: UnitlocationName),
-                            0,
-                            false);
+                        BottomNavigation.backToHomePage(UnitsPage(), 0, false);
                         controller.chartOne.clear();
                         controller.chartTwo.clear();
-                        controller.chartThree.clear();
-                        controller.chartFour.clear();
+
                         controller.setSubDropValue1("-");
                         controller.setSubDropValue2("-");
+                        controller.setSubDropValue3("-");
+                        controller.unitOneValue.clear();
+                        controller.unitTwoValue.clear();
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -177,7 +120,7 @@ class SubUnits extends GetView<SubUnitsController> {
                             width: 100,
                             height: 25,
                             child: Text(
-                              "$title",
+                              "${controller.title}",
                               style: TextStyle(color: epccBlue, fontSize: 12),
                             ),
                             decoration: BoxDecoration(
@@ -244,6 +187,10 @@ class SubUnits extends GetView<SubUnitsController> {
                                       const TextStyle(color: Colors.deepPurple),
                                   onChanged: (val) {
                                     controller.setSubDropValue1(val);
+                                    controller.addChartDetails(
+                                        controller.unitDetails,
+                                        controller.button,
+                                        controller.buttonText);
                                   },
                                   items: controller.SubDrop1.map<
                                       DropdownMenuItem<String>>((String value) {
@@ -286,6 +233,10 @@ class SubUnits extends GetView<SubUnitsController> {
                                       const TextStyle(color: Colors.deepPurple),
                                   onChanged: (val) {
                                     controller.setSubDropValue2(val);
+                                    controller.addChartDetails(
+                                        controller.unitDetails,
+                                        controller.button,
+                                        controller.buttonText);
                                   },
                                   items: controller.SubDrop2.map<
                                       DropdownMenuItem<String>>((String value) {
@@ -328,6 +279,10 @@ class SubUnits extends GetView<SubUnitsController> {
                                       const TextStyle(color: Colors.deepPurple),
                                   onChanged: (val) {
                                     controller.setSubDropValue3(val);
+                                    controller.addChartDetails(
+                                        controller.unitDetails,
+                                        controller.button,
+                                        controller.buttonText);
                                   },
                                   items: controller.SubDrop3.map<
                                       DropdownMenuItem<String>>((String value) {
@@ -422,35 +377,22 @@ class SubUnits extends GetView<SubUnitsController> {
             flex: 3,
             child: ListView(
               children: [
-                getTiles(buttonColor[0], buttonText[0], "assets/images/750.png",
-                    () {
-                  BottomNavigation.changeProfileWidget(BackProcessUnit(
-                    unitOnevalue: controller.unitOneValue,
-                    unitTwovalue: controller.unitTwoValue,
-                    unitDetails: unitFourDetail,
-                    unitOneDetails: unitOneDetails,
-                    unitTwoDetails: unitTwoDetails,
-                    unitThreeDetails: unitThreeDetails,
-                    unitFourDetails: unitFourDetails,
-                    Unitbutton: button,
-                    UnitbuttonColor: buttonColor,
-                    UnitbuttonText: buttonText,
-                    UnitcenterNames: UnitcenterNames,
-                    UnitlocationName: locationName,
-                    Unittitle: title,
-                    unitOneDetail: unitOneDetail,
-                    unitTwoDetail: unitTwoDetail,
-                    unitThreeDetail: unitThreeDetail,
-                    unitFourDetail: unitFourDetail,
-                    buttonColor: [Colors.red, Colors.green],
-                    buttonText: buttonText,
-                    title: "TP4",
-                    button: button,
-                    locationName: "Consumption Center",
-                  ));
+                getTiles(controller.colors[0], controller.buttonText[0],
+                    "assets/images/750.png", () {
+                  controller.SetTitle(controller.buttonText[0]);
+                  controller.SetLocationName(controller.buttonText[0]);
+                  BottomNavigation.changeProfileWidget(
+                      BackProcessUnit(unitOnevalue: controller.unitOneValue));
                 }),
-                getTiles(buttonColor[1], buttonText[1], "assets/images/750.png",
-                    () {})
+                controller.button == 2
+                    ? getTiles(controller.colors[1], controller.buttonText[1],
+                        "assets/images/750.png", () {
+                        controller.SetTitle(controller.buttonText[1]);
+                        controller.SetLocationName(controller.buttonText[1]);
+                        BottomNavigation.changeProfileWidget(BackProcessUnit(
+                            unitOnevalue: controller.unitTwoValue));
+                      })
+                    : Container()
               ],
             ),
           ),

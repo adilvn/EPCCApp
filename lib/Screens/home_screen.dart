@@ -15,6 +15,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class HomeScreen extends GetView<HomeController> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+  final _unitController = Get.find<UnitsController>();
 
   Future<void> _refresh() async {
     await Future.delayed(Duration(milliseconds: 900));
@@ -213,148 +214,216 @@ class HomeScreen extends GetView<HomeController> {
                       getTiles(
                           Color(0xffFF6F00), "TP1", "assets/images/748.png",
                           () {
-                        BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOne: controller.TP1UnitOneDetails,
-                          unitTwo: controller.TP1UnitTwoDetails,
-                          unitThree: [],
-                          unitFour: [],
-                          unitOneDetails: controller.TP1UNIT1DATA,
-                          unitTwoDetails: controller.TP1UNIT2DATA,
-                          unitFourDetails: [],
-                          unitThreeDetails: [],
-                          buttonText: ["Unit 1", "Unit 2"],
-                          buttonColor: [Colors.blue, Colors.green],
-                          centerNames: [
-                            "Back process Unit 1",
-                            "Spinning /winding unit 1",
-                            "Back process Unit 2",
-                            "Spinning/winding unit 2"
-                          ],
-                          button: 2,
-                          title: "TP1",
-                          locationName: "Units",
-                        ));
+                        _unitController
+                            .setunitOne(controller.TP1UnitOneDetails);
+                        _unitController
+                            .setunitTwo(controller.TP1UnitTwoDetails);
+                        _unitController.setunitThree([]);
+
+                        _unitController.setunitFour([]);
+                        _unitController
+                            .setUnitOneDetails(controller.TP1UNIT1DATA);
+                        _unitController
+                            .setUnitTwoDetails(controller.TP1UNIT2DATA);
+                        _unitController.setUnitThreeDetails([]);
+                        _unitController.setUnitFourDetails([]);
+                        _unitController.SetButtonText(["Unit 1", "Unit 2"]);
+                        _unitController
+                            .setUnitButtonColor([Colors.blue, Colors.green]);
+                        _unitController.SetCenterName([
+                          "Back process Unit 1",
+                          "Spinning /winding unit 1",
+                          "Back process Unit 2\r\n",
+                          "Spinning/winding unit 2"
+                        ]);
+                        _unitController.SetButtonIndex(2);
+                        _unitController.SetTitle("TP1");
+                        _unitController.SetLocationName('Units');
+                        BottomNavigation.changeProfileWidget(UnitsPage());
+
+                        // BottomNavigation.changeProfileWidget(UnitsPage(
+                        // unitOne: controller.TP1UnitOneDetails,
+                        // unitTwo: controller.TP1UnitTwoDetails,
+                        // unitThree: [],
+                        // unitFour: [],
+                        // unitOneDetails: controller.TP1UNIT1DATA,
+                        // unitTwoDetails: controller.TP1UNIT2DATA,
+                        // unitFourDetails: [],
+                        // unitThreeDetails: [],
+                        // buttonText: ["Unit 1", "Unit 2"],
+                        // buttonColor: [Colors.blue, Colors.green],
+                        // centerNames: [
+                        //   "Back process Unit 1",
+                        //   "Spinning /winding unit 1",
+                        //   "Back process Unit 2",
+                        //   "Spinning/winding unit 2"
+                        // ],
+                        // button: 2,
+                        // title: "TP1",
+                        // locationName: "Units",
+                        // ));
                       }),
                       getTiles(
                           Color(0xff7C4DFF), "TP2", "assets/images/749.png",
                           () {
-                        BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOne: controller.TP2UnitOneDetails,
-                          unitTwo: controller.TP2UnitTwoDetails,
-                          unitThree: [],
-                          unitFour: [],
-                          unitOneDetails: controller.TP2UNIT1DATA,
-                          unitTwoDetails: controller.TP2UNIT2DATA,
-                          unitFourDetails: [],
-                          unitThreeDetails: [],
-                          buttonText: ["Unit 1", "Unit 2"],
-                          buttonColor: [Colors.blue, Colors.green],
-                          centerNames: [
-                            "Back process Unit 1",
-                            "Spinning /winding unit 1",
-                            "Back process Unit 2",
-                            "Spinning/winding unit 2"
-                          ],
-                          button: 2,
-                          title: "TP2",
-                          locationName: "Units",
-                        ));
+                        _unitController
+                            .setunitOne(controller.TP2UnitOneDetails);
+                        _unitController
+                            .setunitTwo(controller.TP2UnitTwoDetails);
+                        _unitController.setunitThree([]);
+
+                        _unitController.setunitFour([]);
+                        _unitController
+                            .setUnitOneDetails(controller.TP2UNIT1DATA);
+                        _unitController
+                            .setUnitTwoDetails(controller.TP2UNIT2DATA);
+                        _unitController.setUnitThreeDetails([]);
+                        _unitController.setUnitFourDetails([]);
+                        _unitController.SetButtonText(["Unit 1", "Unit 2"]);
+                        _unitController
+                            .setUnitButtonColor([Colors.blue, Colors.green]);
+                        _unitController.SetCenterName([
+                          "Back process Unit 1",
+                          "Spinning /winding unit 1",
+                          "Back process Unit 2\r\n",
+                          "Spinning/winding unit 2"
+                        ]);
+                        _unitController.SetButtonIndex(2);
+                        _unitController.SetTitle("TP2");
+                        _unitController.SetLocationName('Units');
+                        BottomNavigation.changeProfileWidget(UnitsPage());
+                        // BottomNavigation.changeProfileWidget(UnitsPage(
+                        //   unitOne: controller.TP2UnitOneDetails,
+                        //   unitTwo: controller.TP2UnitTwoDetails,
+                        //   unitThree: [],
+                        //   unitFour: [],
+                        //   unitOneDetails: controller.TP2UNIT1DATA,
+                        //   unitTwoDetails: controller.TP2UNIT2DATA,
+                        //   unitFourDetails: [],
+                        //   unitThreeDetails: [],
+                        //   buttonText: ["Unit 1", "Unit 2"],
+                        //   buttonColor: [Colors.blue, Colors.green],
+                        //   centerNames: [
+                        //     "Back process Unit 1",
+                        //     "Spinning /winding unit 1",
+                        //     "Back process Unit 2",
+                        //     "Spinning/winding unit 2"
+                        //   ],
+                        //   button: 2,
+                        //   title: "TP2",
+                        //   locationName: "Units",
+                        // ));
                       }),
                       getTiles(
                           Color(0xff2196F3), "TP3", "assets/images/750.png",
                           () {
-                        BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOne: controller.TP3UnitOneDetails,
-                          unitTwo: controller.TP3UnitTwoDetails,
-                          unitThree: [],
-                          unitFour: [],
-                          unitOneDetails: controller.TP3UNIT1DATA,
-                          unitTwoDetails: controller.TP3UNIT2DATA,
-                          unitFourDetails: [],
-                          unitThreeDetails: [],
-                          centerNames: [
-                            "Back process Unit 1",
-                            "Spinning /winding unit 1",
-                            "Back process Unit 2",
-                            "Spinning/winding unit 2"
-                          ],
-                          buttonText: ["Unit 1", "Unit 2"],
-                          buttonColor: [Colors.blue, Colors.green],
-                          button: 2,
-                          title: "TP3",
-                          locationName: "Units",
-                        ));
+                        _unitController
+                            .setunitOne(controller.TP3UnitOneDetails);
+                        _unitController
+                            .setunitTwo(controller.TP3UnitTwoDetails);
+                        _unitController.setunitThree([]);
+
+                        _unitController.setunitFour([]);
+                        _unitController
+                            .setUnitOneDetails(controller.TP3UNIT1DATA);
+                        _unitController
+                            .setUnitTwoDetails(controller.TP3UNIT2DATA);
+                        _unitController.setUnitThreeDetails([]);
+                        _unitController.setUnitFourDetails([]);
+                        _unitController.SetButtonText(["Unit 1", "Unit 2"]);
+                        _unitController
+                            .setUnitButtonColor([Colors.blue, Colors.green]);
+                        _unitController.SetCenterName([
+                          "Back process Unit 1",
+                          "Spinning /winding unit 1",
+                          "Back process Unit 2\r\n",
+                          "Spinning/winding unit 2"
+                        ]);
+                        _unitController.SetButtonIndex(2);
+                        _unitController.SetTitle("TP3");
+                        _unitController.SetLocationName('Units');
+                        BottomNavigation.changeProfileWidget(UnitsPage());
                       }),
                       getTiles(
                           Color(0xffFF4040), "TP4", "assets/images/751.png",
                           () {
-                        BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOne: controller.TP4SOneDetails,
-                          unitTwo: controller.TP4STwoDetails,
-                          unitThree: controller.TP4SThreeDetails,
-                          unitFour: controller.TP4SFourDetails,
-                          unitOneDetails: controller.TP4SECTION1DATA,
-                          unitTwoDetails: controller.TP4SECTION2DATA,
-                          unitFourDetails: controller.TP4SECTION3DATA,
-                          unitThreeDetails: controller.TP4SECTION4DATA,
-                          centerNames: [
-                            "Back process 25k",
-                            "Spinning /winding 25k",
-                            "Back process 25k",
-                            "Spinning /winding 25k",
-                            "Back process 25k",
-                            "Spinning /winding 25k",
-                            "Back process 25k",
-                            "Spinning /winding 25k",
-                          ],
-                          buttonText: [
-                            "Section 1",
-                            "Section 2",
-                            "Section 3",
-                            "Section 4"
-                          ],
-                          buttonColor: [
-                            Colors.blue,
-                            Colors.green,
-                            Colors.yellow,
-                            Colors.red
-                          ],
-                          button: 4,
-                          title: "TP4",
-                          locationName: "Sections",
-                        ));
+                        _unitController.setunitOne(controller.TP4SOneDetails);
+                        _unitController.setunitTwo(controller.TP4STwoDetails);
+                        _unitController
+                            .setunitThree(controller.TP4SThreeDetails);
+
+                        _unitController.setunitFour(controller.TP4SFourDetails);
+                        _unitController
+                            .setUnitOneDetails(controller.TP4SECTION1DATA);
+                        _unitController
+                            .setUnitTwoDetails(controller.TP4SECTION2DATA);
+                        _unitController
+                            .setUnitThreeDetails(controller.TP4SECTION3DATA);
+                        _unitController
+                            .setUnitFourDetails(controller.TP4SECTION4DATA);
+                        _unitController.SetButtonText([
+                          "Section 1",
+                          "Section 2",
+                          "Section 3",
+                          "Section 4",
+                        ]);
+                        _unitController.setUnitButtonColor([
+                          Colors.blue,
+                          Colors.green,
+                          Colors.yellow,
+                          Colors.red
+                        ]);
+                        _unitController.SetCenterName([
+                          "Back process 25k",
+                          "Spinning /winding 25k",
+                          "Back process 25k",
+                          "Spinning /winding 25k",
+                          "Back process 25k",
+                          "Spinning /winding 25k",
+                          "Back process 25k",
+                          "Spinning /winding 25k",
+                        ]);
+                        _unitController.SetButtonIndex(4);
+                        _unitController.SetTitle("Section");
+                        _unitController.SetLocationName('Sections');
+                        BottomNavigation.changeProfileWidget(UnitsPage());
                       }),
                       getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
                           () {
-                        BottomNavigation.changeProfileWidget(UnitsPage(
-                          unitOne: controller.PPOneDetails,
-                          unitTwo: controller.PPTwoDetails,
-                          unitThree: controller.PPThreeDetails,
-                          unitFour: controller.UtilitiesDetails,
-                          unitOneDetails: controller.PP1DATA,
-                          unitTwoDetails: controller.PP2DATA,
-                          unitFourDetails: controller.PP3DATA,
-                          unitThreeDetails: controller.UTILITIESDATA,
-                          centerNames: [
-                            "polymer/spinning",
-                            "Draw lines",
-                            "polymer/spinning",
-                            "Draw lines",
-                            "polymer/spinning",
-                            "Draw lines",
-                            "PP1 ,PP2 ,PP3"
-                          ],
-                          buttonText: ["PP1", "PP2", "PP3", "Utilities"],
-                          buttonColor: [
-                            Colors.blue,
-                            Colors.green,
-                            Colors.yellow,
-                            Colors.red
-                          ],
-                          button: 4,
-                          title: "PP",
-                          locationName: "Utilities",
-                        ));
+                        _unitController.setunitOne(controller.PPOneDetails);
+                        print(controller.PP1DATA[0].consumptionValue);
+                        _unitController.setunitTwo(controller.PPTwoDetails);
+                        _unitController.setunitThree(controller.PPThreeDetails);
+
+                        _unitController
+                            .setunitFour(controller.UtilitiesDetails);
+                        _unitController.setUnitOneDetails(controller.PP1DATA);
+
+                        _unitController.setUnitTwoDetails(controller.PP2DATA);
+                        _unitController.setUnitThreeDetails(controller.PP3DATA);
+                        _unitController
+                            .setUnitFourDetails(controller.UTILITIESDATA);
+                        _unitController.SetButtonText(
+                            ["PP1", "PP2", "PP3", "Utilities"]);
+                        _unitController.setUnitButtonColor([
+                          Colors.blue,
+                          Colors.green,
+                          Colors.yellow,
+                          Colors.red
+                        ]);
+                        _unitController.SetCenterName([
+                          "polymer/spinning",
+                          "Draw lines",
+                          "polymer/spinning",
+                          "Draw lines",
+                          "polymer/spinning",
+                          "Draw lines",
+                          "PP1 ,PP2 ,PP3\r\n"
+                        ]);
+                        _unitController.SetButtonIndex(4);
+                        _unitController.SetLocationName('PP');
+                        _unitController.SetTitle("PP");
+                        BottomNavigation.changeProfileWidget(UnitsPage());
                       }),
                     ],
                   ),

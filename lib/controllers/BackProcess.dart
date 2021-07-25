@@ -44,6 +44,19 @@ class BackProcessController extends GetxController {
     _listData.add(item);
   }
 
+  var _title = "".obs;
+  var _locationName = "".obs;
+  String get locationName => _locationName.value;
+  String get title => _title.value;
+
+  SetLocationName(String val) {
+    _locationName.value = val;
+  }
+
+  SetTitle(String val) {
+    _title.value = val;
+  }
+
   addDetails(List<ConsumptionValue> val) {
     if (BPDropValue1.value == "-" &&
         BPDropValue2.value == "-" &&

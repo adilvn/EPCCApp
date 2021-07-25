@@ -235,7 +235,7 @@ class HomeController extends GetxController
 //PP
 
   List<ConsumptionModel> _PPOne = [];
-  List<ConsumptionModel> get PPOneDetails => _TP4SOne;
+  List<ConsumptionModel> get PPOneDetails => _PPOne;
   setPPOne(ConsumptionModel value) {
     _PPOne.add(value);
   }
