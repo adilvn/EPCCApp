@@ -61,12 +61,40 @@ class BackProcessController extends GetxController {
     if (BPDropValue1.value == "-" &&
         BPDropValue2.value == "-" &&
         BPDropValue3.value == "-") {
-      print(val);
       for (var i = 0; i < 4; i++) {
         setChartOne(ChartData(val[i].Date.toString(), val[i].Consumption));
         setListData(ConsumptionValue(
             Date: val[i].Date, Consumption: val[i].Consumption));
       }
+    } else if (BPDropValue1.value != "-" &&
+        BPDropValue2.value != "-" &&
+        BPDropValue3.value != "-") {
+      var _month = _bpdropdown2.toUpperCase();
+      var _day = _bpdropdown3.toUpperCase();
+      var _year = _bpdropdown1.substring(2, 4).toUpperCase();
+      var date = "$_day-$_month-$_year";
+
+      for (var i = 0; i < val.length; i++) {
+        if (date == val[i].Date) {
+          chartOne.clear();
+          _listData.clear();
+          setChartOne(ChartData(val[i].Date.toString(), val[i].Consumption));
+          setListData(ConsumptionValue(
+              Date: val[i].Date, Consumption: val[i].Consumption));
+        }
+      }
+      if (chartOne.isEmpty && ListData.isEmpty) {
+        chartOne.clear();
+        _listData.clear();
+
+        Get.rawSnackbar(
+            message: "Choose Correct Date", duration: Duration(seconds: 2));
+      }
+    } else if (BPDropValue1.value == "-" ||
+        BPDropValue2.value == "-" ||
+        BPDropValue3.value == "-") {
+      chartOne.clear();
+      _listData.clear();
     }
   }
 
@@ -104,15 +132,15 @@ class BackProcessController extends GetxController {
 
   List<String> _bpDropList3 = [
     "-",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
     "10",
     "11",
     "12",

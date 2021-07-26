@@ -265,6 +265,123 @@ class HomeController extends GetxController
     super.onInit();
   }
 
+//TODO separate UNITs calculate
+
+  var _TP1U1List = <double>[].obs;
+  List<double> get TP1U1List => _TP1U1List;
+  setTP1U1List(double val) {
+    _TP1U1List.add(val);
+  }
+
+  var _TP1U2List = <double>[].obs;
+  List<double> get TP1U2List => _TP1U2List;
+  setTP1U2List(double val) {
+    _TP1U2List.add(val);
+  }
+
+  var _TP2U1List = <double>[].obs;
+  List<double> get TP2U1List => _TP2U1List;
+  setTP2U1List(double val) {
+    _TP2U1List.add(val);
+  }
+
+  var _TP2U2List = <double>[].obs;
+  List<double> get TP2U2List => _TP2U2List;
+  setTP2U2List(double val) {
+    _TP2U2List.add(val);
+  }
+
+  var _TP3U1List = <double>[].obs;
+  List<double> get TP3U1List => _TP3U1List;
+  setTP3U1List(double val) {
+    _TP3U1List.add(val);
+  }
+
+  var _TP3U2List = <double>[].obs;
+  List<double> get TP3U2List => _TP3U2List;
+  setTP3U2List(double val) {
+    _TP3U2List.add(val);
+  }
+
+  var _TP4S1List = <double>[].obs;
+  List<double> get TP4S1List => _TP4S1List;
+  setTP4S1List(double val) {
+    _TP4S1List.add(val);
+  }
+
+  var _TP4S2List = <double>[].obs;
+  List<double> get TP4S2List => _TP4S2List;
+  setTP4S2List(double val) {
+    _TP4S2List.add(val);
+  }
+
+  var _TP4S3List = <double>[].obs;
+  List<double> get TP4S3List => _TP4S3List;
+  setTP4S3List(double val) {
+    _TP4S3List.add(val);
+  }
+
+  var _TP4S4List = <double>[].obs;
+  List<double> get TP4S4List => _TP4S4List;
+  setTP4S4List(double val) {
+    _TP4S4List.add(val);
+  }
+
+  var _PP1List = <double>[].obs;
+  List<double> get PP1List => _PP1List;
+  setPP1List(double val) {
+    _PP1List.add(val);
+  }
+
+  var _PP2List = <double>[].obs;
+  List<double> get PP2List => _PP2List;
+  setPP2List(double val) {
+    _PP2List.add(val);
+  }
+
+  var _PP3List = <double>[].obs;
+  List<double> get PP3List => _PP3List;
+  setPP3List(double val) {
+    _PP3List.add(val);
+  }
+
+  var _UTILITIESList = <double>[].obs;
+  List<double> get UTILITIESList => _UTILITIESList;
+  setUTILITIESList(double val) {
+    _UTILITIESList.add(val);
+  }
+
+  var _TP1List = <double>[].obs;
+  List<double> get TP1List => _TP1List;
+  setTP1List(double val) {
+    _TP1List.add(val);
+  }
+
+  var _TP2List = <double>[].obs;
+  List<double> get TP2List => _TP2List;
+  setTP2List(double val) {
+    _TP2List.add(val);
+  }
+
+  var _TP3List = <double>[].obs;
+  List<double> get TP3List => _TP3List;
+  setTP3List(double val) {
+    _TP3List.add(val);
+  }
+
+  var _TP4List = <double>[].obs;
+  List<double> get TP4List => _TP4List;
+  setTP4List(double val) {
+    _TP4List.add(val);
+  }
+
+  var _PPList = <double>[0.0].obs;
+  List<double> get PPList => _PPList;
+  setPPList(double val) {
+    _PPList.add(val);
+  }
+
+//TODO UnitS Sum
   double TP1_UNIT1_DATA_SUM = 0;
   double TP1_UNIT2_DATA_SUM = 0;
   double TP2_UNIT1_DATA_SUM = 0;
@@ -280,11 +397,8 @@ class HomeController extends GetxController
   double PP_PP3_DATA_SUM = 0;
   double PP_UTILITIES_DATA_SUM = 0;
   int a = 0;
-
   int b = 0;
-
   int c = 0;
-
   int d = 0;
   int e = 0;
   apiCall() {
@@ -298,6 +412,7 @@ class HomeController extends GetxController
 
             if (a < 4) {
               if (_data.nAME == "I") {
+                setTP1U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP1_UNIT1_DATA_SUM = TP1_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP1UnitOne(ConsumptionModel(
@@ -307,6 +422,7 @@ class HomeController extends GetxController
                     centerName: data[1][i]["NAME_1"]));
                 a++;
               } else if (_data.nAME == "II") {
+                setTP1U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP1_UNIT2_DATA_SUM = TP1_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTp1UnitTwo(ConsumptionModel(
@@ -335,7 +451,7 @@ class HomeController extends GetxController
               TP1_UNIT2_DATA_SUM = 0;
               a = 0;
             }
-
+            setTP1List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP1(double.parse(_data.cONSUMPTIONVALUE!));
             setTP1(_data);
           } else if (data[1][i]["2"] == "TP2") {
@@ -343,6 +459,7 @@ class HomeController extends GetxController
 
             if (b < 4) {
               if (_data.nAME == "I") {
+                setTP2U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP2_UNIT1_DATA_SUM = TP2_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP2UnitOne(ConsumptionModel(
@@ -352,6 +469,7 @@ class HomeController extends GetxController
                     centerName: data[1][i]["NAME_1"]));
                 b++;
               } else if (_data.nAME == "II") {
+                setTP2U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP2_UNIT2_DATA_SUM = TP2_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTp2UnitTwo(ConsumptionModel(
@@ -380,13 +498,14 @@ class HomeController extends GetxController
               TP2_UNIT2_DATA_SUM = 0;
               b = 0;
             }
-
+            setTP2List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP2(double.parse(_data.cONSUMPTIONVALUE!));
             setTP2(_data);
           } else if (data[1][i]["2"] == "TP3") {
             Data _data = Data.fromJson(data[1][i]);
             if (c < 4) {
               if (_data.nAME == "I") {
+                setTP3U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP3_UNIT1_DATA_SUM = TP3_UNIT1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP3UnitOne(ConsumptionModel(
@@ -396,6 +515,7 @@ class HomeController extends GetxController
                     centerName: data[1][i]["NAME_1"]));
                 c++;
               } else if (_data.nAME == "II") {
+                setTP3U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP3_UNIT2_DATA_SUM = TP3_UNIT2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTp3UnitTwo(ConsumptionModel(
@@ -424,7 +544,7 @@ class HomeController extends GetxController
               TP3_UNIT2_DATA_SUM = 0;
               c = 0;
             }
-
+            setTP3List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP3(double.parse(_data.cONSUMPTIONVALUE!));
             setTP3(_data);
           } else if (data[1][i]["2"] == "TP4") {
@@ -432,6 +552,7 @@ class HomeController extends GetxController
 
             if (d < 8) {
               if (_data.nAME == "Section 1") {
+                setTP4S1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP4_SECTION1_DATA_SUM = TP4_SECTION1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4SOne(ConsumptionModel(
@@ -442,6 +563,7 @@ class HomeController extends GetxController
 
                 d++;
               } else if (_data.nAME == "Section 2") {
+                setTP4S2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP4_SECTION2_DATA_SUM = TP4_SECTION2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4STwo(ConsumptionModel(
@@ -452,6 +574,7 @@ class HomeController extends GetxController
 
                 d++;
               } else if (_data.nAME == "Section 3") {
+                setTP4S3List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP4_SECTION3_DATA_SUM = TP4_SECTION3_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4SThree(ConsumptionModel(
@@ -462,6 +585,7 @@ class HomeController extends GetxController
 
                 d++;
               } else if (_data.nAME == "Section 4") {
+                setTP4S4List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 TP4_SECTION4_DATA_SUM = TP4_SECTION4_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4SFour(ConsumptionModel(
@@ -507,7 +631,7 @@ class HomeController extends GetxController
 
               d = 0;
             }
-
+            setTP4List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP4(double.parse(_data.cONSUMPTIONVALUE!));
             setTP4(_data);
           } else if (data[1][i]["2"] == "PP") {
@@ -515,6 +639,7 @@ class HomeController extends GetxController
 
             if (e < 7) {
               if (_data.nAME == "PP1") {
+                setPP1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 PP_PP1_DATA_SUM = PP_PP1_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setPPOne(ConsumptionModel(
@@ -525,6 +650,7 @@ class HomeController extends GetxController
 
                 e++;
               } else if (_data.nAME == "PP2") {
+                setPP2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 PP_PP2_DATA_SUM = PP_PP2_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setPPTwo(ConsumptionModel(
@@ -535,6 +661,7 @@ class HomeController extends GetxController
 
                 e++;
               } else if (_data.nAME == "PP3") {
+                setPP3List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 PP_PP3_DATA_SUM = PP_PP3_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setPPThree(ConsumptionModel(
@@ -545,6 +672,7 @@ class HomeController extends GetxController
 
                 e++;
               } else if (_data.nAME == "Utilities") {
+                setUTILITIESList(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
                 PP_UTILITIES_DATA_SUM = PP_UTILITIES_DATA_SUM +
                     double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setUtilitie(ConsumptionModel(
@@ -590,7 +718,7 @@ class HomeController extends GetxController
 
               e = 0;
             }
-
+            setPPList(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalPP(double.parse(_data.cONSUMPTIONVALUE!));
             setPP(_data);
           }

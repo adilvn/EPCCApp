@@ -30,7 +30,6 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initConnectivity();
     _connectivitySubscription =

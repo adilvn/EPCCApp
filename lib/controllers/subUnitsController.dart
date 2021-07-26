@@ -1,5 +1,4 @@
 import 'package:epcc/Models/consumptionModel.dart';
-import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,10 +34,46 @@ class SubUnitsController extends GetxController {
     _unitTwovalue.add(val);
   }
 
+  var _u1List = <double>[].obs;
+  var _u2List = <double>[].obs;
+  List<double> get u1 => _u1List;
+
+  List<double> get u2 => _u2List;
+  setU1(double value) {
+    u1.add(value);
+  }
+
+  setU2(double value) {
+    u2.add(value);
+  }
 //////
 
   addChartDetails(
       List<ConsumptionModel> unitDetails, int index, List<String> list) {
+    _unitOnevalue.clear();
+    _unitTwovalue.clear();
+    u1.clear();
+    u2.clear();
+    // print("this is the ${unitDetails[171].consumptionDate}");
+    for (var i = 0; i < unitDetails.length; i++) {
+      if (unitDetails[i].centerName == list[0]) {
+        if (unitDetails[i].consumptionValue == 0) {}
+        setU1(unitDetails[i].consumptionValue);
+        setUnitOneValue(ConsumptionValue(
+            Date: unitDetails[i].consumptionDate,
+            Consumption: unitDetails[i].consumptionValue));
+      }
+      if (index == 2) {
+        if (unitDetails[i].centerName == list[1]) {
+          if (unitDetails[i].consumptionValue == 0) {}
+          setU2(unitDetails[i].consumptionValue);
+          setUnitTwoValue(ConsumptionValue(
+              Date: unitDetails[i].consumptionDate,
+              Consumption: unitDetails[i].consumptionValue));
+        }
+      }
+    }
+
     if (_subdropdown1.value == "-" &&
         _subdropdown2.value == "-" &&
         _subdropdown3.value == "-") {
@@ -47,18 +82,12 @@ class SubUnitsController extends GetxController {
           setChartOne(ChartDataSub(
               x: unitDetails[i].consumptionDate,
               y: unitDetails[i].consumptionValue));
-          setUnitOneValue(ConsumptionValue(
-              Date: unitDetails[i].consumptionDate,
-              Consumption: unitDetails[i].consumptionValue));
         }
         if (index == 2) {
           if (unitDetails[i].centerName == list[1]) {
             setChartTwo(ChartDataSub(
                 x: unitDetails[i].consumptionDate,
                 y: unitDetails[i].consumptionValue));
-            setUnitTwoValue(ConsumptionValue(
-                Date: unitDetails[i].consumptionDate,
-                Consumption: unitDetails[i].consumptionValue));
           }
         }
       }
@@ -89,6 +118,10 @@ class SubUnitsController extends GetxController {
             }
           }
         }
+      }
+      if (chartOne.isEmpty && chartTwo.isEmpty) {
+        Get.rawSnackbar(
+            message: "Choose Correct Data", duration: Duration(seconds: 2));
       }
     } else if (_subdropdown1.value == "-" ||
         _subdropdown2.value == "-" ||

@@ -5,6 +5,7 @@ import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/BackProcessUnit.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
+import 'package:epcc/controllers/BackProcess.dart';
 import 'package:epcc/controllers/HomeController.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:epcc/routes/AppPages.dart';
@@ -14,6 +15,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
 class SubUnits extends GetView<SubUnitsController> {
+  final _controller = Get.find<BackProcessController>();
   @override
   Widget build(BuildContext context) {
     controller.addChartDetails(
@@ -107,30 +109,27 @@ class SubUnits extends GetView<SubUnitsController> {
                         ),
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.bottomLeft,
-                      width: double.infinity,
-                      height: 25,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            width: 100,
-                            height: 25,
-                            child: Text(
-                              "${controller.title}",
-                              style: TextStyle(color: epccBlue, fontSize: 12),
-                            ),
-                            decoration: BoxDecoration(
-                                color: white,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(30),
-                                    bottomRight: Radius.circular(30))),
-                          )
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                          alignment: Alignment.center,
+                          height: 25,
+                          child: Text(
+                            controller.title,
+                            style: TextStyle(color: epccBlue, fontSize: 14),
+                          ),
+                          decoration: BoxDecoration(
+                              color: white,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(30),
+                                  bottomRight: Radius.circular(30))),
+                        ),
+                        SizedBox(
+                          width: 0,
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: 10,
@@ -354,9 +353,10 @@ class SubUnits extends GetView<SubUnitsController> {
                                       ColumnSeries<ChartDataSub, String>(
                                           pointColorMapper:
                                               (ChartDataSub color, _) =>
-                                                  Colors.yellow,
+                                                  Color(0xffFFBA44),
                                           // Hiding the legend item for this series
                                           dataLabelSettings: DataLabelSettings(
+                                              textStyle: TextStyle(fontSize: 9),
                                               labelAlignment:
                                                   ChartDataLabelAlignment.outer,
                                               isVisible: true),
@@ -379,19 +379,33 @@ class SubUnits extends GetView<SubUnitsController> {
               children: [
                 getTiles(controller.colors[0], controller.buttonText[0],
                     "assets/images/750.png", () {
-                  controller.SetTitle(controller.buttonText[0]);
-                  controller.SetLocationName(controller.buttonText[0]);
+                  _controller.SetTitle(
+                      "${controller.title}${controller.buttonText[0]}>");
+                  _controller.SetLocationName(controller.buttonText[0]);
+                  _controller.ListData.clear();
+                  _controller.chartOne.clear();
+                  _controller.setBPDropValue1("-");
+                  _controller.setBPDropValue2("-");
+
+                  _controller.setBPDropValue3("-");
                   BottomNavigation.changeProfileWidget(
                       BackProcessUnit(unitOnevalue: controller.unitOneValue));
-                }),
+                }, controller.u1),
                 controller.button == 2
                     ? getTiles(controller.colors[1], controller.buttonText[1],
                         "assets/images/750.png", () {
-                        controller.SetTitle(controller.buttonText[1]);
-                        controller.SetLocationName(controller.buttonText[1]);
+                        _controller.SetTitle(
+                            "${controller.title}${controller.buttonText[1]}>");
+                        _controller.SetLocationName(controller.buttonText[1]);
+                        _controller.ListData.clear();
+                        _controller.chartOne.clear();
+                        _controller.setBPDropValue1("-");
+                        _controller.setBPDropValue2("-");
+
+                        _controller.setBPDropValue3("-");
                         BottomNavigation.changeProfileWidget(BackProcessUnit(
                             unitOnevalue: controller.unitTwoValue));
-                      })
+                      }, controller.u2)
                     : Container()
               ],
             ),
@@ -401,7 +415,9 @@ class SubUnits extends GetView<SubUnitsController> {
     );
   }
 
-  getTiles(Color color, String val, textImage, VoidCallback onTap) {
+  getTiles(Color color, String val, textImage, VoidCallback onTap,
+      List<double> list) {
+    print(list);
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -466,20 +482,40 @@ class SubUnits extends GetView<SubUnitsController> {
                         SizedBox(
                           height: 5,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Total:32434Kwh",
-                                style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
-                            Text("Min:32434Kwh",
-                                style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
-                            Text("Max:32434Kwh",
-                                style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
-                          ],
-                        ),
+                        list.isEmpty
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Total:32434Kwh",
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 9)),
+                                  Text("Min:32434Kwh",
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 9)),
+                                  Text("Max:32434Kwh",
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 9)),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      "Total: ${list.reduce((value, element) => value + element)}Kwh",
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 9)),
+                                  Text(
+                                      "Min: ${list.reduce((value, element) => value < element ? value : element)}Kwh",
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 9)),
+                                  Text(
+                                      "Max: ${list.reduce((value, element) => value > element ? value : element)}Kwh",
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 9)),
+                                ],
+                              ),
                         SizedBox(
                           height: 5,
                         ),

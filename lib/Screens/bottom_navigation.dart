@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
-  static const String id = 'bottom_navigation';
   static int selectedIndex = 1;
   static Widget currentScreen = HomeScreen();
   static Widget currentProfileScreen = HomeScreen();

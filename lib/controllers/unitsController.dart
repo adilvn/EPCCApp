@@ -32,10 +32,34 @@ class UnitsController extends GetxController {
     _chartFour.refresh();
   }
 
+  var _u1List = <double>[].obs;
+  var _u2List = <double>[].obs;
+  var _u3List = <double>[].obs;
+  var _u4List = <double>[].obs;
+  List<double> get U1 => _u1List;
+  List<double> get U2 => _u2List;
+  List<double> get U3 => _u3List;
+  List<double> get U4 => _u4List;
+
+  setU1(List<double> val) {
+    _u1List.assignAll(val);
+  }
+
+  setU2(List<double> val) {
+    _u2List.assignAll(val);
+  }
+
+  setU3(List<double> val) {
+    _u3List.assignAll(val);
+  }
+
+  setU4(List<double> val) {
+    _u4List.assignAll(val);
+  }
+
   @override
   void onInit() {
     super.onInit();
-    print("Called");
   }
 
   addChartsDetails(
@@ -48,7 +72,6 @@ class UnitsController extends GetxController {
         _unitdropdown2.value == "." &&
         _unitdropdown3.value == ".") {
       for (var i = 0; i < 4; i++) {
-        print(unitOneDetails[i].consumptionDate);
         setChartOne(ChartData1(
             x: unitOneDetails[i].consumptionDate!,
             y: unitOneDetails[i].totalValue!));
@@ -56,7 +79,7 @@ class UnitsController extends GetxController {
         setChartTwo(ChartData1(
             x: unitTwoDetails[i].consumptionDate!,
             y: unitTwoDetails[i].totalValue!));
-
+        // print(unitTwoDetails[i].consumptionValue!);
         if (index > 2) {
           setChartThree(ChartData1(
               x: unitThreeDetails[i].consumptionDate!,
@@ -199,6 +222,30 @@ class UnitsController extends GetxController {
       _chartThree.clear();
       _chartFour.clear();
     }
+  }
+
+  var _totalunit1 = 0.0.obs;
+  var _totalunit2 = 0.0.obs;
+  var _totalunit3 = 0.0.obs;
+  var _totalunit4 = 0.0.obs;
+  double get totalunit1 => _totalunit1.value;
+  double get totalunit2 => _totalunit2.value;
+  double get totalunit3 => _totalunit3.value;
+  double get totalunit4 => _totalunit4.value;
+  setTotalUnit1(double val) {
+    _totalunit1.value = val;
+  }
+
+  setTotalUnit2(double val) {
+    _totalunit2.value = val;
+  }
+
+  setTotalUnit3(double val) {
+    _totalunit3.value = val;
+  }
+
+  setTotalUnit4(double val) {
+    _totalunit4.value = val;
   }
 
   var _unitdropdown1 = ".".obs;

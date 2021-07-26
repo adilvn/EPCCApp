@@ -1,6 +1,4 @@
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/Models/consumptionModel.dart';
-import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
@@ -8,48 +6,14 @@ import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnitsPage extends GetView<UnitsController> {
-  // List<UNITDATAMODEL> unitOneDetails = [];
-  // List<UNITDATAMODEL> unitTwoDetails = [];
-  // List<UNITDATAMODEL> unitThreeDetails = [];
-  // List<UNITDATAMODEL> unitFourDetails = [];
-  // List<ConsumptionModel> unitOne = [];
-  // List<ConsumptionModel> unitTwo = [];
-  // List<ConsumptionModel> unitThree = [];
-  // List<ConsumptionModel> unitFour = [];
-  // List<String> centerNames = [];
-
-  // List<dynamic> buttonText = [];
-  // List<Color> buttonColor = [];
-  // String title = "";
-  // String locationName = '';
-
-  // int button = 0;
-
-  // UnitsPage(
-  //     {required this.unitOneDetails,
-  //     required this.unitTwoDetails,
-  //     required this.unitThreeDetails,
-  //     required this.unitFourDetails,
-  //     required this.unitOne,
-  //     required this.unitTwo,
-  //     required this.unitThree,
-  //     required this.unitFour,
-  //     required this.centerNames,
-  //     required this.buttonColor,
-  //     required this.buttonText,
-  //     required this.button,
-  //     required this.title,
-  //     required this.locationName});
-
   final _subController = Get.find<SubUnitsController>();
 
   @override
   Widget build(BuildContext context) {
-    // controller.addChartsDetails(unitOneDetails, unitTwoDetails,
-    //     unitThreeDetails, unitFourDetails, button);
     controller.addChartsDetails(
         controller.unitOneDetails,
         controller.unitTwoDetails,
@@ -58,60 +22,61 @@ class UnitsPage extends GetView<UnitsController> {
         controller.buttonIndex);
     return Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: epccBlue500,
-            elevation: 4,
-            title: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 15,
-                        height: 22,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                    "assets/images/ifl_logo_small.png"))),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "EPCC",
-                        style: TextStyle(fontSize: 20),
-                      )
-                    ],
-                  ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage("assets/images/profile.jpg"))),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
+          automaticallyImplyLeading: false,
+          backgroundColor: epccBlue500,
+          elevation: 4,
+          title: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 15,
+                      height: 22,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  "assets/images/ifl_logo_small.png"))),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "EPCC",
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/profile.jpg"))),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+              ],
             ),
-            actions: <Widget>[
-              Transform.rotate(
-                transformHitTests: true,
-                angle: 3.15,
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.sort,
-                      size: 25,
-                    )),
-              )
-            ]),
+          ),
+          // actions: <Widget>[
+          //   Transform.rotate(
+          //     transformHitTests: true,
+          //     angle: 3.15,
+          //     child: IconButton(
+          //         onPressed: () {},
+          //         icon: Icon(
+          //           Icons.sort,
+          //           size: 25,
+          //         )),
+          //   )
+          // ]
+        ),
         body: Obx(() {
           return Column(children: [
             Expanded(
@@ -145,30 +110,26 @@ class UnitsPage extends GetView<UnitsController> {
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.bottomLeft,
-                        width: double.infinity,
-                        height: 20,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: 40,
-                              height: 20,
-                              child: Text(
-                                controller.title,
-                                style: TextStyle(color: epccBlue, fontSize: 14),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: white,
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(30),
-                                      bottomRight: Radius.circular(30))),
-                            )
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            alignment: Alignment.center,
+                            height: 25,
+                            child: Text(
+                              controller.title,
+                              style: TextStyle(color: epccBlue, fontSize: 14),
+                            ),
+                            decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    bottomRight: Radius.circular(30))),
+                          ),
+                          SizedBox(
+                            width: 0,
+                          )
+                        ],
                       ),
                       Text(
                         controller.locationName,
@@ -394,7 +355,7 @@ class UnitsPage extends GetView<UnitsController> {
                                             ColumnSeries<ChartData1, String>(
                                                 pointColorMapper:
                                                     (ChartData1 color, _) =>
-                                                        epccBlue500,
+                                                        Color(0xff0099FF),
                                                 dataLabelSettings:
                                                     DataLabelSettings(
                                                         textStyle: TextStyle(
@@ -417,7 +378,7 @@ class UnitsPage extends GetView<UnitsController> {
                                             ColumnSeries<ChartData1, String>(
                                                 pointColorMapper:
                                                     (ChartData1 color, _) =>
-                                                        Colors.green,
+                                                        Color(0xff00B8AC),
                                                 // Hiding the legend item for this series
                                                 dataLabelSettings:
                                                     DataLabelSettings(
@@ -443,7 +404,9 @@ class UnitsPage extends GetView<UnitsController> {
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 6),
                                       child: SfCartesianChart(
-                                          primaryYAxis: CategoryAxis(
+                                          primaryYAxis: NumericAxis(
+                                            numberFormat:
+                                                NumberFormat.compact(),
                                             title: AxisTitle(
                                                 text: 'Consumption (KHW)',
                                                 textStyle: TextStyle(
@@ -454,6 +417,17 @@ class UnitsPage extends GetView<UnitsController> {
                                                     fontWeight:
                                                         FontWeight.w300)),
                                           ),
+                                          // primaryYAxis: CategoryAxis(
+                                          //   title: AxisTitle(
+                                          //       text: 'Consumption (KHW)',
+                                          //       textStyle: TextStyle(
+                                          //           color: Colors.black,
+                                          //           fontFamily: 'Roboto',
+                                          //           fontSize: 14,
+                                          //           fontStyle: FontStyle.normal,
+                                          //           fontWeight:
+                                          //               FontWeight.w300)),
+                                          // ),
                                           primaryXAxis: CategoryAxis(
                                             title: AxisTitle(
                                                 text: 'Day',
@@ -469,7 +443,7 @@ class UnitsPage extends GetView<UnitsController> {
                                             ColumnSeries<ChartData1, String>(
                                                 pointColorMapper:
                                                     (ChartData1 color, _) =>
-                                                        epccBlue500,
+                                                        Color(0xff0099FF),
                                                 dataLabelSettings:
                                                     DataLabelSettings(
                                                         textStyle: TextStyle(
@@ -492,7 +466,7 @@ class UnitsPage extends GetView<UnitsController> {
                                             ColumnSeries<ChartData1, String>(
                                                 pointColorMapper:
                                                     (ChartData1 color, _) =>
-                                                        Colors.green,
+                                                        Color(0xff00B8AC),
                                                 // Hiding the legend item for this series
                                                 dataLabelSettings:
                                                     DataLabelSettings(
@@ -516,7 +490,7 @@ class UnitsPage extends GetView<UnitsController> {
                                             ColumnSeries<ChartData1, String>(
                                                 pointColorMapper:
                                                     (ChartData1 color, _) =>
-                                                        Colors.yellow,
+                                                        Color(0xffFFBA44),
                                                 // Hiding the legend item for this series
                                                 dataLabelSettings:
                                                     DataLabelSettings(
@@ -572,7 +546,7 @@ class UnitsPage extends GetView<UnitsController> {
                   ),
                 )),
             Expanded(
-                flex: 9,
+                flex: 7,
                 child: ListView(
                   children: [
                     getTiles(controller.colors[0], controller.buttonText[0],
@@ -581,12 +555,20 @@ class UnitsPage extends GetView<UnitsController> {
 
                       _subController.setButtonIndex(2);
                       _subController
-                          .setUnitButtonColor([Colors.red, Colors.green]);
+                          .setUnitButtonColor([Colors.red, Color(0xffFFBA44)]);
                       _subController.SetButtonText(
                           [controller.centerName[0], controller.centerName[1]]);
-                      _subController.SetTitle("TP1>Unit>1");
+                      _subController.SetTitle(
+                          "${controller.title}${controller.buttonText[0]}>");
                       _subController.SetLocationName("Consumption Center");
+                      _subController.chartOne.clear();
+                      _subController.chartTwo.clear();
 
+                      _subController.setSubDropValue1("-");
+                      _subController.setSubDropValue2("-");
+                      _subController.setSubDropValue3("-");
+                      _subController.unitOneValue.clear();
+                      _subController.unitTwoValue.clear();
                       BottomNavigation.changeProfileWidget(SubUnits());
 
                       // BottomNavigation.changeProfileWidget(SubUnits(
@@ -612,18 +594,26 @@ class UnitsPage extends GetView<UnitsController> {
                       //   locationName: "Consumption Center",
                       // ));
                       // Get.toNamed(AppPages.SUBUNITS);
-                    }),
+                    }, controller.totalunit1, controller.U1),
                     getTiles(controller.colors[1], controller.buttonText[1],
                         "assets/images/748.png", () {
                       _subController.setUnitDetials(controller.unitTwo);
                       _subController.setButtonIndex(2);
                       _subController
-                          .setUnitButtonColor([Colors.red, Colors.green]);
+                          .setUnitButtonColor([Colors.red, Color(0xffFFBA44)]);
                       _subController.SetButtonText(
                           [controller.centerName[2], controller.centerName[3]]);
-                      _subController.SetTitle("TP1>Unit>2");
+                      _subController.SetTitle(
+                          "${controller.title}${controller.buttonText[1]}>");
                       _subController.SetLocationName("Consumption Center");
+                      _subController.chartOne.clear();
+                      _subController.chartTwo.clear();
 
+                      _subController.setSubDropValue1("-");
+                      _subController.setSubDropValue2("-");
+                      _subController.setSubDropValue3("-");
+                      _subController.unitOneValue.clear();
+                      _subController.unitTwoValue.clear();
                       BottomNavigation.changeProfileWidget(SubUnits());
                       // BottomNavigation.changeProfileWidget(SubUnits(
                       //   unitDetails: unitTwo,
@@ -648,7 +638,7 @@ class UnitsPage extends GetView<UnitsController> {
                       //   locationName: "Consumption Center",
                       // ));
                       // Get.toNamed(AppPages.SUBUNITS);
-                    }),
+                    }, controller.totalunit2, controller.U2),
                     controller.buttonIndex == 4
                         ? Column(
                             children: [
@@ -665,13 +655,22 @@ class UnitsPage extends GetView<UnitsController> {
                                   controller.centerName[4],
                                   controller.centerName[5]
                                 ]);
-                                _subController.SetTitle("TP1>Unit>3");
+                                _subController.SetTitle(
+                                    "${controller.title}${controller.buttonText[2]}>");
                                 _subController.SetLocationName(
                                     "Consumption Center");
+                                _subController.chartOne.clear();
+                                _subController.chartTwo.clear();
+
+                                _subController.setSubDropValue1("-");
+                                _subController.setSubDropValue2("-");
+                                _subController.setSubDropValue3("-");
+                                _subController.unitOneValue.clear();
+                                _subController.unitTwoValue.clear();
 
                                 BottomNavigation.changeProfileWidget(
                                     SubUnits());
-                              }),
+                              }, controller.totalunit3, controller.U3),
                               getTiles(
                                   controller.colors[3],
                                   controller.buttonText[3],
@@ -691,10 +690,18 @@ class UnitsPage extends GetView<UnitsController> {
                                         controller.centerName[6],
                                         controller.centerName[7]
                                       ]);
-                                _subController.SetTitle("TP1>Unit>4");
+                                _subController.SetTitle(
+                                    "${controller.title}${controller.buttonText[3]}>");
                                 _subController.SetLocationName(
                                     "Consumption Center");
+                                _subController.chartOne.clear();
+                                _subController.chartTwo.clear();
 
+                                _subController.setSubDropValue1("-");
+                                _subController.setSubDropValue2("-");
+                                _subController.setSubDropValue3("-");
+                                _subController.unitOneValue.clear();
+                                _subController.unitTwoValue.clear();
                                 BottomNavigation.changeProfileWidget(
                                     SubUnits());
 
@@ -723,7 +730,7 @@ class UnitsPage extends GetView<UnitsController> {
                                 //   locationName: "Consumption Center",
                                 // ));
                                 // Get.toNamed(AppPages.SUBUNITS);
-                              })
+                              }, controller.totalunit4, controller.U4)
                             ],
                           )
                         : Container(),
@@ -733,7 +740,8 @@ class UnitsPage extends GetView<UnitsController> {
         }));
   }
 
-  getTiles(Color color, String val, imageText, VoidCallback onTap) {
+  getTiles(Color color, String val, imageText, VoidCallback onTap,
+      double totalvalue, List<double> listData) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -813,13 +821,16 @@ class UnitsPage extends GetView<UnitsController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Total:32434Kwh",
+                            Text(
+                                "Total: ${listData.reduce((value, element) => value + element)}",
                                 style: TextStyle(
                                     color: Colors.white70, fontSize: 9)),
-                            Text("Min:32434Kwh",
+                            Text(
+                                "Min: ${listData.reduce((value, element) => value < element ? value : element)}Kwh",
                                 style: TextStyle(
                                     color: Colors.white70, fontSize: 9)),
-                            Text("Max:32434Kwh",
+                            Text(
+                                "Max: ${listData.reduce((value, element) => value > element ? value : element)} Kwh",
                                 style: TextStyle(
                                     color: Colors.white70, fontSize: 9)),
                           ],

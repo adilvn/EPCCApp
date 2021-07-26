@@ -34,6 +34,7 @@ class AppPages {
     GetPage(
         name: WRAP,
         page: () => Authenticate(),
+        binding: HomePageBindings(),
         transitionDuration: Duration(milliseconds: 500),
         transition: Transition.rightToLeftWithFade),
   ];

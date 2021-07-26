@@ -1,7 +1,4 @@
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/Models/consumptionModel.dart';
-import 'package:epcc/Models/data_modal.dart';
-import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/subUnits.dart';
 import 'package:epcc/controllers/BackProcess.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
@@ -9,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import 'bottom_navigation.dart';
 
 // ignore: must_be_immutable
@@ -91,6 +87,10 @@ class BackProcessUnit extends GetView<BackProcessController> {
                           BottomNavigation.backToHomePage(SubUnits(), 0, false);
                           controller.ListData.clear();
                           controller.chartOne.clear();
+                          controller.setBPDropValue1("-");
+                          controller.setBPDropValue2("-");
+
+                          controller.setBPDropValue3("-");
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -104,31 +104,26 @@ class BackProcessUnit extends GetView<BackProcessController> {
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.bottomLeft,
-                        width: double.infinity,
-                        height: 25,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              alignment: Alignment.centerRight,
-                              width: 250,
-                              height: 25,
-                              child: Text(
-                                "TP1>Unit 1>Consumption Center>",
-                                style: TextStyle(color: epccBlue, fontSize: 12),
-                              ),
-                              decoration: BoxDecoration(
-                                  color: white,
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(30),
-                                      bottomRight: Radius.circular(30))),
-                            )
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            alignment: Alignment.center,
+                            height: 25,
+                            child: Text(
+                              "${controller.title}",
+                              style: TextStyle(color: epccBlue, fontSize: 14),
+                            ),
+                            decoration: BoxDecoration(
+                                color: white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    bottomRight: Radius.circular(30))),
+                          ),
+                          SizedBox(
+                            width: 0,
+                          )
+                        ],
                       ),
                       SizedBox(
                         height: 10,
@@ -150,7 +145,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                   ),
                 )),
             Expanded(
-                flex: 4,
+                flex: 6,
                 child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -336,7 +331,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                             ),
                                           ),
                                           VerticalDivider(
-                                            color: Colors.black38,
+                                            color: Colors.black12,
                                             thickness: 1,
                                           ),
                                           Expanded(
@@ -356,7 +351,9 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      height: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.6,
                                       decoration: BoxDecoration(color: white),
                                       child: Container(
                                         child: ListView.builder(
@@ -388,7 +385,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                       ),
                                                     ),
                                                     VerticalDivider(
-                                                      color: Colors.black38,
+                                                      color: Colors.black12,
                                                       thickness: 1,
                                                     ),
                                                     Expanded(
@@ -421,9 +418,9 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       width: double.infinity,
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.2,
+                                              0.3,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(20.0),
                                         child: Container(
                                             child: SfCartesianChart(
                                                 primaryYAxis: NumericAxis(

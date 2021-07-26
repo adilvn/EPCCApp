@@ -1,5 +1,6 @@
 import 'package:epcc/controllers/BackProcess.dart';
 import 'package:epcc/controllers/HomeController.dart';
+import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/reportController.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:epcc/controllers/unitsController.dart';
@@ -12,7 +13,7 @@ class HomePageBindings extends Bindings {
     Get.lazyPut(() => ReportController());
     Get.lazyPut(() => UnitsController());
     Get.lazyPut(() => SubUnitsController());
-
     Get.lazyPut(() => BackProcessController());
+    Get.lazyPut(() => ProfileController());
   }
 }

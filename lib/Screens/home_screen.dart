@@ -81,8 +81,8 @@ class HomeScreen extends GetView<HomeController> {
                       BottomNavigation.changeProfileWidget(HomeScreen());
                     },
                     icon: Icon(
-                      Icons.sort,
-                      size: 25,
+                      Icons.refresh,
+                      size: 30,
                     )),
               )
             ]),
@@ -214,6 +214,9 @@ class HomeScreen extends GetView<HomeController> {
                       getTiles(
                           Color(0xffFF6F00), "TP1", "assets/images/748.png",
                           () {
+                        _unitController.setU1(controller.TP1U1List);
+                        _unitController.setU2(controller.TP1U2List);
+
                         _unitController
                             .setunitOne(controller.TP1UnitOneDetails);
                         _unitController
@@ -227,9 +230,14 @@ class HomeScreen extends GetView<HomeController> {
                             .setUnitTwoDetails(controller.TP1UNIT2DATA);
                         _unitController.setUnitThreeDetails([]);
                         _unitController.setUnitFourDetails([]);
-                        _unitController.SetButtonText(["Unit 1", "Unit 2"]);
                         _unitController
-                            .setUnitButtonColor([Colors.blue, Colors.green]);
+                            .setTotalUnit1(controller.TP1_UNIT1_DATA_SUM);
+                        _unitController
+                            .setTotalUnit2(controller.TP1_UNIT2_DATA_SUM);
+
+                        _unitController.SetButtonText(["Unit 1", "Unit 2"]);
+                        _unitController.setUnitButtonColor(
+                            [Color(0xff0099FF), Color(0xff00B8AC)]);
                         _unitController.SetCenterName([
                           "Back process Unit 1",
                           "Spinning /winding unit 1",
@@ -237,7 +245,7 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning/winding unit 2"
                         ]);
                         _unitController.SetButtonIndex(2);
-                        _unitController.SetTitle("TP1");
+                        _unitController.SetTitle("TP1>");
                         _unitController.SetLocationName('Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
 
@@ -262,10 +270,12 @@ class HomeScreen extends GetView<HomeController> {
                         // title: "TP1",
                         // locationName: "Units",
                         // ));
-                      }),
+                      }, controller.t1, controller.TP1List),
                       getTiles(
                           Color(0xff7C4DFF), "TP2", "assets/images/749.png",
                           () {
+                        _unitController.setU1(controller.TP2U1List);
+                        _unitController.setU2(controller.TP2U2List);
                         _unitController
                             .setunitOne(controller.TP2UnitOneDetails);
                         _unitController
@@ -274,14 +284,18 @@ class HomeScreen extends GetView<HomeController> {
 
                         _unitController.setunitFour([]);
                         _unitController
+                            .setTotalUnit1(controller.TP2_UNIT1_DATA_SUM);
+                        _unitController
+                            .setTotalUnit2(controller.TP2_UNIT2_DATA_SUM);
+                        _unitController
                             .setUnitOneDetails(controller.TP2UNIT1DATA);
                         _unitController
                             .setUnitTwoDetails(controller.TP2UNIT2DATA);
                         _unitController.setUnitThreeDetails([]);
                         _unitController.setUnitFourDetails([]);
                         _unitController.SetButtonText(["Unit 1", "Unit 2"]);
-                        _unitController
-                            .setUnitButtonColor([Colors.blue, Colors.green]);
+                        _unitController.setUnitButtonColor(
+                            [Color(0xff0099FF), Color(0xff00B8AC)]);
                         _unitController.SetCenterName([
                           "Back process Unit 1",
                           "Spinning /winding unit 1",
@@ -289,7 +303,7 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning/winding unit 2"
                         ]);
                         _unitController.SetButtonIndex(2);
-                        _unitController.SetTitle("TP2");
+                        _unitController.SetTitle("TP2>");
                         _unitController.SetLocationName('Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
                         // BottomNavigation.changeProfileWidget(UnitsPage(
@@ -313,10 +327,16 @@ class HomeScreen extends GetView<HomeController> {
                         //   title: "TP2",
                         //   locationName: "Units",
                         // ));
-                      }),
+                      }, controller.t2, controller.TP2List),
                       getTiles(
                           Color(0xff2196F3), "TP3", "assets/images/750.png",
                           () {
+                        _unitController.setU1(controller.TP3U1List);
+                        _unitController.setU2(controller.TP3U2List);
+                        _unitController
+                            .setTotalUnit1(controller.TP3_UNIT1_DATA_SUM);
+                        _unitController
+                            .setTotalUnit2(controller.TP3_UNIT2_DATA_SUM);
                         _unitController
                             .setunitOne(controller.TP3UnitOneDetails);
                         _unitController
@@ -331,8 +351,8 @@ class HomeScreen extends GetView<HomeController> {
                         _unitController.setUnitThreeDetails([]);
                         _unitController.setUnitFourDetails([]);
                         _unitController.SetButtonText(["Unit 1", "Unit 2"]);
-                        _unitController
-                            .setUnitButtonColor([Colors.blue, Colors.green]);
+                        _unitController.setUnitButtonColor(
+                            [Color(0xff0099FF), Color(0xff00B8AC)]);
                         _unitController.SetCenterName([
                           "Back process Unit 1",
                           "Spinning /winding unit 1",
@@ -340,13 +360,26 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning/winding unit 2"
                         ]);
                         _unitController.SetButtonIndex(2);
-                        _unitController.SetTitle("TP3");
+                        _unitController.SetTitle("TP3>");
                         _unitController.SetLocationName('Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
-                      }),
+                      }, controller.t3, controller.TP3List),
                       getTiles(
                           Color(0xffFF4040), "TP4", "assets/images/751.png",
                           () {
+                        _unitController.setU1(controller.TP4S1List);
+                        _unitController.setU2(controller.TP4S2List);
+                        _unitController.setU3(controller.TP4S3List);
+                        _unitController.setU4(controller.TP4S4List);
+                        _unitController
+                            .setTotalUnit1(controller.TP4_SECTION1_DATA_SUM);
+                        _unitController
+                            .setTotalUnit2(controller.TP4_SECTION2_DATA_SUM);
+                        _unitController
+                            .setTotalUnit3(controller.TP4_SECTION3_DATA_SUM);
+                        _unitController
+                            .setTotalUnit4(controller.TP4_SECTION4_DATA_SUM);
+
                         _unitController.setunitOne(controller.TP4SOneDetails);
                         _unitController.setunitTwo(controller.TP4STwoDetails);
                         _unitController
@@ -368,9 +401,9 @@ class HomeScreen extends GetView<HomeController> {
                           "Section 4",
                         ]);
                         _unitController.setUnitButtonColor([
-                          Colors.blue,
-                          Colors.green,
-                          Colors.yellow,
+                          Color(0xff0099FF),
+                          Color(0xff00B8AC),
+                          Color(0xffFFBA44),
                           Colors.red
                         ]);
                         _unitController.SetCenterName([
@@ -384,14 +417,26 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning /winding 25k",
                         ]);
                         _unitController.SetButtonIndex(4);
-                        _unitController.SetTitle("Section");
+                        _unitController.SetTitle("TP4>");
                         _unitController.SetLocationName('Sections');
                         BottomNavigation.changeProfileWidget(UnitsPage());
-                      }),
+                      }, controller.t4, controller.TP4List),
                       getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",
                           () {
+                        _unitController.setU1(controller.PP1List);
+                        _unitController.setU2(controller.PP2List);
+                        _unitController.setU3(controller.PP3List);
+                        _unitController.setU4(controller.UTILITIESList);
+                        _unitController
+                            .setTotalUnit1(controller.PP_PP1_DATA_SUM);
+                        _unitController
+                            .setTotalUnit2(controller.PP_PP2_DATA_SUM);
+                        _unitController
+                            .setTotalUnit3(controller.PP_PP3_DATA_SUM);
+                        _unitController
+                            .setTotalUnit4(controller.PP_UTILITIES_DATA_SUM);
                         _unitController.setunitOne(controller.PPOneDetails);
-                        print(controller.PP1DATA[0].consumptionValue);
+
                         _unitController.setunitTwo(controller.PPTwoDetails);
                         _unitController.setunitThree(controller.PPThreeDetails);
 
@@ -406,9 +451,9 @@ class HomeScreen extends GetView<HomeController> {
                         _unitController.SetButtonText(
                             ["PP1", "PP2", "PP3", "Utilities"]);
                         _unitController.setUnitButtonColor([
-                          Colors.blue,
-                          Colors.green,
-                          Colors.yellow,
+                          Color(0xff0099FF),
+                          Color(0xff00B8AC),
+                          Color(0xffFFBA44),
                           Colors.red
                         ]);
                         _unitController.SetCenterName([
@@ -422,9 +467,9 @@ class HomeScreen extends GetView<HomeController> {
                         ]);
                         _unitController.SetButtonIndex(4);
                         _unitController.SetLocationName('PP');
-                        _unitController.SetTitle("PP");
+                        _unitController.SetTitle("PP>");
                         BottomNavigation.changeProfileWidget(UnitsPage());
-                      }),
+                      }, controller.pp, controller.PPList),
                     ],
                   ),
                 ),
@@ -556,27 +601,27 @@ class HomeScreen extends GetView<HomeController> {
                               Color(0xffFF6F00), "TP1", "assets/images/748.png",
                               () {
                             // Get.to(() => UnitsPage(list: controller.TP1));
-                          }),
+                          }, 0.0, [0.0, 0.0]),
                           getTiles(
                               Color(0xff7C4DFF), "TP2", "assets/images/749.png",
                               () {
                             // Get.to(() => UnitsPage(list: controller.TP2));
-                          }),
+                          }, 0.0, [0.0, 0.0]),
                           getTiles(
                               Color(0xff2196F3), "TP3", "assets/images/750.png",
                               () {
                             // Get.to(() => UnitsPage(list: controller.TP3));
-                          }),
+                          }, 0.0, [0.0, 0.0]),
                           getTiles(
                               Color(0xffFF4040), "TP4", "assets/images/751.png",
                               () {
                             // Get.to(() => UnitsPage(list: controller.TP4));
-                          }),
+                          }, 0.0, [0.0, 0.0]),
                           getTiles(
                               Color(0xffFFA640), "PP", "assets/images/752.png",
                               () {
                             // Get.to(() => UnitsPage(list: controller.PP));
-                          }),
+                          }, 0.0, [0.0, 0.0]),
                         ],
                       ),
                     ),
@@ -593,7 +638,8 @@ class HomeScreen extends GetView<HomeController> {
         ));
   }
 
-  getTiles(Color color, String val, imageText, VoidCallback onTap) {
+  getTiles(Color color, String val, imageText, VoidCallback onTap,
+      double totalvalue, List<double> list) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -670,13 +716,15 @@ class HomeScreen extends GetView<HomeController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Total:32434Kwh",
+                            Text("Total: $totalvalue",
                                 style: TextStyle(
                                     color: Colors.white70, fontSize: 9)),
-                            Text("Min:32434Kwh",
+                            Text(
+                                "Min: ${list.reduce((value, element) => value > element ? value : element)}",
                                 style: TextStyle(
                                     color: Colors.white70, fontSize: 9)),
-                            Text("Max:32434Kwh",
+                            Text(
+                                "Max:  ${list.reduce((value, element) => value > element ? value : element)}",
                                 style: TextStyle(
                                     color: Colors.white70, fontSize: 9)),
                           ],
