@@ -1,6 +1,6 @@
+import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/routes/AppPages.dart';
 import 'package:epcc/routes/AppRoutes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -8,6 +8,12 @@ class ProfileController extends GetxController {
     _gmail.value = val;
   }
 
+  var _uid = "".obs;
+  String get uid => _uid.value;
+  setUid(String val) {
+    _uid.value = val;
+  }
+
   setGamilValue(String? val) async {
     print(val);
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -18,7 +24,7 @@ class ProfileController extends GetxController {
   getGamilValue() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
     String? value = _pref.getString("Uname")!;
-    print(value);
+
     return value;
   }
 }

@@ -90,8 +90,56 @@ class BackProcessController extends GetxController {
         Get.rawSnackbar(
             message: "Choose Correct Date", duration: Duration(seconds: 2));
       }
-    } else if (BPDropValue1.value == "-" ||
-        BPDropValue2.value == "-" ||
+    } else if (BPDropValue1.value != "-" &&
+        BPDropValue2.value == "-" &&
+        BPDropValue3.value == "-") {
+      chartOne.clear();
+      _listData.clear();
+      var _year = _bpdropdown1.substring(2, 4).toUpperCase();
+
+      for (var i = 0; i < val.length; i++) {
+        var _yearValue = val[i].Date!.substring(7, 9).toString();
+        if (_yearValue == _year) {
+          setChartOne(ChartData(val[i].Date.toString(), val[i].Consumption));
+          setListData(ConsumptionValue(
+              Date: val[i].Date, Consumption: val[i].Consumption));
+        }
+      }
+      if (chartOne.isEmpty && ListData.isEmpty) {
+        chartOne.clear();
+        _listData.clear();
+
+        Get.rawSnackbar(
+            message: "Choose Correct Date", duration: Duration(seconds: 2));
+      }
+    } else if (BPDropValue1.value != "-" &&
+        BPDropValue2.value != "-" &&
+        BPDropValue3.value == "-") {
+      chartOne.clear();
+      _listData.clear();
+      var _month = _bpdropdown2.toUpperCase();
+      var _year = _bpdropdown1.substring(2, 4).toUpperCase();
+      var date = "$_month-$_year";
+
+      for (var i = 0; i < val.length; i++) {
+        var _yearValue = val[i].Date!.substring(7, 9).toString();
+        var _monthValue = val[i].Date!.substring(3, 6);
+        var newValue = "$_monthValue-$_yearValue";
+        if (newValue == date) {
+          setChartOne(ChartData(val[i].Date.toString(), val[i].Consumption));
+          setListData(ConsumptionValue(
+              Date: val[i].Date, Consumption: val[i].Consumption));
+        }
+      }
+      if (chartOne.isEmpty && ListData.isEmpty) {
+        chartOne.clear();
+        _listData.clear();
+
+        Get.rawSnackbar(
+            message: "Choose Correct Date", duration: Duration(seconds: 2));
+      }
+    } else if (BPDropValue1.value == "-" &&
+        BPDropValue2.value == "-" &&
         BPDropValue3.value == "-") {
       chartOne.clear();
       _listData.clear();

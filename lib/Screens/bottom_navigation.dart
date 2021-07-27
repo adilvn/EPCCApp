@@ -1,4 +1,5 @@
 import 'package:connectivity_alert_widget/connectivity_alert_widget.dart';
+import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Screens/Reports.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/noInternet.dart';
@@ -28,6 +29,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   void initState() {
     super.initState();
+    DBService().getUid();
     BottomNavigation.currentProfileScreen = HomeScreen();
     BottomNavigation.currentScreen = HomeScreen();
     BottomNavigation.backToHomePage = (Widget widget, int index, bool val) {

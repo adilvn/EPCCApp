@@ -1,14 +1,9 @@
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/Models/consumptionModel.dart';
-import 'package:epcc/Models/data_modal.dart';
-import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/Screens/BackProcessUnit.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/controllers/BackProcess.dart';
-import 'package:epcc/controllers/HomeController.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
-import 'package:epcc/routes/AppPages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -22,60 +17,61 @@ class SubUnits extends GetView<SubUnitsController> {
         controller.unitDetails, controller.button, controller.buttonText);
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: epccBlue500,
-          elevation: 4,
-          title: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 15,
-                      height: 22,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage(
-                                  "assets/images/ifl_logo_small.png"))),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "EPCC",
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage("assets/images/profile.jpg"))),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-              ],
-            ),
+        automaticallyImplyLeading: false,
+        backgroundColor: epccBlue500,
+        elevation: 4,
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 15,
+                    height: 22,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage(
+                                "assets/images/ifl_logo_small.png"))),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "EPCC",
+                    style: TextStyle(fontSize: 20),
+                  )
+                ],
+              ),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage("assets/images/profile.jpg"))),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+            ],
           ),
-          actions: <Widget>[
-            Transform.rotate(
-              transformHitTests: true,
-              angle: 3.15,
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.sort,
-                    size: 25,
-                  )),
-            )
-          ]),
+        ),
+        // actions: <Widget>[
+        //   Transform.rotate(
+        //     transformHitTests: true,
+        //     angle: 3.15,
+        //     child: IconButton(
+        //         onPressed: () {},
+        //         icon: Icon(
+        //           Icons.sort,
+        //           size: 25,
+        //         )),
+        //   )
+        // ]
+      ),
       body: Obx(() {
         return Column(children: [
           Expanded(
@@ -215,7 +211,7 @@ class SubUnits extends GetView<SubUnitsController> {
                                 alignment: Alignment.center,
                                 height: 39,
                                 decoration: BoxDecoration(
-                                    color: Colors.yellow,
+                                    color: Color(0xffFFBA44),
                                     borderRadius: BorderRadius.circular(25)),
                                 child: DropdownButton<String>(
                                   value: controller.SubDropValue2.value,
@@ -225,8 +221,8 @@ class SubUnits extends GetView<SubUnitsController> {
                                   ),
                                   iconSize: 24,
                                   elevation: 16,
-                                  dropdownColor: Colors.yellow,
-                                  focusColor: Colors.yellow,
+                                  dropdownColor: Color(0xffFFBA44),
+                                  focusColor: Color(0xffFFBA44),
                                   underline: Container(),
                                   style:
                                       const TextStyle(color: Colors.deepPurple),

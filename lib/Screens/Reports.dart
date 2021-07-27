@@ -4,11 +4,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Reports extends GetView<ReportController> {
+class Reports extends StatefulWidget {
   Reports({Key? key}) : super(key: key);
 
   @override
+  _ReportsState createState() => _ReportsState();
+}
+
+class _ReportsState extends State<Reports> {
+  final _controller = Get.put(() => ReportController());
+
+  final controller = Get.find<ReportController>();
+  void getData() async {
+    print("Called");
+    controller.setValueBool(true);
+    Future.delayed(Duration(seconds: 1), () {
+      controller.addDataList();
+      controller.setValueBool(false);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print("chll");
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -66,13 +84,9 @@ class Reports extends GetView<ReportController> {
               )
             ]),
         body: Obx(() {
-          return controller.allReportsData.isEmpty
+          return controller.allReportsData.isEmpty || controller.isLoading
               ? Container(
-                  child: Center(
-                    child: CupertinoActivityIndicator(
-                      radius: 20,
-                    ),
-                  ),
+                  child: Center(child: Text("Fetching Data...")),
                 )
               : Column(children: [
                   Expanded(
@@ -159,7 +173,9 @@ class Reports extends GetView<ReportController> {
                                             controller.setTPDropValue(val);
 
                                             controller.setDrop2List(val!);
-                                            controller.addDataList();
+                                            getData();
+
+                                            // controller.addDataList();
                                           },
                                           items: controller.TPDrop.map<
                                                   DropdownMenuItem<String>>(
@@ -209,8 +225,8 @@ class Reports extends GetView<ReportController> {
                                           onChanged: (val) {
                                             controller.setUnitDropValue(val);
                                             controller.setUnitsDropList(val!);
-
-                                            controller.addDataList();
+                                            getData();
+                                            // controller.addDataList();
                                           },
                                           items: controller.UnitDrop.map<
                                                   DropdownMenuItem<String>>(
@@ -268,7 +284,8 @@ class Reports extends GetView<ReportController> {
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
                                             controller.setBPDropValue(val);
-                                            controller.addDataList();
+                                            getData();
+                                            // controller.addDataList();
                                           },
                                           items: controller.BPDrop.map<
                                                   DropdownMenuItem<String>>(
@@ -332,8 +349,11 @@ class Reports extends GetView<ReportController> {
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
+                                            print('pahle');
+
                                             controller.setBPDropValue1(val);
-                                            controller.addDataList();
+                                            getData();
+                                            // controller.addDataList();
                                           },
                                           items: controller.BPDrop1.map<
                                                   DropdownMenuItem<String>>(
@@ -381,7 +401,8 @@ class Reports extends GetView<ReportController> {
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
                                             controller.setBPDropValue2(val);
-                                            controller.addDataList();
+                                            getData();
+                                            // controller.addDataList();
                                           },
                                           items: controller.BPDrop2.map<
                                                   DropdownMenuItem<String>>(
@@ -431,7 +452,8 @@ class Reports extends GetView<ReportController> {
                                               color: Colors.deepPurple),
                                           onChanged: (val) {
                                             controller.setBPDropValue3(val);
-                                            controller.addDataList();
+                                            getData();
+                                            // controller.addDataList();
                                           },
                                           items: controller.BPDrop3.map<
                                                   DropdownMenuItem<String>>(

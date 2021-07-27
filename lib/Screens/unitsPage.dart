@@ -215,7 +215,7 @@ class UnitsPage extends GetView<UnitsController> {
                                   alignment: Alignment.center,
                                   height: 39,
                                   decoration: BoxDecoration(
-                                      color: Colors.yellow,
+                                      color: Color(0xffFFBA44),
                                       borderRadius: BorderRadius.circular(25)),
                                   child: DropdownButton<String>(
                                     value: controller.UnitDropValue2.value,
@@ -225,8 +225,8 @@ class UnitsPage extends GetView<UnitsController> {
                                     ),
                                     iconSize: 24,
                                     elevation: 16,
-                                    dropdownColor: Colors.red,
-                                    focusColor: Colors.red,
+                                    dropdownColor: Color(0xffFFBA44),
+                                    focusColor: Color(0xffFFBA44),
                                     underline: Container(),
                                     style: const TextStyle(
                                         color: Colors.deepPurple),
@@ -491,6 +491,7 @@ class UnitsPage extends GetView<UnitsController> {
                                                 pointColorMapper:
                                                     (ChartData1 color, _) =>
                                                         Color(0xffFFBA44),
+
                                                 // Hiding the legend item for this series
                                                 dataLabelSettings:
                                                     DataLabelSettings(

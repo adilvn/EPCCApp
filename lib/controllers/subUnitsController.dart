@@ -98,11 +98,11 @@ class SubUnitsController extends GetxController {
       var _day = _subdropdown3.toUpperCase();
       var _year = _subdropdown1.substring(2, 4).toUpperCase();
       var date = "$_day-$_month-$_year";
-
+      chartOne.clear();
+      chartTwo.clear();
       for (var i = 0; i < unitDetails.length; i++) {
         if (unitDetails[i].centerName == list[0]) {
           if (unitDetails[i].consumptionDate == date) {
-            chartOne.clear();
             setChartOne(ChartDataSub(
                 x: unitDetails[i].consumptionDate,
                 y: unitDetails[i].consumptionValue));
@@ -111,7 +111,6 @@ class SubUnitsController extends GetxController {
         if (index == 2) {
           if (unitDetails[i].centerName == list[1]) {
             if (unitDetails[i].consumptionDate == date) {
-              chartTwo.clear();
               setChartTwo(ChartDataSub(
                   x: unitDetails[i].consumptionDate,
                   y: unitDetails[i].consumptionValue));

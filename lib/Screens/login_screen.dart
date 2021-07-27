@@ -1,5 +1,5 @@
+import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/Screens/profile.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:epcc/routes/AppPages.dart';
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 40.0),
             Text("Login",
                 style: TextStyle(
-                  color: epccBlue,
+                  color: Colors.blueGrey,
                   fontSize: 45.0,
                   fontFamily: roboto,
                   fontWeight: FontWeight.bold,
@@ -101,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Icon(
                             Icons.person,
                             color: epccGray500,
+                            size: 25,
                           ),
                           SizedBox(
                             width: 10.0,
@@ -118,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 18.0,
                               color: epccGray500,
                             ),
+                            cursorHeight: 20,
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(vertical: 5),
@@ -127,8 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: epccBlue, width: 1.5)),
-                              hintText: "Username",
+                              hintText: "example@gmail.com",
                               hintStyle: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontSize: 14,
                                 fontFamily: comfortaa,
                               ),
                             ),
@@ -143,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Icon(
                             Icons.lock,
                             color: epccGray500,
+                            size: 25,
                           ),
                           SizedBox(
                             width: 10.0,
@@ -161,6 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontSize: 18.0,
                               color: epccGray500,
                             ),
+                            cursorHeight: 20,
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(vertical: 5),
@@ -172,6 +178,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       BorderSide(color: epccBlue, width: 1.5)),
                               hintText: "Password",
                               hintStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
                                 fontFamily: comfortaa,
                               ),
                             ),
@@ -217,8 +225,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                             password: _passController.text);
                                 FirebaseAuth.instance
                                     .idTokenChanges()
-                                    .listen((User? user) {
+                                    .listen((User? user) async {
                                   if (user != null) {
+                                    var value = await DBService().getUid();
+                                    print(value);
+                                    value == null
+                                        ? DBService()
+                                            .setUid(user.uid.toString())
+                                        : null;
+                                    print("hu");
+                                    DBService().addUser(
+                                        _emailController.text, "", user.uid);
                                     setState(() {
                                       isLoading = false;
                                     });

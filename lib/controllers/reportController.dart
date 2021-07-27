@@ -33,6 +33,12 @@ class ReportController extends GetxController {
         change: change!));
   }
 
+  var _isLoading = true.obs;
+  bool get isLoading => _isLoading.value;
+  setValueBool(bool val) {
+    _isLoading.value = val;
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -47,8 +53,11 @@ class ReportController extends GetxController {
         TPDropValue == "-" &&
         UnitDropValue == "-" &&
         BPDropValue == "-") {
+      setValueBool(false);
       dataList.clear();
-    } else if (YearValue != "-" &&
+    }
+    //TODO reports All  Value
+    else if (YearValue != "-" &&
         MonthValue != "-" &&
         DayValue != "-" &&
         TPDropValue != "-" &&
@@ -58,24 +67,13 @@ class ReportController extends GetxController {
       var _day = DayValue.toUpperCase();
       var _year = YearValue.substring(2, 4).toUpperCase();
       var _prevYear = int.parse(_year) - 1;
-      var _prevData;
-      var date;
 
-      if (double.parse(_day) < 10) {
-        date = "0$_day-$_month-$_year";
-      } else {
-        date = "$_day-$_month-$_year";
-      }
+      var date = "$_day-$_month-$_year";
+      var _prevData = "$_day-$_month-$_prevYear";
 
-      if (double.parse(_day) < 10) {
-        _prevData = "0$_day-$_month-$_prevYear";
-      } else {
-        _prevData = "$_day-$_month-$_prevYear";
-      }
       var month = "";
       double consumptionValue = 0;
       double lastYearConsumptionValue = 0;
-      double difference = consumptionValue - lastYearConsumptionValue;
 
       int a = 0;
       for (var i = 0; i < allReportsData.length; i++) {
@@ -92,15 +90,18 @@ class ReportController extends GetxController {
           a++;
         }
 
-        if (allReportsData[i].s2 == TPDropValue &&
-            allReportsData[i].nAME == UnitDropValue &&
-            allReportsData[i].nAME1 == BPDropValue &&
-            allReportsData[i].cONSUMPTIONDATE == _prevData) {
-          lastYearConsumptionValue =
-              double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+        for (var i = 0; i < allReportsData.length; i++) {
+          if (allReportsData[i].s2 == TPDropValue &&
+              allReportsData[i].nAME == UnitDropValue &&
+              allReportsData[i].nAME1 == BPDropValue &&
+              allReportsData[i].cONSUMPTIONDATE == _prevData) {
+            lastYearConsumptionValue =
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          }
         }
       }
       if (a > 0) {
+        double difference = consumptionValue - lastYearConsumptionValue;
         setDataList(month, consumptionValue.toString(),
             lastYearConsumptionValue.toString(), difference.toString());
 
@@ -110,13 +111,200 @@ class ReportController extends GetxController {
         Get.rawSnackbar(
             message: "No Data Found", duration: Duration(seconds: 2));
       }
-    } else if (YearValue == "-" ||
-        MonthValue == "-" ||
-        DayValue == "-" ||
-        TPDropValue == "-" ||
-        UnitDropValue == "-" ||
-        BPDropValue == "-") {
+    }
+    // TODO reports per year
+    else if (YearValue != "-" &&
+        MonthValue == "-" &&
+        DayValue == "-" &&
+        TPDropValue != "-" &&
+        UnitDropValue != "-" &&
+        BPDropValue != "-") {
+      print(isLoading);
+
       dataList.clear();
+      var _year = YearValue.substring(2, 4).toUpperCase();
+      var _prevYear = int.parse(_year) - 1;
+      var _prevData = "$_prevYear";
+      var month = "";
+      double consumptionValue = 0;
+      double lastYearConsumptionValue = 0;
+
+      int a = 0;
+      int b = 0;
+      for (var i = 0; i < allReportsData.length; i++) {
+        var date =
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
+        if (allReportsData[i].s2 == TPDropValue &&
+            allReportsData[i].nAME == UnitDropValue &&
+            allReportsData[i].nAME1!.toUpperCase().toString() ==
+                BPDropValue.toUpperCase() &&
+            date == _year) {
+          print("called");
+          b++;
+
+          month = allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString();
+          consumptionValue =
+              double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          a++;
+        }
+
+        for (var i = 0; i < allReportsData.length; i++) {
+          if (allReportsData[i].s2 == TPDropValue &&
+              allReportsData[i].nAME == UnitDropValue &&
+              allReportsData[i].nAME1 == BPDropValue &&
+              allReportsData[i].cONSUMPTIONDATE == _prevData) {
+            lastYearConsumptionValue =
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          }
+        }
+
+        if (a > 0) {
+          double difference = consumptionValue - lastYearConsumptionValue;
+          setDataList(month, consumptionValue.toString(),
+              lastYearConsumptionValue.toString(), difference.toString());
+          a = 0;
+        }
+      }
+
+      if (b == 0) {
+        dataList.clear();
+        print(isLoading);
+
+        setValueBool(false);
+        Get.rawSnackbar(
+            message: "No Data Found", duration: Duration(seconds: 2));
+      } else {
+        print(isLoading);
+
+        setValueBool(false);
+      }
+    } else if (YearValue != "-" &&
+        MonthValue != "-" &&
+        DayValue == "-" &&
+        TPDropValue != "-" &&
+        UnitDropValue != "-" &&
+        BPDropValue != "-") {
+      dataList.clear();
+      var _month = MonthValue.toUpperCase();
+      print("ye masl");
+      print(YearValue.toUpperCase());
+      var _year = YearValue.substring(2, 4).toUpperCase();
+      var _prevYear = int.parse(_year) - 1;
+      var _prevData = "$_prevYear";
+      var month = "";
+      var newdate = "$_month-$_year";
+      double consumptionValue = 0;
+      double lastYearConsumptionValue = 0;
+
+      int a = 0;
+      int b = 0;
+      for (var i = 0; i < allReportsData.length; i++) {
+        var date =
+            allReportsData[i].cONSUMPTIONDATE!.substring(3, 9).toString();
+        if (allReportsData[i].s2 == TPDropValue &&
+            allReportsData[i].nAME == UnitDropValue &&
+            allReportsData[i].nAME1!.toUpperCase().toString() ==
+                BPDropValue.toUpperCase() &&
+            date == newdate) {
+          b++;
+
+          month = allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString();
+          consumptionValue =
+              double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          a++;
+        }
+
+        for (var i = 0; i < allReportsData.length; i++) {
+          if (allReportsData[i].s2 == TPDropValue &&
+              allReportsData[i].nAME == UnitDropValue &&
+              allReportsData[i].nAME1 == BPDropValue &&
+              allReportsData[i].cONSUMPTIONDATE == _prevData) {
+            lastYearConsumptionValue =
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          }
+        }
+
+        if (a > 0) {
+          double difference = consumptionValue - lastYearConsumptionValue;
+          setDataList(month, consumptionValue.toString(),
+              lastYearConsumptionValue.toString(), difference.toString());
+          a = 0;
+        }
+      }
+
+      if (b == 0) {
+        dataList.clear();
+        Get.rawSnackbar(
+            message: "No Data Found", duration: Duration(seconds: 2));
+      }
+    } else if (YearValue == "-" &&
+        MonthValue == "-" &&
+        DayValue == "-" &&
+        TPDropValue != "-" &&
+        UnitDropValue != "-" &&
+        BPDropValue != "-") {
+      dataList.clear();
+      var _month = MonthValue.toUpperCase();
+      var _year = YearValue.substring(2, 4).toUpperCase();
+      var _prevYear = int.parse(_year) - 1;
+      var _prevData = "$_prevYear";
+      var month = "";
+      var newdate = "$_month-$_year";
+      double consumptionValue = 0;
+      double lastYearConsumptionValue = 0;
+
+      int a = 0;
+      int b = 0;
+      for (var i = 0; i < allReportsData.length; i++) {
+        var _day =
+            allReportsData[i].cONSUMPTIONDATE!.substring(0, 2).toString();
+        var _month =
+            allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString();
+        var _year = int.parse(
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString());
+        var _prevY = _year - 1;
+        var _prevData = "$_day-$_month-$_prevY";
+        if (allReportsData[i].s2 == TPDropValue &&
+            allReportsData[i].nAME == UnitDropValue &&
+            allReportsData[i].nAME1!.toUpperCase().toString() ==
+                BPDropValue.toUpperCase()) {
+          b++;
+
+          month = allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString();
+          consumptionValue =
+              double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          a++;
+        }
+
+        for (var i = 0; i < allReportsData.length; i++) {
+          if (allReportsData[i].s2 == TPDropValue &&
+              allReportsData[i].nAME == UnitDropValue &&
+              allReportsData[i].nAME1 == BPDropValue &&
+              allReportsData[i].cONSUMPTIONDATE == _prevData) {
+            lastYearConsumptionValue =
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          }
+        }
+
+        if (a > 0) {
+          double difference = consumptionValue - lastYearConsumptionValue;
+          setDataList(month, consumptionValue.toString(),
+              lastYearConsumptionValue.toString(), difference.toString());
+          a = 0;
+        }
+      }
+
+      if (b == 0) {
+        dataList.clear();
+        Get.rawSnackbar(
+            message: "No Data Found", duration: Duration(seconds: 2));
+      }
+    } else if (YearValue != "-" ||
+        MonthValue != "-" ||
+        DayValue != "-" ||
+        TPDropValue == "-" && UnitDropValue == "-" && BPDropValue == "-") {
+      _dataList.clear();
+      setValueBool(false);
     }
   }
 
@@ -284,15 +472,15 @@ class ReportController extends GetxController {
 
   List<String> _bpDropList3 = [
     "-",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
     "10",
     "11",
     "12",
