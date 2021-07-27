@@ -1,5 +1,6 @@
 import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/controllers/loginController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:epcc/routes/AppPages.dart';
@@ -32,6 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    DBService().getADDUSER();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  final controller = Get.lazyPut(() => LoginController());
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -227,21 +236,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                     .idTokenChanges()
                                     .listen((User? user) async {
                                   if (user != null) {
-                                    var value = await DBService().getUid();
-                                    print(value);
-                                    value == null
-                                        ? DBService()
-                                            .setUid(user.uid.toString())
+                                    DBService().setUid(user.uid.toString());
+
+                                    Get.find<LoginController>().firstLogin
+                                        ? DBService().addUser(
+                                            _emailController.text, "", user.uid)
                                         : null;
-                                    print("hu");
-                                    DBService().addUser(
-                                        _emailController.text, "", user.uid);
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                    ProfileController()
-                                        .setGamilValue(_emailController.text);
                                     Get.offNamed(AppPages.WRAP);
+
+                                    isLoading = false;
 
                                     Get.rawSnackbar(
                                         message: "Successfully to login",

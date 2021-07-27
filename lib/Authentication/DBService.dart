@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:epcc/controllers/loginController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class DBService {
           'full_name': email, // John Doe
           'image': imageUrl,
         })
-        .then((value) => print("User Added"))
+        .then((value) => setADDUSER(false))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
@@ -42,6 +43,18 @@ class DBService {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
+  void setADDUSER(bool val) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool("userAdd", val);
+  }
+
+  getADDUSER() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    bool? val = _pref.getBool("userAdd");
+    Get.find<LoginController>().setFirst(val!);
+    return val;
+  }
+
   void setUid(String uid) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("uid", uid);
@@ -55,7 +68,7 @@ class DBService {
   getUid() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? val = pref.getString("uid");
-    Get.find<ProfileController>().setUid(val!);
+    val != null ? Get.find<ProfileController>().setUid(val) : null;
     return val;
   }
 }

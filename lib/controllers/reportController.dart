@@ -42,8 +42,6 @@ class ReportController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    addDataList();
   }
 
   addDataList() {
@@ -55,6 +53,17 @@ class ReportController extends GetxController {
         BPDropValue == "-") {
       setValueBool(false);
       dataList.clear();
+      var month = "";
+      double consumptionValue = 0;
+      double lastYearConsumptionValue = 0;
+      for (var i = 0; i < 10; i++) {
+        month = allReportsData[i].cONSUMPTIONDATE!.toString();
+        consumptionValue =
+            double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+        double difference = consumptionValue - lastYearConsumptionValue;
+        setDataList(month, consumptionValue.toString(),
+            lastYearConsumptionValue.toString(), difference.toString());
+      }
     }
     //TODO reports All  Value
     else if (YearValue != "-" &&
@@ -89,17 +98,16 @@ class ReportController extends GetxController {
               double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
           a++;
         }
-
-        for (var i = 0; i < allReportsData.length; i++) {
-          if (allReportsData[i].s2 == TPDropValue &&
-              allReportsData[i].nAME == UnitDropValue &&
-              allReportsData[i].nAME1 == BPDropValue &&
-              allReportsData[i].cONSUMPTIONDATE == _prevData) {
-            lastYearConsumptionValue =
-                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          }
-        }
       }
+
+      // for (var i = 0; i < allReportsData.length; i++) {
+      //   if (allReportsData[i].s2 == TPDropValue &&
+      //       allReportsData[i].nAME == UnitDropValue &&
+      //       allReportsData[i].nAME1 == BPDropValue &&
+      //       allReportsData[i].cONSUMPTIONDATE == _prevData) {
+
+      //   }
+      // }
       if (a > 0) {
         double difference = consumptionValue - lastYearConsumptionValue;
         setDataList(month, consumptionValue.toString(),
@@ -119,8 +127,6 @@ class ReportController extends GetxController {
         TPDropValue != "-" &&
         UnitDropValue != "-" &&
         BPDropValue != "-") {
-      print(isLoading);
-
       dataList.clear();
       var _year = YearValue.substring(2, 4).toUpperCase();
       var _prevYear = int.parse(_year) - 1;
@@ -148,15 +154,15 @@ class ReportController extends GetxController {
           a++;
         }
 
-        for (var i = 0; i < allReportsData.length; i++) {
-          if (allReportsData[i].s2 == TPDropValue &&
-              allReportsData[i].nAME == UnitDropValue &&
-              allReportsData[i].nAME1 == BPDropValue &&
-              allReportsData[i].cONSUMPTIONDATE == _prevData) {
-            lastYearConsumptionValue =
-                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          }
-        }
+        // for (var i = 0; i < allReportsData.length; i++) {
+        //   if (allReportsData[i].s2 == TPDropValue &&
+        //       allReportsData[i].nAME == UnitDropValue &&
+        //       allReportsData[i].nAME1 == BPDropValue &&
+        //       allReportsData[i].cONSUMPTIONDATE == _prevData) {
+        //     lastYearConsumptionValue =
+        //         double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+        //   }
+        // }
 
         if (a > 0) {
           double difference = consumptionValue - lastYearConsumptionValue;
@@ -168,14 +174,11 @@ class ReportController extends GetxController {
 
       if (b == 0) {
         dataList.clear();
-        print(isLoading);
 
         setValueBool(false);
         Get.rawSnackbar(
             message: "No Data Found", duration: Duration(seconds: 2));
       } else {
-        print(isLoading);
-
         setValueBool(false);
       }
     } else if (YearValue != "-" &&
@@ -186,8 +189,7 @@ class ReportController extends GetxController {
         BPDropValue != "-") {
       dataList.clear();
       var _month = MonthValue.toUpperCase();
-      print("ye masl");
-      print(YearValue.toUpperCase());
+
       var _year = YearValue.substring(2, 4).toUpperCase();
       var _prevYear = int.parse(_year) - 1;
       var _prevData = "$_prevYear";
@@ -214,15 +216,15 @@ class ReportController extends GetxController {
           a++;
         }
 
-        for (var i = 0; i < allReportsData.length; i++) {
-          if (allReportsData[i].s2 == TPDropValue &&
-              allReportsData[i].nAME == UnitDropValue &&
-              allReportsData[i].nAME1 == BPDropValue &&
-              allReportsData[i].cONSUMPTIONDATE == _prevData) {
-            lastYearConsumptionValue =
-                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          }
-        }
+        // for (var i = 0; i < allReportsData.length; i++) {
+        //   if (allReportsData[i].s2 == TPDropValue &&
+        //       allReportsData[i].nAME == UnitDropValue &&
+        //       allReportsData[i].nAME1 == BPDropValue &&
+        //       allReportsData[i].cONSUMPTIONDATE == _prevData) {
+        //     lastYearConsumptionValue =
+        //         double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+        //   }
+        // }
 
         if (a > 0) {
           double difference = consumptionValue - lastYearConsumptionValue;
@@ -244,26 +246,26 @@ class ReportController extends GetxController {
         UnitDropValue != "-" &&
         BPDropValue != "-") {
       dataList.clear();
-      var _month = MonthValue.toUpperCase();
-      var _year = YearValue.substring(2, 4).toUpperCase();
-      var _prevYear = int.parse(_year) - 1;
-      var _prevData = "$_prevYear";
+      // var _month = MonthValue.toUpperCase();
+      // var _year = YearValue.substring(2, 4).toUpperCase();
+      // var _prevYear = int.parse(_year) - 1;
+      // var _prevData = "$_prevYear";
       var month = "";
-      var newdate = "$_month-$_year";
+      // var newdate = "$_month-$_year";
       double consumptionValue = 0;
       double lastYearConsumptionValue = 0;
 
       int a = 0;
       int b = 0;
       for (var i = 0; i < allReportsData.length; i++) {
-        var _day =
-            allReportsData[i].cONSUMPTIONDATE!.substring(0, 2).toString();
-        var _month =
-            allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString();
-        var _year = int.parse(
-            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString());
-        var _prevY = _year - 1;
-        var _prevData = "$_day-$_month-$_prevY";
+        // var _day =
+        //     allReportsData[i].cONSUMPTIONDATE!.substring(0, 2).toString();
+        // var _month =
+        //     allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString();
+        // var _year = int.parse(
+        //     allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString());
+        // var _prevY = _year - 1;
+        // var _prevData = "$_day-$_month-$_prevY";
         if (allReportsData[i].s2 == TPDropValue &&
             allReportsData[i].nAME == UnitDropValue &&
             allReportsData[i].nAME1!.toUpperCase().toString() ==
@@ -276,15 +278,15 @@ class ReportController extends GetxController {
           a++;
         }
 
-        for (var i = 0; i < allReportsData.length; i++) {
-          if (allReportsData[i].s2 == TPDropValue &&
-              allReportsData[i].nAME == UnitDropValue &&
-              allReportsData[i].nAME1 == BPDropValue &&
-              allReportsData[i].cONSUMPTIONDATE == _prevData) {
-            lastYearConsumptionValue =
-                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          }
-        }
+        // for (var i = 0; i < allReportsData.length; i++) {
+        //   if (allReportsData[i].s2 == TPDropValue &&
+        //       allReportsData[i].nAME == UnitDropValue &&
+        //       allReportsData[i].nAME1 == BPDropValue &&
+        //       allReportsData[i].cONSUMPTIONDATE == _prevData) {
+        //     lastYearConsumptionValue =
+        //         double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+        //   }
+        // }
 
         if (a > 0) {
           double difference = consumptionValue - lastYearConsumptionValue;
@@ -305,6 +307,7 @@ class ReportController extends GetxController {
         TPDropValue == "-" && UnitDropValue == "-" && BPDropValue == "-") {
       _dataList.clear();
       setValueBool(false);
+      Get.rawSnackbar(message: "No Data Found", duration: Duration(seconds: 2));
     }
   }
 

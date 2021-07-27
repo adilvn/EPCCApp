@@ -37,6 +37,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    print(controller.uid);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -182,7 +183,7 @@ class _ProfileState extends State<Profile> {
                     Expanded(
                       flex: 1,
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: ElevatedButton(
                           onPressed: () {
                             Authenticate().sigout();

@@ -61,6 +61,8 @@ class BackProcessController extends GetxController {
     if (BPDropValue1.value == "-" &&
         BPDropValue2.value == "-" &&
         BPDropValue3.value == "-") {
+      chartOne.clear();
+      _listData.clear();
       for (var i = 0; i < 4; i++) {
         setChartOne(ChartData(val[i].Date.toString(), val[i].Consumption));
         setListData(ConsumptionValue(
@@ -73,20 +75,16 @@ class BackProcessController extends GetxController {
       var _day = _bpdropdown3.toUpperCase();
       var _year = _bpdropdown1.substring(2, 4).toUpperCase();
       var date = "$_day-$_month-$_year";
-
+      chartOne.clear();
+      _listData.clear();
       for (var i = 0; i < val.length; i++) {
         if (date == val[i].Date) {
-          chartOne.clear();
-          _listData.clear();
           setChartOne(ChartData(val[i].Date.toString(), val[i].Consumption));
           setListData(ConsumptionValue(
               Date: val[i].Date, Consumption: val[i].Consumption));
         }
       }
       if (chartOne.isEmpty && ListData.isEmpty) {
-        chartOne.clear();
-        _listData.clear();
-
         Get.rawSnackbar(
             message: "Choose Correct Date", duration: Duration(seconds: 2));
       }

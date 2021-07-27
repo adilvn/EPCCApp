@@ -452,7 +452,9 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                 series: <CartesianSeries>[
                                               FastLineSeries<ChartData, String>(
                                                   dataSource:
-                                                      controller.chartOne,
+                                                      controller.chartOne != []
+                                                          ? controller.chartOne
+                                                          : [],
                                                   xValueMapper:
                                                       (ChartData data, _) =>
                                                           data.x,

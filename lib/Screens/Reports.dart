@@ -16,9 +16,8 @@ class _ReportsState extends State<Reports> {
 
   final controller = Get.find<ReportController>();
   void getData() async {
-    print("Called");
     controller.setValueBool(true);
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(milliseconds: 500), () {
       controller.addDataList();
       controller.setValueBool(false);
     });
@@ -26,7 +25,7 @@ class _ReportsState extends State<Reports> {
 
   @override
   Widget build(BuildContext context) {
-    print("chll");
+    getData();
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
