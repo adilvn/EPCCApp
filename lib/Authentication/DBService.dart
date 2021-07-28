@@ -12,14 +12,13 @@ class DBService {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;
-  Future<void> addUser(String email, String imageUrl, String uid) {
+  Future<void> addUser(String email, String uid) {
     // Call the user's CollectionReference to add a new user
     return users
         .doc(uid)
         .set({
           "uid": uid,
           'full_name': email, // John Doe
-          'image': imageUrl,
         })
         .then((value) => setADDUSER(false))
         .catchError((error) => print("Failed to add user: $error"));
@@ -50,8 +49,8 @@ class DBService {
 
   getADDUSER() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-    bool? val = _pref.getBool("userAdd");
-    Get.find<LoginController>().setFirst(val!);
+    bool? val = _pref.getBool("userAdd") ?? false;
+    Get.find<LoginController>().setFirst(val);
     return val;
   }
 
@@ -67,8 +66,8 @@ class DBService {
 
   getUid() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    String? val = pref.getString("uid");
-    val != null ? Get.find<ProfileController>().setUid(val) : null;
-    return val;
+    String val = pref.getString("uid") ?? "";
+    val != "" ? Get.find<ProfileController>().setUid(val) : "";
+    print(val);
   }
 }

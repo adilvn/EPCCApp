@@ -29,7 +29,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   void initState() {
     super.initState();
-    DBService().getUid();
+
     BottomNavigation.currentProfileScreen = HomeScreen();
     BottomNavigation.currentScreen = HomeScreen();
     BottomNavigation.backToHomePage = (Widget widget, int index, bool val) {
@@ -47,6 +47,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    DBService().getUid();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return WillPopScope(

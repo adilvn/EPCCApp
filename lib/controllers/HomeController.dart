@@ -3,6 +3,7 @@ import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/controllers/reportController.dart';
+import 'package:epcc/controllers/unitsController.dart';
 import 'package:epcc/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -261,6 +262,7 @@ class HomeController extends GetxController
 // initialize
   @override
   void onInit() {
+    Get.lazyPut(() => UnitsController());
     apiCall();
     super.onInit();
   }

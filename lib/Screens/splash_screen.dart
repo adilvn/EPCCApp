@@ -5,7 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
-class Splashing extends StatelessWidget {
+class Splashing extends StatefulWidget {
+  @override
+  _SplashingState createState() => _SplashingState();
+}
+
+class _SplashingState extends State<Splashing>
+    with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.height * 0.8;

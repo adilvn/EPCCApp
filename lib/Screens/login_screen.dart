@@ -1,5 +1,6 @@
 import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/controllers/loginController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/unitsController.dart';
@@ -22,7 +23,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
-  bool cbRemember = true;
+  bool cbRemember = false;
   final _formKey = GlobalKey<FormState>();
   final _profilecontroller = Get.lazyPut(() => ProfileController());
   final _unitcontroller = Get.lazyPut(() => UnitsController());
@@ -203,8 +204,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Checkbox(
                             value: cbRemember,
-                            onChanged: (cbRemember) =>
-                                setState(() => this.cbRemember = cbRemember!),
+                            onChanged: (cbRemember) => setState(() {
+                              this.cbRemember = cbRemember!;
+                              LoginController().setLogin(this.cbRemember);
+                            }),
                             activeColor: epccBlue,
                           ),
                           Text(
@@ -235,23 +238,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                 FirebaseAuth.instance
                                     .idTokenChanges()
                                     .listen((User? user) async {
+                                  print("cheking");
                                   if (user != null) {
+                                    print(user.uid);
                                     DBService().setUid(user.uid.toString());
-
-                                    Get.find<LoginController>().firstLogin
-                                        ? DBService().addUser(
-                                            _emailController.text, "", user.uid)
-                                        : null;
-                                    Get.offNamed(AppPages.WRAP);
+                                    Get.off(() => BottomNavigation());
 
                                     isLoading = false;
+                                    print(isLoading);
+                                    Get.find<LoginController>().firstLogin
+                                        ? DBService().addUser(
+                                            _emailController.text, user.uid)
+                                        : null;
 
                                     Get.rawSnackbar(
                                         message: "Successfully to login",
-                                        duration: Duration(seconds: 3));
-                                  } else {
-                                    Get.rawSnackbar(
-                                        message: "Fialed to login",
                                         duration: Duration(seconds: 3));
                                   }
                                 });
@@ -261,12 +262,52 @@ class _LoginScreenState extends State<LoginScreen> {
                                 });
                                 if (e.code == 'user-not-found') {
                                   Get.rawSnackbar(
-                                      message: "Invalid Email!",
-                                      duration: Duration(seconds: 3));
+                                      backgroundColor: epccBlue500,
+                                      messageText: Text(
+                                        "Invalid Email!",
+                                        style: TextStyle(
+                                            color: white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                      icon: Icon(
+                                        Icons.error,
+                                        color: white,
+                                        size: 22,
+                                      ),
+                                      duration: Duration(seconds: 2));
                                 } else if (e.code == 'wrong-password') {
                                   Get.rawSnackbar(
-                                      message: "Invalid Password!",
-                                      duration: Duration(seconds: 3));
+                                      backgroundColor: epccBlue500,
+                                      messageText: Text(
+                                        "Invalid Password!",
+                                        style: TextStyle(
+                                            color: white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                      icon: Icon(
+                                        Icons.error,
+                                        color: white,
+                                        size: 22,
+                                      ),
+                                      duration: Duration(seconds: 2));
+                                } else {
+                                  Get.rawSnackbar(
+                                      backgroundColor: epccBlue500,
+                                      messageText: Text(
+                                        "Check Connection!",
+                                        style: TextStyle(
+                                            color: white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                      icon: Icon(
+                                        Icons.error,
+                                        color: white,
+                                        size: 22,
+                                      ),
+                                      duration: Duration(seconds: 2));
                                 }
                               }
                             }

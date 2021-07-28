@@ -56,15 +56,15 @@ class HomeScreen extends GetView<HomeController> {
                       )
                     ],
                   ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage("assets/images/profile.jpg"))),
-                  ),
+                  // Container(
+                  //   width: 40,
+                  //   height: 40,
+                  //   decoration: BoxDecoration(
+                  //       shape: BoxShape.circle,
+                  //       image: DecorationImage(
+                  //           fit: BoxFit.fill,
+                  //           image: AssetImage("assets/images/profile.jpg"))),
+                  // ),
                   SizedBox(
                     width: 20,
                   ),

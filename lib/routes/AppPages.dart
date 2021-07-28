@@ -1,11 +1,4 @@
-import 'package:epcc/Authentication/authentication.dart';
-import 'package:epcc/Bindings/HomePageBinding.dart';
-import 'package:epcc/Screens/BackProcessUnit.dart';
 import 'package:epcc/Screens/login_screen.dart';
-import 'package:epcc/Screens/profile.dart';
-import 'package:epcc/Screens/splash_screen.dart';
-import 'package:epcc/Screens/subUnits.dart';
-import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/routes/AppRoutes.dart';
 import 'package:get/get.dart';
 
@@ -23,18 +16,6 @@ class AppPages {
     GetPage(
         name: SIGNIN,
         page: () => LoginScreen(),
-        transitionDuration: Duration(milliseconds: 500),
-        transition: Transition.rightToLeftWithFade),
-    GetPage(
-        name: SPLASHING,
-        page: () => Splashing(),
-        // binding: HomePageBindings(),
-        transitionDuration: Duration(milliseconds: 500),
-        transition: Transition.rightToLeftWithFade),
-    GetPage(
-        name: WRAP,
-        page: () => Authenticate(),
-        binding: HomePageBindings(),
         transitionDuration: Duration(milliseconds: 500),
         transition: Transition.rightToLeftWithFade),
   ];

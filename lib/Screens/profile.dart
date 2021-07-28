@@ -6,12 +6,14 @@ import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Authentication/authentication.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
+import 'package:epcc/controllers/loginController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -51,11 +53,16 @@ class _ProfileState extends State<Profile> {
       body: FutureBuilder<DocumentSnapshot>(
           future: users.doc(controller.uid).get(),
           builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("wei"),
+              );
+            }
             if (snapshot.hasData &&
                 snapshot.connectionState == ConnectionState.done) {
               Map<String, dynamic> data =
                   snapshot.data!.data() as Map<String, dynamic>;
-
+              var val = data.length == 3 ? "image" : "full_name";
               return Container(
                 alignment: Alignment.center,
                 child: Column(
@@ -64,27 +71,25 @@ class _ProfileState extends State<Profile> {
                     Expanded(
                         flex: 3,
                         child: Container(
-                          width: 130,
-                          height: 130,
+                          width: 150,
+                          height: 150,
                           decoration: BoxDecoration(
                               color: Colors.grey.shade300,
                               shape: BoxShape.circle),
                           child: filename == ""
-                              ? data["image"] == ""
+                              ? data[val] == ""
                                   ? Container()
                                   : Container(
-                                      width: 130,
-                                      height: 130,
                                       child: CachedNetworkImage(
-                                        imageUrl: data["image"],
+                                        imageUrl: data[val],
                                         imageBuilder:
                                             (context, imageProvider) =>
                                                 Container(
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             image: DecorationImage(
+                                              fit: BoxFit.fitWidth,
                                               image: imageProvider,
-                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
@@ -93,7 +98,11 @@ class _ProfileState extends State<Profile> {
                                           radius: 25,
                                         )),
                                         errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
+                                            Icon(
+                                          Icons.person,
+                                          size: 60,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     )
                               : Container(
@@ -185,8 +194,9 @@ class _ProfileState extends State<Profile> {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             Authenticate().sigout();
+                            LoginController().setLogin(false);
                             BottomNavigation.selectedIndex = 1;
                             Get.off(() => Authenticate());
                             DBService().removeUid();

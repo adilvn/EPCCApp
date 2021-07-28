@@ -8,6 +8,7 @@ import 'package:epcc/controllers/HomeController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Authenticate extends StatefulWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -27,13 +28,20 @@ class _AuthenticateState extends State<Authenticate> {
   bool _connectionStatus = false;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
+  late bool loginValue;
+  late SharedPreferences _pref;
   @override
   void initState() {
+    getLoginValue();
     super.initState();
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  getLoginValue() async {
+    _pref = await SharedPreferences.getInstance();
+    loginValue = _pref.getBool('login') ?? false;
   }
 
   @override
@@ -82,7 +90,7 @@ class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
     return _connectionStatus
-        ? widget.auth.currentUser != null
+        ? loginValue
             ? BottomNavigation()
             : LoginScreen()
         : NoInternet();

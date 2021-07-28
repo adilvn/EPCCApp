@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
+import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/reportController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,7 @@ class Reports extends StatefulWidget {
 }
 
 class _ReportsState extends State<Reports> {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   final _controller = Get.put(() => ReportController());
 
   final controller = Get.find<ReportController>();
@@ -23,65 +27,109 @@ class _ReportsState extends State<Reports> {
     });
   }
 
+  final _profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     getData();
     return Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: epccBlue500,
-            elevation: 4,
-            title: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 15,
-                        height: 22,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                    "assets/images/ifl_logo_small.png"))),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "EPCC",
-                        style: TextStyle(fontSize: 20),
-                      )
-                    ],
-                  ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage("assets/images/profile.jpg"))),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                ],
-              ),
+          automaticallyImplyLeading: false,
+          backgroundColor: epccBlue500,
+          elevation: 4,
+          title: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 15,
+                      height: 22,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  "assets/images/ifl_logo_small.png"))),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      "EPCC",
+                      style: TextStyle(fontSize: 20),
+                    )
+                  ],
+                ),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.white, shape: BoxShape.circle),
+                  child: FutureBuilder<DocumentSnapshot>(
+                      future: users.doc(_profileController.uid).get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData &&
+                            snapshot.connectionState == ConnectionState.done) {
+                          Map<String, dynamic> data =
+                              snapshot.data!.data() as Map<String, dynamic>;
+                          var val = data.length == 3 ? "image" : "full_name";
+                          return data[val] == ""
+                              ? Container()
+                              : Container(
+                                  child: CachedNetworkImage(
+                                    imageUrl: data[val],
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          fit: BoxFit.fitWidth,
+                                          image: imageProvider,
+                                        ),
+                                      ),
+                                    ),
+                                    placeholder: (context, url) => Center(
+                                        child: CupertinoActivityIndicator(
+                                      radius: 8,
+                                    )),
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.person,
+                                      size: 60,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                        } else {
+                          return Container();
+                        }
+                      }),
+                ),
+                // Container(
+                //   width: 40,
+                //   height: 40,
+                //   decoration: BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       image: DecorationImage(
+                //           fit: BoxFit.fill,
+                //           image: AssetImage("assets/images/profile.jpg"))),
+                // ),
+              ],
             ),
-            actions: <Widget>[
-              Transform.rotate(
-                transformHitTests: true,
-                angle: 3.15,
-                child: IconButton(
-                    onPressed: () => {},
-                    icon: Icon(
-                      Icons.sort,
-                      size: 25,
-                    )),
-              )
-            ]),
+          ),
+          // actions: <Widget>[
+          //   Transform.rotate(
+          //     transformHitTests: true,
+          //     angle: 3.15,
+          //     child: IconButton(
+          //         onPressed: () => {},
+          //         icon: Icon(
+          //           Icons.sort,
+          //           size: 25,
+          //         )),
+          //   )
+          // ]
+        ),
         body: Obx(() {
           return controller.allReportsData.isEmpty || controller.isLoading
               ? Container(

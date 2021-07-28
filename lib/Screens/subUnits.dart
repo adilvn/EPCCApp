@@ -44,15 +44,15 @@ class SubUnits extends GetView<SubUnitsController> {
                   )
                 ],
               ),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage("assets/images/profile.jpg"))),
-              ),
+              // Container(
+              //   width: 40,
+              //   height: 40,
+              //   decoration: BoxDecoration(
+              //       shape: BoxShape.circle,
+              //       image: DecorationImage(
+              //           fit: BoxFit.fill,
+              //           image: AssetImage("assets/images/profile.jpg"))),
+              // ),
               SizedBox(
                 width: 20,
               ),
@@ -81,6 +81,9 @@ class SubUnits extends GetView<SubUnitsController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    SizedBox(
+                      height: 5,
+                    ),
                     GestureDetector(
                       onTap: () {
                         BottomNavigation.backToHomePage(UnitsPage(), 0, false);
@@ -101,9 +104,12 @@ class SubUnits extends GetView<SubUnitsController> {
                         child: Icon(
                           Icons.arrow_back,
                           color: white,
-                          size: 24,
+                          size: 32,
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 5,
                     ),
                     Row(
                       children: [
@@ -114,7 +120,10 @@ class SubUnits extends GetView<SubUnitsController> {
                           height: 25,
                           child: Text(
                             controller.title,
-                            style: TextStyle(color: epccBlue, fontSize: 14),
+                            style: TextStyle(
+                                color: epccBlue,
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal),
                           ),
                           decoration: BoxDecoration(
                               color: white,
