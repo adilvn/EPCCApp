@@ -1,3 +1,4 @@
+import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/Models/reportmodel.dart';
 import 'package:epcc/main.dart';
@@ -39,11 +40,104 @@ class ReportController extends GetxController {
     _isLoading.value = val;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
+////TODO report Unit Details
+
+  List<ConsumptionModel> _TP1UnitOne = [];
+  List<ConsumptionModel> get TP1UnitOneDetails => _TP1UnitOne;
+  setTP1UnitOne(List<ConsumptionModel> value) {
+    _TP1UnitOne.assignAll(value);
   }
 
+  List<ConsumptionModel> _TP1UnitTwo = [];
+  List<ConsumptionModel> get TP1UnitTwoDetails => _TP1UnitTwo;
+  setTp1UnitTwo(List<ConsumptionModel> value) {
+    _TP1UnitTwo.assignAll(value);
+  }
+
+  List<ConsumptionModel> _TP2UnitOne = [];
+  List<ConsumptionModel> get TP2UnitOneDetails => _TP2UnitOne;
+  setTP2UnitOne(List<ConsumptionModel> value) {
+    _TP2UnitOne.assignAll(value);
+  }
+
+  List<ConsumptionModel> _TP2UnitTwo = [];
+  List<ConsumptionModel> get TP2UnitTwoDetails => _TP2UnitTwo;
+  setTp2UnitTwo(List<ConsumptionModel> value) {
+    _TP2UnitTwo.assignAll(value);
+  }
+
+  List<ConsumptionModel> _TP3UnitOne = [];
+  List<ConsumptionModel> get TP3UnitOneDetails => _TP3UnitOne;
+  setTP3UnitOne(List<ConsumptionModel> value) {
+    _TP3UnitOne.assignAll(value);
+  }
+
+  List<ConsumptionModel> _TP3UnitTwo = [];
+  List<ConsumptionModel> get TP3UnitTwoDetails => _TP3UnitTwo;
+  setTp3UnitTwo(List<ConsumptionModel> value) {
+    _TP3UnitTwo.assignAll(value);
+  }
+
+//Sections
+
+  List<ConsumptionModel> _TP4SOne = [];
+  List<ConsumptionModel> get TP4SOneDetails => _TP4SOne;
+  setTP4SOne(List<ConsumptionModel> value) {
+    _TP4SOne.assignAll(value);
+  }
+
+  List<ConsumptionModel> _TP4STwo = [];
+  List<ConsumptionModel> get TP4STwoDetails => _TP4STwo;
+  setTP4STwo(List<ConsumptionModel> value) {
+    _TP4STwo.assignAll(value);
+  }
+
+  List<ConsumptionModel> _TP4SThree = [];
+  List<ConsumptionModel> get TP4SThreeDetails => _TP4SThree;
+  setTP4SThree(List<ConsumptionModel> value) {
+    _TP4SThree.assignAll(value);
+  }
+
+  List<ConsumptionModel> _TP4SFour = [];
+  List<ConsumptionModel> get TP4SFourDetails => _TP4SFour;
+  setTP4SFour(List<ConsumptionModel> value) {
+    _TP4SFour.assignAll(value);
+  }
+
+//PP
+
+  List<ConsumptionModel> _PPOne = [];
+  List<ConsumptionModel> get PPOneDetails => _PPOne;
+  setPPOne(List<ConsumptionModel> value) {
+    _PPOne.assignAll(value);
+  }
+
+  List<ConsumptionModel> _PPTwo = [];
+  List<ConsumptionModel> get PPTwoDetails => _PPTwo;
+  setPPTwo(List<ConsumptionModel> value) {
+    _PPTwo.assignAll(value);
+  }
+
+  List<ConsumptionModel> _PPThree = [];
+  List<ConsumptionModel> get PPThreeDetails => _PPThree;
+  setPPThree(List<ConsumptionModel> value) {
+    _PPThree.assignAll(value);
+  }
+
+  List<ConsumptionModel> _Utilities = [];
+  List<ConsumptionModel> get UtilitiesDetails => _Utilities;
+  setUtilitie(List<ConsumptionModel> value) {
+    _Utilities.assignAll(value);
+  }
+
+  List<DateInfo> _allYaers = <DateInfo>[].obs;
+  List<DateInfo> get allYears => _allYaers;
+  setAllyear(String year, List<String> date) {
+    print("addd $year");
+    _allYaers.add(DateInfo(year: year, date: date));
+  }
+
+  List<String> date = [];
   addDataList() {
     if (YearValue == "-" &&
         MonthValue == "-" &&
@@ -51,6 +145,31 @@ class ReportController extends GetxController {
         TPDropValue == "-" &&
         UnitDropValue == "-" &&
         BPDropValue == "-") {
+      int a = 0;
+      for (var i = 0; i < TP1UnitOneDetails.length; i++) {
+        String _year =
+            TP1UnitOneDetails[i].consumptionDate!.substring(0, 9).toString();
+        // print(TP2UnitOneDetails[i].consumptionDate);
+        print(_year);
+        if (date.isEmpty) {
+          date.add(TP1UnitOneDetails[i].consumptionDate.toString());
+        }
+        if (date.isNotEmpty) {
+          if (_year == date.last.substring(7, 9)) {
+            date.add(TP1UnitOneDetails[i].consumptionDate.toString());
+          }
+        }
+      }
+      // for (var i = 0; i < _allYaers.length; i++) {
+      //   print("loop");
+      //   if (_allYaers[i].year == "20") {
+      //     print("ok");
+      //     print(_allYaers[i].date.length);
+      //     for (var a = 0; a < _allYaers[i].date.length; a++) {
+      //       print(_allYaers[i].date[a]);
+      //     }
+      //   }
+      // }
       setValueBool(false);
       dataList.clear();
       var month = "";
@@ -518,4 +637,10 @@ class ReportController extends GetxController {
   List<String> get UnitDrop => _UnitDropList;
 
   List<String> get BPDrop => _BPDropList;
+}
+
+class DateInfo {
+  String year;
+  List<String> date;
+  DateInfo({required this.year, required this.date});
 }
