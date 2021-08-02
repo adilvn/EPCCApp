@@ -10,11 +10,11 @@ import 'package:get/get.dart';
 class HomePageBindings extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut(() => ProfileController());
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => ReportController());
     Get.lazyPut(() => UnitsController());
     Get.lazyPut(() => SubUnitsController());
     Get.lazyPut(() => BackProcessController());
-    Get.lazyPut(() => ProfileController());
   }
 }

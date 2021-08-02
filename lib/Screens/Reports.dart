@@ -203,6 +203,8 @@ class _ReportsState extends State<Reports> {
                                                 BorderRadius.circular(30)),
                                         // TODO Drop 1
                                         child: DropdownButton<String>(
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.TPDropValue,
                                           disabledHint: Text("one"),
                                           icon: const Icon(
@@ -257,6 +259,8 @@ class _ReportsState extends State<Reports> {
                                                 BorderRadius.circular(25)),
                                         // TODO Drop 2
                                         child: DropdownButton<String>(
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.UnitDropValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
@@ -310,6 +314,8 @@ class _ReportsState extends State<Reports> {
                                                 BorderRadius.circular(30)),
                                         // TODO Drop 3
                                         child: DropdownButton<String>(
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.BPDropValue,
                                           //  controller.BPDropValue ==
                                           //         "PP1 ,PP2 ,PP3\r\n"
@@ -382,6 +388,8 @@ class _ReportsState extends State<Reports> {
                                                 BorderRadius.circular(30)),
                                         // TODO Drop 4
                                         child: DropdownButton<String>(
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.YearValue,
                                           disabledHint: Text("eh"),
                                           icon: const Icon(
@@ -434,6 +442,8 @@ class _ReportsState extends State<Reports> {
                                                 BorderRadius.circular(25)),
                                         // TODO Drop 5
                                         child: DropdownButton<String>(
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.MonthValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,

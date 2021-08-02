@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/subUnits.dart';
 import 'package:epcc/controllers/BackProcess.dart';
+import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,67 +17,123 @@ class BackProcessUnit extends GetView<BackProcessController> {
   List<ConsumptionValue> unitOnevalue = [];
 
   BackProcessUnit({required this.unitOnevalue});
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final _profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
     controller.addDetails(unitOnevalue);
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: epccBlue500,
-          elevation: 4,
-          title: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 15,
-                      height: 22,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage(
-                                  "assets/images/ifl_logo_small.png"))),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "EPCC",
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ),
-                // Container(
-                //   width: 40,
-                //   height: 40,
-                //   decoration: BoxDecoration(
-                //       shape: BoxShape.circle,
-                //       image: DecorationImage(
-                //           fit: BoxFit.fill,
-                //           image: AssetImage("assets/images/profile.jpg"))),
-                // ),
-                SizedBox(
-                  width: 20,
-                ),
-              ],
+            automaticallyImplyLeading: false,
+            backgroundColor: epccBlue500,
+            elevation: 4,
+            title: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 22,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                    "assets/images/ifl_logo_small.png"))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "EPCC",
+                        style: TextStyle(fontSize: 20),
+                      )
+                    ],
+                  ),
+                  // Container(
+                  //   width: 40,
+                  //   height: 40,
+                  //   decoration: BoxDecoration(
+                  //       shape: BoxShape.circle,
+                  //       image: DecorationImage(
+                  //           fit: BoxFit.fill,
+                  //           image: AssetImage("assets/images/profile.jpg"))),
+                  // ),
+                  Obx(() {
+                    return Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: epccBlue500, shape: BoxShape.circle),
+                        child: _profileController.uid != ""
+                            ? FutureBuilder<DocumentSnapshot>(
+                                future: users.doc(_profileController.uid).get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData &&
+                                      snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                    Map<String, dynamic> data = snapshot.data!
+                                        .data() as Map<String, dynamic>;
+                                    var val = data.length == 3
+                                        ? "image"
+                                        : "full_name";
+                                    return data[val] == ""
+                                        ? Container(
+                                            color: epccBlue500,
+                                          )
+                                        : Container(
+                                            child: CachedNetworkImage(
+                                              imageUrl: data[val],
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.fitWidth,
+                                                    image: imageProvider,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  Center(
+                                                      child:
+                                                          CupertinoActivityIndicator(
+                                                radius: 8,
+                                              )),
+                                              errorWidget:
+                                                  (context, url, error) => Icon(
+                                                Icons.person,
+                                                size: 60,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          );
+                                  } else {
+                                    return Container(
+                                      color: epccBlue500,
+                                    );
+                                  }
+                                })
+                            : Container());
+                  }),
+
+                  SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
             ),
-          ),
-          // actions: <Widget>[
-          //   Transform.rotate(
-          //     transformHitTests: true,
-          //     angle: 3.15,
-          //     child: IconButton(
-          //         onPressed: () {},
-          //         icon: Icon(
-          //           Icons.sort,
-          //           size: 25,
-          //         )),
-          //   )
-          // ]
-        ),
+            actions: <Widget>[
+              Transform.rotate(
+                  transformHitTests: true,
+                  angle: 3.15,
+                  child: Container(
+                    width: 45,
+                  ))
+            ]),
         body: Obx(() {
           return Column(children: [
             Expanded(
@@ -180,6 +240,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       color: Colors.red,
                                       borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.BPDropValue1.value,
                                     disabledHint: Text("eh"),
                                     icon: const Icon(
@@ -226,6 +288,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       color: Color(0xffFFBA44),
                                       borderRadius: BorderRadius.circular(25)),
                                   child: DropdownButton<String>(
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.BPDropValue2.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -272,6 +336,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.BPDropValue3.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -434,64 +500,84 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(20.0),
                                         child: Container(
-                                            child: SfCartesianChart(
-                                                primaryYAxis: NumericAxis(
-                                                  numberFormat:
-                                                      NumberFormat.compact(),
-                                                  title: AxisTitle(
-                                                      text: 'Consumption (KHW)',
-                                                      textStyle: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily: 'Roboto',
-                                                          fontSize: 12,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          fontWeight:
-                                                              FontWeight.w300)),
-                                                ),
-                                                primaryXAxis: CategoryAxis(
-                                                  title: AxisTitle(
-                                                      text: 'Days',
-                                                      textStyle: TextStyle(
-                                                          color: Colors.black,
-                                                          fontFamily: 'Roboto',
-                                                          fontSize: 14,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                          fontWeight:
-                                                              FontWeight.w300)),
-                                                ),
-                                                series: <CartesianSeries>[
-                                              FastLineSeries<ChartData, String>(
-                                                  dataSource:
-                                                      controller.chartOne != []
-                                                          ? controller.chartOne
-                                                          : [],
-                                                  xValueMapper:
-                                                      (ChartData data, _) =>
-                                                          data.x,
-                                                  yValueMapper:
-                                                      (ChartData data, _) =>
-                                                          data.y,
-                                                  // Renders the marker
+                                            child: controller.chartOne.isEmpty
+                                                ? Container()
+                                                : SfCartesianChart(
+                                                    primaryYAxis: NumericAxis(
+                                                      numberFormat: NumberFormat
+                                                          .compact(),
+                                                      title: AxisTitle(
+                                                          text:
+                                                              'Consumption (KHW)',
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontFamily:
+                                                                  'Roboto',
+                                                              fontSize: 12,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300)),
+                                                    ),
+                                                    primaryXAxis: CategoryAxis(
+                                                      title: AxisTitle(
+                                                          text: 'Days',
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontFamily:
+                                                                  'Roboto',
+                                                              fontSize: 14,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300)),
+                                                    ),
+                                                    series: <CartesianSeries>[
+                                                        FastLineSeries<
+                                                                ChartData,
+                                                                String>(
+                                                            dataSource:
+                                                                controller
+                                                                    .chartOne,
+                                                            xValueMapper:
+                                                                (ChartData data,
+                                                                        _) =>
+                                                                    data.x,
+                                                            yValueMapper:
+                                                                (ChartData data,
+                                                                        _) =>
+                                                                    data.y,
+                                                            // Renders the marker
 
-                                                  markerSettings:
-                                                      MarkerSettings(
-                                                          isVisible: true)),
-                                              LineSeries<ChartData, String>(
-                                                  dataSource:
-                                                      controller.chartTwo,
-                                                  xValueMapper:
-                                                      (ChartData data, _) =>
-                                                          data.x,
-                                                  yValueMapper:
-                                                      (ChartData data, _) =>
-                                                          data.y,
-                                                  // Renders the marker
-                                                  markerSettings:
-                                                      MarkerSettings(
-                                                          isVisible: true)),
-                                            ])),
+                                                            markerSettings:
+                                                                MarkerSettings(
+                                                                    isVisible:
+                                                                        true)),
+                                                        LineSeries<ChartData,
+                                                                String>(
+                                                            dataSource:
+                                                                controller
+                                                                    .chartTwo,
+                                                            xValueMapper:
+                                                                (ChartData data,
+                                                                        _) =>
+                                                                    data.x,
+                                                            yValueMapper:
+                                                                (ChartData data,
+                                                                        _) =>
+                                                                    data.y,
+                                                            // Renders the marker
+                                                            markerSettings:
+                                                                MarkerSettings(
+                                                                    isVisible:
+                                                                        true)),
+                                                      ])),
                                       ),
                                     ),
                                     elevation: 20,

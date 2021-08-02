@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/home_screen.dart';
 import 'package:epcc/Screens/subUnits.dart';
+import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
 import 'package:epcc/controllers/unitsController.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +15,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnitsPage extends GetView<UnitsController> {
   final _subController = Get.find<SubUnitsController>();
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final _profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,61 +28,115 @@ class UnitsPage extends GetView<UnitsController> {
         controller.buttonIndex);
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: epccBlue500,
-          elevation: 4,
-          title: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 15,
-                      height: 22,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage(
-                                  "assets/images/ifl_logo_small.png"))),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "EPCC",
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ),
-                // Container(
-                //   width: 40,
-                //   height: 40,
-                //   decoration: BoxDecoration(
-                //       shape: BoxShape.circle,
-                //       image: DecorationImage(
-                //           fit: BoxFit.fill,
-                //           image: AssetImage("assets/images/profile.jpg"))),
-                // ),
-                SizedBox(
-                  width: 20,
-                ),
-              ],
+            automaticallyImplyLeading: false,
+            backgroundColor: epccBlue500,
+            elevation: 4,
+            title: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 22,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                    "assets/images/ifl_logo_small.png"))),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "EPCC",
+                        style: TextStyle(fontSize: 20),
+                      )
+                    ],
+                  ),
+                  // Container(
+                  //   width: 40,
+                  //   height: 40,
+                  //   decoration: BoxDecoration(
+                  //       shape: BoxShape.circle,
+                  //       image: DecorationImage(
+                  //           fit: BoxFit.fill,
+                  //           image: AssetImage("assets/images/profile.jpg"))),
+                  // ),
+                  Obx(() {
+                    return Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: epccBlue500, shape: BoxShape.circle),
+                        child: _profileController.uid != ""
+                            ? FutureBuilder<DocumentSnapshot>(
+                                future: users.doc(_profileController.uid).get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData &&
+                                      snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                    Map<String, dynamic> data = snapshot.data!
+                                        .data() as Map<String, dynamic>;
+                                    var val = data.length == 3
+                                        ? "image"
+                                        : "full_name";
+                                    return data[val] == ""
+                                        ? Container(
+                                            color: epccBlue500,
+                                          )
+                                        : Container(
+                                            child: CachedNetworkImage(
+                                              imageUrl: data[val],
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.fitWidth,
+                                                    image: imageProvider,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  Center(
+                                                      child:
+                                                          CupertinoActivityIndicator(
+                                                radius: 8,
+                                              )),
+                                              errorWidget:
+                                                  (context, url, error) => Icon(
+                                                Icons.person,
+                                                size: 60,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          );
+                                  } else {
+                                    return Container(
+                                      color: epccBlue500,
+                                    );
+                                  }
+                                })
+                            : Container());
+                  }),
+
+                  SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
             ),
-          ),
-          // actions: <Widget>[
-          //   Transform.rotate(
-          //     transformHitTests: true,
-          //     angle: 3.15,
-          //     child: IconButton(
-          //         onPressed: () {},
-          //         icon: Icon(
-          //           Icons.sort,
-          //           size: 25,
-          //         )),
-          //   )
-          // ]
-        ),
+            actions: <Widget>[
+              Transform.rotate(
+                  transformHitTests: true,
+                  angle: 3.15,
+                  child: Container(
+                    width: 45,
+                  ))
+            ]),
         body: Obx(() {
           return Column(children: [
             Expanded(
@@ -176,6 +236,8 @@ class UnitsPage extends GetView<UnitsController> {
                                       color: Colors.red,
                                       borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.UnitDropValue1.value,
                                     disabledHint: Text(""),
                                     icon: const Icon(
@@ -227,6 +289,8 @@ class UnitsPage extends GetView<UnitsController> {
                                       color: Color(0xffFFBA44),
                                       borderRadius: BorderRadius.circular(25)),
                                   child: DropdownButton<String>(
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.UnitDropValue2.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -277,6 +341,8 @@ class UnitsPage extends GetView<UnitsController> {
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.UnitDropValue3.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -569,7 +635,7 @@ class UnitsPage extends GetView<UnitsController> {
                       _subController.SetButtonText(
                           [controller.centerName[0], controller.centerName[1]]);
                       _subController.SetTitle(
-                          "${controller.title}${controller.buttonText[0]}>");
+                          "${controller.title}> ${controller.buttonText[0]} ");
                       _subController.SetLocationName("Consumption Center");
                       _subController.chartOne.clear();
                       _subController.chartTwo.clear();
@@ -614,7 +680,7 @@ class UnitsPage extends GetView<UnitsController> {
                       _subController.SetButtonText(
                           [controller.centerName[2], controller.centerName[3]]);
                       _subController.SetTitle(
-                          "${controller.title}${controller.buttonText[1]}>");
+                          "${controller.title}> ${controller.buttonText[1]} ");
                       _subController.SetLocationName("Consumption Center");
                       _subController.chartOne.clear();
                       _subController.chartTwo.clear();
@@ -666,7 +732,7 @@ class UnitsPage extends GetView<UnitsController> {
                                   controller.centerName[5]
                                 ]);
                                 _subController.SetTitle(
-                                    "${controller.title}${controller.buttonText[2]}>");
+                                    "${controller.title}> ${controller.buttonText[2]} ");
                                 _subController.SetLocationName(
                                     "Consumption Center");
                                 _subController.chartOne.clear();
@@ -701,7 +767,7 @@ class UnitsPage extends GetView<UnitsController> {
                                         controller.centerName[7]
                                       ]);
                                 _subController.SetTitle(
-                                    "${controller.title}${controller.buttonText[3]}>");
+                                    "${controller.title}> ${controller.buttonText[3]} ");
                                 _subController.SetLocationName(
                                     "Consumption Center");
                                 _subController.chartOne.clear();

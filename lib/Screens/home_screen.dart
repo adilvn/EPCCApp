@@ -1,8 +1,11 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/Screens/unitsPage.dart';
 import 'package:epcc/controllers/HomeController.dart';
+import 'package:epcc/controllers/profileController.dart';
 import 'package:epcc/controllers/reportController.dart';
 import 'package:epcc/controllers/unitsController.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +20,8 @@ class HomeScreen extends GetView<HomeController> {
       RefreshController(initialRefresh: false);
   final _unitController = Get.find<UnitsController>();
 
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final _profileController = Get.find<ProfileController>();
   Future<void> _refresh() async {
     await Future.delayed(Duration(milliseconds: 900));
     Get.reloadAll();
@@ -65,6 +70,64 @@ class HomeScreen extends GetView<HomeController> {
                   //           fit: BoxFit.fill,
                   //           image: AssetImage("assets/images/profile.jpg"))),
                   // ),
+                  Obx(() {
+                    return Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: epccBlue500, shape: BoxShape.circle),
+                        child: _profileController.uid != ""
+                            ? FutureBuilder<DocumentSnapshot>(
+                                future: users.doc(_profileController.uid).get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData &&
+                                      snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                    Map<String, dynamic> data = snapshot.data!
+                                        .data() as Map<String, dynamic>;
+                                    var val = data.length == 3
+                                        ? "image"
+                                        : "full_name";
+                                    return data[val] == ""
+                                        ? Container(
+                                            color: epccBlue500,
+                                          )
+                                        : Container(
+                                            child: CachedNetworkImage(
+                                              imageUrl: data[val],
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.fitWidth,
+                                                    image: imageProvider,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  Center(
+                                                      child:
+                                                          CupertinoActivityIndicator(
+                                                radius: 8,
+                                              )),
+                                              errorWidget:
+                                                  (context, url, error) => Icon(
+                                                Icons.person,
+                                                size: 60,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          );
+                                  } else {
+                                    return Container(
+                                      color: epccBlue500,
+                                    );
+                                  }
+                                })
+                            : Container());
+                  }),
                   SizedBox(
                     width: 20,
                   ),
@@ -245,7 +308,7 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning/winding unit 2"
                         ]);
                         _unitController.SetButtonIndex(2);
-                        _unitController.SetTitle("TP1>");
+                        _unitController.SetTitle("TP1 ");
                         _unitController.SetLocationName('Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
 
@@ -303,7 +366,7 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning/winding unit 2"
                         ]);
                         _unitController.SetButtonIndex(2);
-                        _unitController.SetTitle("TP2>");
+                        _unitController.SetTitle("TP2 ");
                         _unitController.SetLocationName('Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
                         // BottomNavigation.changeProfileWidget(UnitsPage(
@@ -360,7 +423,7 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning/winding unit 2"
                         ]);
                         _unitController.SetButtonIndex(2);
-                        _unitController.SetTitle("TP3>");
+                        _unitController.SetTitle("TP3 ");
                         _unitController.SetLocationName('Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
                       }, controller.t3, controller.TP3List),
@@ -417,7 +480,7 @@ class HomeScreen extends GetView<HomeController> {
                           "Spinning /winding 25k",
                         ]);
                         _unitController.SetButtonIndex(4);
-                        _unitController.SetTitle("TP4>");
+                        _unitController.SetTitle("TP4 ");
                         _unitController.SetLocationName('Sections');
                         BottomNavigation.changeProfileWidget(UnitsPage());
                       }, controller.t4, controller.TP4List),
@@ -467,7 +530,7 @@ class HomeScreen extends GetView<HomeController> {
                         ]);
                         _unitController.SetButtonIndex(4);
                         _unitController.SetLocationName('PP');
-                        _unitController.SetTitle("PP>");
+                        _unitController.SetTitle("PP ");
                         BottomNavigation.changeProfileWidget(UnitsPage());
                       }, controller.pp, controller.PPList),
                     ],

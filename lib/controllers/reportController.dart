@@ -145,21 +145,21 @@ class ReportController extends GetxController {
         TPDropValue == "-" &&
         UnitDropValue == "-" &&
         BPDropValue == "-") {
-      int a = 0;
-      for (var i = 0; i < TP1UnitOneDetails.length; i++) {
-        String _year =
-            TP1UnitOneDetails[i].consumptionDate!.substring(0, 9).toString();
-        // print(TP2UnitOneDetails[i].consumptionDate);
-        print(_year);
-        if (date.isEmpty) {
-          date.add(TP1UnitOneDetails[i].consumptionDate.toString());
-        }
-        if (date.isNotEmpty) {
-          if (_year == date.last.substring(7, 9)) {
-            date.add(TP1UnitOneDetails[i].consumptionDate.toString());
-          }
-        }
-      }
+      // int a = 0;
+      // for (var i = 0; i < TP1UnitOneDetails.length; i++) {
+      //   String _year =
+      //       TP1UnitOneDetails[i].consumptionDate!.substring(0, 9).toString();
+      //   // print(TP2UnitOneDetails[i].consumptionDate);
+      //   print(_year);
+      //   if (date.isEmpty) {
+      //     date.add(TP1UnitOneDetails[i].consumptionDate.toString());
+      //   }
+      //   if (date.isNotEmpty) {
+      //     if (_year == date.last.substring(7, 9)) {
+      //       date.add(TP1UnitOneDetails[i].consumptionDate.toString());
+      //     }
+      //   }
+      // }
       // for (var i = 0; i < _allYaers.length; i++) {
       //   print("loop");
       //   if (_allYaers[i].year == "20") {
@@ -175,8 +175,8 @@ class ReportController extends GetxController {
       var month = "";
       double consumptionValue = 0;
       double lastYearConsumptionValue = 0;
-      for (var i = 0; i < 10; i++) {
-        month = allReportsData[i].cONSUMPTIONDATE!.toString();
+      for (var i = 0; i < 27; i++) {
+        month = allReportsData[i].cONSUMPTIONDATE!.substring(3, 7).toString();
         consumptionValue =
             double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
         double difference = consumptionValue - lastYearConsumptionValue;
