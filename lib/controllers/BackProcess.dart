@@ -39,7 +39,7 @@ class BackProcessController extends GetxController {
   }
 
   var _listData = <ConsumptionValue>[].obs;
-  List<ConsumptionValue> get ListData => _listData;
+  List<ConsumptionValue>? get ListData => _listData.reversed.toList();
   setListData(ConsumptionValue item) {
     _listData.add(item);
   }
@@ -63,7 +63,7 @@ class BackProcessController extends GetxController {
         BPDropValue3.value == "-") {
       chartOne.clear();
       _listData.clear();
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < val.length; i++) {
         setChartOne(ChartData(val[i].Date.toString(), val[i].Consumption));
         setListData(ConsumptionValue(
             Date: val[i].Date, Consumption: val[i].Consumption));
@@ -100,7 +100,7 @@ class BackProcessController extends GetxController {
           continue;
         }
       }
-      if (chartOne.isEmpty && ListData.isEmpty) {
+      if (chartOne.isEmpty && ListData!.isEmpty) {
         Get.rawSnackbar(
             message: "Choose Correct Date", duration: Duration(seconds: 2));
       }
@@ -119,7 +119,7 @@ class BackProcessController extends GetxController {
               Date: val[i].Date, Consumption: val[i].Consumption));
         }
       }
-      if (chartOne.isEmpty && ListData.isEmpty) {
+      if (chartOne.isEmpty && ListData!.isEmpty) {
         chartOne.clear();
         _listData.clear();
 
@@ -145,7 +145,7 @@ class BackProcessController extends GetxController {
               Date: val[i].Date, Consumption: val[i].Consumption));
         }
       }
-      if (chartOne.isEmpty && ListData.isEmpty) {
+      if (chartOne.isEmpty && ListData!.isEmpty) {
         chartOne.clear();
         _listData.clear();
 

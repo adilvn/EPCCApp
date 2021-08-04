@@ -149,7 +149,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                       GestureDetector(
                         onTap: () {
                           BottomNavigation.backToHomePage(SubUnits(), 0, false);
-                          controller.ListData.clear();
+                          controller.ListData!.clear();
                           controller.chartOne.clear();
                           controller.setBPDropValue1("-");
                           controller.setBPDropValue2("-");
@@ -199,7 +199,12 @@ class BackProcessUnit extends GetView<BackProcessController> {
                         height: 10,
                       ),
                       Text(
-                        "Back Process Unit 1",
+                        controller.locationName != "PP1 ,PP2 ,PP3\r\n"
+                            ? controller.locationName
+                                .replaceAll("/", " / ")
+                                .capitalize
+                                .toString()
+                            : controller.locationName.toUpperCase(),
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
@@ -436,7 +441,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       child: Container(
                                         child: ListView.builder(
                                             itemCount:
-                                                controller.ListData.length,
+                                                controller.ListData!.length,
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 padding: EdgeInsets.symmetric(
@@ -455,7 +460,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                             Alignment.center,
                                                         width: 140,
                                                         child: Text(
-                                                          "${controller.ListData[index].Date}",
+                                                          "${controller.ListData![index].Date}",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -472,7 +477,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                             Alignment.center,
                                                         width: 150,
                                                         child: Text(
-                                                          "${controller.ListData[index].Consumption}KWH",
+                                                          "${controller.ListData![index].Consumption}KWH",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -492,7 +497,6 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                   child: Material(
                                     type: MaterialType.card,
                                     child: Container(
-                                      decoration: BoxDecoration(),
                                       width: double.infinity,
                                       height:
                                           MediaQuery.of(context).size.height *
@@ -503,6 +507,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                             child: controller.chartOne.isEmpty
                                                 ? Container()
                                                 : SfCartesianChart(
+                                                    plotAreaBorderColor:
+                                                        Colors.white,
                                                     primaryYAxis: NumericAxis(
                                                       numberFormat: NumberFormat
                                                           .compact(),

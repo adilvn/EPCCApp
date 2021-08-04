@@ -199,7 +199,7 @@ class SubUnits extends GetView<SubUnitsController> {
                       height: 10,
                     ),
                     Text(
-                      "Consumption Center",
+                      "Consumption Centers",
                       style: TextStyle(color: Colors.white, fontSize: 24),
                     ),
                     Divider(
@@ -448,26 +448,29 @@ class SubUnits extends GetView<SubUnitsController> {
             child: ListView(
               children: [
                 getTiles(controller.colors[0], controller.buttonText[0],
-                    "assets/images/750.png", () {
-                  _controller.SetTitle(
-                      "${controller.title}> ${controller.buttonText[0]} ");
+                    "assets/images/bp.png", () {
                   _controller.SetLocationName(controller.buttonText[0]);
-                  _controller.ListData.clear();
+                  _controller.ListData!.clear();
                   _controller.chartOne.clear();
                   _controller.setBPDropValue1("-");
                   _controller.setBPDropValue2("-");
-
+                  _controller.SetTitle(controller.buttonText[0] !=
+                          "PP1 ,PP2 ,PP3\r\n"
+                      ? "${controller.title}> ${controller.buttonText[0].capitalize}"
+                      : "${controller.title}> PP1 ,PP2 ,PP3");
                   _controller.setBPDropValue3("-");
                   BottomNavigation.changeProfileWidget(
                       BackProcessUnit(unitOnevalue: controller.unitOneValue));
                 }, controller.u1),
                 controller.button == 2
                     ? getTiles(controller.colors[1], controller.buttonText[1],
-                        "assets/images/750.png", () {
+                        "assets/images/sw.png", () {
+                        print("called");
+
                         _controller.SetTitle(
                             "${controller.title}> ${controller.buttonText[1]} ");
                         _controller.SetLocationName(controller.buttonText[1]);
-                        _controller.ListData.clear();
+                        _controller.ListData!.clear();
                         _controller.chartOne.clear();
                         _controller.setBPDropValue1("-");
                         _controller.setBPDropValue2("-");
@@ -487,7 +490,7 @@ class SubUnits extends GetView<SubUnitsController> {
 
   getTiles(Color color, String val, textImage, VoidCallback onTap,
       List<double> list) {
-    print(list);
+    print(val);
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -506,14 +509,9 @@ class SubUnits extends GetView<SubUnitsController> {
                   Expanded(
                       flex: 2,
                       child: Container(
-                        width: 50,
-                        height: 50,
-                        child: Icon(
-                          Icons.ballot_rounded,
-                          color: white,
-                          size: 37,
-                        ),
-                      )),
+                          width: 50,
+                          height: 50,
+                          child: Image.asset(textImage))),
                   Expanded(
                     flex: 9,
                     child: Column(
@@ -524,7 +522,12 @@ class SubUnits extends GetView<SubUnitsController> {
                             Row(
                               children: [
                                 Text(
-                                  val,
+                                  val != "PP1 ,PP2 ,PP3\r\n"
+                                      ? val
+                                          .replaceAll("/", " / ")
+                                          .capitalize
+                                          .toString()
+                                      : "PP1 ,PP2 ,PP3",
                                   style: TextStyle(color: white, fontSize: 16),
                                 ),
                                 // Text("(Last checked 2 hours ago)",

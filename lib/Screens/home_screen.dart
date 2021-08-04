@@ -309,7 +309,7 @@ class HomeScreen extends GetView<HomeController> {
                         ]);
                         _unitController.SetButtonIndex(2);
                         _unitController.SetTitle("TP1 ");
-                        _unitController.SetLocationName('Units');
+                        _unitController.SetLocationName('TP1 Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
 
                         // BottomNavigation.changeProfileWidget(UnitsPage(
@@ -367,7 +367,7 @@ class HomeScreen extends GetView<HomeController> {
                         ]);
                         _unitController.SetButtonIndex(2);
                         _unitController.SetTitle("TP2 ");
-                        _unitController.SetLocationName('Units');
+                        _unitController.SetLocationName('TP2 Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
                         // BottomNavigation.changeProfileWidget(UnitsPage(
                         //   unitOne: controller.TP2UnitOneDetails,
@@ -424,7 +424,7 @@ class HomeScreen extends GetView<HomeController> {
                         ]);
                         _unitController.SetButtonIndex(2);
                         _unitController.SetTitle("TP3 ");
-                        _unitController.SetLocationName('Units');
+                        _unitController.SetLocationName('TP3 Units');
                         BottomNavigation.changeProfileWidget(UnitsPage());
                       }, controller.t3, controller.TP3List),
                       getTiles(
@@ -481,7 +481,7 @@ class HomeScreen extends GetView<HomeController> {
                         ]);
                         _unitController.SetButtonIndex(4);
                         _unitController.SetTitle("TP4 ");
-                        _unitController.SetLocationName('Sections');
+                        _unitController.SetLocationName('TP4 Sections');
                         BottomNavigation.changeProfileWidget(UnitsPage());
                       }, controller.t4, controller.TP4List),
                       getTiles(Color(0xffFFA640), "PP", "assets/images/752.png",

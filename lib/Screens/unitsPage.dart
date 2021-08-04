@@ -626,7 +626,7 @@ class UnitsPage extends GetView<UnitsController> {
                 child: ListView(
                   children: [
                     getTiles(controller.colors[0], controller.buttonText[0],
-                        "assets/images/748.png", () {
+                        "assets/images/unit1.png", () {
                       _subController.setUnitDetials(controller.unitOne);
 
                       _subController.setButtonIndex(2);
@@ -636,7 +636,7 @@ class UnitsPage extends GetView<UnitsController> {
                           [controller.centerName[0], controller.centerName[1]]);
                       _subController.SetTitle(
                           "${controller.title}> ${controller.buttonText[0]} ");
-                      _subController.SetLocationName("Consumption Center");
+                      _subController.SetLocationName("Consumption Centers");
                       _subController.chartOne.clear();
                       _subController.chartTwo.clear();
 
@@ -672,7 +672,7 @@ class UnitsPage extends GetView<UnitsController> {
                       // Get.toNamed(AppPages.SUBUNITS);
                     }, controller.totalunit1, controller.U1),
                     getTiles(controller.colors[1], controller.buttonText[1],
-                        "assets/images/748.png", () {
+                        "assets/images/unit2.png", () {
                       _subController.setUnitDetials(controller.unitTwo);
                       _subController.setButtonIndex(2);
                       _subController
@@ -721,7 +721,7 @@ class UnitsPage extends GetView<UnitsController> {
                               getTiles(
                                   controller.colors[2],
                                   controller.buttonText[2],
-                                  "assets/images/748.png", () {
+                                  "assets/images/unit1.png", () {
                                 _subController
                                     .setUnitDetials(controller.unitThree);
                                 _subController.setButtonIndex(2);
@@ -734,7 +734,7 @@ class UnitsPage extends GetView<UnitsController> {
                                 _subController.SetTitle(
                                     "${controller.title}> ${controller.buttonText[2]} ");
                                 _subController.SetLocationName(
-                                    "Consumption Center");
+                                    "Consumption Centers");
                                 _subController.chartOne.clear();
                                 _subController.chartTwo.clear();
 
@@ -750,7 +750,7 @@ class UnitsPage extends GetView<UnitsController> {
                               getTiles(
                                   controller.colors[3],
                                   controller.buttonText[3],
-                                  "assets/images/748.png", () {
+                                  "assets/images/unit2.png", () {
                                 _subController
                                     .setUnitDetials(controller.unitFour);
                                 print(controller.centerName.length);
@@ -769,7 +769,7 @@ class UnitsPage extends GetView<UnitsController> {
                                 _subController.SetTitle(
                                     "${controller.title}> ${controller.buttonText[3]} ");
                                 _subController.SetLocationName(
-                                    "Consumption Center");
+                                    "Consumption Centers");
                                 _subController.chartOne.clear();
                                 _subController.chartTwo.clear();
 
@@ -869,7 +869,7 @@ class UnitsPage extends GetView<UnitsController> {
                                   val,
                                   style: TextStyle(color: white, fontSize: 18),
                                 ),
-                                Text("(Last checked 2 hours ago)",
+                                Text(" (Last checked 2 hours ago)",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 10)),
                               ],
