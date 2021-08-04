@@ -206,7 +206,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             value: cbRemember,
                             onChanged: (cbRemember) => setState(() {
                               this.cbRemember = cbRemember!;
-                              LoginController().setLogin(this.cbRemember);
                             }),
                             activeColor: epccBlue,
                           ),
@@ -240,6 +239,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     .listen((User? user) async {
                                   print("cheking");
                                   if (user != null) {
+                                    this.cbRemember
+                                        ? LoginController()
+                                            .setLogin(this.cbRemember)
+                                        : LoginController()
+                                            .setLogin(this.cbRemember);
                                     print(user.uid);
                                     DBService().setUid(user.uid.toString());
                                     Get.off(() => BottomNavigation());
