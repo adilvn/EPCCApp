@@ -120,8 +120,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
-                              if (val!.isEmpty || !val.contains("@gmail.com")) {
-                                return "Provide Correct Email";
+                              if (val!.isEmpty || !GetUtils.isEmail(val)) {
+                                return "Provide Correct Email...";
                               }
                             },
                             controller: _emailController,
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               focusedBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: epccBlue, width: 1.5)),
-                              hintText: "example@gmail.com",
+                              hintText: "abc@example.com",
                               hintStyle: TextStyle(
                                 color: Colors.grey.shade400,
                                 fontSize: 14,
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             keyboardType: TextInputType.visiblePassword,
                             validator: (val) {
                               if (val!.isEmpty || val.length < 6) {
-                                return "Provide Correct Password";
+                                return "Provide Correct Password...";
                               }
                             },
                             controller: _passController,
@@ -210,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             activeColor: epccBlue,
                           ),
                           Text(
-                            "Keep me logged in",
+                            "Keep Me Logged-in",
                             style: TextStyle(
                                 fontFamily: roboto,
                                 fontSize: 16,
@@ -237,7 +237,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 FirebaseAuth.instance
                                     .idTokenChanges()
                                     .listen((User? user) async {
-                                  print("cheking");
                                   if (user != null) {
                                     this.cbRemember
                                         ? LoginController()
@@ -256,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         : null;
 
                                     Get.rawSnackbar(
-                                        message: "Successfully to login",
+                                        message: "Successfully Logged-in!",
                                         duration: Duration(seconds: 3));
                                   }
                                 });
@@ -268,7 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Get.rawSnackbar(
                                       backgroundColor: epccBlue500,
                                       messageText: Text(
-                                        "Invalid Email!",
+                                        "User Not Found!",
                                         style: TextStyle(
                                             color: white,
                                             fontSize: 16,
