@@ -176,7 +176,7 @@ class ReportController extends GetxController {
       double consumptionValue = 0;
       double lastYearConsumptionValue = 0;
       for (var i = 0; i < 27; i++) {
-        month = allReportsData[i].cONSUMPTIONDATE!.substring(3, 7).toString();
+        month = allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString();
         consumptionValue =
             double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
         double difference = consumptionValue - lastYearConsumptionValue;
