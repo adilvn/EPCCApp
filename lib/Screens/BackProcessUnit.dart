@@ -104,10 +104,13 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                 radius: 8,
                                               )),
                                               errorWidget:
-                                                  (context, url, error) => Icon(
-                                                Icons.person,
-                                                size: 60,
-                                                color: Colors.white,
+                                                  (context, url, error) =>
+                                                      Center(
+                                                child: Icon(
+                                                  Icons.person,
+                                                  size: 30,
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                             ),
                                           );
@@ -545,8 +548,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                                       .w300)),
                                                     ),
                                                     series: <CartesianSeries>[
-                                                        FastLineSeries<
-                                                                ChartData,
+                                                        FastLineSeries<ChartData,
                                                                 String>(
                                                             dataSource:
                                                                 controller
@@ -561,28 +563,13 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                                     data.y,
                                                             // Renders the marker
 
-                                                            markerSettings:
-                                                                MarkerSettings(
-                                                                    isVisible:
-                                                                        true)),
-                                                        LineSeries<ChartData,
-                                                                String>(
-                                                            dataSource:
-                                                                controller
-                                                                    .chartTwo,
-                                                            xValueMapper:
-                                                                (ChartData data,
-                                                                        _) =>
-                                                                    data.x,
-                                                            yValueMapper:
-                                                                (ChartData data,
-                                                                        _) =>
-                                                                    data.y,
-                                                            // Renders the marker
-                                                            markerSettings:
-                                                                MarkerSettings(
-                                                                    isVisible:
-                                                                        true)),
+                                                            markerSettings: MarkerSettings(
+                                                                isVisible: controller
+                                                                            .chartOne
+                                                                            .length ==
+                                                                        1
+                                                                    ? true
+                                                                    : false)),
                                                       ])),
                                       ),
                                     ),

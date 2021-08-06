@@ -113,10 +113,13 @@ class HomeScreen extends GetView<HomeController> {
                                                 radius: 8,
                                               )),
                                               errorWidget:
-                                                  (context, url, error) => Icon(
-                                                Icons.person,
-                                                size: 60,
-                                                color: Colors.white,
+                                                  (context, url, error) =>
+                                                      Center(
+                                                child: Icon(
+                                                  Icons.person,
+                                                  size: 30,
+                                                  color: Colors.white,
+                                                ),
                                               ),
                                             ),
                                           );

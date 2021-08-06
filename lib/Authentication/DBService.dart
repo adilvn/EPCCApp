@@ -14,6 +14,7 @@ class DBService {
       firebase_storage.FirebaseStorage.instance;
   Future<void> addUser(String email, String uid) {
     // Call the user's CollectionReference to add a new user
+    print("add uSser");
     return users
         .doc(uid)
         .set({
@@ -38,8 +39,12 @@ class DBService {
     return users
         .doc(uid)
         .update({'image': url})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) => Get.rawSnackbar(
+            message: "Image Uploaded Successfully",
+            duration: Duration(seconds: 2)))
+        .catchError((error) => Get.rawSnackbar(
+            message: "Image Uploading Failed $error",
+            duration: Duration(seconds: 2)));
   }
 
   void setADDUSER(bool val) async {
@@ -49,7 +54,7 @@ class DBService {
 
   getADDUSER() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-    bool? val = _pref.getBool("userAdd") ?? false;
+    bool? val = _pref.getBool("userAdd") ?? true;
     Get.find<LoginController>().setFirst(val);
     return val;
   }

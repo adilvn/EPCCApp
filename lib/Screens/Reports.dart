@@ -64,8 +64,7 @@ class _ReportsState extends State<Reports> {
                 Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.white, shape: BoxShape.circle),
+                  decoration: BoxDecoration(shape: BoxShape.circle),
                   child: FutureBuilder<DocumentSnapshot>(
                       future: users.doc(_profileController.uid).get(),
                       builder: (context, snapshot) {
@@ -78,27 +77,29 @@ class _ReportsState extends State<Reports> {
                               ? Container()
                               : Container(
                                   child: CachedNetworkImage(
-                                    imageUrl: data[val],
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          fit: BoxFit.fitWidth,
-                                          image: imageProvider,
-                                        ),
-                                      ),
-                                    ),
-                                    placeholder: (context, url) => Center(
-                                        child: CupertinoActivityIndicator(
-                                      radius: 8,
-                                    )),
-                                    errorWidget: (context, url, error) => Icon(
-                                      Icons.person,
-                                      size: 60,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                      imageUrl: data[val],
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                fit: BoxFit.fitWidth,
+                                                image: imageProvider,
+                                              ),
+                                            ),
+                                          ),
+                                      placeholder: (context, url) => Center(
+                                              child: CupertinoActivityIndicator(
+                                            radius: 8,
+                                          )),
+                                      errorWidget: (context, url, error) =>
+                                          Center(
+                                            child: Icon(
+                                              Icons.person,
+                                              size: 30,
+                                              color: Colors.white,
+                                            ),
+                                          )),
                                 );
                         } else {
                           return Container();

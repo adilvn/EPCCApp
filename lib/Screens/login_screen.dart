@@ -1,4 +1,5 @@
 import 'package:epcc/Authentication/DBService.dart';
+import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/controllers/loginController.dart';
@@ -25,8 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passController = TextEditingController();
   bool cbRemember = false;
   final _formKey = GlobalKey<FormState>();
-  final _profilecontroller = Get.lazyPut(() => ProfileController());
-  final _unitcontroller = Get.lazyPut(() => UnitsController());
   @override
   void dispose() {
     _emailController.dispose();
@@ -245,7 +244,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             .setLogin(this.cbRemember);
                                     print(user.uid);
                                     DBService().setUid(user.uid.toString());
-                                    Get.off(() => BottomNavigation());
+                                    Get.off(() => BottomNavigation(),
+                                        binding: HomePageBindings());
 
                                     isLoading = false;
                                     print(isLoading);
@@ -253,7 +253,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ? DBService().addUser(
                                             _emailController.text, user.uid)
                                         : null;
-
+                                    print(
+                                        Get.find<LoginController>().firstLogin);
                                     Get.rawSnackbar(
                                         message: "Successfully Logged-in!",
                                         duration: Duration(seconds: 3));

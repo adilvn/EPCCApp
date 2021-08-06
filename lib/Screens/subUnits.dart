@@ -82,32 +82,31 @@ class SubUnits extends GetView<SubUnitsController> {
                                         )
                                       : Container(
                                           child: CachedNetworkImage(
-                                            imageUrl: data[val],
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    Container(
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                  fit: BoxFit.fitWidth,
-                                                  image: imageProvider,
-                                                ),
+                                          imageUrl: data[val],
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                fit: BoxFit.fitWidth,
+                                                image: imageProvider,
                                               ),
                                             ),
-                                            placeholder: (context, url) =>
-                                                Center(
-                                                    child:
-                                                        CupertinoActivityIndicator(
-                                              radius: 8,
-                                            )),
-                                            errorWidget:
-                                                (context, url, error) => Icon(
+                                          ),
+                                          placeholder: (context, url) => Center(
+                                              child: CupertinoActivityIndicator(
+                                            radius: 8,
+                                          )),
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                            child: Icon(
                                               Icons.person,
-                                              size: 60,
+                                              size: 30,
                                               color: Colors.white,
                                             ),
                                           ),
-                                        );
+                                        ));
                                 } else {
                                   return Container(
                                     color: epccBlue500,

@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Authentication/authentication.dart';
+import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/controllers/loginController.dart';
@@ -13,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -198,7 +198,8 @@ class _ProfileState extends State<Profile> {
                             Authenticate().sigout();
                             LoginController().setLogin(false);
                             BottomNavigation.selectedIndex = 1;
-                            Get.off(() => Authenticate());
+                            Get.off(() => Authenticate(),
+                                binding: HomePageBindings());
                             DBService().removeUid();
                           },
                           style: ElevatedButton.styleFrom(
