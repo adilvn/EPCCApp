@@ -198,9 +198,8 @@ class HomeScreen extends GetView<HomeController> {
                                               NumberFormat.compact()
                                                   .format(controller.totalKwh),
                                               style: TextStyle(
-                                                  color: Color.fromRGBO(
-                                                      0, 0, 0, 0.5),
-                                                  fontSize: 16))))
+                                                  color: Colors.black,
+                                                  fontSize: 18))))
                                 ],
                                 legend: Legend(
                                   isVisible: false,
@@ -276,6 +275,7 @@ class HomeScreen extends GetView<HomeController> {
                 Expanded(
                   flex: 7,
                   child: ListView(
+                    
                     children: [
                       getTiles(
                           Color(0xffFF6F00), "TP1", "assets/images/748.png",
@@ -562,7 +562,7 @@ class HomeScreen extends GetView<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                "Location",
+                                "Locations",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 27),
                               ),
@@ -713,29 +713,32 @@ class HomeScreen extends GetView<HomeController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 75,
+          height: 70,
           color: color,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.bar_chart,
-                    color: white,
-                    size: 16,
-                  ),
-                  Text("Reports  ",
-                      style: TextStyle(color: Colors.white70, fontSize: 12))
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     Icon(
+              //       Icons.bar_chart,
+              //       color: white,
+              //       size: 16,
+              //     ),
+              //     Text("Reports  ",
+              //         style: TextStyle(color: Colors.white70, fontSize: 12))
+              //   ],
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                       flex: 2,
                       child: Image(
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.center,
                         image: AssetImage(imageText),
                         color: white,
                         width: 50,
@@ -744,6 +747,8 @@ class HomeScreen extends GetView<HomeController> {
                   Expanded(
                     flex: 10,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -752,13 +757,16 @@ class HomeScreen extends GetView<HomeController> {
                               children: [
                                 Text(
                                   val,
-                                  style: TextStyle(color: white, fontSize: 18),
+                                  style: TextStyle(color: white, fontSize: 20),
                                 ),
-                                Text(" (Last checked 2 hours ago)",
-                                    style: TextStyle(
-                                        color: Colors.white70, fontSize: 10)),
+                                // Text(" (Last checked 2 hours ago)",
+                                //     style: TextStyle(
+                                //         color: Colors.white, fontSize: 16)),
                               ],
                             ),
+                            Text("Total: $totalvalue",
+                                  style: TextStyle(
+                                    color: Colors.white, fontSize: 16)),
                             Icon(
                               Icons.arrow_forward_ios,
                               size: 13,
@@ -782,17 +790,14 @@ class HomeScreen extends GetView<HomeController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Total: $totalvalue",
-                                style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
                             Text(
                                 "Min: ${list.reduce((value, element) => value > element ? value : element)}",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
+                                    color: Colors.white, fontSize: 16)),
                             Text(
                                 "Max:  ${list.reduce((value, element) => value > element ? value : element)}",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
+                                    color: Colors.white, fontSize: 16)),
                           ],
                         ),
                         SizedBox(
@@ -829,13 +834,13 @@ class HomeScreen extends GetView<HomeController> {
               width: 5,
             ),
             Text(value.toStringAsPrecision(2) + "%",
-                style: TextStyle(fontSize: 12)),
+                style: TextStyle(fontSize: 16)),
             SizedBox(
               width: 10,
             ),
             Text(
-              numberFormat.format(value2) + " KWH",
-              style: TextStyle(fontSize: 12),
+              numberFormat.format(value2) + " kWh",
+              style: TextStyle(fontSize: 16),
             )
           ],
         ),

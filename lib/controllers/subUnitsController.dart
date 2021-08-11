@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SubUnitsController extends GetxController {
-  var _subdropdown1 = "-".obs;
+  var _subdropdown1 = "Year".obs;
 
-  var _subdropdown2 = "-".obs;
-  var _subdropdown3 = "-".obs;
+  var _subdropdown2 = "Month".obs;
+  var _subdropdown3 = "Day".obs;
 
   var _chartOne = <ChartDataSub>[].obs;
   List<ChartDataSub> get chartOne => _chartOne;
@@ -74,9 +74,9 @@ class SubUnitsController extends GetxController {
       }
     }
 
-    if (_subdropdown1.value == "-" &&
-        _subdropdown2.value == "-" &&
-        _subdropdown3.value == "-") {
+    if (_subdropdown1.value == "Year" &&
+        _subdropdown2.value == "Month" &&
+        _subdropdown3.value == "Day") {
       for (var i = 0; i < 8; i++) {
         if (unitDetails[i].centerName == list[0]) {
           setChartOne(ChartDataSub(
@@ -91,9 +91,9 @@ class SubUnitsController extends GetxController {
           }
         }
       }
-    } else if (_subdropdown1.value != "-" &&
-        _subdropdown2.value != "-" &&
-        _subdropdown3.value != "-") {
+    } else if (_subdropdown1.value != "Year" &&
+        _subdropdown2.value != "Month" &&
+        _subdropdown3.value != "Day") {
       var _month = _subdropdown2.toUpperCase();
       var _day = _subdropdown3.toUpperCase();
       var _year = _subdropdown1.substring(2, 4).toUpperCase();
@@ -122,9 +122,9 @@ class SubUnitsController extends GetxController {
         Get.rawSnackbar(
             message: "Choose Correct Data", duration: Duration(seconds: 2));
       }
-    } else if (_subdropdown1.value == "-" ||
-        _subdropdown2.value == "-" ||
-        _subdropdown3.value == "-") {
+    } else if (_subdropdown1.value == "Year" ||
+        _subdropdown2.value == "Month" ||
+        _subdropdown3.value == "Day") {
       chartOne.clear();
       chartTwo.clear();
     }
@@ -191,7 +191,7 @@ class SubUnitsController extends GetxController {
   }
 
   List<String> _subDropList1 = [
-    "-",
+    "Year",
     "2021",
     "2020",
     "2019",
@@ -207,7 +207,7 @@ class SubUnitsController extends GetxController {
   ].obs;
 
   List<String> _subDropList2 = [
-    "-",
+    "Month",
     "Jan",
     "Feb",
     "Mar",
@@ -223,7 +223,7 @@ class SubUnitsController extends GetxController {
   ].obs;
 
   List<String> _subDropList3 = [
-    "-",
+    "Day",
     "01",
     "02",
     "03",

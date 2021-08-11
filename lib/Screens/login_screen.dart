@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 40.0),
             Text("Login",
                 style: TextStyle(
-                  color: Colors.blueGrey,
+                  color: epccBlue500,
                   fontSize: 45.0,
                   fontFamily: roboto,
                   fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintStyle: TextStyle(
                                 color: Colors.grey.shade400,
                                 fontSize: 14,
-                                fontFamily: comfortaa,
+                                fontFamily: roboto,
                               ),
                             ),
                           )),
@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintStyle: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey.shade400,
-                                fontFamily: comfortaa,
+                                fontFamily: roboto,
                               ),
                             ),
                           )),
@@ -316,7 +316,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                             }
                           },
-                          child: Text("Let's Go"),
+                          child: Text("Login"),
                           style: ElevatedButton.styleFrom(
                               primary: epccBlue500,
                               onPrimary: white,

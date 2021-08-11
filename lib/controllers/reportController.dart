@@ -8,14 +8,14 @@ class ReportController extends GetxController {
   var allReportsData = <Data>[].obs;
 
   var _dataList = <ReportModel>[].obs;
-  var _bpdropdown1 = "-".obs;
+  var _bpdropdown1 = "Year".obs;
 
-  var _bpdropdown2 = "-".obs;
-  var _bpdropdown3 = "-".obs;
-  var _TPdropdown = "-".obs;
+  var _bpdropdown2 = "Month".obs;
+  var _bpdropdown3 = "Day".obs;
+  var _TPdropdown = "TP/PP".obs;
 
-  var _unitdropdown = "-".obs;
-  var _bpdropdown = "-".obs;
+  var _unitdropdown = "Unit".obs;
+  var _bpdropdown = "Consumption".obs;
   String get YearValue => _bpdropdown1.value;
   String get MonthValue => _bpdropdown2.value;
   String get DayValue => _bpdropdown3.value;
@@ -139,12 +139,12 @@ class ReportController extends GetxController {
 
   List<String> date = [];
   addDataList() {
-    if (YearValue == "-" &&
-        MonthValue == "-" &&
-        DayValue == "-" &&
-        TPDropValue == "-" &&
-        UnitDropValue == "-" &&
-        BPDropValue == "-") {
+    if (YearValue == "Year" &&
+        MonthValue == "Month" &&
+        DayValue == "Day" &&
+        TPDropValue == "TP/PP" &&
+        UnitDropValue == "Unit" &&
+        BPDropValue == "Consumption") {
       // int a = 0;
       // for (var i = 0; i < TP1UnitOneDetails.length; i++) {
       //   String _year =
@@ -185,12 +185,12 @@ class ReportController extends GetxController {
       }
     }
     //TODO reports All  Value
-    else if (YearValue != "-" &&
-        MonthValue != "-" &&
-        DayValue != "-" &&
-        TPDropValue != "-" &&
-        UnitDropValue != "-" &&
-        BPDropValue != "-") {
+    else if (YearValue != "Year" &&
+        MonthValue != "Month" &&
+        DayValue != "Day" &&
+        TPDropValue != "TP/PP" &&
+        UnitDropValue != "Unit" &&
+        BPDropValue != "Consumption") {
       var _month = MonthValue.toUpperCase();
       var _day = DayValue.toUpperCase();
       var _year = YearValue.substring(2, 4).toUpperCase();
@@ -240,12 +240,12 @@ class ReportController extends GetxController {
       }
     }
     // TODO reports per year
-    else if (YearValue != "-" &&
-        MonthValue == "-" &&
-        DayValue == "-" &&
-        TPDropValue != "-" &&
-        UnitDropValue != "-" &&
-        BPDropValue != "-") {
+    else if (YearValue != "Year" &&
+        MonthValue == "Month" &&
+        DayValue == "Day" &&
+        TPDropValue != "TP/PP" &&
+        UnitDropValue != "Unit" &&
+        BPDropValue != "Consumption") {
       dataList.clear();
       var _year = YearValue.substring(2, 4).toUpperCase();
       var _prevYear = int.parse(_year) - 1;
@@ -300,12 +300,12 @@ class ReportController extends GetxController {
       } else {
         setValueBool(false);
       }
-    } else if (YearValue != "-" &&
-        MonthValue != "-" &&
-        DayValue == "-" &&
-        TPDropValue != "-" &&
-        UnitDropValue != "-" &&
-        BPDropValue != "-") {
+    } else if (YearValue != "Year" &&
+        MonthValue != "Month" &&
+        DayValue == "Day" &&
+        TPDropValue != "TP/PP" &&
+        UnitDropValue != "Unit" &&
+        BPDropValue != "Consumption") {
       dataList.clear();
       var _month = MonthValue.toUpperCase();
 
@@ -358,12 +358,12 @@ class ReportController extends GetxController {
         Get.rawSnackbar(
             message: "No Data Found", duration: Duration(seconds: 2));
       }
-    } else if (YearValue == "-" &&
-        MonthValue == "-" &&
-        DayValue == "-" &&
-        TPDropValue != "-" &&
-        UnitDropValue != "-" &&
-        BPDropValue != "-") {
+    } else if (YearValue == "Year" &&
+        MonthValue == "Month" &&
+        DayValue == "Day" &&
+        TPDropValue != "TP/PP" &&
+        UnitDropValue != "Unit" &&
+        BPDropValue != "Consumption") {
       dataList.clear();
       // var _month = MonthValue.toUpperCase();
       // var _year = YearValue.substring(2, 4).toUpperCase();
@@ -420,10 +420,10 @@ class ReportController extends GetxController {
         Get.rawSnackbar(
             message: "No Data Found", duration: Duration(seconds: 2));
       }
-    } else if (YearValue != "-" ||
-        MonthValue != "-" ||
-        DayValue != "-" ||
-        TPDropValue == "-" && UnitDropValue == "-" && BPDropValue == "-") {
+    } else if (YearValue != "Year" ||
+        MonthValue != "Month" ||
+        DayValue != "Day" ||
+        TPDropValue == "TP/PP" && UnitDropValue == "Unit" && BPDropValue == "Consumption") {
       _dataList.clear();
       setValueBool(false);
       Get.rawSnackbar(message: "No Data Found", duration: Duration(seconds: 2));
@@ -460,14 +460,14 @@ class ReportController extends GetxController {
     } else if (value == "PP") {
       setDrop2Value(["PP1", "PP2", "PP3", "Utilities"]);
       setUnitsDropList("PP1");
-    } else if (value == "-") {
-      setDrop2Value(["-"]);
-      setUnitsDropList("-");
+    } else if (value == "TP/PP") {
+      setDrop2Value(["Consumption"]);
+      setUnitsDropList("Unit");
     }
   }
 
   List<String> _BPDropList = [
-    "-",
+    "Consumption",
   ].obs;
   setBPDropListValue(List<String> value) {
     _BPDropList.clear();
@@ -548,9 +548,9 @@ class ReportController extends GetxController {
     _bpdropdown.value = val!;
   }
 
-  List<String> _TPDropList = ["-", "TP1", "TP2", "TP3", "TP4", "PP"].obs;
+  List<String> _TPDropList = ["TP/PP", "TP1", "TP2", "TP3", "TP4", "PP"].obs;
 
-  List<String> _UnitDropList = ["-"].obs;
+  List<String> _UnitDropList = ["Unit"].obs;
 
   setDrop2Value(List<String> val) {
     _UnitDropList.clear();
@@ -561,7 +561,7 @@ class ReportController extends GetxController {
   }
 
   List<String> _bpDropList1 = [
-    "-",
+    "Year",
     "2021",
     "2020",
     "2019",
@@ -577,7 +577,7 @@ class ReportController extends GetxController {
   ].obs;
 
   List<String> _bpDropList2 = [
-    "-",
+    "Month",
     "Jan",
     "Feb",
     "Mar",
@@ -593,7 +593,7 @@ class ReportController extends GetxController {
   ].obs;
 
   List<String> _bpDropList3 = [
-    "-",
+    "Day",
     "01",
     "02",
     "03",

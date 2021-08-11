@@ -155,7 +155,7 @@ class _ProfileState extends State<Profile> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Change Profile"),
+                                  Text("Profile Picture"),
                                   ElevatedButton(
                                     onPressed: () {
                                       pickImage().whenComplete(() {
@@ -176,7 +176,7 @@ class _ProfileState extends State<Profile> {
                                         shape: StadiumBorder(),
                                         primary: epccBlue500),
                                     child: Text(
-                                      "Change Profile",
+                                      "Change",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 14,
@@ -208,7 +208,7 @@ class _ProfileState extends State<Profile> {
                               shape: StadiumBorder(),
                               primary: epccBlue500),
                           child: Text(
-                            "SIGN OUT",
+                            "Logout",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
