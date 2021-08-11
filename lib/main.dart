@@ -18,7 +18,7 @@ Future main() async {
   runApp(GetMaterialApp(
     initialBinding: HomePageBindings(),
     theme: ThemeData(
-      fontFamily: comfortaa,
+      fontFamily: roboto,
       primaryColor: epccBlue,
     ),
     getPages: AppPages.routes,

@@ -158,9 +158,9 @@ class UnitsPage extends GetView<UnitsController> {
                               HomeScreen(), 1, true);
                           controller.chartOne.clear();
                           controller.chartTwo.clear();
-                          controller.setUnitDropValue1(".");
-                          controller.setUnitDropValue2(".");
-                          controller.setUnitDropValue3(".");
+                          controller.setUnitDropValue1("Year");
+                          controller.setUnitDropValue2("Month");
+                          controller.setUnitDropValue3("Day");
                           _subController.unitOneValue.clear();
                           _subController.unitTwoValue.clear();
                         },
@@ -189,7 +189,7 @@ class UnitsPage extends GetView<UnitsController> {
                               controller.title,
                               style: TextStyle(
                                   color: epccBlue,
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.normal),
                             ),
                             decoration: BoxDecoration(
@@ -204,7 +204,8 @@ class UnitsPage extends GetView<UnitsController> {
                         ],
                       ),
                       Text(
-                        controller.locationName,
+                        "IFL - "+controller.title,
+                        //controller.locationName,
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                       Divider(
@@ -409,7 +410,7 @@ class UnitsPage extends GetView<UnitsController> {
                                       child: SfCartesianChart(
                                           primaryYAxis: CategoryAxis(
                                             title: AxisTitle(
-                                                text: 'Consumptions (KHW)',
+                                                text: 'Consumptions (kWh)',
                                                 textStyle: TextStyle(
                                                     color: Colors.black,
                                                     fontFamily: 'Roboto',
@@ -486,7 +487,7 @@ class UnitsPage extends GetView<UnitsController> {
                                             numberFormat:
                                                 NumberFormat.compact(),
                                             title: AxisTitle(
-                                                text: 'Consumption (KHW)',
+                                                text: 'Consumption (kWh)',
                                                 textStyle: TextStyle(
                                                     color: Colors.black,
                                                     fontFamily: 'Roboto',
@@ -643,9 +644,9 @@ class UnitsPage extends GetView<UnitsController> {
                       _subController.chartOne.clear();
                       _subController.chartTwo.clear();
 
-                      _subController.setSubDropValue1("-");
-                      _subController.setSubDropValue2("-");
-                      _subController.setSubDropValue3("-");
+                      _subController.setSubDropValue1("Year");
+                      _subController.setSubDropValue2("Month");
+                      _subController.setSubDropValue3("Day");
                       _subController.unitOneValue.clear();
                       _subController.unitTwoValue.clear();
                       BottomNavigation.changeProfileWidget(SubUnits());
@@ -688,9 +689,9 @@ class UnitsPage extends GetView<UnitsController> {
                       _subController.chartOne.clear();
                       _subController.chartTwo.clear();
 
-                      _subController.setSubDropValue1("-");
-                      _subController.setSubDropValue2("-");
-                      _subController.setSubDropValue3("-");
+                      _subController.setSubDropValue1("Year");
+                      _subController.setSubDropValue2("Month");
+                      _subController.setSubDropValue3("Day");
                       _subController.unitOneValue.clear();
                       _subController.unitTwoValue.clear();
                       BottomNavigation.changeProfileWidget(SubUnits());
@@ -741,9 +742,9 @@ class UnitsPage extends GetView<UnitsController> {
                                 _subController.chartOne.clear();
                                 _subController.chartTwo.clear();
 
-                                _subController.setSubDropValue1("-");
-                                _subController.setSubDropValue2("-");
-                                _subController.setSubDropValue3("-");
+                                _subController.setSubDropValue1("Year");
+                                _subController.setSubDropValue2("Month");
+                                _subController.setSubDropValue3("Day");
                                 _subController.unitOneValue.clear();
                                 _subController.unitTwoValue.clear();
 
@@ -776,9 +777,9 @@ class UnitsPage extends GetView<UnitsController> {
                                 _subController.chartOne.clear();
                                 _subController.chartTwo.clear();
 
-                                _subController.setSubDropValue1("-");
-                                _subController.setSubDropValue2("-");
-                                _subController.setSubDropValue3("-");
+                                _subController.setSubDropValue1("Year");
+                                _subController.setSubDropValue2("Month");
+                                _subController.setSubDropValue3("Day");
                                 _subController.unitOneValue.clear();
                                 _subController.unitTwoValue.clear();
                                 BottomNavigation.changeProfileWidget(
@@ -828,32 +829,35 @@ class UnitsPage extends GetView<UnitsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 75,
+          height: 70,
           color: color,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.bar_chart,
-                    color: white,
-                    size: 16,
-                  ),
-                  SizedBox(
-                    width: 3,
-                  ),
-                  Text("Reports",
-                      style: TextStyle(color: Colors.white70, fontSize: 10))
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     Icon(
+              //       Icons.bar_chart,
+              //       color: white,
+              //       size: 16,
+              //     ),
+              //     SizedBox(
+              //       width: 3,
+              //     ),
+              //     Text("Reports",
+              //         style: TextStyle(color: Colors.white70, fontSize: 10))
+              //   ],
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                       flex: 2,
                       child: Image(
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.center,
                         image: AssetImage(imageText),
                         color: white,
                         width: 50,
@@ -862,6 +866,8 @@ class UnitsPage extends GetView<UnitsController> {
                   Expanded(
                     flex: 9,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -870,13 +876,17 @@ class UnitsPage extends GetView<UnitsController> {
                               children: [
                                 Text(
                                   val,
-                                  style: TextStyle(color: white, fontSize: 18),
+                                  style: TextStyle(color: white, fontSize: 20),
                                 ),
-                                Text(" (Last checked 2 hours ago)",
-                                    style: TextStyle(
-                                        color: Colors.white70, fontSize: 10)),
+                                // Text(" (Last checked 2 hours ago)",
+                                //     style: TextStyle(
+                                //         color: Colors.white70, fontSize: 10)),
                               ],
                             ),
+                            Text(
+                                "Total: ${listData.reduce((value, element) => value + element)}",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16)),
                             Icon(
                               Icons.arrow_forward_ios,
                               size: 13,
@@ -901,17 +911,13 @@ class UnitsPage extends GetView<UnitsController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                "Total: ${listData.reduce((value, element) => value + element)}",
+                                "Min: ${listData.reduce((value, element) => value < element ? value : element)}",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
+                                    color: Colors.white, fontSize: 16)),
                             Text(
-                                "Min: ${listData.reduce((value, element) => value < element ? value : element)}Kwh",
+                                "Max: ${listData.reduce((value, element) => value > element ? value : element)}",
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
-                            Text(
-                                "Max: ${listData.reduce((value, element) => value > element ? value : element)} Kwh",
-                                style: TextStyle(
-                                    color: Colors.white70, fontSize: 9)),
+                                    color: Colors.white, fontSize: 16)),
                           ],
                         ),
                         SizedBox(

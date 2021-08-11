@@ -148,9 +148,9 @@ class SubUnits extends GetView<SubUnitsController> {
                         controller.chartOne.clear();
                         controller.chartTwo.clear();
 
-                        controller.setSubDropValue1("-");
-                        controller.setSubDropValue2("-");
-                        controller.setSubDropValue3("-");
+                        controller.setSubDropValue1("Year");
+                        controller.setSubDropValue2("Month");
+                        controller.setSubDropValue3("Day");
                         controller.unitOneValue.clear();
                         controller.unitTwoValue.clear();
                       },
@@ -158,7 +158,7 @@ class SubUnits extends GetView<SubUnitsController> {
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         alignment: Alignment.centerLeft,
                         width: double.infinity,
-                        height: 35,
+                        height: 30,
                         child: Icon(
                           Icons.arrow_back,
                           color: white,
@@ -167,8 +167,8 @@ class SubUnits extends GetView<SubUnitsController> {
                       ),
                     ),
                     SizedBox(
-                      height: 5,
-                    ),
+                        height: 5,
+                      ),
                     Row(
                       children: [
                         Container(
@@ -180,7 +180,7 @@ class SubUnits extends GetView<SubUnitsController> {
                             controller.title,
                             style: TextStyle(
                                 color: epccBlue,
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.normal),
                           ),
                           decoration: BoxDecoration(
@@ -194,9 +194,9 @@ class SubUnits extends GetView<SubUnitsController> {
                         )
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
                     Text(
                       "Consumption Centers",
                       style: TextStyle(color: Colors.white, fontSize: 24),
@@ -205,10 +205,9 @@ class SubUnits extends GetView<SubUnitsController> {
                       indent: MediaQuery.of(context).size.width * 0.16,
                       endIndent: MediaQuery.of(context).size.width * 0.16,
                       color: white,
-                      thickness: 1,
                     ),
                     SizedBox(
-                      height: 3,
+                      height: 0,
                     )
                   ],
                 ),
@@ -386,7 +385,7 @@ class SubUnits extends GetView<SubUnitsController> {
                                     primaryYAxis: NumericAxis(
                                       numberFormat: NumberFormat.compact(),
                                       title: AxisTitle(
-                                          text: 'Consumption (KHW)',
+                                          text: 'Consumption (kWh)',
                                           textStyle: TextStyle(
                                               color: Colors.black,
                                               fontFamily: 'Roboto',
@@ -451,13 +450,13 @@ class SubUnits extends GetView<SubUnitsController> {
                   _controller.SetLocationName(controller.buttonText[0]);
                   _controller.ListData!.clear();
                   _controller.chartOne.clear();
-                  _controller.setBPDropValue1("-");
-                  _controller.setBPDropValue2("-");
+                  _controller.setBPDropValue1("Year");
+                  _controller.setBPDropValue2("Month");
                   _controller.SetTitle(controller.buttonText[0] !=
                           "PP1 ,PP2 ,PP3\r\n"
                       ? "${controller.title}> ${controller.buttonText[0].capitalize}"
                       : "${controller.title}> PP1 ,PP2 ,PP3");
-                  _controller.setBPDropValue3("-");
+                  _controller.setBPDropValue3("Day");
                   BottomNavigation.changeProfileWidget(
                       BackProcessUnit(unitOnevalue: controller.unitOneValue));
                 }, controller.u1),
@@ -471,10 +470,10 @@ class SubUnits extends GetView<SubUnitsController> {
                         _controller.SetLocationName(controller.buttonText[1]);
                         _controller.ListData!.clear();
                         _controller.chartOne.clear();
-                        _controller.setBPDropValue1("-");
-                        _controller.setBPDropValue2("-");
+                        _controller.setBPDropValue1("Year");
+                        _controller.setBPDropValue2("Month");
 
-                        _controller.setBPDropValue3("-");
+                        _controller.setBPDropValue3("Day");
                         BottomNavigation.changeProfileWidget(BackProcessUnit(
                             unitOnevalue: controller.unitTwoValue));
                       }, controller.u2)
@@ -497,13 +496,15 @@ class SubUnits extends GetView<SubUnitsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 75,
+          height: 70,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                       flex: 2,
@@ -514,6 +515,8 @@ class SubUnits extends GetView<SubUnitsController> {
                   Expanded(
                     flex: 9,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -527,7 +530,7 @@ class SubUnits extends GetView<SubUnitsController> {
                                           .capitalize
                                           .toString()
                                       : "PP1 ,PP2 ,PP3",
-                                  style: TextStyle(color: white, fontSize: 16),
+                                  style: TextStyle(color: white, fontSize: 20),
                                 ),
                                 // Text("(Last checked 2 hours ago)",
                                 //     style: TextStyle(
@@ -559,33 +562,33 @@ class SubUnits extends GetView<SubUnitsController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Total:32434Kwh",
+                                  // Text("Total:32434Kwh",
+                                  //     style: TextStyle(
+                                  //         color: Colors.white, fontSize: 16)),
+                                  Text("Min:32434",
                                       style: TextStyle(
-                                          color: Colors.white70, fontSize: 9)),
-                                  Text("Min:32434Kwh",
+                                          color: Colors.white, fontSize: 16)),
+                                  Text("Max:32434",
                                       style: TextStyle(
-                                          color: Colors.white70, fontSize: 9)),
-                                  Text("Max:32434Kwh",
-                                      style: TextStyle(
-                                          color: Colors.white70, fontSize: 9)),
+                                          color: Colors.white, fontSize: 16)),
                                 ],
                               )
                             : Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  // Text(
+                                  //     "Total: ${list.reduce((value, element) => value + element)}Kwh",
+                                  //     style: TextStyle(
+                                  //         color: Colors.white, fontSize: 16)),
                                   Text(
-                                      "Total: ${list.reduce((value, element) => value + element)}Kwh",
+                                      "Min: ${list.reduce((value, element) => value < element ? value : element)}",
                                       style: TextStyle(
-                                          color: Colors.white70, fontSize: 9)),
+                                          color: Colors.white, fontSize: 16)),
                                   Text(
-                                      "Min: ${list.reduce((value, element) => value < element ? value : element)}Kwh",
+                                      "Max: ${list.reduce((value, element) => value > element ? value : element)}",
                                       style: TextStyle(
-                                          color: Colors.white70, fontSize: 9)),
-                                  Text(
-                                      "Max: ${list.reduce((value, element) => value > element ? value : element)}Kwh",
-                                      style: TextStyle(
-                                          color: Colors.white70, fontSize: 9)),
+                                          color: Colors.white, fontSize: 16)),
                                 ],
                               ),
                         SizedBox(

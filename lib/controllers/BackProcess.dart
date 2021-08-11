@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'HomeController.dart';
 
 class BackProcessController extends GetxController {
-  var _bpdropdown1 = "-".obs;
+  var _bpdropdown1 = "Year".obs;
 
-  var _bpdropdown2 = "-".obs;
-  var _bpdropdown3 = "-".obs;
+  var _bpdropdown2 = "Month".obs;
+  var _bpdropdown3 = "Day".obs;
 
   var _chartOne = <ChartData>[].obs;
   List<ChartData> get chartOne => _chartOne;
@@ -58,9 +58,9 @@ class BackProcessController extends GetxController {
   }
 
   addDetails(List<ConsumptionValue> val) {
-    if (BPDropValue1.value == "-" &&
-        BPDropValue2.value == "-" &&
-        BPDropValue3.value == "-") {
+    if (BPDropValue1.value == "Year" &&
+        BPDropValue2.value == "Month" &&
+        BPDropValue3.value == "Day") {
       chartOne.clear();
       _listData.clear();
       for (var i = 0; i < val.length; i++) {
@@ -68,23 +68,23 @@ class BackProcessController extends GetxController {
         setListData(ConsumptionValue(
             Date: val[i].Date, Consumption: val[i].Consumption));
       }
-    } else if (BPDropValue1.value == "-" &&
-        BPDropValue2.value != "-" &&
-        BPDropValue3.value != "-") {
+    } else if (BPDropValue1.value == "Year" &&
+        BPDropValue2.value != "Month" &&
+        BPDropValue3.value != "Day") {
       chartOne.clear();
       _listData.clear();
       Get.rawSnackbar(
           message: "Choose Correct Date", duration: Duration(seconds: 2));
-    } else if (BPDropValue1.value == "-" &&
-        BPDropValue2.value == "-" &&
-        BPDropValue3.value != "-") {
+    } else if (BPDropValue1.value == "Year" &&
+        BPDropValue2.value == "Month" &&
+        BPDropValue3.value != "Day") {
       chartOne.clear();
       _listData.clear();
       Get.rawSnackbar(
           message: "Choose Correct Date", duration: Duration(seconds: 2));
-    } else if (BPDropValue1.value != "-" &&
-        BPDropValue2.value != "-" &&
-        BPDropValue3.value != "-") {
+    } else if (BPDropValue1.value != "Year" &&
+        BPDropValue2.value != "Month" &&
+        BPDropValue3.value != "Day") {
       print("Comme");
       var _month = _bpdropdown2.toUpperCase();
       var _day = _bpdropdown3.toUpperCase();
@@ -104,9 +104,9 @@ class BackProcessController extends GetxController {
         Get.rawSnackbar(
             message: "Choose Correct Date", duration: Duration(seconds: 2));
       }
-    } else if (BPDropValue1.value != "-" &&
-        BPDropValue2.value == "-" &&
-        BPDropValue3.value == "-") {
+    } else if (BPDropValue1.value != "Year" &&
+        BPDropValue2.value == "Month" &&
+        BPDropValue3.value == "Day") {
       chartOne.clear();
       _listData.clear();
       var _year = _bpdropdown1.substring(2, 4).toUpperCase();
@@ -126,9 +126,9 @@ class BackProcessController extends GetxController {
         Get.rawSnackbar(
             message: "Choose Correct Date", duration: Duration(seconds: 2));
       }
-    } else if (BPDropValue1.value != "-" &&
-        BPDropValue2.value != "-" &&
-        BPDropValue3.value == "-") {
+    } else if (BPDropValue1.value != "Year" &&
+        BPDropValue2.value != "Month" &&
+        BPDropValue3.value == "Day") {
       chartOne.clear();
       _listData.clear();
       var _month = _bpdropdown2.toUpperCase();
@@ -152,16 +152,16 @@ class BackProcessController extends GetxController {
         Get.rawSnackbar(
             message: "Choose Correct Date", duration: Duration(seconds: 2));
       }
-    } else if (BPDropValue1.value == "-" &&
-        BPDropValue2.value == "-" &&
-        BPDropValue3.value == "-") {
+    } else if (BPDropValue1.value == "Year" &&
+        BPDropValue2.value == "Month" &&
+        BPDropValue3.value == "Day") {
       chartOne.clear();
       _listData.clear();
     }
   }
 
   List<String> _bpDropList1 = [
-    "-",
+    "Year",
     "2021",
     "2020",
     "2019",
@@ -177,7 +177,7 @@ class BackProcessController extends GetxController {
   ].obs;
 
   List<String> _bpDropList2 = [
-    "-",
+    "Month",
     "Jan",
     "Feb",
     "Mar",
@@ -193,7 +193,7 @@ class BackProcessController extends GetxController {
   ].obs;
 
   List<String> _bpDropList3 = [
-    "-",
+    "Day",
     "01",
     "02",
     "03",

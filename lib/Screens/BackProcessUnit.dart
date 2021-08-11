@@ -154,16 +154,16 @@ class BackProcessUnit extends GetView<BackProcessController> {
                           BottomNavigation.backToHomePage(SubUnits(), 0, false);
                           controller.ListData!.clear();
                           controller.chartOne.clear();
-                          controller.setBPDropValue1("-");
-                          controller.setBPDropValue2("-");
+                          controller.setBPDropValue1("Year");
+                          controller.setBPDropValue2("Month");
 
-                          controller.setBPDropValue3("-");
+                          controller.setBPDropValue3("Day");
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           alignment: Alignment.centerLeft,
                           width: double.infinity,
-                          height: 35,
+                          height: 30,
                           child: Icon(
                             Icons.arrow_back,
                             color: white,
@@ -184,7 +184,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                               "${controller.title}",
                               style: TextStyle(
                                   color: epccBlue,
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.normal),
                             ),
                             decoration: BoxDecoration(
@@ -198,9 +198,9 @@ class BackProcessUnit extends GetView<BackProcessController> {
                           )
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
                       Text(
                         controller.locationName != "PP1 ,PP2 ,PP3\r\n"
                             ? controller.locationName
@@ -210,8 +210,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                             : controller.locationName.toUpperCase(),
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 24),
                       ),
                       Divider(
                         indent: MediaQuery.of(context).size.width * 0.18,
@@ -220,7 +219,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                         thickness: 1,
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 0,
                       )
                     ],
                   ),
@@ -425,7 +424,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                               alignment: Alignment.center,
                                               width: 150,
                                               child: Text(
-                                                "Consumption (KWH)",
+                                                "Consumption (kWh)",
                                                 style: TextStyle(
                                                     color: Colors.orange,
                                                     fontSize: 14),
@@ -480,7 +479,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                             Alignment.center,
                                                         width: 150,
                                                         child: Text(
-                                                          "${controller.ListData![index].Consumption}KWH",
+                                                          "${controller.ListData![index].Consumption} kWh",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -517,7 +516,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                                           .compact(),
                                                       title: AxisTitle(
                                                           text:
-                                                              'Consumption (KHW)',
+                                                              'Consumption (kWh)',
                                                           textStyle: TextStyle(
                                                               color:
                                                                   Colors.black,

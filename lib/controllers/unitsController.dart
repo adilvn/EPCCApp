@@ -68,9 +68,9 @@ class UnitsController extends GetxController {
       List<UNITDATAMODEL> unitThreeDetails,
       List<UNITDATAMODEL> unitFourDetails,
       int index) {
-    if (_unitdropdown1.value == "." &&
-        _unitdropdown2.value == "." &&
-        _unitdropdown3.value == ".") {
+    if (_unitdropdown1.value == "Year" &&
+        _unitdropdown2.value == "Month" &&
+        _unitdropdown3.value == "Day") {
       for (var i = 0; i < 4; i++) {
         setChartOne(ChartData1(
             x: unitOneDetails[i].consumptionDate!,
@@ -89,9 +89,9 @@ class UnitsController extends GetxController {
               y: unitFourDetails[i].totalValue!));
         }
       }
-    } else if (_unitdropdown1.value != "." &&
-        _unitdropdown2.value != "." &&
-        _unitdropdown3.value != ".") {
+    } else if (_unitdropdown1.value != "Year" &&
+        _unitdropdown2.value != "Month" &&
+        _unitdropdown3.value != "Day") {
       int c = 0;
       var _month = _unitdropdown3.toUpperCase();
       var _day = _unitdropdown2.toUpperCase();
@@ -214,9 +214,9 @@ class UnitsController extends GetxController {
               duration: Duration(seconds: 2), message: "Select Correct Date");
         }
       }
-    } else if (_unitdropdown1.value != "." ||
-        _unitdropdown2.value != "." ||
-        _unitdropdown3.value != ".") {
+    } else if (_unitdropdown1.value != "Year" ||
+        _unitdropdown2.value != "Month" ||
+        _unitdropdown3.value != "Day") {
       _chartOne.clear();
       _chartTwo.clear();
       _chartThree.clear();
@@ -248,10 +248,10 @@ class UnitsController extends GetxController {
     _totalunit4.value = val;
   }
 
-  var _unitdropdown1 = ".".obs;
+  var _unitdropdown1 = "Year".obs;
 
-  var _unitdropdown2 = ".".obs;
-  var _unitdropdown3 = ".".obs;
+  var _unitdropdown2 = "Month".obs;
+  var _unitdropdown3 = "Day".obs;
   RxString get UnitDropValue1 => _unitdropdown1;
   RxString get UnitDropValue2 => _unitdropdown2;
   RxString get UnitDropValue3 => _unitdropdown3;
@@ -268,7 +268,7 @@ class UnitsController extends GetxController {
   }
 
   List<String> _unitDropList1 = [
-    ".",
+    "Year",
     "2021",
     "2020",
     "2019",
@@ -284,7 +284,7 @@ class UnitsController extends GetxController {
   ].obs;
 
   List<String> _unitDropList2 = [
-    ".",
+    "Month",
     "Jan",
     "Feb",
     "Mar",
@@ -300,7 +300,7 @@ class UnitsController extends GetxController {
   ].obs;
 
   List<String> _unitDropList3 = [
-    ".",
+    "Day",
     "01",
     "02",
     "03",

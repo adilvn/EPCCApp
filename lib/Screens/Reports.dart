@@ -141,8 +141,9 @@ class _ReportsState extends State<Reports> {
                       flex: 1,
                       child: Container(
                         color: epccBlue500,
+                        height: 32,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // GestureDetector(
                             //   onTap: () {},
@@ -162,8 +163,7 @@ class _ReportsState extends State<Reports> {
                               "Reports",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 24),
                             ),
                             Divider(
                               indent: MediaQuery.of(context).size.width * 0.3,
@@ -172,9 +172,6 @@ class _ReportsState extends State<Reports> {
                               color: white,
                               thickness: 1,
                             ),
-                            SizedBox(
-                              height: 10,
-                            )
                           ],
                         ),
                       )),
