@@ -167,8 +167,8 @@ class SubUnits extends GetView<SubUnitsController> {
                       ),
                     ),
                     SizedBox(
-                        height: 5,
-                      ),
+                      height: 5,
+                    ),
                     Row(
                       children: [
                         Container(
@@ -489,6 +489,7 @@ class SubUnits extends GetView<SubUnitsController> {
   getTiles(Color color, String val, textImage, VoidCallback onTap,
       List<double> list) {
     print(val);
+
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -527,14 +528,12 @@ class SubUnits extends GetView<SubUnitsController> {
                                   val != "PP1 ,PP2 ,PP3\r\n"
                                       ? val
                                           .replaceAll("/", " / ")
+                                          .replaceAll("\r\n", "")
                                           .capitalize
                                           .toString()
                                       : "PP1 ,PP2 ,PP3",
-                                  style: TextStyle(color: white, fontSize: 20),
+                                  style: TextStyle(color: white, fontSize: 18),
                                 ),
-                                // Text("(Last checked 2 hours ago)",
-                                //     style: TextStyle(
-                                //         color: Colors.white70, fontSize: 10)),
                               ],
                             ),
                             Icon(

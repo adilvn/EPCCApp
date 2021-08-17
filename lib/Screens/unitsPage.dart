@@ -204,7 +204,7 @@ class UnitsPage extends GetView<UnitsController> {
                         ],
                       ),
                       Text(
-                        "IFL - "+controller.title,
+                        "IFL - " + controller.title,
                         //controller.locationName,
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
@@ -695,29 +695,6 @@ class UnitsPage extends GetView<UnitsController> {
                       _subController.unitOneValue.clear();
                       _subController.unitTwoValue.clear();
                       BottomNavigation.changeProfileWidget(SubUnits());
-                      // BottomNavigation.changeProfileWidget(SubUnits(
-                      //   unitDetails: unitTwo,
-                      //   unitOneDetails: unitOneDetails,
-                      //   unitTwoDetails: unitTwoDetails,
-                      //   unitThreeDetails: unitThreeDetails,
-                      //   unitFourDetails: unitFourDetails,
-                      //   Unitbutton: button,
-                      //   UnitbuttonColor: buttonColor,
-                      //   UnitbuttonText: buttonText,
-                      //   UnitcenterNames: centerNames,
-                      //   UnitlocationName: locationName,
-                      //   Unittitle: title,
-                      //   unitOneDetail: unitTwo,
-                      //   unitTwoDetail: unitTwo,
-                      //   unitThreeDetail: unitThree,
-                      //   unitFourDetail: unitFour,
-                      //   buttonColor: [Colors.red, Colors.green],
-                      //   buttonText: [centerNames[2], centerNames[3]],
-                      //   title: "TP2",
-                      //   button: 2,
-                      //   locationName: "Consumption Center",
-                      // ));
-                      // Get.toNamed(AppPages.SUBUNITS);
                     }, controller.totalunit2, controller.U2),
                     controller.buttonIndex == 4
                         ? Column(

@@ -1,8 +1,9 @@
 class ReportModel {
-  String? monthValue;
+  String? monthName;
   String? consumption;
-  String? lastYear;
-  String? change;
 
-  ReportModel({this.monthValue, this.consumption, this.lastYear, this.change});
+  ReportModel({
+    this.monthName,
+    this.consumption,
+  });
 }

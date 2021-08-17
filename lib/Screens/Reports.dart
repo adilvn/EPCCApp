@@ -21,7 +21,7 @@ class _ReportsState extends State<Reports> {
   final controller = Get.find<ReportController>();
   void getData() async {
     controller.setValueBool(true);
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(Duration(milliseconds: 200), () {
       controller.addDataList();
       controller.setValueBool(false);
     });
@@ -161,9 +161,8 @@ class _ReportsState extends State<Reports> {
                             // ),
                             Text(
                               "Reports",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 24),
                             ),
                             Divider(
                               indent: MediaQuery.of(context).size.width * 0.3,
@@ -479,57 +478,6 @@ class _ReportsState extends State<Reports> {
                                       ),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: 39,
-                                        decoration: BoxDecoration(
-                                            color: Color(0xff00B8AC),
-                                            borderRadius:
-                                                BorderRadius.circular(30)),
-                                        // TODO Drop 6
-                                        child: DropdownButton<String>(
-                                          menuMaxHeight:
-                                              MediaQuery.of(context).size.width,
-                                          value: controller.DayValue,
-                                          icon: const Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Colors.white,
-                                          ),
-                                          iconSize: 24,
-                                          elevation: 16,
-                                          dropdownColor: Color(0xff00B8AC),
-                                          focusColor: Color(0xff00B8AC),
-                                          underline: Container(),
-                                          style: const TextStyle(
-                                              color: Colors.deepPurple),
-                                          onChanged: (val) {
-                                            controller.setBPDropValue3(val);
-                                            getData();
-                                            // controller.addDataList();
-                                          },
-                                          items: controller.BPDrop3.map<
-                                                  DropdownMenuItem<String>>(
-                                              (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Container(
-                                                padding:
-                                                    EdgeInsets.only(left: 15),
-                                                child: Text(
-                                                  value,
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -581,30 +529,30 @@ class _ReportsState extends State<Reports> {
                                                   ),
                                                 ),
                                               ),
-                                              Expanded(
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  width: 140,
-                                                  child: Text(
-                                                    "Last Year",
-                                                    style: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 13),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  width: 140,
-                                                  child: Text(
-                                                    "Change",
-                                                    style: TextStyle(
-                                                        color: Colors.blue,
-                                                        fontSize: 13),
-                                                  ),
-                                                ),
-                                              ),
+                                              // Expanded(
+                                              //   child: Container(
+                                              //     alignment: Alignment.center,
+                                              //     width: 140,
+                                              //     child: Text(
+                                              //       "Last Year",
+                                              //       style: TextStyle(
+                                              //           color: Colors.blue,
+                                              //           fontSize: 13),
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              // Expanded(
+                                              //   child: Container(
+                                              //     alignment: Alignment.center,
+                                              //     width: 140,
+                                              //     child: Text(
+                                              //       "Change",
+                                              //       style: TextStyle(
+                                              //           color: Colors.blue,
+                                              //           fontSize: 13),
+                                              //     ),
+                                              //   ),
+                                              // ),
                                             ],
                                           ),
                                         ),
@@ -647,7 +595,7 @@ class _ReportsState extends State<Reports> {
                                                               controller
                                                                   .dataList[
                                                                       index]
-                                                                  .monthValue
+                                                                  .monthName
                                                                   .toString(),
                                                               style: TextStyle(
                                                                   fontSize: 11),
@@ -663,42 +611,42 @@ class _ReportsState extends State<Reports> {
                                                                 .center,
                                                             width: 140,
                                                             child: Text(
-                                                              "${controller.dataList[index].consumption} Kwh",
+                                                              "${controller.dataList[index].monthSum} Kwh",
                                                               style: TextStyle(
                                                                   fontSize: 11),
                                                             ),
                                                           ),
                                                         ),
-                                                        VerticalDivider(
-                                                          thickness: 1,
-                                                        ),
-                                                        Expanded(
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 140,
-                                                            child: Text(
-                                                              "${controller.dataList[index].lastYear} kwh",
-                                                              style: TextStyle(
-                                                                  fontSize: 11),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        VerticalDivider(
-                                                          thickness: 1,
-                                                        ),
-                                                        Expanded(
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 140,
-                                                            child: Text(
-                                                              "${controller.dataList[index].change} KWh",
-                                                              style: TextStyle(
-                                                                  fontSize: 11),
-                                                            ),
-                                                          ),
-                                                        ),
+                                                        // VerticalDivider(
+                                                        //   thickness: 1,
+                                                        // ),
+                                                        // Expanded(
+                                                        //   child: Container(
+                                                        //     alignment: Alignment
+                                                        //         .center,
+                                                        //     width: 140,
+                                                        //     child: Text(
+                                                        //       "${controller.dataList[index].lastYear} kwh",
+                                                        //       style: TextStyle(
+                                                        //           fontSize: 11),
+                                                        //     ),
+                                                        //   ),
+                                                        // ),
+                                                        // VerticalDivider(
+                                                        //   thickness: 1,
+                                                        // ),
+                                                        // Expanded(
+                                                        //   child: Container(
+                                                        //     alignment: Alignment
+                                                        //         .center,
+                                                        //     width: 140,
+                                                        //     child: Text(
+                                                        //       "${controller.dataList[index].change} KWh",
+                                                        //       style: TextStyle(
+                                                        //           fontSize: 11),
+                                                        //     ),
+                                                        //   ),
+                                                        // ),
                                                       ],
                                                     ),
                                                   );

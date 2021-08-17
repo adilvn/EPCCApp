@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
@@ -31,13 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _emailController.dispose();
     _passController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    DBService().getADDUSER();
-    // TODO: implement initState
-    super.initState();
   }
 
   final controller = Get.lazyPut(() => LoginController());
@@ -237,24 +231,36 @@ class _LoginScreenState extends State<LoginScreen> {
                                     .idTokenChanges()
                                     .listen((User? user) async {
                                   if (user != null) {
+                                    await FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(user.uid)
+                                        .get()
+                                        .then((DocumentSnapshot
+                                            documentSnapshot) {
+                                      if (!documentSnapshot.exists) {
+                                        print("ok wait");
+
+                                        DBService().addUser(
+                                            _emailController.text, user.uid);
+                                      } else {
+                                        print("exist user");
+                                      }
+                                    }).onError((error, stackTrace) {
+                                      print("not");
+                                    });
+
                                     this.cbRemember
                                         ? LoginController()
                                             .setLogin(this.cbRemember)
                                         : LoginController()
                                             .setLogin(this.cbRemember);
-                                    print(user.uid);
+
                                     DBService().setUid(user.uid.toString());
                                     Get.off(() => BottomNavigation(),
                                         binding: HomePageBindings());
 
                                     isLoading = false;
-                                    print(isLoading);
-                                    Get.find<LoginController>().firstLogin
-                                        ? DBService().addUser(
-                                            _emailController.text, user.uid)
-                                        : null;
-                                    print(
-                                        Get.find<LoginController>().firstLogin);
+
                                     Get.rawSnackbar(
                                         message: "Successfully Logged-in!",
                                         duration: Duration(seconds: 3));

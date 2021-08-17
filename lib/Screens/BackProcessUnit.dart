@@ -181,7 +181,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                             alignment: Alignment.center,
                             height: 25,
                             child: Text(
-                              "${controller.title}",
+                              "${controller.title.replaceAll("\r\n", "")}",
                               style: TextStyle(
                                   color: epccBlue,
                                   fontSize: 14,
@@ -208,9 +208,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                 .capitalize
                                 .toString()
                             : controller.locationName.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24),
+                        style: TextStyle(color: Colors.white, fontSize: 24),
                       ),
                       Divider(
                         indent: MediaQuery.of(context).size.width * 0.18,

@@ -39,7 +39,7 @@ class BackProcessController extends GetxController {
   }
 
   var _listData = <ConsumptionValue>[].obs;
-  List<ConsumptionValue>? get ListData => _listData.reversed.toList();
+  List<ConsumptionValue>? get ListData => _listData;
   setListData(ConsumptionValue item) {
     _listData.add(item);
   }
@@ -183,8 +183,8 @@ class BackProcessController extends GetxController {
     "Mar",
     "Apr",
     "May",
-    "June",
-    "July",
+    "Jun",
+    "Jul",
     "Aug",
     "Oct",
     "Sep",

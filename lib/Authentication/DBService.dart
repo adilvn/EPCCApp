@@ -15,14 +15,10 @@ class DBService {
   Future<void> addUser(String email, String uid) {
     // Call the user's CollectionReference to add a new user
     print("add uSser");
-    return users
-        .doc(uid)
-        .set({
-          "uid": uid,
-          'full_name': email, // John Doe
-        })
-        .then((value) => setADDUSER(false))
-        .catchError((error) => print("Failed to add user: $error"));
+    return users.doc(uid).set({
+      "uid": uid,
+      'full_name': email, // John Doe
+    }).catchError((error) => print("Failed to add user: $error"));
   }
 
   uploadImage(File image, String uid) async {
@@ -36,28 +32,29 @@ class DBService {
   }
 
   Future<void> updateUser(String uid, String url) {
-    return users
-        .doc(uid)
-        .update({'image': url})
-        .then((value) => Get.rawSnackbar(
-            message: "Image Uploaded Successfully",
-            duration: Duration(seconds: 2)))
-        .catchError((error) => Get.rawSnackbar(
-            message: "Image Uploading Failed $error",
-            duration: Duration(seconds: 2)));
+    return users.doc(uid).update({'image': url}).then((value) {
+      // DBService().setADDUSER(false);
+
+      return Get.rawSnackbar(
+          message: "Image Uploaded Successfully",
+          duration: Duration(seconds: 2));
+    }).catchError((error) => Get.rawSnackbar(
+        message: "Image Uploading Failed $error",
+        duration: Duration(seconds: 2)));
   }
 
-  void setADDUSER(bool val) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setBool("userAdd", val);
-  }
+  // void setADDUSER(bool val) async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   pref.setBool("userAdd", val);
+  // }
 
-  getADDUSER() async {
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    bool? val = _pref.getBool("userAdd") ?? true;
-    Get.find<LoginController>().setFirst(val);
-    return val;
-  }
+  // getADDUSER() async {
+  //   SharedPreferences _pref = await SharedPreferences.getInstance();
+  //   bool? val = _pref.getBool("userAdd") ?? true;
+
+  //   Get.find<LoginController>().setFirst(val);
+  //   return val;
+  // }
 
   void setUid(String uid) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -73,6 +70,5 @@ class DBService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String val = pref.getString("uid") ?? "";
     val != "" ? Get.find<ProfileController>().setUid(val) : "";
-    print(val);
   }
 }

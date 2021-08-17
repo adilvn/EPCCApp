@@ -412,6 +412,7 @@ class HomeController extends GetxController
       if (data[0] == "success") {
         for (var i = 0; i < data[1].length; i++) {
           Data _data = Data.fromJson(data[1][i]);
+
           Get.find<ReportController>().allReportsData.add(_data);
           if (data[1][i]["2"] == "TP1") {
             Data _data = Data.fromJson(data[1][i]);
@@ -749,21 +750,6 @@ class HomeController extends GetxController
       setTotal(t1, t2, t3, t4, pp);
 
       change(value, status: RxStatus.success());
-      reportData.setTP1UnitOne(TP1UnitOneDetails);
-      reportData.setTp1UnitTwo(TP1UnitTwoDetails);
-
-      reportData.setTP2UnitOne(TP2UnitOneDetails);
-      reportData.setTp2UnitTwo(TP2UnitTwoDetails);
-      reportData.setTP3UnitOne(TP3UnitOneDetails);
-      reportData.setTp3UnitTwo(TP3UnitTwoDetails);
-      reportData.setTP4SOne(TP4SOneDetails);
-      reportData.setTP4STwo(TP4STwoDetails);
-      reportData.setTP4SThree(TP4SThreeDetails);
-      reportData.setTP4SFour(TP4SFourDetails);
-      reportData.setPPOne(PPOneDetails);
-      reportData.setPPTwo(PPTwoDetails);
-      reportData.setPPThree(PPThreeDetails);
-      reportData.setUtilitie(UtilitiesDetails);
     }, onError: (err) {
       change(err, status: RxStatus.error());
     });

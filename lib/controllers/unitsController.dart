@@ -97,6 +97,7 @@ class UnitsController extends GetxController {
       var _day = _unitdropdown2.toUpperCase();
       var _year = _unitdropdown1.substring(2, 4).toUpperCase();
       var date = "$_day-$_month-$_year";
+
       for (var i = 0; i < unitOneDetails.length; i++) {
         var month =
             unitOneDetails[i].consumptionDate!.substring(0, 2).toUpperCase();
@@ -105,6 +106,7 @@ class UnitsController extends GetxController {
         var year =
             unitOneDetails[i].consumptionDate!.substring(7, 9).toUpperCase();
         var _date = "$day-$month-$year";
+
         if (month == _month && day == _day && year == _year) {
           c++;
 
@@ -130,7 +132,7 @@ class UnitsController extends GetxController {
         var _date = "$day-$month-$year";
 
         if (month == _month && day == _day && year == _year) {
-          print("{$date}  $_date");
+          // print("{$date}  $_date");
           a++;
           _chartTwo.clear();
           setChartTwo(ChartData1(
@@ -290,8 +292,8 @@ class UnitsController extends GetxController {
     "Mar",
     "Apr",
     "May",
-    "June",
-    "July",
+    "Jun",
+    "Jul",
     "Aug",
     "Oct",
     "Sep",
