@@ -14,11 +14,17 @@ class DBService {
       firebase_storage.FirebaseStorage.instance;
   Future<void> addUser(String email, String uid) {
     // Call the user's CollectionReference to add a new user
-    print("add uSser");
-    return users.doc(uid).set({
-      "uid": uid,
-      'full_name': email, // John Doe
-    }).catchError((error) => print("Failed to add user: $error"));
+    print("claed");
+    return users
+        .doc(uid)
+        .set({
+          "uid": uid,
+          'full_name': email, // John Doe
+        })
+        .then((value) => Get.rawSnackbar(
+            message: "User has been added successfully",
+            duration: Duration(seconds: 2)))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
   uploadImage(File image, String uid) async {
@@ -33,28 +39,23 @@ class DBService {
 
   Future<void> updateUser(String uid, String url) {
     return users.doc(uid).update({'image': url}).then((value) {
-      // DBService().setADDUSER(false);
-
       return Get.rawSnackbar(
-          message: "Image Uploaded Successfully",
-          duration: Duration(seconds: 2));
+          message: "Image added successfully", duration: Duration(seconds: 2));
     }).catchError((error) => Get.rawSnackbar(
-        message: "Image Uploading Failed $error",
-        duration: Duration(seconds: 2)));
+        message: "Image adding fialed $error", duration: Duration(seconds: 2)));
   }
 
-  // void setADDUSER(bool val) async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   pref.setBool("userAdd", val);
-  // }
+  void setpass(String val) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("userAdd", val);
+  }
 
-  // getADDUSER() async {
-  //   SharedPreferences _pref = await SharedPreferences.getInstance();
-  //   bool? val = _pref.getBool("userAdd") ?? true;
+  getPass() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    String? val = _pref.getString("userAdd") ?? "";
 
-  //   Get.find<LoginController>().setFirst(val);
-  //   return val;
-  // }
+    return val;
+  }
 
   void setUid(String uid) async {
     SharedPreferences pref = await SharedPreferences.getInstance();

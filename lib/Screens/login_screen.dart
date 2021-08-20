@@ -222,50 +222,53 @@ class _LoginScreenState extends State<LoginScreen> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                UserCredential userCredential =
-                                    await FirebaseAuth.instance
-                                        .signInWithEmailAndPassword(
-                                            email: _emailController.text,
-                                            password: _passController.text);
-                                FirebaseAuth.instance
-                                    .idTokenChanges()
-                                    .listen((User? user) async {
-                                  if (user != null) {
-                                    await FirebaseFirestore.instance
-                                        .collection('users')
-                                        .doc(user.uid)
-                                        .get()
-                                        .then((DocumentSnapshot
-                                            documentSnapshot) {
-                                      if (!documentSnapshot.exists) {
-                                        print("ok wait");
+                                UserCredential user = await FirebaseAuth
+                                    .instance
+                                    .signInWithEmailAndPassword(
+                                        email: _emailController.text,
+                                        password: _passController.text);
 
-                                        DBService().addUser(
-                                            _emailController.text, user.uid);
-                                      } else {
-                                        print("exist user");
-                                      }
-                                    }).onError((error, stackTrace) {
-                                      print("not");
-                                    });
+                                if (user.user != null) {
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(user.user!.uid)
+                                      .get()
+                                      .then(
+                                          (DocumentSnapshot documentSnapshot) {
+                                    if (documentSnapshot.exists) {
+                                      DBService()
+                                          .setUid(user.user!.uid.toString());
+                                      DBService().setpass(_passController.text);
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                      Get.off(() => BottomNavigation(),
+                                          transition: Transition.leftToRight,
+                                          duration: Duration(seconds: 1),
+                                          binding: HomePageBindings());
 
-                                    this.cbRemember
-                                        ? LoginController()
-                                            .setLogin(this.cbRemember)
-                                        : LoginController()
-                                            .setLogin(this.cbRemember);
+                                      this.cbRemember
+                                          ? LoginController()
+                                              .setLogin(this.cbRemember)
+                                          : LoginController()
+                                              .setLogin(this.cbRemember);
 
-                                    DBService().setUid(user.uid.toString());
-                                    Get.off(() => BottomNavigation(),
-                                        binding: HomePageBindings());
-
-                                    isLoading = false;
-
-                                    Get.rawSnackbar(
-                                        message: "Successfully Logged-in!",
-                                        duration: Duration(seconds: 3));
-                                  }
-                                });
+                                      Get.rawSnackbar(
+                                          message: "Successfully Logged-in!",
+                                          duration: Duration(seconds: 3));
+                                    } else {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                      Get.rawSnackbar(
+                                          message: "User does not exist",
+                                          duration: Duration(seconds: 3));
+                                    }
+                                  }).onError((error, stackTrace) {
+                                    print(error.toString());
+                                  });
+                                }
+                                // });
                               } on FirebaseAuthException catch (e) {
                                 setState(() {
                                   isLoading = false;

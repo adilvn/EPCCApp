@@ -7,9 +7,14 @@ import 'package:epcc/Authentication/authentication.dart';
 import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
+import 'package:epcc/admin/Constant.dart';
+import 'package:epcc/admin/bindings/loginBinding.dart';
+import 'package:epcc/admin/views/adduser.dart';
+import 'package:epcc/admin/views/admin_home.dart';
 import 'package:epcc/controllers/loginController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,7 +45,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    print(controller.uid);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -65,6 +69,7 @@ class _ProfileState extends State<Profile> {
               Map<String, dynamic> data =
                   snapshot.data!.data() as Map<String, dynamic>;
               var val = data.length == 3 ? "image" : "full_name";
+
               return Container(
                 alignment: Alignment.center,
                 child: ListView(
@@ -84,29 +89,42 @@ class _ProfileState extends State<Profile> {
                             child: filename == ""
                                 ? data[val] == ""
                                     ? Container()
-                                    : Container(
-                                        child: CachedNetworkImage(
-                                          imageUrl: data[val],
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                fit: BoxFit.fitWidth,
-                                                image: imageProvider,
+                                    : GestureDetector(
+                                        onTap: () {
+                                          pickImage().whenComplete(() {
+                                            filename != ""
+                                                ? DBService().uploadImage(
+                                                    File(_image!.path),
+                                                    controller.uid)
+                                                : null;
+                                          });
+                                        },
+                                        child: Container(
+                                          child: CachedNetworkImage(
+                                            imageUrl: data[val],
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                  fit: BoxFit.fitWidth,
+                                                  image: imageProvider,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          placeholder: (context, url) => Center(
-                                              child: CupertinoActivityIndicator(
-                                            radius: 25,
-                                          )),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(
-                                            Icons.person,
-                                            size: 60,
-                                            color: Colors.white,
+                                            placeholder: (context, url) =>
+                                                Center(
+                                                    child:
+                                                        CupertinoActivityIndicator(
+                                              radius: 25,
+                                            )),
+                                            errorWidget:
+                                                (context, url, error) => Icon(
+                                              Icons.person,
+                                              size: 60,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       )
@@ -154,7 +172,7 @@ class _ProfileState extends State<Profile> {
                             Divider(),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
+                                  horizontal: 20, vertical: 6),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -163,10 +181,6 @@ class _ProfileState extends State<Profile> {
                                   ElevatedButton(
                                     onPressed: () {
                                       pickImage().whenComplete(() {
-                                        // _imageFile != null
-                                        //     ? DBService().uploadImage(
-                                        //         _imageFile, controller.uid)
-                                        //     : null;
                                         filename != ""
                                             ? DBService().uploadImage(
                                                 File(_image!.path),
@@ -193,7 +207,7 @@ class _ProfileState extends State<Profile> {
                             Divider(),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
+                                  horizontal: 20, vertical: 6),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -207,7 +221,7 @@ class _ProfileState extends State<Profile> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20.0, vertical: 10.0),
                                         shape: StadiumBorder(),
-                                        primary: epccBlue500),
+                                        primary: Color(0xff00B8AC)),
                                     child: Text(
                                       "Change",
                                       style: TextStyle(
@@ -220,34 +234,121 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                             Divider(),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              Authenticate().sigout();
-                              LoginController().setLogin(false);
-                              BottomNavigation.selectedIndex = 1;
-                              Get.off(() => Authenticate(),
-                                  binding: HomePageBindings());
-                              DBService().removeUid();
-                            },
-                            style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 70.0, vertical: 12.0),
-                                shape: StadiumBorder(),
-                                primary: epccBlue500),
-                            child: Text(
-                              "Logout",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 6),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Signout"),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Authenticate().sigout();
+                                      LoginController().setLogin(false);
+                                      BottomNavigation.selectedIndex = 1;
+                                      Get.off(() => Authenticate(),
+                                          binding: HomePageBindings());
+                                      DBService().removeUid();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10.0),
+                                        shape: StadiumBorder(),
+                                        primary: Colors.red),
+                                    child: Text(
+                                      "Signout",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                            Divider(),
+                            FirebaseAuth.instance.currentUser!.email ==
+                                    Constant.ADMINMAIL
+                                ? Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 6),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Add User"),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Get.to(AddUser(),
+                                                    binding: loginBinding(),
+                                                    fullscreenDialog: true);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 10.0),
+                                                  shape: StadiumBorder(),
+                                                  primary: Color(0xffFFBA44)),
+                                              child: Text(
+                                                "Add",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(),
+                                    ],
+                                  )
+                                : Container(),
+                            FirebaseAuth.instance.currentUser!.email!
+                                    .contains(Constant.ADMINMAIL)
+                                ? Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 6),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("View Users"),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Get.to(AdminHome(),
+                                                    binding: loginBinding(),
+                                                    fullscreenDialog: true);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20.0,
+                                                      vertical: 10.0),
+                                                  shape: StadiumBorder(),
+                                                  primary: epccBlue),
+                                              child: Text(
+                                                "View",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(),
+                                    ],
+                                  )
+                                : Container(),
+                          ],
                         ),
                       ],
                     )
