@@ -4,9 +4,6 @@ import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
 import 'package:epcc/controllers/loginController.dart';
-import 'package:epcc/controllers/profileController.dart';
-import 'package:epcc/controllers/unitsController.dart';
-import 'package:epcc/routes/AppPages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +37,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-        body: SingleChildScrollView(
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-        },
+    return GestureDetector(
+      onTap: () {
+        print("hello");
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Scaffold(
+          body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
@@ -111,6 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           Expanded(
                               child: TextFormField(
+                            autofocus: false,
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
                               if (val!.isEmpty || !GetUtils.isEmail(val)) {
@@ -171,6 +170,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             cursorHeight: 20,
                             decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  size: 16,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _passController.text = "";
+                                  });
+                                },
+                              ),
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(vertical: 5),
                               enabledBorder: UnderlineInputBorder(
@@ -330,14 +340,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               primary: epccBlue500,
                               onPrimary: white,
                               padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 22),
+                                  vertical: 8, horizontal: 28),
                               textStyle: TextStyle(
                                   fontFamily: montserrat,
-                                  fontSize: 32,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.w500),
                               shape: new RoundedRectangleBorder(
                                   borderRadius:
                                       new BorderRadius.circular(30.0)))),
+                      SizedBox(
+                        height: 10,
+                      ),
                       isLoading
                           ? Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -352,7 +365,7 @@ class _LoginScreenState extends State<LoginScreen> {
             )
           ],
         ),
-      ),
-    ));
+      )),
+    );
   }
 }

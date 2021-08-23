@@ -10,3 +10,7 @@ const white = Colors.white;
 var roboto = GoogleFonts.roboto().fontFamily;
 var comfortaa = GoogleFonts.comfortaa().fontFamily;
 var montserrat = GoogleFonts.montserrat().fontFamily;
+
+class Constant {
+  static String ADMINMAIL = "admin@gmail.com";
+}

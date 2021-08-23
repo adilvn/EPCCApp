@@ -22,7 +22,7 @@ Future main() async {
       primaryColor: epccBlue,
     ),
     getPages: AppPages.routes,
-    home: Splashing(),
+    initialRoute: AppPages.SPLASHING,
     debugShowCheckedModeBanner: false,
   ));
 }

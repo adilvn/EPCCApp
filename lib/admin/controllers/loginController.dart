@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+// ignore: camel_case_types
 class loginController extends GetxController {
   var _isloading = false.obs;
   TextEditingController email = TextEditingController();

@@ -1,4 +1,6 @@
+import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Screens/login_screen.dart';
+import 'package:epcc/Screens/splash_screen.dart';
 import 'package:epcc/routes/AppRoutes.dart';
 import 'package:get/get.dart';
 
@@ -18,5 +20,9 @@ class AppPages {
         page: () => LoginScreen(),
         transitionDuration: Duration(milliseconds: 500),
         transition: Transition.rightToLeftWithFade),
+    GetPage(
+      name: SPLASHING,
+      page: () => Splashing(),
+    )
   ];
 }

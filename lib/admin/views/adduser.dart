@@ -1,8 +1,6 @@
 import 'package:epcc/Authentication/DBService.dart';
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/admin/Constant.dart';
 import 'package:epcc/admin/controllers/loginController.dart';
-import 'package:epcc/admin/views/admin_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +17,7 @@ class _AddUserState extends State<AddUser> {
     controller.email.dispose();
     controller.pass.dispose();
     controller.conPass.dispose();
-    // TODO: implement dispose
+
     super.dispose();
   }
 
@@ -74,7 +72,6 @@ class _AddUserState extends State<AddUser> {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 15.0, right: 15.0, top: 15, bottom: 0),
-                    //padding: EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
                       controller: controller.pass,
                       validator: (val) {
@@ -95,7 +92,7 @@ class _AddUserState extends State<AddUser> {
                               controller.setPassView(!controller.showPass);
                             },
                           ),
-                          hintText: 'Enter secure password'),
+                          hintText: 'Enter valid password'),
                     ),
                   ),
                   SizedBox(
@@ -116,16 +113,7 @@ class _AddUserState extends State<AddUser> {
                       obscureText: true,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Password',
-                          // suffixIcon: IconButton(
-                          //   icon: Icon(Icons.remove_red_eye,
-                          //       color: controller.showPass
-                          //           ? Colors.grey
-                          //           : epccBlue500),
-                          //   onPressed: () {
-                          //     controller.setPassView(!controller.showPass);
-                          //   },
-                          // ),
+                          labelText: 'Confirm Password',
                           hintText: 'Confirm password'),
                     ),
                   ),
@@ -171,7 +159,7 @@ class _AddUserState extends State<AddUser> {
                               Get.rawSnackbar(
                                   backgroundColor: epccBlue500,
                                   messageText: Text(
-                                    "User Already Exist!",
+                                    "User already exist!",
                                     style: TextStyle(
                                         color: white,
                                         fontSize: 16,

@@ -1,10 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/admin/Constant.dart';
-import 'package:epcc/admin/bindings/loginBinding.dart';
-import 'package:epcc/admin/views/adduser.dart';
-import 'package:epcc/controllers/loginController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -148,11 +144,9 @@ class AdminHome extends StatelessWidget {
   }
 
   void _showDialog(BuildContext context, String id) {
-    // flutter defined function
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
         return AlertDialog(
           title: new Text(
             "Delete User",
@@ -160,7 +154,6 @@ class AdminHome extends StatelessWidget {
           ),
           content: new Text("Are you sure to delete?"),
           actions: <Widget>[
-            // usually buttons at the bottom of the dialog
             TextButton(
               child: new Text("Yes"),
               onPressed: () async {
@@ -172,7 +165,7 @@ class AdminHome extends StatelessWidget {
                       .delete()
                       .then((value) {
                     Get.rawSnackbar(
-                        message: "Successfully Delete User",
+                        message: "User has been deleted successfully",
                         duration: Duration(seconds: 2));
                   }).onError((error, stackTrace) {
                     Get.rawSnackbar(

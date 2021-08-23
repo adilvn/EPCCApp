@@ -7,14 +7,13 @@ import 'package:epcc/Authentication/authentication.dart';
 import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Screens/bottom_navigation.dart';
-import 'package:epcc/admin/Constant.dart';
+
 import 'package:epcc/admin/bindings/loginBinding.dart';
 import 'package:epcc/admin/views/adduser.dart';
 import 'package:epcc/admin/views/admin_home.dart';
 import 'package:epcc/controllers/loginController.dart';
 import 'package:epcc/controllers/profileController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -156,7 +155,7 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
-                            Divider(),
+                            divider(),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),
@@ -169,7 +168,7 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
-                            Divider(),
+                            divider(),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 6),
@@ -204,7 +203,7 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
-                            Divider(),
+                            divider(),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 6),
@@ -233,7 +232,7 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
-                            Divider(),
+                            divider(),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 6),
@@ -267,7 +266,7 @@ class _ProfileState extends State<Profile> {
                                 ],
                               ),
                             ),
-                            Divider(),
+                            divider(),
                             FirebaseAuth.instance.currentUser!.email ==
                                     Constant.ADMINMAIL
                                 ? Column(
@@ -288,10 +287,12 @@ class _ProfileState extends State<Profile> {
                                               },
                                               style: ElevatedButton.styleFrom(
                                                   padding: EdgeInsets.symmetric(
-                                                      horizontal: 20.0,
+                                                      horizontal: 30.0,
                                                       vertical: 10.0),
                                                   shape: StadiumBorder(),
-                                                  primary: Color(0xffFFBA44)),
+                                                  primary: Colors.orange
+                                                  // primary: Color(0xffFFBA44)
+                                                  ),
                                               child: Text(
                                                 "Add",
                                                 style: TextStyle(
@@ -304,7 +305,7 @@ class _ProfileState extends State<Profile> {
                                           ],
                                         ),
                                       ),
-                                      Divider(),
+                                      divider()
                                     ],
                                   )
                                 : Container(),
@@ -328,7 +329,7 @@ class _ProfileState extends State<Profile> {
                                               },
                                               style: ElevatedButton.styleFrom(
                                                   padding: EdgeInsets.symmetric(
-                                                      horizontal: 20.0,
+                                                      horizontal: 28.0,
                                                       vertical: 10.0),
                                                   shape: StadiumBorder(),
                                                   primary: epccBlue),
@@ -344,7 +345,7 @@ class _ProfileState extends State<Profile> {
                                           ],
                                         ),
                                       ),
-                                      Divider(),
+                                      divider()
                                     ],
                                   )
                                 : Container(),
@@ -363,6 +364,15 @@ class _ProfileState extends State<Profile> {
               );
             }
           }),
+    );
+  }
+
+  divider() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Divider(
+        color: Colors.black,
+      ),
     );
   }
 

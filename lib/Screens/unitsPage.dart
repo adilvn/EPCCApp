@@ -650,30 +650,6 @@ class UnitsPage extends GetView<UnitsController> {
                       _subController.unitOneValue.clear();
                       _subController.unitTwoValue.clear();
                       BottomNavigation.changeProfileWidget(SubUnits());
-
-                      // BottomNavigation.changeProfileWidget(SubUnits(
-                      //   unitDetails: unitOne,
-                      //   unitOneDetails: unitOneDetails,
-                      //   unitTwoDetails: unitTwoDetails,
-                      //   unitThreeDetails: unitThreeDetails,
-                      //   unitFourDetails: unitFourDetails,
-                      //   Unitbutton: button,
-                      //   UnitbuttonColor: buttonColor,
-                      //   UnitbuttonText: buttonText,
-                      //   UnitcenterNames: centerNames,
-                      //   UnitlocationName: locationName,
-                      //   Unittitle: title,
-                      //   unitOneDetail: unitOne,
-                      //   unitTwoDetail: unitTwo,
-                      //   unitThreeDetail: unitThree,
-                      //   unitFourDetail: unitFour,
-                      //   buttonColor: [Colors.red, Colors.green],
-                      //   buttonText: [centerNames[0], centerNames[1]],
-                      //   title: "TP1>Unit>1",
-                      //   button: 2,
-                      //   locationName: "Consumption Center",
-                      // ));
-                      // Get.toNamed(AppPages.SUBUNITS);
                     }, controller.totalunit1, controller.U1),
                     getTiles(controller.colors[1], controller.buttonText[1],
                         "assets/images/unit2.png", () {
@@ -761,32 +737,6 @@ class UnitsPage extends GetView<UnitsController> {
                                 _subController.unitTwoValue.clear();
                                 BottomNavigation.changeProfileWidget(
                                     SubUnits());
-
-                                // BottomNavigation.changeProfileWidget(SubUnits(
-                                //   unitDetails: unitFour,
-                                //   unitOneDetails: unitOneDetails,
-                                //   unitTwoDetails: unitTwoDetails,
-                                //   unitThreeDetails: unitThreeDetails,
-                                //   unitFourDetails: unitFourDetails,
-                                //   Unitbutton: button,
-                                //   UnitbuttonColor: buttonColor,
-                                //   UnitbuttonText: buttonText,
-                                //   UnitcenterNames: centerNames,
-                                //   UnitlocationName: locationName,
-                                //   Unittitle: title,
-                                //   unitOneDetail: unitOne,
-                                //   unitTwoDetail: unitTwo,
-                                //   unitThreeDetail: unitThree,
-                                //   unitFourDetail: unitFour,
-                                //   buttonColor: [Colors.red, Colors.green],
-                                //   buttonText: centerNames.length == 8
-                                //       ? [centerNames[6], centerNames[7]]
-                                //       : [centerNames[6]],
-                                //   title: "TP4",
-                                //   button: centerNames.length == 8 ? 2 : 1,
-                                //   locationName: "Consumption Center",
-                                // ));
-                                // Get.toNamed(AppPages.SUBUNITS);
                               }, controller.totalunit4, controller.U4)
                             ],
                           )
@@ -812,21 +762,6 @@ class UnitsPage extends GetView<UnitsController> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     Icon(
-              //       Icons.bar_chart,
-              //       color: white,
-              //       size: 16,
-              //     ),
-              //     SizedBox(
-              //       width: 3,
-              //     ),
-              //     Text("Reports",
-              //         style: TextStyle(color: Colors.white70, fontSize: 10))
-              //   ],
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -855,9 +790,6 @@ class UnitsPage extends GetView<UnitsController> {
                                   val,
                                   style: TextStyle(color: white, fontSize: 20),
                                 ),
-                                // Text(" (Last checked 2 hours ago)",
-                                //     style: TextStyle(
-                                //         color: Colors.white70, fontSize: 10)),
                               ],
                             ),
                             Text(

@@ -160,7 +160,7 @@ class HomeScreen extends GetView<HomeController> {
               enablePullDown: true,
               child: Column(children: [
                 Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: Container(
                       alignment: Alignment.center,
                       color: epccBlue500,
@@ -170,10 +170,12 @@ class HomeScreen extends GetView<HomeController> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            "Locations",
-                            style: TextStyle(color: Colors.white, fontSize: 27),
-                          ),
+                          Text("Locations",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 26,
+                                  fontFamily: montserrat,
+                                  fontWeight: FontWeight.normal)),
                           Divider(
                             indent: MediaQuery.of(context).size.width * 0.3,
                             endIndent: MediaQuery.of(context).size.width * 0.3,
@@ -183,7 +185,7 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     )),
                 Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Container(
                       child: Row(
                         children: [
@@ -273,9 +275,8 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     )),
                 Expanded(
-                  flex: 7,
+                  flex: 8,
                   child: ListView(
-                    
                     children: [
                       getTiles(
                           Color(0xffFF6F00), "TP1", "assets/images/748.png",
@@ -711,26 +712,14 @@ class HomeScreen extends GetView<HomeController> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
           width: double.infinity,
-          height: 70,
+          height: 80,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     Icon(
-              //       Icons.bar_chart,
-              //       color: white,
-              //       size: 16,
-              //     ),
-              //     Text("Reports  ",
-              //         style: TextStyle(color: Colors.white70, fontSize: 12))
-              //   ],
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -739,10 +728,11 @@ class HomeScreen extends GetView<HomeController> {
                       flex: 2,
                       child: Image(
                         alignment: Alignment.center,
+                        fit: BoxFit.fitHeight,
                         image: AssetImage(imageText),
                         color: white,
-                        width: 50,
-                        height: 50,
+                        width: 35,
+                        height: 35,
                       )),
                   Expanded(
                     flex: 10,
@@ -755,18 +745,19 @@ class HomeScreen extends GetView<HomeController> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  val,
-                                  style: TextStyle(color: white, fontSize: 20),
-                                ),
-                                // Text(" (Last checked 2 hours ago)",
-                                //     style: TextStyle(
-                                //         color: Colors.white, fontSize: 16)),
+                                Text(val,
+                                    style: TextStyle(
+                                        color: white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700)),
                               ],
                             ),
                             Text("Total: $totalvalue",
-                                  style: TextStyle(
-                                    color: Colors.white, fontSize: 16)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    letterSpacing: 1,
+                                    fontWeight: FontWeight.w500)),
                             Icon(
                               Icons.arrow_forward_ios,
                               size: 13,
@@ -781,7 +772,7 @@ class HomeScreen extends GetView<HomeController> {
                           height: 5,
                           child: Divider(
                             color: white,
-                            thickness: 2,
+                            thickness: 1,
                           ),
                         ),
                         SizedBox(
