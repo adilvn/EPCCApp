@@ -1,4 +1,7 @@
+import 'package:epcc/Models/constants.dart';
 import 'package:epcc/controllers/subUnitsController.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'HomeController.dart';
@@ -74,18 +77,31 @@ class BackProcessController extends GetxController {
       chartOne.clear();
       _listData.clear();
       Get.rawSnackbar(
-          message: "Choose Correct Date", duration: Duration(seconds: 2));
+          backgroundColor: epccBlue500,
+          icon: Icon(
+            Icons.error,
+            size: 22,
+            color: Colors.white,
+          ),
+          message: "Data Not Found",
+          duration: Duration(seconds: 2));
     } else if (BPDropValue1.value == "Year" &&
         BPDropValue2.value == "Month" &&
         BPDropValue3.value != "Day") {
       chartOne.clear();
       _listData.clear();
       Get.rawSnackbar(
-          message: "Choose Correct Date", duration: Duration(seconds: 2));
+          backgroundColor: epccBlue500,
+          icon: Icon(
+            Icons.error,
+            size: 22,
+            color: Colors.white,
+          ),
+          message: "Data Not Found",
+          duration: Duration(seconds: 2));
     } else if (BPDropValue1.value != "Year" &&
         BPDropValue2.value != "Month" &&
         BPDropValue3.value != "Day") {
-      print("Comme");
       var _month = _bpdropdown2.toUpperCase();
       var _day = _bpdropdown3.toUpperCase();
       var _year = _bpdropdown1.substring(2, 4).toUpperCase();
@@ -102,7 +118,14 @@ class BackProcessController extends GetxController {
       }
       if (chartOne.isEmpty && ListData!.isEmpty) {
         Get.rawSnackbar(
-            message: "Choose Correct Date", duration: Duration(seconds: 2));
+            backgroundColor: epccBlue500,
+            icon: Icon(
+              Icons.error,
+              size: 22,
+              color: Colors.white,
+            ),
+            message: "Select Correct Date",
+            duration: Duration(seconds: 2));
       }
     } else if (BPDropValue1.value != "Year" &&
         BPDropValue2.value == "Month" &&
@@ -124,7 +147,14 @@ class BackProcessController extends GetxController {
         _listData.clear();
 
         Get.rawSnackbar(
-            message: "Choose Correct Date", duration: Duration(seconds: 2));
+            backgroundColor: epccBlue500,
+            icon: Icon(
+              Icons.error,
+              size: 22,
+              color: Colors.white,
+            ),
+            message: "Data Not Found",
+            duration: Duration(seconds: 2));
       }
     } else if (BPDropValue1.value != "Year" &&
         BPDropValue2.value != "Month" &&
@@ -150,11 +180,27 @@ class BackProcessController extends GetxController {
         _listData.clear();
 
         Get.rawSnackbar(
-            message: "Choose Correct Date", duration: Duration(seconds: 2));
+            backgroundColor: epccBlue500,
+            icon: Icon(
+              Icons.error,
+              size: 22,
+              color: Colors.white,
+            ),
+            message: "Data Not Found",
+            duration: Duration(seconds: 2));
       }
     } else if (BPDropValue1.value == "Year" &&
         BPDropValue2.value == "Month" &&
         BPDropValue3.value == "Day") {
+      Get.rawSnackbar(
+          backgroundColor: epccBlue500,
+          icon: Icon(
+            Icons.error,
+            size: 22,
+            color: Colors.white,
+          ),
+          message: "Select Correct Date",
+          duration: Duration(seconds: 2));
       chartOne.clear();
       _listData.clear();
     }

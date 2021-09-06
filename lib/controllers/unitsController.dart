@@ -1,6 +1,8 @@
+import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UnitsController extends GetxController {
@@ -208,17 +210,33 @@ class UnitsController extends GetxController {
             _chartThree.isEmpty &&
             _chartFour.isEmpty) {
           Get.rawSnackbar(
-              duration: Duration(seconds: 2), message: "Select Correct Date");
+              duration: Duration(seconds: 2), message: "Data Not Found");
         }
       } else {
         if (_chartOne.isEmpty && _chartTwo.isEmpty) {
           Get.rawSnackbar(
-              duration: Duration(seconds: 2), message: "Select Correct Date");
+              backgroundColor: epccBlue500,
+              icon: Icon(
+                Icons.error,
+                size: 22,
+                color: Colors.white,
+              ),
+              message: "Select Correct Date",
+              duration: Duration(seconds: 2));
         }
       }
     } else if (_unitdropdown1.value != "Year" ||
         _unitdropdown2.value != "Month" ||
         _unitdropdown3.value != "Day") {
+      Get.rawSnackbar(
+          backgroundColor: epccBlue500,
+          icon: Icon(
+            Icons.error,
+            size: 22,
+            color: Colors.white,
+          ),
+          message: "Select Correct Date",
+          duration: Duration(seconds: 2));
       _chartOne.clear();
       _chartTwo.clear();
       _chartThree.clear();

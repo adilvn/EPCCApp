@@ -1,3 +1,4 @@
+import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -120,11 +121,27 @@ class SubUnitsController extends GetxController {
       }
       if (chartOne.isEmpty && chartTwo.isEmpty) {
         Get.rawSnackbar(
-            message: "Choose Correct Data", duration: Duration(seconds: 2));
+            backgroundColor: epccBlue500,
+            icon: Icon(
+              Icons.error,
+              size: 22,
+              color: Colors.white,
+            ),
+            message: "Data Not Found",
+            duration: Duration(seconds: 2));
       }
     } else if (_subdropdown1.value == "Year" ||
         _subdropdown2.value == "Month" ||
         _subdropdown3.value == "Day") {
+      Get.rawSnackbar(
+          backgroundColor: epccBlue500,
+          icon: Icon(
+            Icons.error,
+            size: 22,
+            color: Colors.white,
+          ),
+          message: "Select Correct Date",
+          duration: Duration(seconds: 2));
       chartOne.clear();
       chartTwo.clear();
     }
