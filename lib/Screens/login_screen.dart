@@ -234,12 +234,12 @@ class LoginScreen extends GetView<LoginController> {
                                                   .passController.text);
                                               controller.setLoading(false);
 
-                                              // Get.off(() => BottomNavigation(),
-                                              //     transition:
-                                              //         Transition.leftToRight,
-                                              //     duration:
-                                              //         Duration(seconds: 1),
-                                              //     binding: HomePageBindings());
+                                              Get.off(() => BottomNavigation(),
+                                                  transition:
+                                                      Transition.leftToRight,
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                  binding: HomePageBindings());
 
                                               controller.cbRemember
                                                   ? LoginController().setLogin(
