@@ -500,7 +500,7 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       width: double.infinity,
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              0.3,
+                                              0.27,
                                       child: Padding(
                                         padding: const EdgeInsets.all(20.0),
                                         child: Container(

@@ -245,6 +245,7 @@ class _ProfileState extends State<Profile> {
                                     onPressed: () {
                                       Authenticate().sigout();
                                       LoginController().setLogin(false);
+
                                       BottomNavigation.selectedIndex = 1;
                                       Get.off(() => Authenticate(),
                                           binding: HomePageBindings());

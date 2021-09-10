@@ -233,8 +233,8 @@ class SubUnitsController extends GetxController {
     "Jun",
     "Jul",
     "Aug",
-    "Oct",
     "Sep",
+    "Oct",
     "Nov",
     "Dec"
   ].obs;

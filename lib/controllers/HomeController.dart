@@ -414,54 +414,57 @@ class HomeController extends GetxController
           Data _data = Data.fromJson(data[1][i]);
 
           Get.find<ReportController>().allReportsData.add(_data);
-          if (data[1][i]["2"] == "TP1") {
+          if (data[1][i]["0"] == "TP1") {
             Data _data = Data.fromJson(data[1][i]);
-
-            if (a < 4) {
-              if (_data.nAME == "I") {
-                setTP1U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP1_UNIT1_DATA_SUM = TP1_UNIT1_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
-                setTP1UnitOne(ConsumptionModel(
-                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
-                    centerName: data[1][i]["NAME_1"]));
-                a++;
-              } else if (_data.nAME == "II") {
-                setTP1U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP1_UNIT2_DATA_SUM = TP1_UNIT2_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
-                setTp1UnitTwo(ConsumptionModel(
-                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
-                    centerName: data[1][i]["NAME_1"]));
-                a++;
+            if (_data.nAME == "I" || _data.nAME == "II") {
+              if (a < 4) {
+                if (_data.nAME == "I") {
+                  setTP1U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
+                  TP1_UNIT1_DATA_SUM = TP1_UNIT1_DATA_SUM +
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                  setTP1UnitOne(ConsumptionModel(
+                      consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                      consumptionValue:
+                          double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                      centerName: data[1][i]["NAME_1"]));
+                  a++;
+                } else if (_data.nAME == "II") {
+                  setTP1U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
+                  TP1_UNIT2_DATA_SUM = TP1_UNIT2_DATA_SUM +
+                      double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                  setTp1UnitTwo(ConsumptionModel(
+                      consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                      consumptionValue:
+                          double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                      centerName: data[1][i]["NAME_1"]));
+                  a++;
+                } else if (_data.nAME == "Section 1") {}
               }
-            }
-            if (a == 4) {
-              setTp1Unit1Data(UNITDATAMODEL(
-                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                  unitName: "Unit 1",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
-                  totalValue: TP1_UNIT1_DATA_SUM));
-              setTp1Unit2Data(UNITDATAMODEL(
-                  consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                  unitName: "Unit 2",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
-                  totalValue: TP1_UNIT2_DATA_SUM));
+              if (a == 4) {
+                setTp1Unit1Data(UNITDATAMODEL(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    unitName: "Unit 1",
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    totalValue: TP1_UNIT1_DATA_SUM));
+                setTp1Unit2Data(UNITDATAMODEL(
+                    consumptionDate: data[1][i]["CONSUMPTION_DATE"],
+                    unitName: "Unit 2",
+                    consumptionValue:
+                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    totalValue: TP1_UNIT2_DATA_SUM));
 
-              TP1_UNIT1_DATA_SUM = 0;
-              TP1_UNIT2_DATA_SUM = 0;
-              a = 0;
+                TP1_UNIT1_DATA_SUM = 0;
+                TP1_UNIT2_DATA_SUM = 0;
+                a = 0;
+              }
+              setTP1List(double.parse(_data.cONSUMPTIONVALUE!));
+              setTotalTP1(double.parse(_data.cONSUMPTIONVALUE!));
+              setTP1(_data);
+            } else {
+              print("helo");
             }
-            setTP1List(double.parse(_data.cONSUMPTIONVALUE!));
-            setTotalTP1(double.parse(_data.cONSUMPTIONVALUE!));
-            setTP1(_data);
-          } else if (data[1][i]["2"] == "TP2") {
+          } else if (data[1][i]["0"] == "TP2") {
             Data _data = Data.fromJson(data[1][i]);
 
             if (b < 4) {
@@ -508,7 +511,7 @@ class HomeController extends GetxController
             setTP2List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP2(double.parse(_data.cONSUMPTIONVALUE!));
             setTP2(_data);
-          } else if (data[1][i]["2"] == "TP3") {
+          } else if (data[1][i]["0"] == "TP3") {
             Data _data = Data.fromJson(data[1][i]);
             if (c < 4) {
               if (_data.nAME == "I") {
@@ -554,7 +557,7 @@ class HomeController extends GetxController
             setTP3List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP3(double.parse(_data.cONSUMPTIONVALUE!));
             setTP3(_data);
-          } else if (data[1][i]["2"] == "TP4") {
+          } else if (data[1][i]["0"] == "TP4") {
             Data _data = Data.fromJson(data[1][i]);
 
             if (d < 8) {
@@ -641,7 +644,7 @@ class HomeController extends GetxController
             setTP4List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP4(double.parse(_data.cONSUMPTIONVALUE!));
             setTP4(_data);
-          } else if (data[1][i]["2"] == "PP") {
+          } else if (data[1][i]["0"] == "PP") {
             Data _data = Data.fromJson(data[1][i]);
 
             if (e < 7) {

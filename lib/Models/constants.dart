@@ -12,5 +12,5 @@ var comfortaa = GoogleFonts.comfortaa().fontFamily;
 var montserrat = GoogleFonts.montserrat().fontFamily;
 
 class Constant {
-  static String ADMINMAIL = "admin@gmail.com";
+  static String ADMINMAIL = "admin@igcpk.com";
 }

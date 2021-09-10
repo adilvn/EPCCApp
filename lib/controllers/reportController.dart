@@ -20,6 +20,7 @@ class ReportController extends GetxController {
   var _unitdropdown = "Unit".obs;
   var _bpdropdown = "Consumption".obs;
   String get YearValue => _bpdropdown1.value;
+
   String get MonthValue => _bpdropdown2.value;
   String get DayValue => _bpdropdown3.value;
   String get TPDropValue => _TPdropdown.value;
@@ -194,9 +195,9 @@ class ReportController extends GetxController {
       int a = 0;
       double monthsum = 0.0;
       for (var i = 0; i < allReportsData.length; i++) {
-        if (allReportsData[i].s2 == TPDropValue &&
+        if (allReportsData[i].s == TPDropValue &&
             allReportsData[i].nAME == UnitDropValue &&
-            allReportsData[i].s8!.toUpperCase().toString() ==
+            allReportsData[i].nAME1!.toUpperCase().toString() ==
                 BPDropValue.toUpperCase() &&
             allReportsData[i].cONSUMPTIONDATE!.substring(3, 9) == date) {
           dataList.clear();
@@ -236,7 +237,7 @@ class ReportController extends GetxController {
       for (var i = 0; i < allReportsData.length; i++) {
         var date =
             allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
-        if (allReportsData[i].s2 == TPDropValue &&
+        if (allReportsData[i].s == TPDropValue &&
             allReportsData[i].nAME == UnitDropValue &&
             allReportsData[i].nAME1!.toUpperCase().toString() ==
                 BPDropValue.toUpperCase() &&
@@ -379,14 +380,34 @@ class ReportController extends GetxController {
       //   }
       // }
 
-    } else if (YearValue != "Year" ||
-        MonthValue != "Month" ||
+    } else if (YearValue == "Year" &&
+        MonthValue != "Month" &&
         TPDropValue == "TP/PP" &&
-            UnitDropValue == "Unit" &&
-            BPDropValue == "Consumption") {
+        UnitDropValue == "Unit" &&
+        BPDropValue == "Consumption") {
       _dataList.clear();
       setValueBool(false);
-      _showSnak("Data not Found");
+      _showSnak("Select Year");
+    } else if (YearValue != "Year" &&
+        MonthValue == "Month" &&
+        TPDropValue == "TP/PP" &&
+        UnitDropValue == "Unit" &&
+        BPDropValue == "Consumption") {
+      _dataList.clear();
+      setValueBool(false);
+      setTPDropValue('TP1');
+      setDrop2List("TP1");
+      addDataList();
+    } else if (YearValue != "Year" &&
+        MonthValue != "Month" &&
+        TPDropValue == "TP/PP" &&
+        UnitDropValue == "Unit" &&
+        BPDropValue == "Consumption") {
+      _dataList.clear();
+      setValueBool(false);
+      setTPDropValue('TP1');
+      setDrop2List("TP1");
+      addDataList();
     }
   }
 
@@ -435,6 +456,8 @@ class ReportController extends GetxController {
     } else if (value == "TP/PP") {
       setDrop2Value(["Unit"]);
       setUnitsDropList("Unit");
+      setBPDropValue1("Year");
+      setBPDropValue2("Month");
     }
   }
 
@@ -450,6 +473,7 @@ class ReportController extends GetxController {
   setUnitsDropList(String? val) {
     if (val == "I") {
       setBPDropListValue(["Back process Unit 1", "Spinning /winding unit 1"]);
+      setBPDropValue1("2021");
     } else if (val == "II") {
       setBPDropListValue(
           ["Back process Unit 2\r\n", "Spinning/winding unit 2"]);
@@ -458,6 +482,7 @@ class ReportController extends GetxController {
         "Back process 25k",
         "Spinning /winding 25k",
       ]);
+      setBPDropValue1("2021");
     } else if (val == "Section 2") {
       setBPDropListValue([
         "Back process 25k",
@@ -478,6 +503,7 @@ class ReportController extends GetxController {
         "polymer/spinning",
         "Draw lines",
       ]);
+      setBPDropValue1("2021");
     } else if (val == "PP2") {
       setBPDropListValue([
         "polymer/spinning",
@@ -492,6 +518,7 @@ class ReportController extends GetxController {
       setBPDropListValue(["PP1 ,PP2 ,PP3\r\n"]);
     } else if (val == "Unit") {
       setBPDropListValue(["Consumption"]);
+      setBPDropValue1("Year");
     }
   }
 
@@ -558,8 +585,8 @@ class ReportController extends GetxController {
     "Jun",
     "Jul",
     "Aug",
-    "Oct",
     "Sep",
+    "Oct",
     "Nov",
     "Dec"
   ].obs;
