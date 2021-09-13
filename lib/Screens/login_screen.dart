@@ -235,10 +235,7 @@ class LoginScreen extends GetView<LoginController> {
                                               controller.setLoading(false);
 
                                               Get.off(() => BottomNavigation(),
-                                                  transition:
-                                                      Transition.leftToRight,
-                                                  duration:
-                                                      Duration(seconds: 1),
+                                                  fullscreenDialog: true,
                                                   binding: HomePageBindings());
 
                                               controller.cbRemember
@@ -248,15 +245,40 @@ class LoginScreen extends GetView<LoginController> {
                                                       controller.cbRemember);
 
                                               Get.rawSnackbar(
-                                                  message:
-                                                      "Successfully Logged-in!",
+                                                  backgroundColor: epccBlue500,
+                                                  icon: Icon(
+                                                    Icons
+                                                        .account_circle_rounded,
+                                                    color: white,
+                                                    size: 22,
+                                                  ),
+                                                  messageText: Text(
+                                                    "Successfully Logged-in!",
+                                                    style: TextStyle(
+                                                        color: white,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                  ),
                                                   duration:
                                                       Duration(seconds: 3));
                                             } else {
                                               controller.setLoading(false);
                                               Get.rawSnackbar(
-                                                  message:
-                                                      "User does not exist",
+                                                  backgroundColor: epccBlue500,
+                                                  icon: Icon(
+                                                    Icons.error,
+                                                    color: white,
+                                                    size: 22,
+                                                  ),
+                                                  messageText: Text(
+                                                    "User does not exist",
+                                                    style: TextStyle(
+                                                        color: white,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                  ),
                                                   duration:
                                                       Duration(seconds: 3));
                                             }

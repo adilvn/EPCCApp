@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
@@ -141,609 +142,634 @@ class UnitsPage extends GetView<UnitsController> {
                   ))
             ]),
         body: Obx(() {
-          return Column(children: [
-            Expanded(
-                flex: 3,
-                child: Container(
-                  color: epccBlue500,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          BottomNavigation.backToHomePage(
-                              HomeScreen(), 1, true);
-                          controller.chartOne.clear();
-                          controller.chartTwo.clear();
-                          controller.setUnitDropValue1("Year");
-                          controller.setUnitDropValue2("Month");
-                          controller.setUnitDropValue3("Day");
-                          _subController.unitOneValue.clear();
-                          _subController.unitTwoValue.clear();
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          alignment: Alignment.centerLeft,
+          return FadeInRight(
+            animate: true,
+            duration: Duration(milliseconds: 400),
+            child: Column(children: [
+              Expanded(
+                  flex: 3,
+                  child: Container(
+                    color: epccBlue500,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            BottomNavigation.backToHomePage(
+                                HomeScreen(), 1, true);
+                            controller.chartOne.clear();
+                            controller.chartTwo.clear();
+                            controller.setUnitDropValue1("Year");
+                            controller.setUnitDropValue2("Month");
+                            controller.setUnitDropValue3("Day");
+                            _subController.unitOneValue.clear();
+                            _subController.unitTwoValue.clear();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            alignment: Alignment.centerLeft,
+                            width: double.infinity,
+                            height: 30,
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: white,
+                              size: 32,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              alignment: Alignment.center,
+                              height: 25,
+                              child: Text(
+                                controller.title,
+                                style: TextStyle(
+                                    color: epccBlue,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(30),
+                                      bottomRight: Radius.circular(30))),
+                            ),
+                            SizedBox(
+                              width: 0,
+                            )
+                          ],
+                        ),
+                        Text(
+                          "IFL - " + controller.title,
+                          //controller.locationName,
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                        Divider(
+                          indent: MediaQuery.of(context).size.width * 0.3,
+                          endIndent: MediaQuery.of(context).size.width * 0.3,
+                          color: white,
+                        ),
+                        SizedBox(
+                          height: 0,
+                        )
+                      ],
+                    ),
+                  )),
+              Expanded(
+                  flex: 6,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Container(
                           width: double.infinity,
-                          height: 30,
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: white,
-                            size: 32,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            alignment: Alignment.center,
-                            height: 25,
-                            child: Text(
-                              controller.title,
-                              style: TextStyle(
-                                  color: epccBlue,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                            decoration: BoxDecoration(
-                                color: white,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(30),
-                                    bottomRight: Radius.circular(30))),
-                          ),
-                          SizedBox(
-                            width: 0,
-                          )
-                        ],
-                      ),
-                      Text(
-                        "IFL - " + controller.title,
-                        //controller.locationName,
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                      Divider(
-                        indent: MediaQuery.of(context).size.width * 0.3,
-                        endIndent: MediaQuery.of(context).size.width * 0.3,
-                        color: white,
-                      ),
-                      SizedBox(
-                        height: 0,
-                      )
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 6,
-                child: Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: 65,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 39,
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: DropdownButton<String>(
-                                    menuMaxHeight:
-                                        MediaQuery.of(context).size.width,
-                                    value: controller.UnitDropValue1.value,
-                                    disabledHint: Text(""),
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    dropdownColor: Colors.red,
-                                    focusColor: Colors.red,
-                                    underline: Container(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurple),
-                                    onChanged: (val) {
-                                      controller.setUnitDropValue1(val);
-                                      controller.addChartsDetails(
-                                          controller.unitOneDetails,
-                                          controller.unitTwoDetails,
-                                          controller.unitThreeDetails,
-                                          controller.unitFourDetails,
-                                          controller.buttonIndex);
-                                    },
-                                    items: controller.UnitDrop1.map<
-                                            DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Container(
-                                          padding: EdgeInsets.only(left: 15),
-                                          child: Text(
-                                            value,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 39,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xffFFBA44),
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: DropdownButton<String>(
-                                    menuMaxHeight:
-                                        MediaQuery.of(context).size.width,
-                                    value: controller.UnitDropValue2.value,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    dropdownColor: Color(0xffFFBA44),
-                                    focusColor: Color(0xffFFBA44),
-                                    underline: Container(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurple),
-                                    onChanged: (val) {
-                                      controller.setUnitDropValue2(val);
-                                      controller.addChartsDetails(
-                                          controller.unitOneDetails,
-                                          controller.unitTwoDetails,
-                                          controller.unitThreeDetails,
-                                          controller.unitFourDetails,
-                                          controller.buttonIndex);
-                                    },
-                                    items: controller.UnitDrop2.map<
-                                            DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Container(
-                                          padding: EdgeInsets.only(left: 15),
-                                          child: Text(
-                                            value,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 39,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: DropdownButton<String>(
-                                    menuMaxHeight:
-                                        MediaQuery.of(context).size.width,
-                                    value: controller.UnitDropValue3.value,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    dropdownColor: Colors.green,
-                                    focusColor: Colors.green,
-                                    underline: Container(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurple),
-                                    onChanged: (val) {
-                                      controller.setUnitDropValue3(val);
-                                      controller.addChartsDetails(
-                                          controller.unitOneDetails,
-                                          controller.unitTwoDetails,
-                                          controller.unitThreeDetails,
-                                          controller.unitFourDetails,
-                                          controller.buttonIndex);
-
-                                      // BottomNavigation.changeProfileWidget(
-                                      //     UnitsPage(
-                                      //         unitOneDetails: unitOneDetails,
-                                      //         unitTwoDetails: unitTwoDetails));
-                                    },
-                                    items: controller.UnitDrop3.map<
-                                            DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Container(
-                                          padding: EdgeInsets.only(left: 15),
-                                          child: Text(
-                                            value,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        flex: 7,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: controller.buttonIndex < 4
-                                  ? Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 6),
-                                      child: SfCartesianChart(
-                                          primaryYAxis: CategoryAxis(
-                                            title: AxisTitle(
-                                                text: 'Consumptions (kWh)',
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 14,
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight:
-                                                        FontWeight.w300)),
-                                          ),
-                                          primaryXAxis: CategoryAxis(
-                                            title: AxisTitle(
-                                                text: 'Day',
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 14,
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight:
-                                                        FontWeight.w300)),
-                                          ),
-                                          series: <ColumnSeries>[
-                                            ColumnSeries<ChartData1, String>(
-                                                pointColorMapper:
-                                                    (ChartData1 color, _) =>
-                                                        Color(0xff0099FF),
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 6,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                        labelAlignment:
-                                                            ChartDataLabelAlignment
-                                                                .outer,
-                                                        isVisible: true),
-                                                dataSource: controller.chartOne,
-                                                xValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.x,
-                                                yValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.y),
-                                            ColumnSeries<ChartData1, String>(
-                                                pointColorMapper:
-                                                    (ChartData1 color, _) =>
-                                                        Color(0xff00B8AC),
-                                                // Hiding the legend item for this series
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 7,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                        labelAlignment:
-                                                            ChartDataLabelAlignment
-                                                                .outer,
-                                                        isVisible: true),
-                                                dataSource: controller.chartTwo,
-                                                xValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.x,
-                                                yValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.y),
-                                          ]))
-                                  : Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 6),
-                                      child: SfCartesianChart(
-                                          primaryYAxis: NumericAxis(
-                                            numberFormat:
-                                                NumberFormat.compact(),
-                                            title: AxisTitle(
-                                                text: 'Consumption (kWh)',
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 14,
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight:
-                                                        FontWeight.w300)),
-                                          ),
-                                          // primaryYAxis: CategoryAxis(
-                                          //   title: AxisTitle(
-                                          //       text: 'Consumption (KHW)',
-                                          //       textStyle: TextStyle(
-                                          //           color: Colors.black,
-                                          //           fontFamily: 'Roboto',
-                                          //           fontSize: 14,
-                                          //           fontStyle: FontStyle.normal,
-                                          //           fontWeight:
-                                          //               FontWeight.w300)),
-                                          // ),
-                                          primaryXAxis: CategoryAxis(
-                                            title: AxisTitle(
-                                                text: 'Day',
-                                                textStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 14,
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight:
-                                                        FontWeight.w300)),
-                                          ),
-                                          series: <ColumnSeries>[
-                                            ColumnSeries<ChartData1, String>(
-                                                pointColorMapper:
-                                                    (ChartData1 color, _) =>
-                                                        Color(0xff0099FF),
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 7,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                        labelAlignment:
-                                                            ChartDataLabelAlignment
-                                                                .outer,
-                                                        isVisible: true),
-                                                dataSource: controller.chartOne,
-                                                xValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.x,
-                                                yValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.y),
-                                            ColumnSeries<ChartData1, String>(
-                                                pointColorMapper:
-                                                    (ChartData1 color, _) =>
-                                                        Color(0xff00B8AC),
-                                                // Hiding the legend item for this series
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 7,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                        labelAlignment:
-                                                            ChartDataLabelAlignment
-                                                                .outer,
-                                                        isVisible: true),
-                                                dataSource: controller.chartTwo,
-                                                xValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.x,
-                                                yValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.y),
-                                            ColumnSeries<ChartData1, String>(
-                                                pointColorMapper:
-                                                    (ChartData1 color, _) =>
-                                                        Color(0xffFFBA44),
-
-                                                // Hiding the legend item for this series
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 7,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                        labelAlignment:
-                                                            ChartDataLabelAlignment
-                                                                .outer,
-                                                        isVisible: true),
-                                                dataSource:
-                                                    controller.chartThree,
-                                                xValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.x,
-                                                yValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.y),
-                                            ColumnSeries<ChartData1, String>(
-                                                pointColorMapper:
-                                                    (ChartData1 color, _) =>
-                                                        Colors.red,
-                                                // Hiding the legend item for this series
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 7,
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                        labelAlignment:
-                                                            ChartDataLabelAlignment
-                                                                .outer,
-                                                        isVisible: true),
-                                                dataSource:
-                                                    controller.chartFour,
-                                                xValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.x,
-                                                yValueMapper:
-                                                    (ChartData1 data, _) =>
-                                                        data.y),
-                                          ])),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 7,
-                child: ListView(
-                  children: [
-                    getTiles(controller.colors[0], controller.buttonText[0],
-                        "assets/images/unit1.png", () {
-                      _subController.setUnitDetials(controller.unitOne);
-
-                      _subController.setButtonIndex(2);
-                      _subController
-                          .setUnitButtonColor([Colors.red, Color(0xffFFBA44)]);
-                      _subController.SetButtonText(
-                          [controller.centerName[0], controller.centerName[1]]);
-                      _subController.SetTitle(
-                          "${controller.title}> ${controller.buttonText[0]} ");
-                      _subController.SetLocationName("Consumption Centers");
-                      _subController.chartOne.clear();
-                      _subController.chartTwo.clear();
-
-                      _subController.setSubDropValue1("Year");
-                      _subController.setSubDropValue2("Month");
-                      _subController.setSubDropValue3("Day");
-                      _subController.unitOneValue.clear();
-                      _subController.unitTwoValue.clear();
-                      BottomNavigation.changeProfileWidget(SubUnits());
-                    }, controller.totalunit1, controller.U1),
-                    getTiles(controller.colors[1], controller.buttonText[1],
-                        "assets/images/unit2.png", () {
-                      _subController.setUnitDetials(controller.unitTwo);
-                      _subController.setButtonIndex(2);
-                      _subController
-                          .setUnitButtonColor([Colors.red, Color(0xffFFBA44)]);
-                      _subController.SetButtonText(
-                          [controller.centerName[2], controller.centerName[3]]);
-                      _subController.SetTitle(
-                          "${controller.title}> ${controller.buttonText[1]} ");
-                      _subController.SetLocationName("Consumption Center");
-                      _subController.chartOne.clear();
-                      _subController.chartTwo.clear();
-
-                      _subController.setSubDropValue1("Year");
-                      _subController.setSubDropValue2("Month");
-                      _subController.setSubDropValue3("Day");
-                      _subController.unitOneValue.clear();
-                      _subController.unitTwoValue.clear();
-                      BottomNavigation.changeProfileWidget(SubUnits());
-                    }, controller.totalunit2, controller.U2),
-                    controller.buttonIndex == 4
-                        ? Column(
+                          height: 65,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              getTiles(
-                                  controller.colors[2],
-                                  controller.buttonText[2],
-                                  "assets/images/unit1.png", () {
-                                _subController
-                                    .setUnitDetials(controller.unitThree);
-                                _subController.setButtonIndex(2);
-                                _subController.setUnitButtonColor(
-                                    [Colors.red, Colors.green]);
-                                _subController.SetButtonText([
-                                  controller.centerName[4],
-                                  controller.centerName[5]
-                                ]);
-                                _subController.SetTitle(
-                                    "${controller.title}> ${controller.buttonText[2]} ");
-                                _subController.SetLocationName(
-                                    "Consumption Centers");
-                                _subController.chartOne.clear();
-                                _subController.chartTwo.clear();
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 39,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: DropdownButton<String>(
+                                      menuMaxHeight:
+                                          MediaQuery.of(context).size.width,
+                                      value: controller.UnitDropValue1.value,
+                                      disabledHint: Text(""),
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      dropdownColor: Colors.red,
+                                      focusColor: Colors.red,
+                                      underline: Container(),
+                                      style: const TextStyle(
+                                          color: Colors.deepPurple),
+                                      onChanged: (val) {
+                                        controller.setUnitDropValue1(val);
+                                        controller.addChartsDetails(
+                                            controller.unitOneDetails,
+                                            controller.unitTwoDetails,
+                                            controller.unitThreeDetails,
+                                            controller.unitFourDetails,
+                                            controller.buttonIndex);
+                                      },
+                                      items: controller.UnitDrop1.map<
+                                              DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Container(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 39,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffFFBA44),
+                                        borderRadius:
+                                            BorderRadius.circular(25)),
+                                    child: DropdownButton<String>(
+                                      menuMaxHeight:
+                                          MediaQuery.of(context).size.width,
+                                      value: controller.UnitDropValue2.value,
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      dropdownColor: Color(0xffFFBA44),
+                                      focusColor: Color(0xffFFBA44),
+                                      underline: Container(),
+                                      style: const TextStyle(
+                                          color: Colors.deepPurple),
+                                      onChanged: (val) {
+                                        controller.setUnitDropValue2(val);
+                                        controller.addChartsDetails(
+                                            controller.unitOneDetails,
+                                            controller.unitTwoDetails,
+                                            controller.unitThreeDetails,
+                                            controller.unitFourDetails,
+                                            controller.buttonIndex);
+                                      },
+                                      items: controller.UnitDrop2.map<
+                                              DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Container(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 39,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: DropdownButton<String>(
+                                      menuMaxHeight:
+                                          MediaQuery.of(context).size.width,
+                                      value: controller.UnitDropValue3.value,
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      dropdownColor: Colors.green,
+                                      focusColor: Colors.green,
+                                      underline: Container(),
+                                      style: const TextStyle(
+                                          color: Colors.deepPurple),
+                                      onChanged: (val) {
+                                        controller.setUnitDropValue3(val);
+                                        controller.addChartsDetails(
+                                            controller.unitOneDetails,
+                                            controller.unitTwoDetails,
+                                            controller.unitThreeDetails,
+                                            controller.unitFourDetails,
+                                            controller.buttonIndex);
 
-                                _subController.setSubDropValue1("Year");
-                                _subController.setSubDropValue2("Month");
-                                _subController.setSubDropValue3("Day");
-                                _subController.unitOneValue.clear();
-                                _subController.unitTwoValue.clear();
-
-                                BottomNavigation.changeProfileWidget(
-                                    SubUnits());
-                              }, controller.totalunit3, controller.U3),
-                              getTiles(
-                                  controller.colors[3],
-                                  controller.buttonText[3],
-                                  "assets/images/unit2.png", () {
-                                _subController
-                                    .setUnitDetials(controller.unitFour);
-                                print(controller.centerName.length);
-                                controller.centerName.length == 7
-                                    ? _subController.setButtonIndex(1)
-                                    : _subController.setButtonIndex(2);
-                                _subController.setUnitButtonColor(
-                                    [Colors.red, Colors.green]);
-                                controller.centerName.length == 7
-                                    ? _subController.SetButtonText(
-                                        [controller.centerName[6]])
-                                    : _subController.SetButtonText([
-                                        controller.centerName[6],
-                                        controller.centerName[7]
-                                      ]);
-                                _subController.SetTitle(
-                                    "${controller.title}> ${controller.buttonText[3]} ");
-                                _subController.SetLocationName(
-                                    "Consumption Centers");
-                                _subController.chartOne.clear();
-                                _subController.chartTwo.clear();
-
-                                _subController.setSubDropValue1("Year");
-                                _subController.setSubDropValue2("Month");
-                                _subController.setSubDropValue3("Day");
-                                _subController.unitOneValue.clear();
-                                _subController.unitTwoValue.clear();
-                                BottomNavigation.changeProfileWidget(
-                                    SubUnits());
-                              }, controller.totalunit4, controller.U4)
+                                        // BottomNavigation.changeProfileWidget(
+                                        //     UnitsPage(
+                                        //         unitOneDetails: unitOneDetails,
+                                        //         unitTwoDetails: unitTwoDetails));
+                                      },
+                                      items: controller.UnitDrop3.map<
+                                              DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Container(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
-                          )
-                        : Container(),
-                  ],
-                )),
-          ]);
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          flex: 7,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: controller.buttonIndex < 4
+                                    ? Container(
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 6),
+                                        child: SfCartesianChart(
+                                            primaryYAxis: CategoryAxis(
+                                              title: AxisTitle(
+                                                  text: 'Consumptions (kWh)',
+                                                  textStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: 14,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontWeight:
+                                                          FontWeight.w300)),
+                                            ),
+                                            primaryXAxis: CategoryAxis(
+                                              title: AxisTitle(
+                                                  text: 'Day',
+                                                  textStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: 14,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontWeight:
+                                                          FontWeight.w300)),
+                                            ),
+                                            series: <ColumnSeries>[
+                                              ColumnSeries<ChartData1, String>(
+                                                  pointColorMapper:
+                                                      (ChartData1 color, _) =>
+                                                          Color(0xff0099FF),
+                                                  dataLabelSettings:
+                                                      DataLabelSettings(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 6,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal),
+                                                          labelAlignment:
+                                                              ChartDataLabelAlignment
+                                                                  .outer,
+                                                          isVisible: true),
+                                                  dataSource:
+                                                      controller.chartOne,
+                                                  xValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.y),
+                                              ColumnSeries<ChartData1, String>(
+                                                  pointColorMapper:
+                                                      (ChartData1 color, _) =>
+                                                          Color(0xff00B8AC),
+                                                  // Hiding the legend item for this series
+                                                  dataLabelSettings:
+                                                      DataLabelSettings(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 7,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal),
+                                                          labelAlignment:
+                                                              ChartDataLabelAlignment
+                                                                  .outer,
+                                                          isVisible: true),
+                                                  dataSource:
+                                                      controller.chartTwo,
+                                                  xValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.y),
+                                            ]))
+                                    : Container(
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 6),
+                                        child: SfCartesianChart(
+                                            primaryYAxis: NumericAxis(
+                                              numberFormat:
+                                                  NumberFormat.compact(),
+                                              title: AxisTitle(
+                                                  text: 'Consumption (kWh)',
+                                                  textStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: 14,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontWeight:
+                                                          FontWeight.w300)),
+                                            ),
+                                            // primaryYAxis: CategoryAxis(
+                                            //   title: AxisTitle(
+                                            //       text: 'Consumption (KHW)',
+                                            //       textStyle: TextStyle(
+                                            //           color: Colors.black,
+                                            //           fontFamily: 'Roboto',
+                                            //           fontSize: 14,
+                                            //           fontStyle: FontStyle.normal,
+                                            //           fontWeight:
+                                            //               FontWeight.w300)),
+                                            // ),
+                                            primaryXAxis: CategoryAxis(
+                                              title: AxisTitle(
+                                                  text: 'Day',
+                                                  textStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: 14,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontWeight:
+                                                          FontWeight.w300)),
+                                            ),
+                                            series: <ColumnSeries>[
+                                              ColumnSeries<ChartData1, String>(
+                                                  pointColorMapper:
+                                                      (ChartData1 color, _) =>
+                                                          Color(0xff0099FF),
+                                                  dataLabelSettings:
+                                                      DataLabelSettings(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 7,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal),
+                                                          labelAlignment:
+                                                              ChartDataLabelAlignment
+                                                                  .outer,
+                                                          isVisible: true),
+                                                  dataSource:
+                                                      controller.chartOne,
+                                                  xValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.y),
+                                              ColumnSeries<ChartData1, String>(
+                                                  pointColorMapper:
+                                                      (ChartData1 color, _) =>
+                                                          Color(0xff00B8AC),
+                                                  // Hiding the legend item for this series
+                                                  dataLabelSettings:
+                                                      DataLabelSettings(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 7,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal),
+                                                          labelAlignment:
+                                                              ChartDataLabelAlignment
+                                                                  .outer,
+                                                          isVisible: true),
+                                                  dataSource:
+                                                      controller.chartTwo,
+                                                  xValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.y),
+                                              ColumnSeries<ChartData1, String>(
+                                                  pointColorMapper:
+                                                      (ChartData1 color, _) =>
+                                                          Color(0xffFFBA44),
+
+                                                  // Hiding the legend item for this series
+                                                  dataLabelSettings:
+                                                      DataLabelSettings(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 7,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal),
+                                                          labelAlignment:
+                                                              ChartDataLabelAlignment
+                                                                  .outer,
+                                                          isVisible: true),
+                                                  dataSource:
+                                                      controller.chartThree,
+                                                  xValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.y),
+                                              ColumnSeries<ChartData1, String>(
+                                                  pointColorMapper:
+                                                      (ChartData1 color, _) =>
+                                                          Colors.red,
+                                                  // Hiding the legend item for this series
+                                                  dataLabelSettings:
+                                                      DataLabelSettings(
+                                                          textStyle: TextStyle(
+                                                              fontSize: 7,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal),
+                                                          labelAlignment:
+                                                              ChartDataLabelAlignment
+                                                                  .outer,
+                                                          isVisible: true),
+                                                  dataSource:
+                                                      controller.chartFour,
+                                                  xValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.x,
+                                                  yValueMapper:
+                                                      (ChartData1 data, _) =>
+                                                          data.y),
+                                            ])),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Expanded(
+                  flex: 7,
+                  child: ListView(
+                    children: [
+                      getTiles(controller.colors[0], controller.buttonText[0],
+                          "assets/images/unit1.png", () {
+                        _subController.setUnitDetials(controller.unitOne);
+
+                        _subController.setButtonIndex(2);
+                        _subController.setUnitButtonColor(
+                            [Colors.red, Color(0xffFFBA44)]);
+                        _subController.SetButtonText([
+                          controller.centerName[0],
+                          controller.centerName[1]
+                        ]);
+                        _subController.SetTitle(
+                            "${controller.title}> ${controller.buttonText[0]} ");
+                        _subController.SetLocationName("Consumption Centers");
+                        _subController.chartOne.clear();
+                        _subController.chartTwo.clear();
+
+                        _subController.setSubDropValue1("Year");
+                        _subController.setSubDropValue2("Month");
+                        _subController.setSubDropValue3("Day");
+                        _subController.unitOneValue.clear();
+                        _subController.unitTwoValue.clear();
+                        BottomNavigation.changeProfileWidget(SubUnits());
+                      }, controller.totalunit1, controller.U1),
+                      getTiles(controller.colors[1], controller.buttonText[1],
+                          "assets/images/unit2.png", () {
+                        _subController.setUnitDetials(controller.unitTwo);
+                        _subController.setButtonIndex(2);
+                        _subController.setUnitButtonColor(
+                            [Colors.red, Color(0xffFFBA44)]);
+                        _subController.SetButtonText([
+                          controller.centerName[2],
+                          controller.centerName[3]
+                        ]);
+                        _subController.SetTitle(
+                            "${controller.title}> ${controller.buttonText[1]} ");
+                        _subController.SetLocationName("Consumption Center");
+                        _subController.chartOne.clear();
+                        _subController.chartTwo.clear();
+
+                        _subController.setSubDropValue1("Year");
+                        _subController.setSubDropValue2("Month");
+                        _subController.setSubDropValue3("Day");
+                        _subController.unitOneValue.clear();
+                        _subController.unitTwoValue.clear();
+                        BottomNavigation.changeProfileWidget(SubUnits());
+                      }, controller.totalunit2, controller.U2),
+                      controller.buttonIndex == 4
+                          ? Column(
+                              children: [
+                                getTiles(
+                                    controller.colors[2],
+                                    controller.buttonText[2],
+                                    "assets/images/unit1.png", () {
+                                  _subController
+                                      .setUnitDetials(controller.unitThree);
+                                  _subController.setButtonIndex(2);
+                                  _subController.setUnitButtonColor(
+                                      [Colors.red, Colors.green]);
+                                  _subController.SetButtonText([
+                                    controller.centerName[4],
+                                    controller.centerName[5]
+                                  ]);
+                                  _subController.SetTitle(
+                                      "${controller.title}> ${controller.buttonText[2]} ");
+                                  _subController.SetLocationName(
+                                      "Consumption Centers");
+                                  _subController.chartOne.clear();
+                                  _subController.chartTwo.clear();
+
+                                  _subController.setSubDropValue1("Year");
+                                  _subController.setSubDropValue2("Month");
+                                  _subController.setSubDropValue3("Day");
+                                  _subController.unitOneValue.clear();
+                                  _subController.unitTwoValue.clear();
+
+                                  BottomNavigation.changeProfileWidget(
+                                      SubUnits());
+                                }, controller.totalunit3, controller.U3),
+                                getTiles(
+                                    controller.colors[3],
+                                    controller.buttonText[3],
+                                    "assets/images/unit2.png", () {
+                                  _subController
+                                      .setUnitDetials(controller.unitFour);
+                                  print(controller.centerName.length);
+                                  controller.centerName.length == 7
+                                      ? _subController.setButtonIndex(1)
+                                      : _subController.setButtonIndex(2);
+                                  _subController.setUnitButtonColor(
+                                      [Colors.red, Colors.green]);
+                                  controller.centerName.length == 7
+                                      ? _subController.SetButtonText(
+                                          [controller.centerName[6]])
+                                      : _subController.SetButtonText([
+                                          controller.centerName[6],
+                                          controller.centerName[7]
+                                        ]);
+                                  _subController.SetTitle(
+                                      "${controller.title}> ${controller.buttonText[3]} ");
+                                  _subController.SetLocationName(
+                                      "Consumption Centers");
+                                  _subController.chartOne.clear();
+                                  _subController.chartTwo.clear();
+
+                                  _subController.setSubDropValue1("Year");
+                                  _subController.setSubDropValue2("Month");
+                                  _subController.setSubDropValue3("Day");
+                                  _subController.unitOneValue.clear();
+                                  _subController.unitTwoValue.clear();
+                                  BottomNavigation.changeProfileWidget(
+                                      SubUnits());
+                                }, controller.totalunit4, controller.U4)
+                              ],
+                            )
+                          : Container(),
+                    ],
+                  )),
+            ]),
+          );
         }));
   }
 

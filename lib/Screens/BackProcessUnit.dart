@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
@@ -138,453 +139,463 @@ class BackProcessUnit extends GetView<BackProcessController> {
                   ))
             ]),
         body: Obx(() {
-          return Column(children: [
-            Expanded(
-                flex: 2,
-                child: Container(
-                  color: epccBlue500,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 5,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          BottomNavigation.backToHomePage(SubUnits(), 0, false);
-                          controller.ListData!.clear();
-                          controller.chartOne.clear();
-                          controller.setBPDropValue1("Year");
-                          controller.setBPDropValue2("Month");
+          return FadeInRight(
+            animate: true,
+            duration: Duration(milliseconds: 400),
+            child: Column(children: [
+              Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: epccBlue500,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            BottomNavigation.backToHomePage(
+                                SubUnits(), 0, false);
+                            controller.ListData!.clear();
+                            controller.chartOne.clear();
+                            controller.setBPDropValue1("Year");
+                            controller.setBPDropValue2("Month");
 
-                          controller.setBPDropValue3("Day");
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          alignment: Alignment.centerLeft,
-                          width: double.infinity,
-                          height: 30,
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: white,
-                            size: 32,
+                            controller.setBPDropValue3("Day");
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            alignment: Alignment.centerLeft,
+                            width: double.infinity,
+                            height: 30,
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: white,
+                              size: 32,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            alignment: Alignment.center,
-                            height: 25,
-                            child: Text(
-                              "${controller.title.replaceAll("\r\n", "")}",
-                              style: TextStyle(
-                                  color: epccBlue,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                            decoration: BoxDecoration(
-                                color: white,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(30),
-                                    bottomRight: Radius.circular(30))),
-                          ),
-                          SizedBox(
-                            width: 0,
-                          )
-                        ],
-                      ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      Text(
-                        controller.locationName != "PP1 ,PP2 ,PP3\r\n"
-                            ? controller.locationName
-                                .replaceAll("/", " / ")
-                                .capitalize
-                                .toString()
-                            : controller.locationName.toUpperCase(),
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                      Divider(
-                        indent: MediaQuery.of(context).size.width * 0.18,
-                        endIndent: MediaQuery.of(context).size.width * 0.18,
-                        color: white,
-                        thickness: 1,
-                      ),
-                      SizedBox(
-                        height: 0,
-                      )
-                    ],
-                  ),
-                )),
-            Expanded(
-                flex: 6,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: 65,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
                           children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: 120,
-                                  height: 39,
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: DropdownButton<String>(
-                                    menuMaxHeight:
-                                        MediaQuery.of(context).size.width,
-                                    value: controller.BPDropValue1.value,
-                                    disabledHint: Text("eh"),
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    dropdownColor: Colors.red,
-                                    focusColor: Colors.red,
-                                    underline: Container(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurple),
-                                    onChanged: (val) {
-                                      controller.setBPDropValue1(val);
-                                      controller.addDetails(unitOnevalue);
-                                    },
-                                    items: controller.BPDrop1.map<
-                                            DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Container(
-                                          padding: EdgeInsets.only(left: 15),
-                                          child: Text(
-                                            value,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              alignment: Alignment.center,
+                              height: 25,
+                              child: Text(
+                                "${controller.title.replaceAll("\r\n", "")}",
+                                style: TextStyle(
+                                    color: epccBlue,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal),
                               ),
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(30),
+                                      bottomRight: Radius.circular(30))),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 39,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xffFFBA44),
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: DropdownButton<String>(
-                                    menuMaxHeight:
-                                        MediaQuery.of(context).size.width,
-                                    value: controller.BPDropValue2.value,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    dropdownColor: Color(0xffFFBA44),
-                                    focusColor: Color(0xffFFBA44),
-                                    underline: Container(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurple),
-                                    onChanged: (val) {
-                                      controller.setBPDropValue2(val);
-                                      controller.addDetails(unitOnevalue);
-                                    },
-                                    items: controller.BPDrop2.map<
-                                            DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Container(
-                                          padding: EdgeInsets.only(left: 15),
-                                          child: Text(
-                                            value,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: 120,
-                                  height: 39,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: DropdownButton<String>(
-                                    menuMaxHeight:
-                                        MediaQuery.of(context).size.width,
-                                    value: controller.BPDropValue3.value,
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    dropdownColor: Colors.green,
-                                    focusColor: Colors.green,
-                                    underline: Container(),
-                                    style: const TextStyle(
-                                        color: Colors.deepPurple),
-                                    onChanged: (val) {
-                                      controller.setBPDropValue3(val);
-                                      controller.addDetails(unitOnevalue);
-                                    },
-                                    items: controller.BPDrop3.map<
-                                            DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Container(
-                                          padding: EdgeInsets.only(left: 15),
-                                          child: Text(
-                                            value,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            SizedBox(
+                              width: 0,
+                            )
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                          flex: 8,
-                          child: Container(
-                            child: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 0),
-                                      width: double.infinity,
-                                      height: 45,
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey.shade300),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              width: 140,
-                                              child: Text(
-                                                "Date",
-                                                style: TextStyle(
-                                                    color: Colors.red),
-                                              ),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
+                        Text(
+                          controller.locationName != "PP1 ,PP2 ,PP3\r\n"
+                              ? controller.locationName
+                                  .replaceAll("/", " / ")
+                                  .capitalize
+                                  .toString()
+                              : controller.locationName.toUpperCase(),
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
+                        Divider(
+                          indent: MediaQuery.of(context).size.width * 0.18,
+                          endIndent: MediaQuery.of(context).size.width * 0.18,
+                          color: white,
+                          thickness: 1,
+                        ),
+                        SizedBox(
+                          height: 0,
+                        )
+                      ],
+                    ),
+                  )),
+              Expanded(
+                  flex: 6,
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 65,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: 120,
+                                    height: 39,
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: DropdownButton<String>(
+                                      menuMaxHeight:
+                                          MediaQuery.of(context).size.width,
+                                      value: controller.BPDropValue1.value,
+                                      disabledHint: Text("eh"),
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      dropdownColor: Colors.red,
+                                      focusColor: Colors.red,
+                                      underline: Container(),
+                                      style: const TextStyle(
+                                          color: Colors.deepPurple),
+                                      onChanged: (val) {
+                                        controller.setBPDropValue1(val);
+                                        controller.addDetails(unitOnevalue);
+                                      },
+                                      items: controller.BPDrop1.map<
+                                              DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Container(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             ),
                                           ),
-                                          VerticalDivider(
-                                            color: Colors.black12,
-                                            thickness: 1,
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              width: 150,
-                                              child: Text(
-                                                "Consumption (kWh)",
-                                                style: TextStyle(
-                                                    color: Colors.orange,
-                                                    fontSize: 14),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                        );
+                                      }).toList(),
                                     ),
-                                    Container(
-                                      width: double.infinity,
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.43,
-                                      decoration: BoxDecoration(color: white),
-                                      child: Container(
-                                        child: ListView.builder(
-                                            itemCount:
-                                                controller.ListData!.length,
-                                            itemBuilder: (context, index) {
-                                              return Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 0),
-                                                width: double.infinity,
-                                                height: 35,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        width: 140,
-                                                        child: Text(
-                                                          "${controller.ListData![index].Date}",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    VerticalDivider(
-                                                      color: Colors.black12,
-                                                      thickness: 1,
-                                                    ),
-                                                    Expanded(
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        width: 150,
-                                                        child: Text(
-                                                          "${controller.ListData![index].Consumption} kWh",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Material(
-                                    type: MaterialType.card,
-                                    child: Container(
-                                      width: double.infinity,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.27,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Container(
-                                            child: controller.chartOne.isEmpty
-                                                ? Container()
-                                                : SfCartesianChart(
-                                                    plotAreaBorderColor:
-                                                        Colors.white,
-                                                    primaryYAxis: NumericAxis(
-                                                      numberFormat: NumberFormat
-                                                          .compact(),
-                                                      title: AxisTitle(
-                                                          text:
-                                                              'Consumption (kWh)',
-                                                          textStyle: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontFamily:
-                                                                  'Roboto',
-                                                              fontSize: 12,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300)),
-                                                    ),
-                                                    primaryXAxis: CategoryAxis(
-                                                      title: AxisTitle(
-                                                          text: 'Days',
-                                                          textStyle: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontFamily:
-                                                                  'Roboto',
-                                                              fontSize: 14,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300)),
-                                                    ),
-                                                    series: <CartesianSeries>[
-                                                        FastLineSeries<ChartData,
-                                                                String>(
-                                                            dataSource:
-                                                                controller
-                                                                    .chartOne,
-                                                            xValueMapper:
-                                                                (ChartData data,
-                                                                        _) =>
-                                                                    data.x,
-                                                            yValueMapper:
-                                                                (ChartData data,
-                                                                        _) =>
-                                                                    data.y,
-                                                            // Renders the marker
-
-                                                            markerSettings: MarkerSettings(
-                                                                isVisible: controller
-                                                                            .chartOne
-                                                                            .length ==
-                                                                        1
-                                                                    ? true
-                                                                    : false)),
-                                                      ])),
-                                      ),
-                                    ),
-                                    elevation: 20,
-                                    shadowColor: Colors.blue,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(40),
-                                        topRight: Radius.circular(40)),
-                                    color: Colors.white,
                                   ),
-                                )
-                              ],
-                            ),
-                          )),
-                    ],
-                  ),
-                )),
-          ]);
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 39,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffFFBA44),
+                                        borderRadius:
+                                            BorderRadius.circular(25)),
+                                    child: DropdownButton<String>(
+                                      menuMaxHeight:
+                                          MediaQuery.of(context).size.width,
+                                      value: controller.BPDropValue2.value,
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      dropdownColor: Color(0xffFFBA44),
+                                      focusColor: Color(0xffFFBA44),
+                                      underline: Container(),
+                                      style: const TextStyle(
+                                          color: Colors.deepPurple),
+                                      onChanged: (val) {
+                                        controller.setBPDropValue2(val);
+                                        controller.addDetails(unitOnevalue);
+                                      },
+                                      items: controller.BPDrop2.map<
+                                              DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Container(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: 120,
+                                    height: 39,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: DropdownButton<String>(
+                                      menuMaxHeight:
+                                          MediaQuery.of(context).size.width,
+                                      value: controller.BPDropValue3.value,
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                      iconSize: 24,
+                                      elevation: 16,
+                                      dropdownColor: Colors.green,
+                                      focusColor: Colors.green,
+                                      underline: Container(),
+                                      style: const TextStyle(
+                                          color: Colors.deepPurple),
+                                      onChanged: (val) {
+                                        controller.setBPDropValue3(val);
+                                        controller.addDetails(unitOnevalue);
+                                      },
+                                      items: controller.BPDrop3.map<
+                                              DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Container(
+                                            padding: EdgeInsets.only(left: 15),
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                            flex: 8,
+                            child: Container(
+                              child: Stack(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 0),
+                                        width: double.infinity,
+                                        height: 45,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey.shade300),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 140,
+                                                child: Text(
+                                                  "Date",
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                              ),
+                                            ),
+                                            VerticalDivider(
+                                              color: Colors.black12,
+                                              thickness: 1,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 150,
+                                                child: Text(
+                                                  "Consumption (kWh)",
+                                                  style: TextStyle(
+                                                      color: Colors.orange,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: double.infinity,
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                0.43,
+                                        decoration: BoxDecoration(color: white),
+                                        child: Container(
+                                          child: ListView.builder(
+                                              itemCount:
+                                                  controller.ListData!.length,
+                                              itemBuilder: (context, index) {
+                                                return Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 0),
+                                                  width: double.infinity,
+                                                  height: 35,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 140,
+                                                          child: Text(
+                                                            "${controller.ListData![index].Date}",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      VerticalDivider(
+                                                        color: Colors.black12,
+                                                        thickness: 1,
+                                                      ),
+                                                      Expanded(
+                                                        child: Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: 150,
+                                                          child: Text(
+                                                            "${controller.ListData![index].Consumption} kWh",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Material(
+                                      type: MaterialType.card,
+                                      child: Container(
+                                        width: double.infinity,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.27,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Container(
+                                              child: controller.chartOne.isEmpty
+                                                  ? Container()
+                                                  : SfCartesianChart(
+                                                      plotAreaBorderColor:
+                                                          Colors.white,
+                                                      primaryYAxis: NumericAxis(
+                                                        numberFormat:
+                                                            NumberFormat
+                                                                .compact(),
+                                                        title: AxisTitle(
+                                                            text:
+                                                                'Consumption (kWh)',
+                                                            textStyle: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontFamily:
+                                                                    'Roboto',
+                                                                fontSize: 12,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300)),
+                                                      ),
+                                                      primaryXAxis:
+                                                          CategoryAxis(
+                                                        title: AxisTitle(
+                                                            text: 'Days',
+                                                            textStyle: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontFamily:
+                                                                    'Roboto',
+                                                                fontSize: 14,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300)),
+                                                      ),
+                                                      series: <CartesianSeries>[
+                                                          FastLineSeries<
+                                                                  ChartData,
+                                                                  String>(
+                                                              dataSource:
+                                                                  controller
+                                                                      .chartOne,
+                                                              xValueMapper:
+                                                                  (ChartData data,
+                                                                          _) =>
+                                                                      data.x,
+                                                              yValueMapper:
+                                                                  (ChartData data,
+                                                                          _) =>
+                                                                      data.y,
+                                                              // Renders the marker
+
+                                                              markerSettings:
+                                                                  MarkerSettings(
+                                                                      isVisible: controller.chartOne.length ==
+                                                                              1
+                                                                          ? true
+                                                                          : false)),
+                                                        ])),
+                                        ),
+                                      ),
+                                      elevation: 20,
+                                      shadowColor: Colors.blue,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(40),
+                                          topRight: Radius.circular(40)),
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
+                    ),
+                  )),
+            ]),
+          );
         }));
   }
 }

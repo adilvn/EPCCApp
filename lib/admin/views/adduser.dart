@@ -149,8 +149,10 @@ class _AddUserState extends State<AddUser> {
                                   userCredential.user!.uid);
 
                               final _pass = await DBService().getPass();
-                              FirebaseAuth.instance.signInWithEmailAndPassword(
-                                  email: Constant.ADMINMAIL, password: _pass);
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: Constant.ADMINMAIL,
+                                      password: _pass);
                             }
                           } on FirebaseAuthException catch (e) {
                             controller.setLoading(false);

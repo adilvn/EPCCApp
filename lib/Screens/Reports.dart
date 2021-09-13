@@ -562,6 +562,7 @@ class _ReportsState extends State<Reports> {
                                       Expanded(
                                         flex: 6,
                                         child: Container(
+                                          alignment: Alignment.topCenter,
                                           width: double.infinity,
                                           height: MediaQuery.of(context)
                                                   .size
@@ -571,85 +572,104 @@ class _ReportsState extends State<Reports> {
                                               BoxDecoration(color: white),
                                           child: Container(
                                             child: ListView.builder(
+                                                reverse: true,
+                                                shrinkWrap: true,
+                                                addAutomaticKeepAlives: true,
+                                                addRepaintBoundaries: true,
+                                                addSemanticIndexes: true,
+                                                primary: true,
                                                 itemCount:
                                                     controller.dataList.length,
                                                 itemBuilder: (context, index) {
-                                                  return Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 10,
-                                                            vertical: 0),
-                                                    width: double.infinity,
-                                                    height: 35,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 140,
-                                                            child: Text(
-                                                              controller
-                                                                  .dataList[
-                                                                      index]
-                                                                  .monthName
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize: 11),
-                                                            ),
+                                                  return controller
+                                                              .dataList[index]
+                                                              .monthSum !=
+                                                          0
+                                                      ? Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      10,
+                                                                  vertical: 0),
+                                                          width:
+                                                              double.infinity,
+                                                          height: 35,
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                    Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  width: 140,
+                                                                  child: Text(
+                                                                    controller
+                                                                        .dataList[
+                                                                            index]
+                                                                        .monthName
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            11),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              VerticalDivider(
+                                                                thickness: 1,
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                    Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  width: 140,
+                                                                  child: Text(
+                                                                    "${controller.dataList[index].monthSum} Kwh",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            11),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              // VerticalDivider(
+                                                              //   thickness: 1,
+                                                              // ),
+                                                              // Expanded(
+                                                              //   child: Container(
+                                                              //     alignment: Alignment
+                                                              //         .center,
+                                                              //     width: 140,
+                                                              //     child: Text(
+                                                              //       "${controller.dataList[index].lastYear} kwh",
+                                                              //       style: TextStyle(
+                                                              //           fontSize: 11),
+                                                              //     ),
+                                                              //   ),
+                                                              // ),
+                                                              // VerticalDivider(
+                                                              //   thickness: 1,
+                                                              // ),
+                                                              // Expanded(
+                                                              //   child: Container(
+                                                              //     alignment: Alignment
+                                                              //         .center,
+                                                              //     width: 140,
+                                                              //     child: Text(
+                                                              //       "${controller.dataList[index].change} KWh",
+                                                              //       style: TextStyle(
+                                                              //           fontSize: 11),
+                                                              //     ),
+                                                              //   ),
+                                                              // ),
+                                                            ],
                                                           ),
-                                                        ),
-                                                        VerticalDivider(
-                                                          thickness: 1,
-                                                        ),
-                                                        Expanded(
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 140,
-                                                            child: Text(
-                                                              "${controller.dataList[index].monthSum} Kwh",
-                                                              style: TextStyle(
-                                                                  fontSize: 11),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        // VerticalDivider(
-                                                        //   thickness: 1,
-                                                        // ),
-                                                        // Expanded(
-                                                        //   child: Container(
-                                                        //     alignment: Alignment
-                                                        //         .center,
-                                                        //     width: 140,
-                                                        //     child: Text(
-                                                        //       "${controller.dataList[index].lastYear} kwh",
-                                                        //       style: TextStyle(
-                                                        //           fontSize: 11),
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
-                                                        // VerticalDivider(
-                                                        //   thickness: 1,
-                                                        // ),
-                                                        // Expanded(
-                                                        //   child: Container(
-                                                        //     alignment: Alignment
-                                                        //         .center,
-                                                        //     width: 140,
-                                                        //     child: Text(
-                                                        //       "${controller.dataList[index].change} KWh",
-                                                        //       style: TextStyle(
-                                                        //           fontSize: 11),
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
-                                                      ],
-                                                    ),
-                                                  );
+                                                        )
+                                                      : Container();
                                                 }),
                                           ),
                                         ),

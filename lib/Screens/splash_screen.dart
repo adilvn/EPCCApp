@@ -1,8 +1,6 @@
 import 'package:epcc/Authentication/authentication.dart';
 import 'package:epcc/Models/constants.dart';
-import 'package:epcc/controllers/HomeController.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
 class Splashing extends StatefulWidget {
@@ -22,7 +20,7 @@ class _SplashingState extends State<Splashing>
         speed: 2000,
         pageRouteTransition: PageRouteTransition.CupertinoPageRoute,
         navigateRoute: Authenticate(),
-        duration: 1000,
+        duration: 1500,
         imageSize: value,
         imageSrc: "assets/images/launch_image.png",
         backgroundColor: Colors.white,
