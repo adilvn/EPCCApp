@@ -247,7 +247,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                     width: 120,
                                     height: 39,
                                     decoration: BoxDecoration(
-                                        color: Colors.red,
+                                        color: ddbcolor,
+                                        border: dropdownBorderColor,
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: DropdownButton<String>(
@@ -257,12 +258,12 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       disabledHint: Text("eh"),
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
-                                        color: Colors.white,
+                                        color: dbTextColor,
                                       ),
                                       iconSize: 24,
                                       elevation: 16,
-                                      dropdownColor: Colors.red,
-                                      focusColor: Colors.red,
+                                      dropdownColor: ddbcolor,
+                                      focusColor: ddbcolor,
                                       underline: Container(),
                                       style: const TextStyle(
                                           color: Colors.deepPurple),
@@ -279,8 +280,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                             padding: EdgeInsets.only(left: 15),
                                             child: Text(
                                               value,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style:
+                                                  TextStyle(color: dbTextColor),
                                             ),
                                           ),
                                         );
@@ -296,7 +297,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                     alignment: Alignment.center,
                                     height: 39,
                                     decoration: BoxDecoration(
-                                        color: Color(0xffFFBA44),
+                                        color: ddbcolor,
+                                        border: dropdownBorderColor,
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     child: DropdownButton<String>(
@@ -305,12 +307,12 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       value: controller.BPDropValue2.value,
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
-                                        color: Colors.white,
+                                        color: dbTextColor,
                                       ),
                                       iconSize: 24,
                                       elevation: 16,
-                                      dropdownColor: Color(0xffFFBA44),
-                                      focusColor: Color(0xffFFBA44),
+                                      dropdownColor: ddbcolor,
+                                      focusColor: ddbcolor,
                                       underline: Container(),
                                       style: const TextStyle(
                                           color: Colors.deepPurple),
@@ -327,8 +329,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                             padding: EdgeInsets.only(left: 15),
                                             child: Text(
                                               value,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style:
+                                                  TextStyle(color: dbTextColor),
                                             ),
                                           ),
                                         );
@@ -345,7 +347,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                     width: 120,
                                     height: 39,
                                     decoration: BoxDecoration(
-                                        color: Colors.green,
+                                        color: ddbcolor,
+                                        border: dropdownBorderColor,
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: DropdownButton<String>(
@@ -354,12 +357,12 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                       value: controller.BPDropValue3.value,
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
-                                        color: Colors.white,
+                                        color: dbTextColor,
                                       ),
                                       iconSize: 24,
                                       elevation: 16,
-                                      dropdownColor: Colors.green,
-                                      focusColor: Colors.green,
+                                      dropdownColor: ddbcolor,
+                                      focusColor: ddbcolor,
                                       underline: Container(),
                                       style: const TextStyle(
                                           color: Colors.deepPurple),
@@ -376,8 +379,8 @@ class BackProcessUnit extends GetView<BackProcessController> {
                                             padding: EdgeInsets.only(left: 15),
                                             child: Text(
                                               value,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style:
+                                                  TextStyle(color: dbTextColor),
                                             ),
                                           ),
                                         );

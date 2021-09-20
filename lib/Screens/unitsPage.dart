@@ -241,7 +241,8 @@ class UnitsPage extends GetView<UnitsController> {
                                     alignment: Alignment.center,
                                     height: 39,
                                     decoration: BoxDecoration(
-                                        color: Colors.red,
+                                        color: ddbcolor,
+                                        border: dropdownBorderColor,
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: DropdownButton<String>(
@@ -251,12 +252,12 @@ class UnitsPage extends GetView<UnitsController> {
                                       disabledHint: Text(""),
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
-                                        color: Colors.white,
+                                        color: dbTextColor,
                                       ),
                                       iconSize: 24,
                                       elevation: 16,
-                                      dropdownColor: Colors.red,
-                                      focusColor: Colors.red,
+                                      dropdownColor: ddbcolor,
+                                      focusColor: ddbcolor,
                                       underline: Container(),
                                       style: const TextStyle(
                                           color: Colors.deepPurple),
@@ -278,8 +279,8 @@ class UnitsPage extends GetView<UnitsController> {
                                             padding: EdgeInsets.only(left: 15),
                                             child: Text(
                                               value,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style:
+                                                  TextStyle(color: dbTextColor),
                                             ),
                                           ),
                                         );
@@ -295,7 +296,8 @@ class UnitsPage extends GetView<UnitsController> {
                                     alignment: Alignment.center,
                                     height: 39,
                                     decoration: BoxDecoration(
-                                        color: Color(0xffFFBA44),
+                                        color: ddbcolor,
+                                        border: dropdownBorderColor,
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     child: DropdownButton<String>(
@@ -304,12 +306,12 @@ class UnitsPage extends GetView<UnitsController> {
                                       value: controller.UnitDropValue2.value,
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
-                                        color: Colors.white,
+                                        color: dbTextColor,
                                       ),
                                       iconSize: 24,
                                       elevation: 16,
-                                      dropdownColor: Color(0xffFFBA44),
-                                      focusColor: Color(0xffFFBA44),
+                                      dropdownColor: ddbcolor,
+                                      focusColor: ddbcolor,
                                       underline: Container(),
                                       style: const TextStyle(
                                           color: Colors.deepPurple),
@@ -331,8 +333,8 @@ class UnitsPage extends GetView<UnitsController> {
                                             padding: EdgeInsets.only(left: 15),
                                             child: Text(
                                               value,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style:
+                                                  TextStyle(color: dbTextColor),
                                             ),
                                           ),
                                         );
@@ -348,7 +350,8 @@ class UnitsPage extends GetView<UnitsController> {
                                     alignment: Alignment.center,
                                     height: 39,
                                     decoration: BoxDecoration(
-                                        color: Colors.green,
+                                        color: ddbcolor,
+                                        border: dropdownBorderColor,
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: DropdownButton<String>(
@@ -357,12 +360,12 @@ class UnitsPage extends GetView<UnitsController> {
                                       value: controller.UnitDropValue3.value,
                                       icon: const Icon(
                                         Icons.arrow_drop_down,
-                                        color: Colors.white,
+                                        color: dbTextColor,
                                       ),
                                       iconSize: 24,
                                       elevation: 16,
-                                      dropdownColor: Colors.green,
-                                      focusColor: Colors.green,
+                                      dropdownColor: ddbcolor,
+                                      focusColor: ddbcolor,
                                       underline: Container(),
                                       style: const TextStyle(
                                           color: Colors.deepPurple),
@@ -389,8 +392,8 @@ class UnitsPage extends GetView<UnitsController> {
                                             padding: EdgeInsets.only(left: 15),
                                             child: Text(
                                               value,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style:
+                                                  TextStyle(color: dbTextColor),
                                             ),
                                           ),
                                         );
@@ -588,7 +591,7 @@ class UnitsPage extends GetView<UnitsController> {
                                               ColumnSeries<ChartData1, String>(
                                                   pointColorMapper:
                                                       (ChartData1 color, _) =>
-                                                          Color(0xffFFBA44),
+                                                          ddbcolor,
 
                                                   // Hiding the legend item for this series
                                                   dataLabelSettings:
@@ -615,7 +618,7 @@ class UnitsPage extends GetView<UnitsController> {
                                               ColumnSeries<ChartData1, String>(
                                                   pointColorMapper:
                                                       (ChartData1 color, _) =>
-                                                          Colors.red,
+                                                          ddbcolor,
                                                   // Hiding the legend item for this series
                                                   dataLabelSettings:
                                                       DataLabelSettings(
@@ -678,8 +681,7 @@ class UnitsPage extends GetView<UnitsController> {
                           "assets/images/unit2.png", () {
                         _subController.setUnitDetials(controller.unitTwo);
                         _subController.setButtonIndex(2);
-                        _subController.setUnitButtonColor(
-                            [Colors.red, Color(0xffFFBA44)]);
+                        _subController.setUnitButtonColor([ddbcolor, ddbcolor]);
                         _subController.SetButtonText([
                           controller.centerName[2],
                           controller.centerName[3]
@@ -707,8 +709,8 @@ class UnitsPage extends GetView<UnitsController> {
                                   _subController
                                       .setUnitDetials(controller.unitThree);
                                   _subController.setButtonIndex(2);
-                                  _subController.setUnitButtonColor(
-                                      [Colors.red, Colors.green]);
+                                  _subController
+                                      .setUnitButtonColor([ddbcolor, ddbcolor]);
                                   _subController.SetButtonText([
                                     controller.centerName[4],
                                     controller.centerName[5]
@@ -739,8 +741,8 @@ class UnitsPage extends GetView<UnitsController> {
                                   controller.centerName.length == 7
                                       ? _subController.setButtonIndex(1)
                                       : _subController.setButtonIndex(2);
-                                  _subController.setUnitButtonColor(
-                                      [Colors.red, Colors.green]);
+                                  _subController
+                                      .setUnitButtonColor([ddbcolor, ddbcolor]);
                                   controller.centerName.length == 7
                                       ? _subController.SetButtonText(
                                           [controller.centerName[6]])

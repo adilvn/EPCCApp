@@ -236,7 +236,8 @@ class SubUnits extends GetView<SubUnitsController> {
                                   alignment: Alignment.center,
                                   height: 39,
                                   decoration: BoxDecoration(
-                                      color: Colors.red,
+                                      color: ddbcolor,
+                                      border: dropdownBorderColor,
                                       borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
                                     menuMaxHeight:
@@ -244,12 +245,12 @@ class SubUnits extends GetView<SubUnitsController> {
                                     value: controller.SubDropValue1.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
-                                      color: Colors.white,
+                                      color: dbTextColor,
                                     ),
                                     iconSize: 24,
                                     elevation: 16,
-                                    dropdownColor: Colors.red,
-                                    focusColor: Colors.red,
+                                    dropdownColor: ddbcolor,
+                                    focusColor: ddbcolor,
                                     underline: Container(),
                                     style: const TextStyle(
                                         color: Colors.deepPurple),
@@ -270,7 +271,7 @@ class SubUnits extends GetView<SubUnitsController> {
                                           child: Text(
                                             value,
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                TextStyle(color: dbTextColor),
                                           ),
                                         ),
                                       );
@@ -286,7 +287,8 @@ class SubUnits extends GetView<SubUnitsController> {
                                   alignment: Alignment.center,
                                   height: 39,
                                   decoration: BoxDecoration(
-                                      color: Color(0xffFFBA44),
+                                      color: ddbcolor,
+                                      border: dropdownBorderColor,
                                       borderRadius: BorderRadius.circular(25)),
                                   child: DropdownButton<String>(
                                     menuMaxHeight:
@@ -294,12 +296,12 @@ class SubUnits extends GetView<SubUnitsController> {
                                     value: controller.SubDropValue2.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
-                                      color: Colors.white,
+                                      color: dbTextColor,
                                     ),
                                     iconSize: 24,
                                     elevation: 16,
-                                    dropdownColor: Color(0xffFFBA44),
-                                    focusColor: Color(0xffFFBA44),
+                                    dropdownColor: ddbcolor,
+                                    focusColor: ddbcolor,
                                     underline: Container(),
                                     style: const TextStyle(
                                         color: Colors.deepPurple),
@@ -320,7 +322,7 @@ class SubUnits extends GetView<SubUnitsController> {
                                           child: Text(
                                             value,
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                TextStyle(color: dbTextColor),
                                           ),
                                         ),
                                       );
@@ -336,7 +338,8 @@ class SubUnits extends GetView<SubUnitsController> {
                                   alignment: Alignment.center,
                                   height: 39,
                                   decoration: BoxDecoration(
-                                      color: Colors.green,
+                                      color: ddbcolor,
+                                      border: dropdownBorderColor,
                                       borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
                                     menuMaxHeight:
@@ -344,12 +347,12 @@ class SubUnits extends GetView<SubUnitsController> {
                                     value: controller.SubDropValue3.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
-                                      color: Colors.white,
+                                      color: dbTextColor,
                                     ),
                                     iconSize: 24,
                                     elevation: 16,
-                                    dropdownColor: Colors.green,
-                                    focusColor: Colors.green,
+                                    dropdownColor: ddbcolor,
+                                    focusColor: ddbcolor,
                                     underline: Container(),
                                     style: const TextStyle(
                                         color: Colors.deepPurple),
@@ -370,7 +373,7 @@ class SubUnits extends GetView<SubUnitsController> {
                                           child: Text(
                                             value,
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                TextStyle(color: dbTextColor),
                                           ),
                                         ),
                                       );

@@ -195,7 +195,9 @@ class _ReportsState extends State<Reports> {
                                         alignment: Alignment.center,
                                         height: 39,
                                         decoration: BoxDecoration(
-                                            color: Colors.red,
+                                            // color: ddbcolor,
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
                                         // TODO Drop 1
@@ -206,12 +208,12 @@ class _ReportsState extends State<Reports> {
                                           disabledHint: Text("one"),
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
-                                            color: Colors.white,
+                                            color: dbTextColor,
                                           ),
                                           iconSize: 24,
                                           elevation: 16,
-                                          dropdownColor: Colors.red,
-                                          focusColor: Colors.red,
+                                          dropdownColor: ddbcolor,
+                                          focusColor: ddbcolor,
                                           underline: Container(),
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
@@ -234,7 +236,7 @@ class _ReportsState extends State<Reports> {
                                                 child: Text(
                                                   value,
                                                   style: TextStyle(
-                                                      color: Colors.white,
+                                                      color: dbTextColor,
                                                       fontSize: 12),
                                                 ),
                                               ),
@@ -251,7 +253,8 @@ class _ReportsState extends State<Reports> {
                                         alignment: Alignment.center,
                                         height: 39,
                                         decoration: BoxDecoration(
-                                            color: Color(0xffFFBA44),
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(25)),
                                         // TODO Drop 2
@@ -261,12 +264,12 @@ class _ReportsState extends State<Reports> {
                                           value: controller.UnitDropValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
-                                            color: Colors.white,
+                                            color: dbTextColor,
                                           ),
                                           iconSize: 24,
                                           elevation: 16,
-                                          dropdownColor: Color(0xffFFBA44),
-                                          focusColor: Color(0xffFFBA44),
+                                          dropdownColor: ddbcolor,
+                                          focusColor: ddbcolor,
                                           underline: Container(),
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
@@ -287,7 +290,7 @@ class _ReportsState extends State<Reports> {
                                                 child: Text(
                                                   value,
                                                   style: TextStyle(
-                                                      color: Colors.white,
+                                                      color: dbTextColor,
                                                       fontSize: 12),
                                                 ),
                                               ),
@@ -306,7 +309,8 @@ class _ReportsState extends State<Reports> {
                                         alignment: Alignment.center,
                                         height: 39,
                                         decoration: BoxDecoration(
-                                            color: Color(0xff00B8AC),
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
                                         // TODO Drop 3
@@ -323,12 +327,12 @@ class _ReportsState extends State<Reports> {
                                           //         : controller.BPDropValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
-                                            color: Colors.white,
+                                            color: dbTextColor,
                                           ),
                                           iconSize: 24,
                                           elevation: 16,
-                                          dropdownColor: Color(0xff00B8AC),
-                                          focusColor: Color(0xff00B8AC),
+                                          dropdownColor: ddbcolor,
+                                          focusColor: ddbcolor,
                                           underline: Container(),
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
@@ -353,7 +357,7 @@ class _ReportsState extends State<Reports> {
                                                           ? "Back process Unit 2"
                                                           : value,
                                                   style: TextStyle(
-                                                      color: Colors.white,
+                                                      color: dbTextColor,
                                                       fontSize: 12),
                                                 ),
                                               ),
@@ -380,7 +384,8 @@ class _ReportsState extends State<Reports> {
                                         alignment: Alignment.center,
                                         height: 39,
                                         decoration: BoxDecoration(
-                                            color: Color(0xffFF4444),
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(30)),
                                         // TODO Drop 4
@@ -391,12 +396,12 @@ class _ReportsState extends State<Reports> {
                                           disabledHint: Text("eh"),
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
-                                            color: Colors.white,
+                                            color: dbTextColor,
                                           ),
                                           iconSize: 24,
                                           elevation: 16,
-                                          dropdownColor: Color(0xffFF4444),
-                                          focusColor: Color(0xffFF4444),
+                                          dropdownColor: ddbcolor,
+                                          focusColor: ddbcolor,
                                           underline: Container(),
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
@@ -418,7 +423,7 @@ class _ReportsState extends State<Reports> {
                                                 child: Text(
                                                   value,
                                                   style: TextStyle(
-                                                      color: Colors.white),
+                                                      color: dbTextColor),
                                                 ),
                                               ),
                                             );
@@ -434,7 +439,8 @@ class _ReportsState extends State<Reports> {
                                         alignment: Alignment.center,
                                         height: 39,
                                         decoration: BoxDecoration(
-                                            color: Color(0xffFFBA44),
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
                                             borderRadius:
                                                 BorderRadius.circular(25)),
                                         // TODO Drop 5
@@ -444,12 +450,12 @@ class _ReportsState extends State<Reports> {
                                           value: controller.MonthValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
-                                            color: Colors.white,
+                                            color: dbTextColor,
                                           ),
                                           iconSize: 24,
                                           elevation: 16,
-                                          dropdownColor: Color(0xffFFBA44),
-                                          focusColor: Color(0xffFFBA44),
+                                          dropdownColor: ddbcolor,
+                                          focusColor: ddbcolor,
                                           underline: Container(),
                                           style: const TextStyle(
                                               color: Colors.deepPurple),
@@ -469,7 +475,7 @@ class _ReportsState extends State<Reports> {
                                                 child: Text(
                                                   value,
                                                   style: TextStyle(
-                                                      color: Colors.white),
+                                                      color: dbTextColor),
                                                 ),
                                               ),
                                             );
