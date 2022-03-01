@@ -38,11 +38,7 @@ class LoginScreen extends GetView<LoginController> {
                       children: <Widget>[
                         Container(
                           height: size.height * 0.33,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      'assets/images/login_top_bg.png'))),
+                          decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.cover, image: AssetImage('assets/images/login_top_bg.png'))),
                           child: Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,11 +52,7 @@ class LoginScreen extends GetView<LoginController> {
                                 ),
                                 Text(
                                   "EPCC",
-                                  style: TextStyle(
-                                      fontFamily: comfortaa,
-                                      fontSize: 40.0,
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.white),
+                                  style: TextStyle(fontFamily: comfortaa, fontSize: 40.0, fontWeight: FontWeight.w900, color: Colors.white),
                                 )
                               ],
                             ),
@@ -79,8 +71,7 @@ class LoginScreen extends GetView<LoginController> {
                     Form(
                       key: controller.formKey,
                       child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 40.0, horizontal: 45.0),
+                          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 45.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -113,14 +104,9 @@ class LoginScreen extends GetView<LoginController> {
                                     cursorHeight: 20,
                                     decoration: InputDecoration(
                                       isDense: true,
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 5),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: epccGray400, width: 1.5)),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: epccBlue, width: 1.5)),
+                                      contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: epccGray400, width: 1.5)),
+                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: epccBlue, width: 1.5)),
                                       hintText: "abc@example.com",
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
@@ -162,14 +148,9 @@ class LoginScreen extends GetView<LoginController> {
                                     cursorHeight: 20,
                                     decoration: InputDecoration(
                                       isDense: true,
-                                      contentPadding:
-                                          EdgeInsets.symmetric(vertical: 5),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: epccGray400, width: 1.5)),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: epccBlue, width: 1.5)),
+                                      contentPadding: EdgeInsets.symmetric(vertical: 5),
+                                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: epccGray400, width: 1.5)),
+                                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: epccBlue, width: 1.5)),
                                       hintText: "password",
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
@@ -188,16 +169,12 @@ class LoginScreen extends GetView<LoginController> {
                                 children: [
                                   Checkbox(
                                     value: controller.cbRemember,
-                                    onChanged: (cbRemember) =>
-                                        controller.setcbRemember(cbRemember!),
+                                    onChanged: (cbRemember) => controller.setcbRemember(cbRemember!),
                                     activeColor: epccBlue,
                                   ),
                                   Text(
                                     "Keep Me Logged-in",
-                                    style: TextStyle(
-                                        fontFamily: roboto,
-                                        fontSize: 16,
-                                        color: epccGray500),
+                                    style: TextStyle(fontFamily: roboto, fontSize: 16, color: epccGray500),
                                   ),
                                 ],
                               ),
@@ -206,62 +183,43 @@ class LoginScreen extends GetView<LoginController> {
                               ),
                               ElevatedButton(
                                   onPressed: () async {
-                                    if (controller.formKey.currentState!
-                                        .validate()) {
+                                    if (controller.formKey.currentState!.validate()) {
                                       controller.formKey.currentState!.save();
                                       try {
                                         controller.setLoading(true);
 
-                                        UserCredential user = await FirebaseAuth
-                                            .instance
-                                            .signInWithEmailAndPassword(
-                                                email: controller
-                                                    .emailController.text,
-                                                password: controller
-                                                    .passController.text);
+                                        UserCredential user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                                            email: controller.emailController.text, password: controller.passController.text);
 
                                         if (user.user != null) {
                                           await FirebaseFirestore.instance
                                               .collection('users')
                                               .doc(user.user!.uid)
                                               .get()
-                                              .then((DocumentSnapshot
-                                                  documentSnapshot) {
+                                              .then((DocumentSnapshot documentSnapshot) {
                                             if (documentSnapshot.exists) {
-                                              DBService().setUid(
-                                                  user.user!.uid.toString());
-                                              DBService().setpass(controller
-                                                  .passController.text);
+                                              DBService().setUid(user.user!.uid.toString());
+                                              DBService().setpass(controller.passController.text);
                                               controller.setLoading(false);
 
-                                              Get.off(() => BottomNavigation(),
-                                                  fullscreenDialog: true,
-                                                  binding: HomePageBindings());
+                                              Get.off(() => BottomNavigation(), fullscreenDialog: true, binding: HomePageBindings());
 
                                               controller.cbRemember
-                                                  ? LoginController().setLogin(
-                                                      controller.cbRemember)
-                                                  : LoginController().setLogin(
-                                                      controller.cbRemember);
+                                                  ? LoginController().setLogin(controller.cbRemember)
+                                                  : LoginController().setLogin(controller.cbRemember);
 
                                               Get.rawSnackbar(
                                                   backgroundColor: epccBlue500,
                                                   icon: Icon(
-                                                    Icons
-                                                        .account_circle_rounded,
+                                                    Icons.account_circle_rounded,
                                                     color: white,
                                                     size: 22,
                                                   ),
                                                   messageText: Text(
                                                     "Successfully Logged-in!",
-                                                    style: TextStyle(
-                                                        color: white,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.normal),
+                                                    style: TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.normal),
                                                   ),
-                                                  duration:
-                                                      Duration(seconds: 3));
+                                                  duration: Duration(seconds: 3));
                                             } else {
                                               controller.setLoading(false);
                                               Get.rawSnackbar(
@@ -273,14 +231,9 @@ class LoginScreen extends GetView<LoginController> {
                                                   ),
                                                   messageText: Text(
                                                     "User does not exist",
-                                                    style: TextStyle(
-                                                        color: white,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.normal),
+                                                    style: TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.normal),
                                                   ),
-                                                  duration:
-                                                      Duration(seconds: 3));
+                                                  duration: Duration(seconds: 3));
                                             }
                                           }).onError((error, stackTrace) {
                                             print(error.toString());
@@ -295,11 +248,7 @@ class LoginScreen extends GetView<LoginController> {
                                               backgroundColor: epccBlue500,
                                               messageText: Text(
                                                 "User Not Found!",
-                                                style: TextStyle(
-                                                    color: white,
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.normal),
+                                                style: TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.normal),
                                               ),
                                               icon: Icon(
                                                 Icons.error,
@@ -312,11 +261,7 @@ class LoginScreen extends GetView<LoginController> {
                                               backgroundColor: epccBlue500,
                                               messageText: Text(
                                                 "Invalid Password!",
-                                                style: TextStyle(
-                                                    color: white,
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.normal),
+                                                style: TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.normal),
                                               ),
                                               icon: Icon(
                                                 Icons.error,
@@ -329,11 +274,7 @@ class LoginScreen extends GetView<LoginController> {
                                               backgroundColor: epccBlue500,
                                               messageText: Text(
                                                 "Check Connection!",
-                                                style: TextStyle(
-                                                    color: white,
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.normal),
+                                                style: TextStyle(color: white, fontSize: 16, fontWeight: FontWeight.normal),
                                               ),
                                               icon: Icon(
                                                 Icons.error,
@@ -349,16 +290,9 @@ class LoginScreen extends GetView<LoginController> {
                                   style: ElevatedButton.styleFrom(
                                       primary: epccBlue500,
                                       onPrimary: white,
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 8, horizontal: 28),
-                                      textStyle: TextStyle(
-                                          fontFamily: montserrat,
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.w500),
-                                      shape: new RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(
-                                                  30.0)))),
+                                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 28),
+                                      textStyle: TextStyle(fontFamily: montserrat, fontSize: 28, fontWeight: FontWeight.w500),
+                                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)))),
                               SizedBox(
                                 height: 10,
                               ),

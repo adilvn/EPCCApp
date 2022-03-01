@@ -8,8 +8,12 @@ class Splashing extends StatefulWidget {
   _SplashingState createState() => _SplashingState();
 }
 
-class _SplashingState extends State<Splashing>
-    with SingleTickerProviderStateMixin {
+class _SplashingState extends State<Splashing> with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.height * 0.8;

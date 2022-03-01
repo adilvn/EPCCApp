@@ -5,31 +5,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UnitsController extends GetxController {
-  var _chartOne = <ChartData1>[].obs;
-  List<ChartData1> get chartOne => _chartOne;
-  setChartOne(ChartData1 value) {
+class DailyUnitsController extends GetxController {
+  var _chartOne = <ChartData2>[].obs;
+  List<ChartData2> get chartOne => _chartOne;
+  setChartOne(ChartData2 value) {
     _chartOne.add(value);
     _chartOne.refresh();
   }
 
-  var _chartTwo = <ChartData1>[].obs;
-  List<ChartData1> get chartTwo => _chartTwo;
-  setChartTwo(ChartData1 value) {
+  var _chartTwo = <ChartData2>[].obs;
+  List<ChartData2> get chartTwo => _chartTwo;
+  setChartTwo(ChartData2 value) {
     _chartTwo.add(value);
     _chartTwo.refresh();
   }
 
-  var _chartThree = <ChartData1>[].obs;
-  List<ChartData1> get chartThree => _chartThree;
-  setChartThree(ChartData1 value) {
+  var _chartThree = <ChartData2>[].obs;
+  List<ChartData2> get chartThree => _chartThree;
+  setChartThree(ChartData2 value) {
     _chartThree.add(value);
     _chartThree.refresh();
   }
 
-  var _chartFour = <ChartData1>[].obs;
-  List<ChartData1> get chartFour => _chartFour;
-  setChartFour(ChartData1 value) {
+  var _chartFour = <ChartData2>[].obs;
+  List<ChartData2> get chartFour => _chartFour;
+  setChartFour(ChartData2 value) {
     _chartFour.add(value);
     _chartFour.refresh();
   }
@@ -74,19 +74,19 @@ class UnitsController extends GetxController {
         _unitdropdown2.value == "Month" &&
         _unitdropdown3.value == "Day") {
       for (var i = 0; i < 4; i++) {
-        setChartOne(ChartData1(
+        setChartOne(ChartData2(
             x: unitOneDetails[i].consumptionDate!,
             y: unitOneDetails[i].totalValue!));
 
-        setChartTwo(ChartData1(
+        setChartTwo(ChartData2(
             x: unitTwoDetails[i].consumptionDate!,
             y: unitTwoDetails[i].totalValue!));
         // print(unitTwoDetails[i].consumptionValue!);
         if (index > 2) {
-          setChartThree(ChartData1(
+          setChartThree(ChartData2(
               x: unitThreeDetails[i].consumptionDate!,
               y: unitThreeDetails[i].totalValue!));
-          setChartFour(ChartData1(
+          setChartFour(ChartData2(
               x: unitFourDetails[i].consumptionDate!,
               y: unitFourDetails[i].totalValue!));
         }
@@ -111,11 +111,9 @@ class UnitsController extends GetxController {
 
         if (month == _month && day == _day && year == _year) {
           c++;
-          _dailyTotalUnit1.value = unitOneDetails[i].totalValue!;
-          print(
-              "Consumption Date$i: ${unitOneDetails[i].consumptionDate!} && Consumption Value: ${unitOneDetails[i].totalValue!} && Name:${unitOneDetails[i].unitName!}");
+
           _chartOne.clear();
-          setChartOne(ChartData1(
+          setChartOne(ChartData2(
               x: unitOneDetails[i].consumptionDate!,
               y: unitOneDetails[i].totalValue!));
         }
@@ -138,12 +136,8 @@ class UnitsController extends GetxController {
         if (month == _month && day == _day && year == _year) {
           // print("{$date}  $_date");
           a++;
-          _dailyTotalUnit2.value = unitTwoDetails[i].totalValue!;
-
-          print(
-              "Consumption Date$i: ${unitTwoDetails[i].consumptionDate!} && Consumption Value: ${unitTwoDetails[i].totalValue!} && Name:${unitTwoDetails[i].unitName!}");
           _chartTwo.clear();
-          setChartTwo(ChartData1(
+          setChartTwo(ChartData2(
               x: unitTwoDetails[i].consumptionDate!,
               y: unitTwoDetails[i].totalValue!));
         }
@@ -175,11 +169,7 @@ class UnitsController extends GetxController {
             b++;
             print("{$date}  $_date");
             _chartThree.clear();
-            _dailyTotalUnit3.value = unitThreeDetails[i].totalValue!;
-
-            print(
-                "Consumption Date$i: ${unitThreeDetails[i].consumptionDate!} && Consumption Value: ${unitThreeDetails[i].totalValue!} && Name:${unitThreeDetails[i].unitName!}");
-            setChartThree(ChartData1(
+            setChartThree(ChartData2(
                 x: unitThreeDetails[i].consumptionDate!,
                 y: unitThreeDetails[i].totalValue!));
           }
@@ -202,13 +192,8 @@ class UnitsController extends GetxController {
           if (month == _month && day == _day && year == _year) {
             print("{$date}  $_date");
             d++;
-            print("" + _dailyTotalUnit4.value.toString());
-            _dailyTotalUnit4.value = unitFourDetails[i].totalValue!;
-            print(
-                "Consumption Date$i: ${unitFourDetails[i].consumptionDate!} && Consumption Value: ${unitFourDetails[i].totalValue!} && Name:${unitFourDetails[i].unitName!}");
-
             _chartFour.clear();
-            setChartFour(ChartData1(
+            setChartFour(ChartData2(
                 x: unitFourDetails[i].consumptionDate!,
                 y: unitFourDetails[i].totalValue!));
           }
@@ -220,10 +205,6 @@ class UnitsController extends GetxController {
         }
       }
       if (index > 2) {
-        _dailyTotalUnit1.value = 0.0;
-        _dailyTotalUnit2.value = 0.0;
-        _dailyTotalUnit3.value = 0.0;
-        _dailyTotalUnit4.value = 0.0;
         if (_chartOne.isEmpty &&
             _chartTwo.isEmpty &&
             _chartThree.isEmpty &&
@@ -233,10 +214,6 @@ class UnitsController extends GetxController {
         }
       } else {
         if (_chartOne.isEmpty && _chartTwo.isEmpty) {
-          _dailyTotalUnit1.value = 0.0;
-          _dailyTotalUnit2.value = 0.0;
-          _dailyTotalUnit3.value = 0.0;
-          _dailyTotalUnit4.value = 0.0;
           Get.rawSnackbar(
               backgroundColor: epccBlue500,
               icon: Icon(
@@ -251,10 +228,6 @@ class UnitsController extends GetxController {
     } else if (_unitdropdown1.value != "Year" ||
         _unitdropdown2.value != "Month" ||
         _unitdropdown3.value != "Day") {
-      _dailyTotalUnit1.value = 0.0;
-      _dailyTotalUnit2.value = 0.0;
-      _dailyTotalUnit3.value = 0.0;
-      _dailyTotalUnit4.value = 0.0;
       Get.rawSnackbar(
           backgroundColor: epccBlue500,
           icon: Icon(
@@ -275,22 +248,10 @@ class UnitsController extends GetxController {
   var _totalunit2 = 0.0.obs;
   var _totalunit3 = 0.0.obs;
   var _totalunit4 = 0.0.obs;
-
-  var _dailyTotalUnit1 = 0.0.obs;
-  var _dailyTotalUnit2 = 0.0.obs;
-  var _dailyTotalUnit3 = 0.0.obs;
-  var _dailyTotalUnit4 = 0.0.obs;
-
-  double get dailyTotalUnit1 => _dailyTotalUnit1.value;
-  double get dailyTotalUnit2 => _dailyTotalUnit2.value;
-  double get dailyTotalUnit3 => _dailyTotalUnit3.value;
-  double get dailyTotalUnit4 => _dailyTotalUnit4.value;
-
   double get totalunit1 => _totalunit1.value;
   double get totalunit2 => _totalunit2.value;
   double get totalunit3 => _totalunit3.value;
   double get totalunit4 => _totalunit4.value;
-
   setTotalUnit1(double val) {
     _totalunit1.value = val;
   }
@@ -308,13 +269,12 @@ class UnitsController extends GetxController {
   }
 
   var _unitdropdown1 = "Year".obs;
+
   var _unitdropdown2 = "Month".obs;
   var _unitdropdown3 = "Day".obs;
-
   RxString get UnitDropValue1 => _unitdropdown1;
   RxString get UnitDropValue2 => _unitdropdown2;
   RxString get UnitDropValue3 => _unitdropdown3;
-
   setUnitDropValue1(String? val) {
     _unitdropdown1.value = val!;
   }
@@ -487,8 +447,8 @@ class UnitsController extends GetxController {
   }
 }
 
-class ChartData1 {
-  ChartData1({required this.x, required this.y});
+class ChartData2 {
+  ChartData2({required this.x, required this.y});
   final String? x;
   final double? y;
 }

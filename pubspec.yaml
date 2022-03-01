@@ -47,9 +47,8 @@ dependencies:
   cloud_firestore: ^2.4.0
   firebase_storage: ^10.0.1
   api_cache_manager: ^1.0.2
-  
+  cache_manager: ^1.0.0+3
 
-  
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.0"

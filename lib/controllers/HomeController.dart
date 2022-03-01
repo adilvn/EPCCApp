@@ -4,27 +4,27 @@ import 'package:epcc/Models/data_modal.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
 import 'package:epcc/controllers/reportController.dart';
 import 'package:epcc/controllers/unitsController.dart';
-import 'package:epcc/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController
-    with StateMixin<List<List<dynamic>>> {
-  List<Color> colors = [
-    Color(0xffFF6F00),
-    Color(0xff7C4DFF),
-    Color(0xff2196F3),
-    Color(0xffFF4040),
-    Color(0xffFFA640)
-  ];
-var response = true.obs;
+class HomeController extends GetxController with StateMixin<List<List<dynamic>>> {
+  List<Color> colors = [Color(0xffFF6F00), Color(0xff7C4DFF), Color(0xff2196F3), Color(0xffFF4040), Color(0xffFFA640)];
+  var response = true.obs;
   setResponse(bool val) {
     response.value = val;
   }
+
   double _totalKWh = 0;
+  double _dailyKwh = 0;
+  double get dailyKwh => _dailyKwh;
+
   double get totalKwh => _totalKWh;
   setTotal(double t1, double t2, double t3, double t4, double pp) {
     _totalKWh = t1 + t2 + t3 + t4 + pp;
+  }
+
+  setDaily(double currentTp1, double currentTp2, double currentTp3, double currentTp4, double currentPP) {
+    _dailyKwh = currentTp1 + currentTp2 + currentTp3 + currentTp4 + currentPP;
   }
 
   double _t1 = 0;
@@ -32,11 +32,46 @@ var response = true.obs;
   double _t3 = 0;
   double _t4 = 0;
   double _pp = 0;
+
   double get t1 => _t1;
   double get t2 => _t2;
   double get t3 => _t3;
   double get t4 => _t4;
   double get pp => _pp;
+
+  double _currentTP1 = 0;
+  double _currentTP2 = 0;
+  double _currentTP3 = 0;
+  double _currentTP4 = 0;
+  double _currentPP = 0;
+
+  double get currentTP1 => _currentTP1;
+  double get currentTP2 => _currentTP2;
+  double get currentTP3 => _currentTP3;
+  double get currentTP4 => _currentTP4;
+  double get currentPP => _currentPP;
+//overall daily KWH settlement
+  setCurrentTP1(double i) {
+    _currentTP1 = _currentTP1 + i;
+  }
+
+  setCurrentTP2(double i) {
+    _currentTP2 = _currentTP2 + i;
+  }
+
+  setCurrentTP3(double i) {
+    _currentTP3 = _currentTP3 + i;
+  }
+
+  setCurrentTP4(double i) {
+    _currentTP4 = _currentTP4 + i;
+  }
+
+  setCurrentPP(double i) {
+    _currentPP = _currentPP + i;
+  }
+
+  //overall Monthy Set
 
   setTotalTP1(double i) {
     _t1 = _t1 + i;
@@ -270,7 +305,7 @@ var response = true.obs;
     apiCall();
     super.onInit();
   }
-
+// TODO I was about to implement the feature on the basis of date (current) date
 //TODO separate UNITs calculate
 
   var _TP1U1List = <double>[].obs;
@@ -333,28 +368,28 @@ var response = true.obs;
     _TP4S4List.add(val);
   }
 
-  var _PP1List = <double>[].obs;
-  List<double> get PP1List => _PP1List;
+  var _PP1ListConsumptionValues = <double>[].obs;
+  List<double> get PP1ListConsumptionValues => _PP1ListConsumptionValues;
   setPP1List(double val) {
-    _PP1List.add(val);
+    _PP1ListConsumptionValues.add(val);
   }
 
-  var _PP2List = <double>[].obs;
-  List<double> get PP2List => _PP2List;
+  var _PP2ListConsumptionValues = <double>[].obs;
+  List<double> get PP2ListConsumptionValues => _PP2ListConsumptionValues;
   setPP2List(double val) {
-    _PP2List.add(val);
+    _PP2ListConsumptionValues.add(val);
   }
 
-  var _PP3List = <double>[].obs;
-  List<double> get PP3List => _PP3List;
+  var _PP3ListConsumptionValues = <double>[].obs;
+  List<double> get PP3ListConsumptionValues => _PP3ListConsumptionValues;
   setPP3List(double val) {
-    _PP3List.add(val);
+    _PP3ListConsumptionValues.add(val);
   }
 
-  var _UTILITIESList = <double>[].obs;
-  List<double> get UTILITIESList => _UTILITIESList;
+  var _PPUtilitiesListConsumptionValues = <double>[].obs;
+  List<double> get PPUtilitiesListConsumptionValues => _PPUtilitiesListConsumptionValues;
   setUTILITIESList(double val) {
-    _UTILITIESList.add(val);
+    _PPUtilitiesListConsumptionValues.add(val);
   }
 
   ///TODO TP list
@@ -382,7 +417,7 @@ var response = true.obs;
     _TP4List.add(val);
   }
 
-  var _PPList = <double>[0.0].obs;
+  var _PPList = <double>[].obs;
   List<double> get PPList => _PPList;
   setPPList(double val) {
     _PPList.add(val);
@@ -412,33 +447,39 @@ var response = true.obs;
   final reportData = Get.find<ReportController>();
   apiCall() {
     ApiService().fetchDetails().then((data) {
+      // print("HOME CONTROLLER: ${data[0]}");
       if (data[0] == "success") {
-        for (var i = 0; i < data[1].length; i++) {
+        for (int i = 0; i < data[1].length; i++) {
           Data _data = Data.fromJson(data[1][i]);
-
+          // print("HOME CONTROLLER: ${data[1][i]}");
           Get.find<ReportController>().allReportsData.add(_data);
+
+          // TODO //Implements on the basis of today's date
+
+          //ends here
+
+          ///Starts The Monthly Basis Setup
           if (data[1][i]["0"] == "TP1") {
+            //changed TP1 -> 1 in if condition
+
             Data _data = Data.fromJson(data[1][i]);
+
             if (_data.nAME == "I" || _data.nAME == "II") {
               if (a < 4) {
                 if (_data.nAME == "I") {
                   setTP1U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                  TP1_UNIT1_DATA_SUM = TP1_UNIT1_DATA_SUM +
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                  TP1_UNIT1_DATA_SUM = TP1_UNIT1_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                   setTP1UnitOne(ConsumptionModel(
                       consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                      consumptionValue:
-                          double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                      consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                       centerName: data[1][i]["NAME_1"]));
                   a++;
                 } else if (_data.nAME == "II") {
                   setTP1U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                  TP1_UNIT2_DATA_SUM = TP1_UNIT2_DATA_SUM +
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                  TP1_UNIT2_DATA_SUM = TP1_UNIT2_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                   setTp1UnitTwo(ConsumptionModel(
                       consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                      consumptionValue:
-                          double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                      consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                       centerName: data[1][i]["NAME_1"]));
                   a++;
                 } else if (_data.nAME == "Section 1") {}
@@ -447,14 +488,12 @@ var response = true.obs;
                 setTp1Unit1Data(UNITDATAMODEL(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                     unitName: "Unit 1",
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     totalValue: TP1_UNIT1_DATA_SUM));
                 setTp1Unit2Data(UNITDATAMODEL(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                     unitName: "Unit 2",
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     totalValue: TP1_UNIT2_DATA_SUM));
 
                 TP1_UNIT1_DATA_SUM = 0;
@@ -468,27 +507,24 @@ var response = true.obs;
               print("helo");
             }
           } else if (data[1][i]["0"] == "TP2") {
+            //TP2 changed tp 2
             Data _data = Data.fromJson(data[1][i]);
 
             if (b < 4) {
               if (_data.nAME == "I") {
                 setTP2U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP2_UNIT1_DATA_SUM = TP2_UNIT1_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP2_UNIT1_DATA_SUM = TP2_UNIT1_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP2UnitOne(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
                 b++;
               } else if (_data.nAME == "II") {
                 setTP2U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP2_UNIT2_DATA_SUM = TP2_UNIT2_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP2_UNIT2_DATA_SUM = TP2_UNIT2_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTp2UnitTwo(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
                 b++;
               }
@@ -497,14 +533,12 @@ var response = true.obs;
               setTp2Unit1Data(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Unit 1",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP2_UNIT1_DATA_SUM));
               setTp2Unit2Data(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Unit 2",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP2_UNIT2_DATA_SUM));
 
               TP2_UNIT1_DATA_SUM = 0;
@@ -515,26 +549,23 @@ var response = true.obs;
             setTotalTP2(double.parse(_data.cONSUMPTIONVALUE!));
             setTP2(_data);
           } else if (data[1][i]["0"] == "TP3") {
+            //TP3 changed to 3
             Data _data = Data.fromJson(data[1][i]);
             if (c < 4) {
               if (_data.nAME == "I") {
                 setTP3U1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP3_UNIT1_DATA_SUM = TP3_UNIT1_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP3_UNIT1_DATA_SUM = TP3_UNIT1_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP3UnitOne(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
                 c++;
               } else if (_data.nAME == "II") {
                 setTP3U2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP3_UNIT2_DATA_SUM = TP3_UNIT2_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP3_UNIT2_DATA_SUM = TP3_UNIT2_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTp3UnitTwo(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
                 c++;
               }
@@ -543,14 +574,12 @@ var response = true.obs;
               setTp3Unit1Data(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Unit 1",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP3_UNIT1_DATA_SUM));
               setTp3Unit2Data(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Unit 2",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP3_UNIT2_DATA_SUM));
 
               TP3_UNIT1_DATA_SUM = 0;
@@ -561,50 +590,43 @@ var response = true.obs;
             setTotalTP3(double.parse(_data.cONSUMPTIONVALUE!));
             setTP3(_data);
           } else if (data[1][i]["0"] == "TP4") {
+            //TP4 changed to 4
             Data _data = Data.fromJson(data[1][i]);
 
             if (d < 8) {
               if (_data.nAME == "Section 1") {
                 setTP4S1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP4_SECTION1_DATA_SUM = TP4_SECTION1_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP4_SECTION1_DATA_SUM = TP4_SECTION1_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4SOne(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 d++;
               } else if (_data.nAME == "Section 2") {
                 setTP4S2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP4_SECTION2_DATA_SUM = TP4_SECTION2_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP4_SECTION2_DATA_SUM = TP4_SECTION2_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4STwo(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 d++;
               } else if (_data.nAME == "Section 3") {
                 setTP4S3List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP4_SECTION3_DATA_SUM = TP4_SECTION3_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP4_SECTION3_DATA_SUM = TP4_SECTION3_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4SThree(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 d++;
               } else if (_data.nAME == "Section 4") {
                 setTP4S4List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                TP4_SECTION4_DATA_SUM = TP4_SECTION4_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                TP4_SECTION4_DATA_SUM = TP4_SECTION4_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setTP4SFour(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 d++;
@@ -615,26 +637,22 @@ var response = true.obs;
               setTP4Sec1(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Section 1",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP4_SECTION1_DATA_SUM));
               setTP4Sec2(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Section 2",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP4_SECTION2_DATA_SUM));
               setTP4Sec3(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Section 3",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP4_SECTION3_DATA_SUM));
               setTP4Sec4(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Section 4",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: TP4_SECTION4_DATA_SUM));
 
               TP4_SECTION1_DATA_SUM = 0;
@@ -646,52 +664,47 @@ var response = true.obs;
             }
             setTP4List(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalTP4(double.parse(_data.cONSUMPTIONVALUE!));
+            //  print("print out name:d<8  ${t1}");
             setTP4(_data);
           } else if (data[1][i]["0"] == "PP") {
+            //data[1][i]["0"] == "PP" -> data[1][i]["2"] == "PP"
             Data _data = Data.fromJson(data[1][i]);
 
             if (e < 7) {
               if (_data.nAME == "PP1") {
                 setPP1List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                PP_PP1_DATA_SUM = PP_PP1_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+
+                PP_PP1_DATA_SUM = PP_PP1_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setPPOne(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 e++;
               } else if (_data.nAME == "PP2") {
                 setPP2List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                PP_PP2_DATA_SUM = PP_PP2_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                PP_PP2_DATA_SUM = PP_PP2_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setPPTwo(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 e++;
               } else if (_data.nAME == "PP3") {
                 setPP3List(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                PP_PP3_DATA_SUM = PP_PP3_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                PP_PP3_DATA_SUM = PP_PP3_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setPPThree(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 e++;
               } else if (_data.nAME == "Utilities") {
                 setUTILITIESList(double.parse(data[1][i]["CONSUMPTION_VALUE"]));
-                PP_UTILITIES_DATA_SUM = PP_UTILITIES_DATA_SUM +
-                    double.parse(data[1][i]["CONSUMPTION_VALUE"]);
+                PP_UTILITIES_DATA_SUM = PP_UTILITIES_DATA_SUM + double.parse(data[1][i]["CONSUMPTION_VALUE"]);
                 setUtilitie(ConsumptionModel(
                     consumptionDate: data[1][i]["CONSUMPTION_DATE"],
-                    consumptionValue:
-                        double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                    consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                     centerName: data[1][i]["NAME_1"]));
 
                 e++;
@@ -702,26 +715,22 @@ var response = true.obs;
               setPP1(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "PP 1",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: PP_PP1_DATA_SUM));
               setPP2(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "PP 2",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: PP_PP2_DATA_SUM));
               setPP3(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "PP 3",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: PP_PP3_DATA_SUM));
               setUtilities(UNITDATAMODEL(
                   consumptionDate: data[1][i]["CONSUMPTION_DATE"],
                   unitName: "Utilities",
-                  consumptionValue:
-                      double.parse(data[1][i]["CONSUMPTION_VALUE"]),
+                  consumptionValue: double.parse(data[1][i]["CONSUMPTION_VALUE"]),
                   totalValue: PP_UTILITIES_DATA_SUM));
 
               PP_PP1_DATA_SUM = 0;
@@ -731,30 +740,40 @@ var response = true.obs;
 
               e = 0;
             }
+
+            // print("Setting PPLIST + ${_data.cONSUMPTIONVALUE!}");
             setPPList(double.parse(_data.cONSUMPTIONVALUE!));
             setTotalPP(double.parse(_data.cONSUMPTIONVALUE!));
+
+            //  print("PP LIST VALUES: ${_PPList}");
+
             setPP(_data);
           }
         }
       } else {
-        // Get.rawSnackbar(
-        //     duration: Duration(
-        //       seconds: 3,
-        //     ),
-        //     messageText: Text(
-        //       "Access Failed",
-        //       style: TextStyle(color: Colors.white),
-        //     ),
-        //     backgroundColor: Colors.black54,
-        //     icon: Icon(
-        //       Icons.error,
-        //       size: 18,
-        //       color: Colors.white,
-        //     ));
+        Get.rawSnackbar(
+            duration: Duration(
+              seconds: 3,
+            ),
+            messageText: Text(
+              "Access Failed",
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.black54,
+            icon: Icon(
+              Icons.error,
+              size: 18,
+              color: Colors.white,
+            ));
       }
 
       setTotal(t1, t2, t3, t4, pp);
-
+      // print("TP1 list max: " + _TP1List.reduce(max).toString());
+      // print("TP1 list min: " + _TP1List.reduce(min).toString());
+      // print("TP2 list max: " + _TP2List.reduce(max).toString());
+      // print("TP2 list min: " + _TP2List.reduce(min).toString());
+      // print("PP list max: " + _PPList.reduce(max).toString());
+      // print("PP list min: " + _PPList.reduce(min).toString());
       change(value, status: RxStatus.success());
     }, onError: (err) {
       change(err, status: RxStatus.error());
