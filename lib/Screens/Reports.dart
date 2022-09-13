@@ -252,7 +252,7 @@ class _ReportsState extends State<Reports> {
                                           onChanged: (val) {
                                             print("Unit Drop Down: $val!");
                                             controller.setUnitDropDownValue(val);
-                                            controller.setUnietsDropList(val!);
+                                            controller.setUnitsDropList(val!);
                                             getData();
                                             // controller.addDataList();
                                           },
