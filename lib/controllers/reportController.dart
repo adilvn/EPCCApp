@@ -1,14 +1,16 @@
+import 'dart:developer';
+
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/data_modal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ReportController extends GetxController {
   var allReportsData = <Data>[].obs;
 
   var _monthDataList = <MonthSum>[].obs;
-  var _yearDropDown = "Year".obs;
+  var _yearDropDown = 'Year'.obs;
 
   var _monthDropDown = "Month".obs;
   var _dayDropDown = "Day".obs;
@@ -89,45 +91,232 @@ class ReportController extends GetxController {
   List<String> date = [];
 
   addDataList() {
-    if (YearValue == "Year" && MonthValue == "Month" && TPDropValue == "TP/PP" && UnitDropValue == "Unit" && ConsumptionDropValue == "Consumption") {
+    if (YearValue == "Year" &&
+        MonthValue == "Month" &&
+        TPDropValue == "TP/PP" &&
+        UnitDropValue == "Unit" &&
+        ConsumptionDropValue == "Consumption") {
+      log('addDataList run if YearValue == "Year" && MonthValue == Month && TPDropValue == TP/PP && UnitDropValue == Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
+
       setValueBool(false);
       dataList.clear();
-      print("Report on the basis of nothing");
+      log("Report on the basis of nothing");
       var _year;
       for (var i = 0; i < allReportsData.length; i++) {
         _year = DateTime.now().year;
-        final year = allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
+        final year =
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
 
         if (_year.toString().substring(2, 4) == year) {
-          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JAN") {
-            janSum = janSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "FEB") {
-            febSum = febSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAR") {
-            marSum = marSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "APR") {
-            aprSum = aprSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAY") {
-            maySum = maySum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUN") {
-            junSum = junSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUL") {
-            julSum = julSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "AUG") {
-            augSum = augSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "SEP") {
-            sepSum = sepSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "OCT") {
-            print("Name:  ${allReportsData[i].nAME} "
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+              "JAN") {
+            janSum = janSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "FEB") {
+            febSum = febSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAR") {
+            marSum = marSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "APR") {
+            aprSum = aprSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAY") {
+            maySum = maySum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUN") {
+            junSum = junSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUL") {
+            julSum = julSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "AUG") {
+            augSum = augSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "SEP") {
+            sepSum = sepSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "OCT") {
+            log("Name:  ${allReportsData[i].nAME} "
                 "Name1:  ${allReportsData[i].nAME1} "
                 "Consumption Value: ${allReportsData[i].cONSUMPTIONVALUE} "
                 "Consumption Date:  ${allReportsData[i].cONSUMPTIONDATE} ");
 
-            octSum = octSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "NOV") {
-            novSum = novSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "DEC") {
-            decSum = decSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            octSum = octSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "NOV") {
+            novSum = novSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "DEC") {
+            decSum = decSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          }
+        } else {
+          break;
+        }
+      }
+      setAllValues(_year);
+
+      clearAllMonthlySum();
+    }
+    //Checks if YearValue == current year, MonthValue == month, TPDropValue == TP/PP,  unit == Unit, ConsumptionDropValue == Consumption
+    if (YearValue == DateFormat('yyyy').format(DateTime.now()) &&
+        MonthValue == "Month" &&
+        TPDropValue == "TP/PP" &&
+        UnitDropValue == "Unit" &&
+        ConsumptionDropValue == "Consumption") {
+      log('addDataList run if YearValue == "Year" && MonthValue == Month && TPDropValue == TP/PP && UnitDropValue == Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
+
+      setValueBool(false);
+      dataList.clear();
+      log("Report on the basis of nothing");
+      var _year;
+      for (var i = 0; i < allReportsData.length; i++) {
+        _year = DateTime.now().year;
+        final year =
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
+
+        if (_year.toString().substring(2, 4) == year) {
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+              "JAN") {
+            janSum = janSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "FEB") {
+            febSum = febSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAR") {
+            marSum = marSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "APR") {
+            aprSum = aprSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAY") {
+            maySum = maySum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUN") {
+            junSum = junSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUL") {
+            julSum = julSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "AUG") {
+            augSum = augSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "SEP") {
+            sepSum = sepSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "OCT") {
+            log("Name:  ${allReportsData[i].nAME} "
+                "Name1:  ${allReportsData[i].nAME1} "
+                "Consumption Value: ${allReportsData[i].cONSUMPTIONVALUE} "
+                "Consumption Date:  ${allReportsData[i].cONSUMPTIONDATE} ");
+
+            octSum = octSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "NOV") {
+            novSum = novSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "DEC") {
+            decSum = decSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
           }
         } else {
           break;
@@ -144,45 +333,110 @@ class ReportController extends GetxController {
         TPDropValue != "TP/PP" &&
         UnitDropValue == "Unit" &&
         ConsumptionDropValue == "Consumption") {
+      log('addDataList run if YearValue == "Year" && MonthValue == Month && TPDropValue != TP/PP && UnitDropValue == Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       setValueBool(false);
       dataList.clear();
       var _year;
       for (var i = 0; i < allReportsData.length; i++) {
         _year = DateTime.now().year;
-        final year = allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
-        if (_year.toString().substring(2, 4) == year && allReportsData[i].s == TPDropValue) {
-          print("Report on the basis of TP/PP only");
-          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JAN") {
-            janSum = janSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("January Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "FEB") {
-            febSum = febSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("Feb Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAR") {
-            marSum = marSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("MAR Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "APR") {
-            aprSum = aprSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("Apr Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAY") {
-            maySum = maySum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUN") {
-            junSum = junSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUL") {
-            julSum = julSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "AUG") {
-            augSum = augSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "SEP") {
-            sepSum = sepSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "OCT") {
-            octSum = octSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("OCTSum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "NOV") {
-            novSum = novSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("NOV Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "DEC") {
-            decSum = decSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("DEC Sum");
+        final year =
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
+        if (_year.toString().substring(2, 4) == year &&
+            allReportsData[i].s == TPDropValue) {
+          log("Report on the basis of TP/PP only");
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+              "JAN") {
+            janSum = janSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("January Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "FEB") {
+            febSum = febSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("Feb Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAR") {
+            marSum = marSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("MAR Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "APR") {
+            aprSum = aprSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("Apr Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAY") {
+            maySum = maySum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUN") {
+            junSum = junSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUL") {
+            julSum = julSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "AUG") {
+            augSum = augSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "SEP") {
+            sepSum = sepSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "OCT") {
+            octSum = octSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("OCTSum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "NOV") {
+            novSum = novSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("NOV Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "DEC") {
+            decSum = decSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("DEC Sum");
           }
         }
       }
@@ -196,45 +450,111 @@ class ReportController extends GetxController {
         TPDropValue != "TP/PP" &&
         UnitDropValue != "Unit" &&
         ConsumptionDropValue == "Consumption") {
+      log('addDataList run if YearValue == "Year" && MonthValue == Month && TPDropValue != TP/PP && UnitDropValue != Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       setValueBool(false);
       dataList.clear();
       var _year;
       for (var i = 0; i < allReportsData.length; i++) {
         _year = DateTime.now().year;
-        final year = allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
-        if (_year.toString().substring(2, 4) == year && allReportsData[i].s == TPDropValue && allReportsData[i].nAME == UnitDropValue) {
-          print("Report on the basis of TP/PP and Unit on Yearly Basis");
-          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JAN") {
-            janSum = janSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("January Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "FEB") {
-            febSum = febSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("Feb Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAR") {
-            marSum = marSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("MAR Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "APR") {
-            aprSum = aprSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("Apr Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAY") {
-            maySum = maySum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUN") {
-            junSum = junSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUL") {
-            julSum = julSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "AUG") {
-            augSum = augSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "SEP") {
-            sepSum = sepSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "OCT") {
-            octSum = octSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("OCTSum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "NOV") {
-            novSum = novSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("NOV Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "DEC") {
-            decSum = decSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("DEC Sum");
+        final year =
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
+        if (_year.toString().substring(2, 4) == year &&
+            allReportsData[i].s == TPDropValue &&
+            allReportsData[i].nAME == UnitDropValue) {
+          log("Report on the basis of TP/PP and Unit on Yearly Basis");
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+              "JAN") {
+            janSum = janSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("January Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "FEB") {
+            febSum = febSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("Feb Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAR") {
+            marSum = marSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("MAR Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "APR") {
+            aprSum = aprSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("Apr Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAY") {
+            maySum = maySum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUN") {
+            junSum = junSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUL") {
+            julSum = julSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "AUG") {
+            augSum = augSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "SEP") {
+            sepSum = sepSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "OCT") {
+            octSum = octSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("OCTSum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "NOV") {
+            novSum = novSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("NOV Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "DEC") {
+            decSum = decSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("DEC Sum");
           }
         }
       }
@@ -248,48 +568,113 @@ class ReportController extends GetxController {
         TPDropValue != "TP/PP" &&
         UnitDropValue != "Unit" &&
         ConsumptionDropValue != "Consumption") {
+      log('addDataList run if YearValue == "Year" && MonthValue == Month && TPDropValue != TP/PP && UnitDropValue != Unit && ConsumptionDropValue != Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       setValueBool(false);
       dataList.clear();
       var _year;
       for (var i = 0; i < allReportsData.length; i++) {
         _year = DateTime.now().year;
-        final year = allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
+        final year =
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
         if (_year.toString().substring(2, 4) == year &&
             allReportsData[i].s == TPDropValue &&
             allReportsData[i].nAME == UnitDropValue &&
-            allReportsData[i].nAME1!.toUpperCase().toString() == ConsumptionDropValue.toUpperCase()) {
-          print("Report on the basis of TP/PP Unit & Consumption on Yearly Basis No month selected");
-          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JAN") {
-            janSum = janSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("January Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "FEB") {
-            febSum = febSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("Feb Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAR") {
-            marSum = marSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("MAR Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "APR") {
-            aprSum = aprSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("Apr Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAY") {
-            maySum = maySum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUN") {
-            junSum = junSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUL") {
-            julSum = julSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "AUG") {
-            augSum = augSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "SEP") {
-            sepSum = sepSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "OCT") {
-            octSum = octSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("OCTSum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "NOV") {
-            novSum = novSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("NOV Sum");
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "DEC") {
-            decSum = decSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-            print("DEC Sum");
+            allReportsData[i].nAME1!.toUpperCase().toString() ==
+                ConsumptionDropValue.toUpperCase()) {
+          log("Report on the basis of TP/PP Unit & Consumption on Yearly Basis No month selected");
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+              "JAN") {
+            janSum = janSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("January Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "FEB") {
+            febSum = febSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("Feb Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAR") {
+            marSum = marSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("MAR Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "APR") {
+            aprSum = aprSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("Apr Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAY") {
+            maySum = maySum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUN") {
+            junSum = junSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUL") {
+            julSum = julSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "AUG") {
+            augSum = augSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "SEP") {
+            sepSum = sepSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "OCT") {
+            octSum = octSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("OCTSum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "NOV") {
+            novSum = novSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("NOV Sum");
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "DEC") {
+            decSum = decSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            log("DEC Sum");
           }
         }
       }
@@ -303,7 +688,13 @@ class ReportController extends GetxController {
         TPDropValue != "TP/PP" &&
         UnitDropValue != "Unit" &&
         ConsumptionDropValue == "Consumption") {
-      print("Report on the basis of TP/PP");
+      log('addDataList run if YearValue != "Year" && MonthValue != Month && TPDropValue != TP/PP && UnitDropValue != Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
+      log("Report on the basis of TP/PP");
       var _month = MonthValue.toUpperCase();
 
       var _year = YearValue.substring(2, 4).toUpperCase();
@@ -320,20 +711,23 @@ class ReportController extends GetxController {
             allReportsData[i].cONSUMPTIONDATE!.substring(3, 9) == date) {
           dataList.clear();
 
-          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == MonthValue.toUpperCase() &&
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+                  MonthValue.toUpperCase() &&
               allReportsData[i].s == TPDropValue &&
               allReportsData[i].nAME == UnitDropValue) {
             a++;
-            monthsum = monthsum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            monthsum = monthsum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
           }
 
-          print(
-              "Month sum of Report on the basis of TP/PP Year Month: $monthsum & report name ${allReportsData[i].s} && Unit Name is ${allReportsData[i].nAME}");
+          log("Month sum of Report on the basis of TP/PP Year Month: $monthsum & report name ${allReportsData[i].s} && Unit Name is ${allReportsData[i].nAME}");
         }
       }
 
       if (a > 0) {
-        setDataList("${MonthValue.toUpperCase()}-${YearValue.substring(2, 4).toString()}", monthsum);
+        setDataList(
+            "${MonthValue.toUpperCase()}-${YearValue.substring(2, 4).toString()}",
+            monthsum);
 
         a = 0;
         monthsum = 0;
@@ -349,6 +743,12 @@ class ReportController extends GetxController {
         TPDropValue != "TP/PP" &&
         UnitDropValue != "Unit" &&
         ConsumptionDropValue != "Consumption") {
+      log('addDataList run if YearValue != "Year" && MonthValue != Month && TPDropValue != TP/PP && UnitDropValue != Unit && ConsumptionDropValue != Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       var _month = MonthValue.toUpperCase();
 
       var _year = YearValue.substring(2, 4).toUpperCase();
@@ -360,19 +760,24 @@ class ReportController extends GetxController {
       for (var i = 0; i < allReportsData.length; i++) {
         if (allReportsData[i].s == TPDropValue &&
             allReportsData[i].nAME == UnitDropValue &&
-            allReportsData[i].nAME1!.toUpperCase().toString() == ConsumptionDropValue.toUpperCase() &&
+            allReportsData[i].nAME1!.toUpperCase().toString() ==
+                ConsumptionDropValue.toUpperCase() &&
             allReportsData[i].cONSUMPTIONDATE!.substring(3, 9) == date) {
           dataList.clear();
 
-          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == MonthValue.toUpperCase()) {
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+              MonthValue.toUpperCase()) {
             a++;
-            monthsum = monthsum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+            monthsum = monthsum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
           }
         }
       }
 
       if (a > 0) {
-        setDataList("${MonthValue.toUpperCase()}-${YearValue.substring(2, 4).toString()}", monthsum);
+        setDataList(
+            "${MonthValue.toUpperCase()}-${YearValue.substring(2, 4).toString()}",
+            monthsum);
 
         a = 0;
         monthsum = 0;
@@ -385,42 +790,107 @@ class ReportController extends GetxController {
         TPDropValue != "TP/PP" &&
         UnitDropValue != "Unit" &&
         ConsumptionDropValue != "Consumption") {
+      log('addDataList run if YearValue != "Year" && MonthValue == Month && TPDropValue != TP/PP && UnitDropValue != Unit && ConsumptionDropValue != Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       dataList.clear();
       var _year = YearValue;
 
       int a = 0;
       for (var i = 0; i < allReportsData.length; i++) {
-        var date = allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
+        var date =
+            allReportsData[i].cONSUMPTIONDATE!.substring(7, 9).toString();
         if (allReportsData[i].s == TPDropValue &&
             allReportsData[i].nAME == UnitDropValue &&
-            allReportsData[i].nAME1!.toUpperCase().toString() == ConsumptionDropValue.toUpperCase() &&
+            allReportsData[i].nAME1!.toUpperCase().toString() ==
+                ConsumptionDropValue.toUpperCase() &&
             date == YearValue.substring(2, 4).toUpperCase()) {
           a++;
 
-          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JAN") {
-            janSum = janSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "FEB") {
-            febSum = febSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAR") {
-            marSum = marSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "APR") {
-            aprSum = aprSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "MAY") {
-            maySum = maySum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUN") {
-            junSum = junSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "JUL") {
-            julSum = julSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "AUG") {
-            augSum = augSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "SEP") {
-            sepSum = sepSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "OCT") {
-            octSum = octSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "NOV") {
-            novSum = novSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
-          } else if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() == "DEC") {
-            decSum = decSum + double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          if (allReportsData[i].cONSUMPTIONDATE!.substring(3, 6).toString() ==
+              "JAN") {
+            janSum = janSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "FEB") {
+            febSum = febSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAR") {
+            marSum = marSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "APR") {
+            aprSum = aprSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "MAY") {
+            maySum = maySum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUN") {
+            junSum = junSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "JUL") {
+            julSum = julSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "AUG") {
+            augSum = augSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "SEP") {
+            sepSum = sepSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "OCT") {
+            octSum = octSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "NOV") {
+            novSum = novSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
+          } else if (allReportsData[i]
+                  .cONSUMPTIONDATE!
+                  .substring(3, 6)
+                  .toString() ==
+              "DEC") {
+            decSum = decSum +
+                double.parse(allReportsData[i].cONSUMPTIONVALUE.toString());
           }
         }
       }
@@ -474,6 +944,12 @@ class ReportController extends GetxController {
         TPDropValue == "TP/PP" &&
         UnitDropValue == "Unit" &&
         ConsumptionDropValue == "Consumption") {
+      log('addDataList run if YearValue == "Year" && MonthValue != Month && TPDropValue == TP/PP && UnitDropValue == Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       _monthDataList.clear();
       setValueBool(false);
       _showSnak("Select Year");
@@ -482,6 +958,12 @@ class ReportController extends GetxController {
         TPDropValue == "TP/PP" &&
         UnitDropValue == "Unit" &&
         ConsumptionDropValue == "Consumption") {
+      log('addDataList run if YearValue != "Year" && MonthValue == Month && TPDropValue == TP/PP && UnitDropValue == Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       _monthDataList.clear();
       setValueBool(false);
       setTPDropDownValue('TP1');
@@ -492,11 +974,19 @@ class ReportController extends GetxController {
         TPDropValue == "TP/PP" &&
         UnitDropValue == "Unit" &&
         ConsumptionDropValue == "Consumption") {
+      log('addDataList run if YearValue != "Year" && MonthValue != Month && TPDropValue == TP/PP && UnitDropValue == Unit && ConsumptionDropValue == Consumption');
+      log('addDataList YearValue: $YearValue');
+      log('addDataList MonthValue: $MonthValue');
+      log('addDataList TPDropValue: $TPDropValue');
+      log('addDataList UnitDropValue: $UnitDropValue');
+      log('addDataList ConsumptionDropValue: $ConsumptionDropValue');
       _monthDataList.clear();
       setValueBool(false);
       setTPDropDownValue('TP1');
       setDrop2List("TP1");
       addDataList();
+    } else {
+      log('result');
     }
   }
 
@@ -566,10 +1056,15 @@ class ReportController extends GetxController {
 
   setUnitsDropList(String? val) {
     if (val == "I") {
-      setBPDropListValue(["Consumption", "Back process Unit 1", "Spinning /winding unit 1"]);
+      setBPDropListValue(
+          ["Consumption", "Back process Unit 1", "Spinning /winding unit 1"]);
       // setYearDropDownValue("2021");
     } else if (val == "II") {
-      setBPDropListValue(["Consumption", "Back process Unit 2\r\n", "Spinning/winding unit 2"]);
+      setBPDropListValue([
+        "Consumption",
+        "Back process Unit 2\r\n",
+        "Spinning/winding unit 2"
+      ]);
     } else if (val == "Section 1") {
       setBPDropListValue([
         "Consumption",
@@ -639,7 +1134,7 @@ class ReportController extends GetxController {
   }
 
   setUnitDropDownValue(String? val) {
-    print(val);
+    log('$val');
     _unitdropdown.value = val!;
   }
 
@@ -647,7 +1142,8 @@ class ReportController extends GetxController {
     _consumptionDropDown.value = val!;
   }
 
-  List<String> _TPDropDownList = ["TP/PP", "TP1", "TP2", "TP3", "TP4", "PP"].obs;
+  List<String> _TPDropDownList =
+      ["TP/PP", "TP1", "TP2", "TP3", "TP4", "PP"].obs;
 
   List<String> _UnitDropDownList = ["Unit"].obs;
 
@@ -656,12 +1152,44 @@ class ReportController extends GetxController {
     setUnitDropDownValue(val[0]);
 
     _UnitDropDownList.assignAll(val);
-    print(_UnitDropDownList);
+    log('$_UnitDropDownList');
   }
 
-  List<String> _yearDropList = ["Year", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"].obs;
+  List<String> _yearDropList = [
+    "Year",
+    "2025",
+    "2024",
+    "2023",
+    "2022",
+    "2021",
+    "2020",
+    "2019",
+    "2018",
+    "2017",
+    "2016",
+    "2015",
+    "2014",
+    "2013",
+    "2012",
+    "2011",
+    "2010"
+  ].obs;
 
-  List<String> _monthDropList = ["Month", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].obs;
+  List<String> _monthDropList = [
+    "Month",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ].obs;
 
   List<String> _dayDropList = [
     "Day",

@@ -1,4 +1,3 @@
-import 'package:epcc/Bindings/HomePageBinding.dart';
 import 'package:epcc/Screens/login_screen.dart';
 import 'package:epcc/Screens/splash_screen.dart';
 import 'package:epcc/routes/AppRoutes.dart';

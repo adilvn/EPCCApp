@@ -33,11 +33,12 @@ class _ProfileState extends State<Profile> {
   final _pickimage = ImagePicker();
   Future pickImage() async {
     XFile? image = await _pickimage.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = image!;
-      filename = (image != null ? basename(image.path) : null)!;
-    });
+    if (image != null) {
+      setState(() {
+        _image = image;
+        filename = basename(image.path);
+      });
+    }
   }
 
   final controller = Get.find<ProfileController>();
@@ -283,7 +284,7 @@ class _ProfileState extends State<Profile> {
                                             ElevatedButton(
                                               onPressed: () {
                                                 Get.to(AddUser(),
-                                                    binding: loginBinding(),
+                                                    binding: LoginBinding(),
                                                     fullscreenDialog: true);
                                               },
                                               style: ElevatedButton.styleFrom(
@@ -325,7 +326,7 @@ class _ProfileState extends State<Profile> {
                                             ElevatedButton(
                                               onPressed: () {
                                                 Get.to(AdminHome(),
-                                                    binding: loginBinding(),
+                                                    binding: LoginBinding(),
                                                     fullscreenDialog: true);
                                               },
                                               style: ElevatedButton.styleFrom(

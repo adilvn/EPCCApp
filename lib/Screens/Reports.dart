@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:epcc/Models/constants.dart';
@@ -46,7 +48,11 @@ class _ReportsState extends State<Reports> {
                     Container(
                       width: 15,
                       height: 22,
-                      decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/images/ifl_logo_small.png"))),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  "assets/images/ifl_logo_small.png"))),
                     ),
                     SizedBox(
                       width: 5,
@@ -64,15 +70,18 @@ class _ReportsState extends State<Reports> {
                   child: FutureBuilder<DocumentSnapshot>(
                       future: users.doc(_profileController.uid).get(),
                       builder: (context, snapshot) {
-                        if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-                          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                        if (snapshot.hasData &&
+                            snapshot.connectionState == ConnectionState.done) {
+                          Map<String, dynamic> data =
+                              snapshot.data!.data() as Map<String, dynamic>;
                           var val = data.length == 3 ? "image" : "full_name";
                           return data[val] == ""
                               ? Container()
                               : Container(
                                   child: CachedNetworkImage(
                                       imageUrl: data[val],
-                                      imageBuilder: (context, imageProvider) => Container(
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
@@ -85,7 +94,8 @@ class _ReportsState extends State<Reports> {
                                               child: CupertinoActivityIndicator(
                                             radius: 8,
                                           )),
-                                      errorWidget: (context, url, error) => Center(
+                                      errorWidget: (context, url, error) =>
+                                          Center(
                                             child: Icon(
                                               Icons.person,
                                               size: 30,
@@ -153,11 +163,13 @@ class _ReportsState extends State<Reports> {
                             // ),
                             Text(
                               "Reports",
-                              style: TextStyle(color: Colors.white, fontSize: 24),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 24),
                             ),
                             Divider(
                               indent: MediaQuery.of(context).size.width * 0.3,
-                              endIndent: MediaQuery.of(context).size.width * 0.3,
+                              endIndent:
+                                  MediaQuery.of(context).size.width * 0.3,
                               color: white,
                               thickness: 1,
                             ),
@@ -175,7 +187,8 @@ class _ReportsState extends State<Reports> {
                               width: double.infinity,
                               height: 65,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Expanded(
                                     child: Padding(
@@ -187,10 +200,12 @@ class _ReportsState extends State<Reports> {
                                             // color: ddbcolor,
                                             color: ddbcolor,
                                             border: dropdownBorderColor,
-                                            borderRadius: BorderRadius.circular(30)),
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
                                         // TODO Drop 1 TP/PP Drop Down
                                         child: DropdownButton<String>(
-                                          menuMaxHeight: MediaQuery.of(context).size.width,
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.TPDropValue,
                                           disabledHint: Text("one"),
                                           icon: const Icon(
@@ -202,23 +217,30 @@ class _ReportsState extends State<Reports> {
                                           dropdownColor: ddbcolor,
                                           focusColor: ddbcolor,
                                           underline: Container(),
-                                          style: const TextStyle(color: Colors.deepPurple),
+                                          style: const TextStyle(
+                                              color: Colors.deepPurple),
                                           onChanged: (val) {
                                             controller.setTPDropDownValue(val);
-                                            print("Drop down 1 " + val.toString());
+                                            print("Drop down 1 " +
+                                                val.toString());
                                             controller.setDrop2List(val!);
                                             getData();
 
                                             // controller.addDataList();
                                           },
-                                          items: controller.TPDropDownList.map<DropdownMenuItem<String>>((String value) {
+                                          items: controller.TPDropDownList.map<
+                                                  DropdownMenuItem<String>>(
+                                              (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 2),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 2),
                                                 child: Text(
                                                   value,
-                                                  style: TextStyle(color: dbTextColor, fontSize: 12),
+                                                  style: TextStyle(
+                                                      color: dbTextColor,
+                                                      fontSize: 12),
                                                 ),
                                               ),
                                             );
@@ -233,11 +255,15 @@ class _ReportsState extends State<Reports> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         height: 39,
-                                        decoration:
-                                            BoxDecoration(color: ddbcolor, border: dropdownBorderColor, borderRadius: BorderRadius.circular(25)),
+                                        decoration: BoxDecoration(
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
                                         // TODO Drop 2 Unit Drop Down
                                         child: DropdownButton<String>(
-                                          menuMaxHeight: MediaQuery.of(context).size.width,
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.UnitDropValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
@@ -248,22 +274,29 @@ class _ReportsState extends State<Reports> {
                                           dropdownColor: ddbcolor,
                                           focusColor: ddbcolor,
                                           underline: Container(),
-                                          style: const TextStyle(color: Colors.deepPurple),
+                                          style: const TextStyle(
+                                              color: Colors.deepPurple),
                                           onChanged: (val) {
                                             print("Unit Drop Down: $val!");
-                                            controller.setUnitDropDownValue(val);
+                                            controller
+                                                .setUnitDropDownValue(val);
                                             controller.setUnitsDropList(val!);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.UnitDropDownList.map<DropdownMenuItem<String>>((String value) {
+                                          items: controller.UnitDropDownList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 2),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 2),
                                                 child: Text(
                                                   value,
-                                                  style: TextStyle(color: dbTextColor, fontSize: 12),
+                                                  style: TextStyle(
+                                                      color: dbTextColor,
+                                                      fontSize: 12),
                                                 ),
                                               ),
                                             );
@@ -275,16 +308,22 @@ class _ReportsState extends State<Reports> {
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
                                       child: Container(
                                         alignment: Alignment.center,
                                         height: 39,
-                                        decoration:
-                                            BoxDecoration(color: ddbcolor, border: dropdownBorderColor, borderRadius: BorderRadius.circular(30)),
+                                        decoration: BoxDecoration(
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
                                         // TODO Drop 3 Consumption Drop down
                                         child: DropdownButton<String>(
-                                          menuMaxHeight: MediaQuery.of(context).size.width,
-                                          value: controller.ConsumptionDropValue,
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
+                                          value:
+                                              controller.ConsumptionDropValue,
                                           //  controller.BPDropValue ==
                                           //         "PP1 ,PP2 ,PP3\r\n"
                                           //     ? "PP1 ,PP2 ,PP3"
@@ -301,24 +340,32 @@ class _ReportsState extends State<Reports> {
                                           dropdownColor: ddbcolor,
                                           focusColor: ddbcolor,
                                           underline: Container(),
-                                          style: const TextStyle(color: Colors.deepPurple),
+                                          style: const TextStyle(
+                                              color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            controller.setConsumptionDropValue(val);
+                                            controller
+                                                .setConsumptionDropValue(val);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.ConsumptionDropList.map<DropdownMenuItem<String>>((String value) {
+                                          items: controller.ConsumptionDropList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
-                                                padding: EdgeInsets.only(left: 10),
+                                                padding:
+                                                    EdgeInsets.only(left: 10),
                                                 child: Text(
                                                   value == "PP1 ,PP2 ,PP3\r\n"
                                                       ? " PP1 ,PP2 ,PP3"
-                                                      : value == "Back process Unit 2\r\n"
+                                                      : value ==
+                                                              "Back process Unit 2\r\n"
                                                           ? "Back process Unit 2"
                                                           : value,
-                                                  style: TextStyle(color: dbTextColor, fontSize: 12),
+                                                  style: TextStyle(
+                                                      color: dbTextColor,
+                                                      fontSize: 12),
                                                 ),
                                               ),
                                             );
@@ -334,7 +381,8 @@ class _ReportsState extends State<Reports> {
                               width: double.infinity,
                               height: 65,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Expanded(
                                     child: Padding(
@@ -342,11 +390,15 @@ class _ReportsState extends State<Reports> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         height: 39,
-                                        decoration:
-                                            BoxDecoration(color: ddbcolor, border: dropdownBorderColor, borderRadius: BorderRadius.circular(30)),
+                                        decoration: BoxDecoration(
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
                                         // TODO Drop 4 Year Drop Down
                                         child: DropdownButton<String>(
-                                          menuMaxHeight: MediaQuery.of(context).size.width,
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.YearValue,
                                           disabledHint: Text("eh"),
                                           icon: const Icon(
@@ -358,22 +410,28 @@ class _ReportsState extends State<Reports> {
                                           dropdownColor: ddbcolor,
                                           focusColor: ddbcolor,
                                           underline: Container(),
-                                          style: const TextStyle(color: Colors.deepPurple),
+                                          style: const TextStyle(
+                                              color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            print('pahle');
+                                            log('Year dropdown selected value: $val');
 
-                                            controller.setYearDropDownValue(val);
+                                            controller
+                                                .setYearDropDownValue(val);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.yearDropList.map<DropdownMenuItem<String>>((String value) {
+                                          items: controller.yearDropList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
-                                                padding: EdgeInsets.only(left: 15),
+                                                padding:
+                                                    EdgeInsets.only(left: 15),
                                                 child: Text(
                                                   value,
-                                                  style: TextStyle(color: dbTextColor),
+                                                  style: TextStyle(
+                                                      color: dbTextColor),
                                                 ),
                                               ),
                                             );
@@ -388,11 +446,15 @@ class _ReportsState extends State<Reports> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         height: 39,
-                                        decoration:
-                                            BoxDecoration(color: ddbcolor, border: dropdownBorderColor, borderRadius: BorderRadius.circular(25)),
+                                        decoration: BoxDecoration(
+                                            color: ddbcolor,
+                                            border: dropdownBorderColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
                                         // TODO Drop 5 Month Drop Down
                                         child: DropdownButton<String>(
-                                          menuMaxHeight: MediaQuery.of(context).size.width,
+                                          menuMaxHeight:
+                                              MediaQuery.of(context).size.width,
                                           value: controller.MonthValue,
                                           icon: const Icon(
                                             Icons.arrow_drop_down,
@@ -403,20 +465,27 @@ class _ReportsState extends State<Reports> {
                                           dropdownColor: ddbcolor,
                                           focusColor: ddbcolor,
                                           underline: Container(),
-                                          style: const TextStyle(color: Colors.deepPurple),
+                                          style: const TextStyle(
+                                              color: Colors.deepPurple),
                                           onChanged: (val) {
-                                            controller.setMonthDropDownValue(val);
+                                            log('month dropdown selected value: $val');
+                                            controller
+                                                .setMonthDropDownValue(val);
                                             getData();
                                             // controller.addDataList();
                                           },
-                                          items: controller.monthDropList.map<DropdownMenuItem<String>>((String value) {
+                                          items: controller.monthDropList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Container(
-                                                padding: EdgeInsets.only(left: 15),
+                                                padding:
+                                                    EdgeInsets.only(left: 15),
                                                 child: Text(
                                                   value,
-                                                  style: TextStyle(color: dbTextColor),
+                                                  style: TextStyle(
+                                                      color: dbTextColor),
                                                 ),
                                               ),
                                             );
@@ -439,12 +508,15 @@ class _ReportsState extends State<Reports> {
                                       Expanded(
                                         flex: 1,
                                         child: Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 0),
                                           width: double.infinity,
                                           height: 55,
-                                          decoration: BoxDecoration(color: Colors.grey.shade300),
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey.shade300),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
                                               Expanded(
                                                 child: Container(
@@ -452,7 +524,9 @@ class _ReportsState extends State<Reports> {
                                                   width: 140,
                                                   child: Text(
                                                     "Month",
-                                                    style: TextStyle(color: Colors.red, fontSize: 13),
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontSize: 13),
                                                   ),
                                                 ),
                                               ),
@@ -462,7 +536,12 @@ class _ReportsState extends State<Reports> {
                                                   width: 140,
                                                   child: Text(
                                                     "Consumption",
-                                                    style: TextStyle(color: Colors.yellow.shade900, fontWeight: FontWeight.bold, fontSize: 13),
+                                                    style: TextStyle(
+                                                        color: Colors
+                                                            .yellow.shade900,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 13),
                                                   ),
                                                 ),
                                               ),
@@ -501,8 +580,12 @@ class _ReportsState extends State<Reports> {
                                         child: Container(
                                           alignment: Alignment.topCenter,
                                           width: double.infinity,
-                                          height: MediaQuery.of(context).size.width - 100,
-                                          decoration: BoxDecoration(color: white),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              100,
+                                          decoration:
+                                              BoxDecoration(color: white),
                                           child: Container(
                                             child: ListView.builder(
                                                 reverse: true,
@@ -511,23 +594,43 @@ class _ReportsState extends State<Reports> {
                                                 addRepaintBoundaries: true,
                                                 addSemanticIndexes: true,
                                                 primary: true,
-                                                itemCount: controller.dataList.length,
+                                                itemCount:
+                                                    controller.dataList.length,
                                                 itemBuilder: (context, index) {
-                                                  return controller.dataList[index].monthSum != 0
+                                                  return controller
+                                                              .dataList[index]
+                                                              .monthSum !=
+                                                          0
                                                       ? Container(
-                                                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                                                          width: double.infinity,
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      10,
+                                                                  vertical: 0),
+                                                          width:
+                                                              double.infinity,
                                                           height: 35,
                                                           child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
                                                             children: [
                                                               Expanded(
-                                                                child: Container(
-                                                                  alignment: Alignment.center,
+                                                                child:
+                                                                    Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
                                                                   width: 140,
                                                                   child: Text(
-                                                                    controller.dataList[index].monthName.toString(),
-                                                                    style: TextStyle(fontSize: 11),
+                                                                    controller
+                                                                        .dataList[
+                                                                            index]
+                                                                        .monthName
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            11),
                                                                   ),
                                                                 ),
                                                               ),
@@ -535,12 +638,17 @@ class _ReportsState extends State<Reports> {
                                                                 thickness: 1,
                                                               ),
                                                               Expanded(
-                                                                child: Container(
-                                                                  alignment: Alignment.center,
+                                                                child:
+                                                                    Container(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
                                                                   width: 140,
                                                                   child: Text(
                                                                     "${controller.dataList[index].monthSum} Kwh",
-                                                                    style: TextStyle(fontSize: 11),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            11),
                                                                   ),
                                                                 ),
                                                               ),

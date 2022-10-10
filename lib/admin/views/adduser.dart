@@ -60,6 +60,7 @@ class _AddUserState extends State<AddUser> {
                         if (val!.isEmpty || !GetUtils.isEmail(val.toString())) {
                           return "provide correct email";
                         }
+                        return null;
                       },
                       controller: controller.email,
                       keyboardType: TextInputType.emailAddress,
@@ -78,6 +79,7 @@ class _AddUserState extends State<AddUser> {
                         if (val!.isEmpty || val.length < 6) {
                           return "weak password";
                         }
+                        return null;
                       },
                       obscureText: controller.showPass,
                       decoration: InputDecoration(
@@ -108,6 +110,7 @@ class _AddUserState extends State<AddUser> {
                         if (!controller.pass.text.contains(val!)) {
                           return "password not matched";
                         }
+                        return null;
                       },
                       onChanged: (val) {},
                       obscureText: true,

@@ -1,9 +1,9 @@
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class UnitsController extends GetxController {
   var _chartOne = <ChartData1>[].obs;
@@ -71,6 +71,30 @@ class UnitsController extends GetxController {
       List<UNITDATAMODEL> unitFourDetails,
       int index) {
     if (_unitdropdown1.value == "Year" &&
+        _unitdropdown2.value == "Month" &&
+        _unitdropdown3.value == "Day") {
+      for (var i = 0; i < 4; i++) {
+        setChartOne(ChartData1(
+            x: unitOneDetails[i].consumptionDate!,
+            y: unitOneDetails[i].totalValue!));
+
+        setChartTwo(ChartData1(
+            x: unitTwoDetails[i].consumptionDate!,
+            y: unitTwoDetails[i].totalValue!));
+        // print(unitTwoDetails[i].consumptionValue!);
+        if (index > 2) {
+          setChartThree(ChartData1(
+              x: unitThreeDetails[i].consumptionDate!,
+              y: unitThreeDetails[i].totalValue!));
+          setChartFour(ChartData1(
+              x: unitFourDetails[i].consumptionDate!,
+              y: unitFourDetails[i].totalValue!));
+        }
+      }
+    }
+    //this query run when _subdropdown1 == current year && _subdropdown2 == Month && _subdropdown3 == Day
+    else if (_unitdropdown1.value ==
+            DateFormat('yyyy').format(DateTime.now()) &&
         _unitdropdown2.value == "Month" &&
         _unitdropdown3.value == "Day") {
       for (var i = 0; i < 4; i++) {
@@ -329,6 +353,10 @@ class UnitsController extends GetxController {
 
   List<String> _unitDropList1 = [
     "Year",
+    "2025",
+    "2024",
+    "2023",
+    "2022",
     "2021",
     "2020",
     "2019",

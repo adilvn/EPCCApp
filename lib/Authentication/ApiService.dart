@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:epcc/Models/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +14,8 @@ class ApiService extends GetConnect {
       var iscacheExist = await APICacheManager().isAPICacheKeyExist("API_EPCC");
 
       if (!iscacheExist) {
-        var response = await get("https://epcc.ap.ngrok.io/power/iflpowapi.php");
+        var response =
+            await get("https://epcc.ap.ngrok.io/power/iflpowapi.php");
         if (response.status.hasError) {
           if (response.status.isNotFound) {
             Get.rawSnackbar(
@@ -56,14 +56,21 @@ class ApiService extends GetConnect {
           var body = jsonEncode(response.body);
           APICacheManager().deleteCache('API_EPCC').then((value) async {
             if (value == true) {
-              APICacheDBModel apiCacheDBModel = APICacheDBModel(key: "API_EPCC", syncData: response.body);
+              APICacheDBModel apiCacheDBModel =
+                  APICacheDBModel(key: "API_EPCC", syncData: response.body);
 
-              bool isDataadded = await APICacheManager().addCacheData(apiCacheDBModel);
+              bool isDataadded =
+                  await APICacheManager().addCacheData(apiCacheDBModel);
               print("ELSE BODY ApiCacheDBModel: " + apiCacheDBModel.syncData);
-              final doesitevenexist = await APICacheManager().isAPICacheKeyExist("API_EPCC");
-              print("ELSE BODY  Does it even exist? " + doesitevenexist.toString());
-              final getDataCheck = await APICacheManager().getCacheData('API_EPCC');
-              print("ELSE BODY  Print this is getData check from response function + " + "without Get data it runs");
+              final doesitevenexist =
+                  await APICacheManager().isAPICacheKeyExist("API_EPCC");
+              print("ELSE BODY  Does it even exist? " +
+                  doesitevenexist.toString());
+              final getDataCheck =
+                  await APICacheManager().getCacheData('API_EPCC');
+              print(
+                  "ELSE BODY  Print this is getData check from response function + " +
+                      "without Get data it runs");
             }
           });
 
@@ -87,31 +94,38 @@ class ApiService extends GetConnect {
       var response = await get("https://epcc.ap.ngrok.io/power/iflpowapi.php");
 
       if (response.statusCode == 200) {
-        print("Get Data before after jsonEncode: " + response.body.runtimeType.toString());
+        print("Get Data before after jsonEncode: " +
+            response.body.runtimeType.toString());
 
         final body = jsonEncode(response.body);
 
         print("Get Data type after jsonEncode: " + body.runtimeType.toString());
         final decodedBody = jsonDecode(body);
-        print("Get Data type after jsonDecode: " + decodedBody.runtimeType.toString());
+        print("Get Data type after jsonDecode: " +
+            decodedBody.runtimeType.toString());
 
         print("Length cache" + body);
         await APICacheManager().deleteCache('API_EPCC').then((value) async {
           if (value == true) {
-            APICacheDBModel apiCacheDBModel = APICacheDBModel(key: "API_EPCC", syncData: response.body);
+            APICacheDBModel apiCacheDBModel =
+                APICacheDBModel(key: "API_EPCC", syncData: response.body);
 
             print("ApiCacheDBModel: " + apiCacheDBModel.syncData);
-            final doesitevenexist = await APICacheManager().isAPICacheKeyExist("API_EPCC");
+            final doesitevenexist =
+                await APICacheManager().isAPICacheKeyExist("API_EPCC");
             print("Does it even exist? " + doesitevenexist.toString());
-            final getDataCheck = await APICacheManager().getCacheData('API_EPCC');
-            print("Print this is getData check from response function + " + "without Get data it runs");
+            final getDataCheck =
+                await APICacheManager().getCacheData('API_EPCC');
+            print("Print this is getData check from response function + " +
+                "without Get data it runs");
           }
         });
         //("API_EPCC");
 
       }
     } catch (e) {
-      print("This error occurred in getResponse() function of API-Service.dart File.            ");
+      print(
+          "This error occurred in getResponse() function of API-Service.dart File.            ");
       print(e.toString());
     }
   }

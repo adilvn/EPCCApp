@@ -22,7 +22,8 @@ class SubUnits extends GetView<SubUnitsController> {
   final _profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
-    controller.addChartDetails(controller.unitDetails, controller.button, controller.buttonText);
+    controller.addChartDetails(
+        controller.unitDetails, controller.button, controller.buttonText);
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -37,7 +38,11 @@ class SubUnits extends GetView<SubUnitsController> {
                     Container(
                       width: 15,
                       height: 22,
-                      decoration: BoxDecoration(image: DecorationImage(fit: BoxFit.fill, image: AssetImage("assets/images/ifl_logo_small.png"))),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  "assets/images/ifl_logo_small.png"))),
                     ),
                     SizedBox(
                       width: 5,
@@ -61,14 +66,19 @@ class SubUnits extends GetView<SubUnitsController> {
                   return Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(color: epccBlue500, shape: BoxShape.circle),
+                      decoration: BoxDecoration(
+                          color: epccBlue500, shape: BoxShape.circle),
                       child: _profileController.uid != ""
                           ? FutureBuilder<DocumentSnapshot>(
                               future: users.doc(_profileController.uid).get(),
                               builder: (context, snapshot) {
-                                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-                                  Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-                                  var val = data.length == 3 ? "image" : "full_name";
+                                if (snapshot.hasData &&
+                                    snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
+                                  var val =
+                                      data.length == 3 ? "image" : "full_name";
                                   return data[val] == ""
                                       ? Container(
                                           color: epccBlue500,
@@ -76,7 +86,9 @@ class SubUnits extends GetView<SubUnitsController> {
                                       : Container(
                                           child: CachedNetworkImage(
                                           imageUrl: data[val],
-                                          imageBuilder: (context, imageProvider) => Container(
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
@@ -89,7 +101,8 @@ class SubUnits extends GetView<SubUnitsController> {
                                               child: CupertinoActivityIndicator(
                                             radius: 8,
                                           )),
-                                          errorWidget: (context, url, error) => Center(
+                                          errorWidget: (context, url, error) =>
+                                              Center(
                                             child: Icon(
                                               Icons.person,
                                               size: 30,
@@ -137,7 +150,8 @@ class SubUnits extends GetView<SubUnitsController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          BottomNavigation.backToHomePage(UnitsPage(), 0, false);
+                          BottomNavigation.backToHomePage(
+                              UnitsPage(), 0, false);
                           controller.chartOne.clear();
                           controller.chartTwo.clear();
 
@@ -165,15 +179,22 @@ class SubUnits extends GetView<SubUnitsController> {
                       Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 2),
                             alignment: Alignment.center,
                             height: 25,
                             child: Text(
                               controller.title,
-                              style: TextStyle(color: epccBlue, fontSize: 14, fontWeight: FontWeight.normal),
+                              style: TextStyle(
+                                  color: epccBlue,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal),
                             ),
                             decoration: BoxDecoration(
-                                color: white, borderRadius: BorderRadius.only(topRight: Radius.circular(30), bottomRight: Radius.circular(30))),
+                                color: white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    bottomRight: Radius.circular(30))),
                           ),
                           SizedBox(
                             width: 0,
@@ -216,9 +237,13 @@ class SubUnits extends GetView<SubUnitsController> {
                                 child: Container(
                                   alignment: Alignment.center,
                                   height: 39,
-                                  decoration: BoxDecoration(color: ddbcolor, border: dropdownBorderColor, borderRadius: BorderRadius.circular(30)),
+                                  decoration: BoxDecoration(
+                                      color: ddbcolor,
+                                      border: dropdownBorderColor,
+                                      borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
-                                    menuMaxHeight: MediaQuery.of(context).size.width,
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.SubDropValue1.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -229,19 +254,28 @@ class SubUnits extends GetView<SubUnitsController> {
                                     dropdownColor: ddbcolor,
                                     focusColor: ddbcolor,
                                     underline: Container(),
-                                    style: const TextStyle(color: Colors.deepPurple),
+                                    style: const TextStyle(
+                                        color: Colors.deepPurple),
                                     onChanged: (val) {
+                                      print('selected value: $val');
                                       controller.setSubDropValue1(val);
-                                      controller.addChartDetails(controller.unitDetails, controller.button, controller.buttonText);
+                                      controller.addChartDetails(
+                                        controller.unitDetails,
+                                        controller.button,
+                                        controller.buttonText,
+                                      );
                                     },
-                                    items: controller.SubDrop1.map<DropdownMenuItem<String>>((String value) {
+                                    items: controller.SubDrop1.map<
+                                            DropdownMenuItem<String>>(
+                                        (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Container(
                                           padding: EdgeInsets.only(left: 15),
                                           child: Text(
                                             value,
-                                            style: TextStyle(color: dbTextColor),
+                                            style:
+                                                TextStyle(color: dbTextColor),
                                           ),
                                         ),
                                       );
@@ -256,9 +290,13 @@ class SubUnits extends GetView<SubUnitsController> {
                                 child: Container(
                                   alignment: Alignment.center,
                                   height: 39,
-                                  decoration: BoxDecoration(color: ddbcolor, border: dropdownBorderColor, borderRadius: BorderRadius.circular(25)),
+                                  decoration: BoxDecoration(
+                                      color: ddbcolor,
+                                      border: dropdownBorderColor,
+                                      borderRadius: BorderRadius.circular(25)),
                                   child: DropdownButton<String>(
-                                    menuMaxHeight: MediaQuery.of(context).size.width,
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.SubDropValue2.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -269,19 +307,26 @@ class SubUnits extends GetView<SubUnitsController> {
                                     dropdownColor: ddbcolor,
                                     focusColor: ddbcolor,
                                     underline: Container(),
-                                    style: const TextStyle(color: Colors.deepPurple),
+                                    style: const TextStyle(
+                                        color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setSubDropValue2(val);
-                                      controller.addChartDetails(controller.unitDetails, controller.button, controller.buttonText);
+                                      controller.addChartDetails(
+                                          controller.unitDetails,
+                                          controller.button,
+                                          controller.buttonText);
                                     },
-                                    items: controller.SubDrop2.map<DropdownMenuItem<String>>((String value) {
+                                    items: controller.SubDrop2.map<
+                                            DropdownMenuItem<String>>(
+                                        (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Container(
                                           padding: EdgeInsets.only(left: 15),
                                           child: Text(
                                             value,
-                                            style: TextStyle(color: dbTextColor),
+                                            style:
+                                                TextStyle(color: dbTextColor),
                                           ),
                                         ),
                                       );
@@ -296,9 +341,13 @@ class SubUnits extends GetView<SubUnitsController> {
                                 child: Container(
                                   alignment: Alignment.center,
                                   height: 39,
-                                  decoration: BoxDecoration(color: ddbcolor, border: dropdownBorderColor, borderRadius: BorderRadius.circular(30)),
+                                  decoration: BoxDecoration(
+                                      color: ddbcolor,
+                                      border: dropdownBorderColor,
+                                      borderRadius: BorderRadius.circular(30)),
                                   child: DropdownButton<String>(
-                                    menuMaxHeight: MediaQuery.of(context).size.width,
+                                    menuMaxHeight:
+                                        MediaQuery.of(context).size.width,
                                     value: controller.SubDropValue3.value,
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
@@ -309,19 +358,26 @@ class SubUnits extends GetView<SubUnitsController> {
                                     dropdownColor: ddbcolor,
                                     focusColor: ddbcolor,
                                     underline: Container(),
-                                    style: const TextStyle(color: Colors.deepPurple),
+                                    style: const TextStyle(
+                                        color: Colors.deepPurple),
                                     onChanged: (val) {
                                       controller.setSubDropValue3(val);
-                                      controller.addChartDetails(controller.unitDetails, controller.button, controller.buttonText);
+                                      controller.addChartDetails(
+                                          controller.unitDetails,
+                                          controller.button,
+                                          controller.buttonText);
                                     },
-                                    items: controller.SubDrop3.map<DropdownMenuItem<String>>((String value) {
+                                    items: controller.SubDrop3.map<
+                                            DropdownMenuItem<String>>(
+                                        (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Container(
                                           padding: EdgeInsets.only(left: 15),
                                           child: Text(
                                             value,
-                                            style: TextStyle(color: dbTextColor),
+                                            style:
+                                                TextStyle(color: dbTextColor),
                                           ),
                                         ),
                                       );
@@ -367,20 +423,44 @@ class SubUnits extends GetView<SubUnitsController> {
                                       ),
                                       series: <ColumnSeries>[
                                         ColumnSeries<ChartDataSub, String>(
-                                            pointColorMapper: (ChartDataSub color, _) => Colors.red,
-                                            dataLabelSettings: DataLabelSettings(
-                                                textStyle: TextStyle(fontSize: 9), labelAlignment: ChartDataLabelAlignment.outer, isVisible: true),
+                                            pointColorMapper:
+                                                (ChartDataSub color, _) =>
+                                                    Colors.red,
+                                            dataLabelSettings:
+                                                DataLabelSettings(
+                                                    textStyle:
+                                                        TextStyle(fontSize: 9),
+                                                    labelAlignment:
+                                                        ChartDataLabelAlignment
+                                                            .outer,
+                                                    isVisible: true),
                                             dataSource: controller.chartOne,
-                                            xValueMapper: (ChartDataSub data, _) => data.x,
-                                            yValueMapper: (ChartDataSub data, _) => data.y),
+                                            xValueMapper:
+                                                (ChartDataSub data, _) =>
+                                                    data.x,
+                                            yValueMapper:
+                                                (ChartDataSub data, _) =>
+                                                    data.y),
                                         ColumnSeries<ChartDataSub, String>(
-                                            pointColorMapper: (ChartDataSub color, _) => Color(0xffFFBA44),
+                                            pointColorMapper:
+                                                (ChartDataSub color, _) =>
+                                                    Color(0xffFFBA44),
                                             // Hiding the legend item for this series
-                                            dataLabelSettings: DataLabelSettings(
-                                                textStyle: TextStyle(fontSize: 9), labelAlignment: ChartDataLabelAlignment.outer, isVisible: true),
+                                            dataLabelSettings:
+                                                DataLabelSettings(
+                                                    textStyle:
+                                                        TextStyle(fontSize: 9),
+                                                    labelAlignment:
+                                                        ChartDataLabelAlignment
+                                                            .outer,
+                                                    isVisible: true),
                                             dataSource: controller.chartTwo,
-                                            xValueMapper: (ChartDataSub data, _) => data.x,
-                                            yValueMapper: (ChartDataSub data, _) => data.y)
+                                            xValueMapper:
+                                                (ChartDataSub data, _) =>
+                                                    data.x,
+                                            yValueMapper:
+                                                (ChartDataSub data, _) =>
+                                                    data.y)
                                       ])),
                             ),
                           ],
@@ -393,26 +473,33 @@ class SubUnits extends GetView<SubUnitsController> {
               flex: 3,
               child: ListView(
                 children: [
-                  getTiles(controller.colors[0], controller.buttonText[0], "assets/images/bp.png", () {
+                  getTiles(controller.colors[0], controller.buttonText[0],
+                      "assets/images/bp.png", () {
                     _controller.SetLocationName(controller.buttonText[0]);
                     _controller.ListData!.clear();
                     _controller.chartOne.clear();
                     _controller.setBPDropValue1("Year");
                     _controller.setBPDropValue2("Month");
-                    _controller.SetTitle(controller.buttonText[0] != "PP1 ,PP2 ,PP3\r\n"
+                    _controller.SetTitle(controller.buttonText[0] !=
+                            "PP1 ,PP2 ,PP3\r\n"
                         ? "${controller.title}> ${controller.buttonText[0].capitalize}"
                         : "${controller.title}> PP1 ,PP2 ,PP3");
                     _controller.setBPDropValue3("Day");
-                    BottomNavigation.changeProfileWidget(BackProcessUnit(unitOnevalue: controller.unitOneValue));
+                    BottomNavigation.changeProfileWidget(
+                        BackProcessUnit(unitOnevalue: controller.unitOneValue));
                   }, controller.u1,
-                      dailyConsumptionValue: controller.dropDownConsumptionValueUnit1 == 0.0
-                          ? controller.unit1DailyConsumptionValue.toString()
-                          : controller.dropDownConsumptionValueUnit1.toString()),
+                      dailyConsumptionValue:
+                          controller.dropDownConsumptionValueUnit1 == 0.0
+                              ? controller.unit1DailyConsumptionValue.toString()
+                              : controller.dropDownConsumptionValueUnit1
+                                  .toString()),
                   controller.button == 2
-                      ? getTiles(controller.colors[1], controller.buttonText[1], "assets/images/sw.png", () {
+                      ? getTiles(controller.colors[1], controller.buttonText[1],
+                          "assets/images/sw.png", () {
                           print("called");
 
-                          _controller.SetTitle("${controller.title}> ${controller.buttonText[1]} ");
+                          _controller.SetTitle(
+                              "${controller.title}> ${controller.buttonText[1]} ");
                           _controller.SetLocationName(controller.buttonText[1]);
                           _controller.ListData!.clear();
                           _controller.chartOne.clear();
@@ -420,11 +507,15 @@ class SubUnits extends GetView<SubUnitsController> {
                           _controller.setBPDropValue2("Month");
 
                           _controller.setBPDropValue3("Day");
-                          BottomNavigation.changeProfileWidget(BackProcessUnit(unitOnevalue: controller.unitTwoValue));
+                          BottomNavigation.changeProfileWidget(BackProcessUnit(
+                              unitOnevalue: controller.unitTwoValue));
                         }, controller.u2,
-                          dailyConsumptionValue: controller.dropDownConsumptionValueUnit2 == 0.0
-                              ? controller.unit2DailyConsumptionValue.toString()
-                              : controller.dropDownConsumptionValueUnit2.toString())
+                          dailyConsumptionValue:
+                              controller.dropDownConsumptionValueUnit2 == 0.0
+                                  ? controller.unit2DailyConsumptionValue
+                                      .toString()
+                                  : controller.dropDownConsumptionValueUnit2
+                                      .toString())
                       : Container()
                 ],
               ),
@@ -435,7 +526,9 @@ class SubUnits extends GetView<SubUnitsController> {
     );
   }
 
-  getTiles(Color color, String consumptionCenterName, textImage, VoidCallback onTap, List<double> list, {String? dailyConsumptionValue}) {
+  getTiles(Color color, String consumptionCenterName, textImage,
+      VoidCallback onTap, List<double> list,
+      {String? dailyConsumptionValue}) {
     print(consumptionCenterName);
 
     return GestureDetector(
@@ -445,7 +538,7 @@ class SubUnits extends GetView<SubUnitsController> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 4),
           width: double.infinity,
-          height: 70,
+          // height: 70,
           color: color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -455,9 +548,16 @@ class SubUnits extends GetView<SubUnitsController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(flex: 2, child: Container(width: 50, height: 50, child: Image.asset(textImage))),
                   Expanded(
-                    flex: 9,
+                    flex: 2,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset(textImage),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 10,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -465,17 +565,26 @@ class SubUnits extends GetView<SubUnitsController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Text(
+                            Expanded(
+                              child: SizedBox(
+                                child:
+                                    // Row(
+                                    //   children: [
+                                    Text(
                                   consumptionCenterName != "PP1 ,PP2 ,PP3\r\n"
-                                      ? consumptionCenterName.replaceAll("/", " / ").replaceAll("\r\n", "").capitalize.toString() +
+                                      ? consumptionCenterName
+                                              .replaceAll("/", " / ")
+                                              .replaceAll("\r\n", "")
+                                              .capitalize
+                                              .toString() +
                                           "$dailyConsumptionValue" +
                                           " kWh"
                                       : "PP1 ,PP2 ,PP3",
                                   style: TextStyle(color: white, fontSize: 15),
                                 ),
-                              ],
+                                //   ],
+                                // ),
+                              ),
                             ),
                             Icon(
                               Icons.arrow_forward_ios,
@@ -498,7 +607,7 @@ class SubUnits extends GetView<SubUnitsController> {
                           height: 5,
                         ),
                         list.isEmpty
-                            ? Container()
+                            ? SizedBox.shrink()
                             // Row(
                             //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             //         children: [
@@ -510,16 +619,21 @@ class SubUnits extends GetView<SubUnitsController> {
                             //         ],
                             //       )
                             : Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   // Text(
                                   //     "Total: ${list.reduce((value, element) => value + element)}Kwh",
                                   //     style: TextStyle(
                                   //         color: Colors.white, fontSize: 16)),
-                                  Text("Min: ${list.reduce(min)}", //(value, element) => value < element ? value : element
-                                      style: TextStyle(color: Colors.white, fontSize: 16)),
-                                  Text("Max: ${list.reduce(max)}", //(value, element) => value > element ? value : element)
-                                      style: TextStyle(color: Colors.white, fontSize: 16)),
+                                  Text(
+                                      "Min: ${list.reduce(min)}", //(value, element) => value < element ? value : element
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16)),
+                                  Text(
+                                      "Max: ${list.reduce(max)}", //(value, element) => value > element ? value : element)
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16)),
                                 ],
                               ),
                         SizedBox(
