@@ -68,12 +68,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB-zhtkpIzII8UOsIjc1GEHbv-u1wraPh8',
-    appId: '1:460874215224:ios:0b373b5cbbc28bc8e69bcd',
+    appId: '1:460874215224:ios:110ebcb953ee3836e69bcd',
     messagingSenderId: '460874215224',
     projectId: 'epcc-38d4a',
     databaseURL: 'https://epcc-38d4a-default-rtdb.firebaseio.com',
     storageBucket: 'epcc-38d4a.appspot.com',
-    iosClientId: '460874215224-fj6homr7ubsgkan1h45rm4jsntcsenpa.apps.googleusercontent.com',
-    iosBundleId: 'com.example.epccapp',
+    iosClientId: '460874215224-edhln8j15hobgvv6onrkolo8i99p7hok.apps.googleusercontent.com',
+    iosBundleId: 'com.virtuenetz.epcc',
   );
 }
