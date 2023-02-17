@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "460874215224",
+    "firebase_url": "https://epcc-38d4a-default-rtdb.firebaseio.com",
     "project_id": "epcc-38d4a",
     "storage_bucket": "epcc-38d4a.appspot.com"
   },
@@ -29,6 +30,49 @@
             {
               "client_id": "460874215224-qs2m1d5ks0iqimhvn7t2248u4qit1ts7.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "460874215224-i0okhp4a87cub3ujs882471do038931d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.epcc"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460874215224:android:2e95cd95b29aba2ee69bcd",
+        "android_client_info": {
+          "package_name": "com.virtuenetz.epcc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460874215224-qs2m1d5ks0iqimhvn7t2248u4qit1ts7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSKq8EE9I1YoPx7d6Bn05R5FTGDJxhAYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460874215224-qs2m1d5ks0iqimhvn7t2248u4qit1ts7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "460874215224-i0okhp4a87cub3ujs882471do038931d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.epcc"
+              }
             }
           ]
         }

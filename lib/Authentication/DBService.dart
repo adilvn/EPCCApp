@@ -24,13 +24,11 @@ class DBService {
   }
 
   uploadImage(File image, String uid) async {
-    if (image != null) {
-      Reference storageReference = FirebaseStorage.instance.ref().child("$uid");
-      final UploadTask uploadTask = storageReference.putFile(image);
-      final TaskSnapshot downloadUrl = (await uploadTask);
-      final String url = await downloadUrl.ref.getDownloadURL();
-      await DBService().updateUser(uid, url);
-    }
+    Reference storageReference = FirebaseStorage.instance.ref().child("$uid");
+    final UploadTask uploadTask = storageReference.putFile(image);
+    final TaskSnapshot downloadUrl = (await uploadTask);
+    final String url = await downloadUrl.ref.getDownloadURL();
+    await DBService().updateUser(uid, url);
   }
 
   Future<void> updateUser(String uid, String url) {

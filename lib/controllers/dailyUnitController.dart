@@ -1,7 +1,6 @@
 import 'package:epcc/Models/constants.dart';
 import 'package:epcc/Models/consumptionModel.dart';
 import 'package:epcc/Models/unitdatamodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
