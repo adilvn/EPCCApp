@@ -1,6 +1,7 @@
 # epcc
 
 A new Flutter project.
+Flutter SDK: This app uses flutter sdk version 3.10
 
 ## Getting Started
 

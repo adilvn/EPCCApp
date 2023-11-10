@@ -32,10 +32,10 @@
               "client_type": 3
             },
             {
-              "client_id": "460874215224-fj6homr7ubsgkan1h45rm4jsntcsenpa.apps.googleusercontent.com",
+              "client_id": "460874215224-edhln8j15hobgvv6onrkolo8i99p7hok.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.epccapp"
+                "bundle_id": "com.virtuenetz.epcc"
               }
             }
           ]
@@ -68,10 +68,10 @@
               "client_type": 3
             },
             {
-              "client_id": "460874215224-fj6homr7ubsgkan1h45rm4jsntcsenpa.apps.googleusercontent.com",
+              "client_id": "460874215224-edhln8j15hobgvv6onrkolo8i99p7hok.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.epccapp"
+                "bundle_id": "com.virtuenetz.epcc"
               }
             }
           ]

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>460874215224-fj6homr7ubsgkan1h45rm4jsntcsenpa.apps.googleusercontent.com</string>
+	<string>460874215224-edhln8j15hobgvv6onrkolo8i99p7hok.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.460874215224-fj6homr7ubsgkan1h45rm4jsntcsenpa</string>
+	<string>com.googleusercontent.apps.460874215224-edhln8j15hobgvv6onrkolo8i99p7hok</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB-zhtkpIzII8UOsIjc1GEHbv-u1wraPh8</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.epccapp</string>
+	<string>com.virtuenetz.epcc</string>
 	<key>PROJECT_ID</key>
 	<string>epcc-38d4a</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:460874215224:ios:0b373b5cbbc28bc8e69bcd</string>
+	<string>1:460874215224:ios:110ebcb953ee3836e69bcd</string>
 	<key>DATABASE_URL</key>
 	<string>https://epcc-38d4a-default-rtdb.firebaseio.com</string>
 </dict>
